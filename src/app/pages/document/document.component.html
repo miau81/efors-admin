@@ -1,0 +1,16 @@
+<div class="sticky-top bg-body-secondary d-flex justify-content-between p-3">
+    <h4>{{title | mytranslate }}</h4>
+    <div>
+        @switch(document?.status){
+        @default{
+        <button class="btn btn-sm btn-primary" (click)="onSave()">{{"_SAVE" | translate}}</button>
+        }
+        }
+    </div>
+</div>
+<div class="shadow-sm card page-container">
+    @if(formConfig){
+    <myerp-form-generator [config]="formConfig"></myerp-form-generator>
+    }
+
+</div>

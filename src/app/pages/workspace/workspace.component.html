@@ -1,0 +1,35 @@
+<div class="shadow-sm card page-container">
+    <div class="card-header bg-transparent">
+        <h4>{{title | mytranslate }}</h4>
+    </div>
+    @if (workspaceNav.length>0){
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <h5> {{'_MASTER_AND_REPORT' | translate }}</h5>
+            </div>
+            @for (nav of workspaceNav; track nav.id){
+            <div class="col-12 col-md-4 col-sm-6">
+                <div class="card-body">
+                    <h6><i class="bi bi-file-earmark-text me-2"></i>{{nav.label | mytranslate}}</h6>
+                    <ul>
+                        @for (c of nav.children; track c.id){
+                        <a class='nav-link' [routerLink]="c.link">
+                            <li>{{c.label | mytranslate}}</li>
+                        </a>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            }
+        </div>
+    </div>
+    }
+
+    <button (click)="showAlert()">Alert</button>
+    <button (click)="showConfirm()">Confirmation</button>
+    <button (click)="showLoading()">Loading</button>
+    <button (click)="showToast()">Toast</button>
+
+</div>

@@ -1,0 +1,121 @@
+<header class="header top border-bottom border-1">
+    <!-- <div class="container-lg"> -->
+
+    <div class="toolbar">
+        <div class="buttons-start">
+            <button class="btn btn-icon">
+                <i class="bi bi-list font-x-large d-lg-none d-block"></i>
+            </button>
+            <a routerLink="/" >
+                <myerp-media class="logo" src="/assets/images/logo.jpg" defaultImage="/assets/images/logo.jpg"> </myerp-media>
+            </a>
+        </div>
+        <div class="title d-none d-sm-flex"><a class="nav-link" routerLink="/">{{appName}}</a></div>
+        <div class="buttons-end">
+            <button ngbDropdownToggle class="btn btn-icon">
+                <i class="bi bi-translate  font-x-large"></i>
+            </button>
+            <div ngbDropdown>
+                <button ngbDropdownToggle class="btn btn-icon">
+                    <i class="bi bi-person-circle font-x-large"></i>
+                </button>
+                <ul ngbDropdownMenu>
+                    <li>
+                        <a ngbDropdownItem routerLink="/account">{{"_MY_ACCOUNT" | translate}}</a>
+                    </li>
+                    <li>
+                        <a ngbDropdownItem (click)="onLogout()" class="pointer">{{"_LOGOUT" | translate}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="menu-extras">
+            <div class="menu-item">
+                <a class="navbar-toggle">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+        </div> -->
+
+    <!-- Mobile -->
+
+    <!--Login button Start-->
+    <!-- 
+        <ul id="navigation" class="buy-button list-inline mb-0">
+            <li class="list-inline-item mb-0">
+                <div ngbDropdown *ngIf="isLogin;else loginButton">
+                    <button ngbDropdownToggle class="btn btn-icon">
+                        <i class="bi bi-person-circle font-x-large"></i>
+                    </button>
+                    <ul ngbDropdownMenu>
+                        <li>
+                            <a ngbDropdownItem routerLink="/account">{{"_MY_ACCOUNT" | translate}}</a>
+                        </li>
+                        <li>
+                            <a ngbDropdownItem (click)="onLogout()" class="pointer">{{"_LOGOUT" | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <ng-template #loginButton>
+                    <button class="btn btn-dark gap-2" routerLink="/login">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        {{"_LOGIN" | translate}}
+                    </button>
+                </ng-template>
+            </li>
+        </ul> -->
+    <!--Login button End-->
+    <!-- 
+        <ul class="buttons-end">
+            <li class="list-inline-item mb-0">
+                <div ngbDropdown>
+                    <button ngbDropdownToggle class="btn btn-icon">
+                        <i class="bi bi-translate  font-x-large"></i>
+                    </button>
+                    <ul ngbDropdownMenu>
+                        <li *ngFor="let language of languages">
+                            <a ngbDropdownItem class="pointer" (click)="onChangeLanguage(language.code)">
+                                {{language.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul> -->
+
+    <!-- </div> -->
+
+
+
+
+    <ng-template #mainMenuTemp let-offcanvas>
+        <div class="offcanvas-header">
+            <h4 class="offcanvas-title" id="offcanvas-basic-title">Life Memo</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group list-group-flush" (click)="offcanvas.dismiss()">
+
+                <li class="list-group-item list-group-item-action border-0 pointer">
+                    {{"_MY_ACCOUNT" | translate}}
+                </li>
+
+                <hr>
+
+                <li class="list-group-item list-group-item-action border-0 pointer" (click)="onLogout()">
+                    <i class="bi bi-box-arrow-left"></i>
+                    {{"_LOGOUT" | translate}}
+                </li>
+
+            </ul>
+        </div>
+    </ng-template>
+
+</header>

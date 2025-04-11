@@ -1,0 +1,48 @@
+// Template Style
+:root{
+    --sidebar-background: #374cbd;
+    --sidebar-module-color:white;
+    --sidebar-group-color:rgb(227, 227, 227);
+    --page-background:#f4f4f4;
+    --layout-background:#ececec;
+}
+
+// Header and toolbar
+
+.header {
+    height: 60px;
+    background: white;
+  
+    .buttons-start {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      margin-left: 5px;
+    }
+  
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      .title {
+        flex: 1;
+        margin: 0;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: start;
+        font-size: x-large;
+        font-weight: bold;
+      }
+  
+    }
+  
+    .buttons-end {
+      display: flex;
+      justify-content: center;
+      margin-right: 5px;
+      // line-height: 55px;
+    }
+  }

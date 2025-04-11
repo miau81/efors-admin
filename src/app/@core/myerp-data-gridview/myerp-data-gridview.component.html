@@ -1,0 +1,90 @@
+@if(config){
+<div class="table-responsive table-container ">
+  <table class="table table-sm table-fixed-layout table-bordered  m-0" [ngClass]="{'table-hover':data.length>0}">
+
+    <thead class="sticky-top">
+      <tr cdkDropList cdkDropListOrientation="horizontal" cdkDropListGroup #columnDropList="cdkDropList"
+        (cdkDropListDropped)="omDropHeader($event)">
+
+        <th class="table-checkbox bg-light"><input type="checkbox" (change)="onCheckAll($event)" /></th>
+        @for(column of config.columns; track column.key){
+        <th class="table-header bg-light position-relative " #tableHeaderBox cdkDrag>
+          <div class="w-100 d-flex justify-content-between align-items-end" (click)="onSort(column)">
+            <label> {{ column.label | mytranslate }}</label>
+            @if(currentSortKey== column.key){
+            <i [class]="'bi bi-sort-down' + (sortBy=='asc'?'-alt':'')"></i>
+            }
+          </div>
+
+          <div cdkDropList cdkDropListGroup #resizeDropList="cdkDropList">
+            <span #tableResize cdkDragLockAxis="x" class="table-resize right bg-light" cdkDrag [cdkDragData]="column"
+              (cdkDragStarted)="onResizeStarted(tableHeaderBox,column)"
+              (cdkDragMoved)="onResize(tableResize,tableHeaderBox,$event)"></span>
+          </div>
+
+        </th>
+        }
+        <th class="bg-light" style="width: 1px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (data.length>0){
+      @for(d of data; track d['id']){
+      <tr>
+        <td class="table-checkbox"><input type="checkbox" [(ngModel)]="d.isCheck" /></td>
+        @for(column of config.columns; track column.key){
+        <td class="pointer" (click)="onSelect(d)">
+          @switch (column.type) {
+          @case ("number"){
+          <span class="text-end">{{ d[column.key] }}</span>
+          }
+          @case ("currency") {
+          <span class="text-end">{{ d[column.key] | number:'1.2-2'}}</span>
+          }
+          @case ("date") {
+          <span>{{ d[column.key] | date:'yyyy-MM-dd'}}</span>
+          }
+          @case ("time") {
+          <span>{{ d[column.key] | date:'hh:mm:a'}}</span>
+          }
+          @case ("datetime") {
+          <span>{{ d[column.key] | date:'yyyy-MM-dd hh:mm:a'}}</span>
+          }
+          @default {
+            <span>{{ d[column.key] | mytranslate }}</span>
+            }
+          }
+        </td>
+        }
+      </tr>
+      }
+      } @else {
+      <tr>
+        <td [colSpan]="config.columns.length +2" class="text-center">
+          <!-- <div  class="d-flex justify-content-center align-items-center w-100"> -->
+          <label class="text-muted fst-italic"> {{"_NO_DATA" | translate}}</label>
+        <!-- </div> -->
+        </td>
+
+      </tr>
+      }
+
+    </tbody>
+
+  </table>
+
+</div>
+<div class="w-100 d-flex justify-content-between align-items-baseline">
+  <div class="btn-group btn-group-sm ms-3">
+    @for( pageSize of paginationOption.pageSizeOptions;track $index){
+    <button class="btn btn-light ng-star-inserted" (click)="onChangePageSize(pageSize)"
+      [ngClass]="{'active':paginationOption.pageSize==pageSize}">
+      {{pageSize}}
+    </button>
+    }
+  </div>
+  <mat-paginator #paginator class="bg-white" (page)="onPageChange($event)" [length]="paginationOption.length"
+    [pageSize]="paginationOption.pageSize" [pageIndex]="paginationOption.pageIndex" aria-label="Select page">
+  </mat-paginator>
+</div>
+}

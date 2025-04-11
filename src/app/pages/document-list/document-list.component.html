@@ -1,0 +1,21 @@
+
+<!-- <header class="header sticky-top bg-transparent mx-3"> -->
+    <div class="sticky-top bg-body-secondary d-flex justify-content-between p-3">
+        <h4>{{title | mytranslate }}</h4>
+        <div>
+            <button class="btn btn-sm btn-primary" (click)="onAddNew()">{{"_ADD_NEW" | translate}}</button>
+        </div>
+    </div>
+<!-- </header> -->
+<div class="shadow-sm card">
+    <div class="card-header bg-transparent">
+        @if(filterConfig){
+
+        }
+    </div>
+    <div class="card-body p-0">
+        @if(datagridConfig){
+        <myerp-data-gridview [config]="datagridConfig" [data]="docs" (onPageChange)="onPageChange($event)" (onSelect)="onSelect($event)" (onSort)="onSort($event)"></myerp-data-gridview>
+        }
+    </div>
+</div>

@@ -1,0 +1,33 @@
+@for (group of moduleGroups;track group.label){
+<div class=" mt-2">
+    @if( group.isSingle){
+    <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
+    </ng-container>
+    }
+    @if(group.children && group.children.length>0){
+
+    <div class="d-flex pe-3 justify-content-between pointer group-name" (click)="group.isCollapse=!group.isCollapse">
+        <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
+        </ng-container>
+        <!-- <button class="btn btn-icon text-white-50" > -->
+        <i class="bi bi-caret-{{group.isCollapse?'down':'up'}} align-items-baseline"></i>
+        <!-- </button> -->
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="group.isCollapse!" class="px-3">
+        @for(module of group.children;track module.id){
+        <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:module}">
+        </ng-container>
+
+        }
+    </div>
+
+    }
+</div>
+}
+
+<ng-template #moduleTemp let-module="module">
+    <a class="d-flex px-3 module mt-1 pointer module-name nav-link" [routerLink]="module.link">
+        <i class="bi bi-{{module.icon}}"></i>
+        <div class="ps-2">{{module.label | mytranslate}}</div>
+    </a>
+</ng-template>

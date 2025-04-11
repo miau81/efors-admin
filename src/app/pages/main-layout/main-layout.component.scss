@@ -1,0 +1,18 @@
+:host{
+    // background: var(--layout-background);
+    display: block;
+    height: 100%;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    overflow: hidden; /* Prevent scrolling in this wrapper */
+  }
+
+  .main-content {
+    flex: 1;
+    overflow-y: auto; /* Allow vertical scrolling in the main content */
+    // padding: 10px; /* Add padding for content inside router-outlet */
+    background-color:var(--page-background); /* Background color for content area */
+  }

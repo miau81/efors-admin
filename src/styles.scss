@@ -1,1 +1,127 @@
+
+
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "./styles/templates.scss";
+
+
+
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+  overflow: hidden;
+  /* Prevent the body from scrolling */
+}
+
+@media (min-width: 1024px) {
+
+  /* Custom scrollbar styling for all scrollable elements */
+  * {
+    // scrollbar-width:thin; /* Thin scrollbar for Firefox */
+    // scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Thumb and track color for Firefox */
+
+    /* For WebKit browsers (Chrome, Edge, Safari) */
+    &::-webkit-scrollbar {
+      width: 10px;
+      /* Thin scrollbar width */
+      height: 10px;
+      /* For horizontal scrollbars */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      /* Scroll thumb color */
+      border-radius: 8px;
+      /* Rounded corners for the thumb */
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.6);
+      /* Darker on hover */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      /* Transparent track */
+    }
+  }
+
+  .scrollable-content {
+    overflow-y: auto;
+    /* Enable scrolling */
+    position: relative;
+
+    /* WebKit Browsers */
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+      /* Make the scrollbar background transparent */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      /* Minimal thumb visibility */
+      border-radius: 8px;
+      opacity: 0;
+      /* Hide by default */
+      transition: opacity 0.3s;
+      /* Smooth transition */
+    }
+
+    &:hover::-webkit-scrollbar-thumb,
+    &:focus-within::-webkit-scrollbar-thumb {
+      opacity: 1;
+      /* Show scrollbar thumb on hover or focus */
+    }
+
+    &:hover {
+      scrollbar-color: rgba(0, 0, 0, 0.6) transparent;
+      /* Darken on hover */
+    }
+  }
+}
+
+.font-medium {
+  font-size: medium !important;
+}
+
+.font-small {
+  font-size: small !important;
+}
+
+.font-x-small {
+  font-size: x-small !important;
+}
+
+.font-large {
+  font-size: large !important;
+}
+
+.font-x-large {
+  font-size: x-large !important;
+}
+
+.font-xx-large {
+  font-size: xx-large !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.page-container{
+  background-color: white; 
+  width: 100%; 
+  min-height: 100%
+}
+
+.table-fixed-layout{
+  table-layout: fixed!important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+

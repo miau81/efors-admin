@@ -1,0 +1,14 @@
+:host {
+  background: var(--sidebar-background);
+  display: block;
+  min-width: 250px;
+  height: 100%;
+}
+
+.group-name {
+  color: var( --sidebar-group-color);
+}
+
+.module-name {
+  color:var( --sidebar-module-color);
+}
