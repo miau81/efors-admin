@@ -1,5 +1,3 @@
-import { ConnectionAction } from "../../src/api/interfaces/api.db.interface";
-import { ApiParam } from "../../src/api/interfaces/api.main.interface";
 import { myErpFields } from "../../src/app/@interfaces/const";
 import { MyERPDocType } from "../../src/app/@interfaces/interface";
 
@@ -12,40 +10,72 @@ export const documentType = (() => {
         label: '{"en":"Company"}',
         namingType: "byField",
         namingFormat: "code",
-        fields: [...myErpFields,
+        fields: [...myErpFields.filter(f => f.id != 'sysAcct'),
         { id: 'sectionDetails', type: 'section', label: '{"en":"Details"}', sorting: 1 },
-        { id: 'code', type: 'text', mandatory: true, label: '{"en":"Company Code"}', sectionId: 'sectionDetails' },
-        { id: 'companyName', type: 'text', mandatory: true, label: '{"en":"Company Name"}', sectionId: 'sectionDetails' },
-        { id: 'contactNo', type: 'text', mandatory: true, label: '{"en":"Contact No"}', sectionId: 'sectionDetails' },
-        { id: 'email', type: 'text', formComponentType: "email", mandatory: true, label: '{"en":"Email"}', sectionId: 'sectionDetails' },
-        { id: 'tinNo', type: 'text', label: '{"en":"Tin No"}', sectionId: 'sectionDetails' },
-        { id: 'businessRegNo', type: 'text', label: '{"en":"Business Registration No"}', sectionId: 'sectionDetails' },
-        { id: 'identificationType', type: 'dropdown', label: '{"en":"Identification Type"}', sectionId: 'sectionDetails' },
-        { id: 'sstRegistration', type: 'text', label: '{"en":"SST Registration No"}', sectionId: 'sectionDetails' },
-        { id: 'sectionAddress', type: 'section', label: '{"en":"Address"}', sorting: 2 },
-        { id: 'address1', type: 'text', label: '{"en":"Address 1"}', sectionId: "sectionAddress", hideInTable: true },
-        { id: 'address2', type: 'text', label: '{"en":"Address 2"}', sectionId: "sectionAddress", hideInTable: true },
-        { id: 'address3', type: 'text', label: '{"en":"Address 3"}', sectionId: "sectionAddress", hideInTable: true },
-        { id: 'city', type: 'text', label: '{"en":"City"}', sectionId: "sectionAddress", hideInTable: true },
-        { id: 'postcode', type: 'text', label: '{"en":"Postcode"}', sectionId: "sectionAddress", hideInTable: true },
+        { id: 'code', type: 'text', isNotEditable: true, mandatory: true, label: '{"en":"Company Code"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+        { id: 'companyName', type: 'text', mandatory: true, label: '{"en":"Company Name"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+        { id: 'contactNo', type: 'text', mandatory: true, label: '{"en":"Contact No"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+        { id: 'email', type: 'text', formComponentType: "email", mandatory: true, label: '{"en":"Email"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+        { id: 'tinNo', type: 'text', label: '{"en":"Tin No"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+        { id: 'businessRegNo', type: 'text', label: '{"en":"Business Registration No"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
         {
-            id: 'stateCode', type: 'link', options: "state",
-            linkOptions: { valueField: "einvoice_code", labelField: "name" },
-            label: '{"en":"State"}', sectionId: "sectionAddress", hideInTable: true
+            id: 'identificationType', type: 'link', options: "einvoice_id_type", showInForm: true,
+            linkOptions: { valueField: "id", labelField: "id,name" },
+            label: '{"en":"Identification Type"}', sectionId: 'sectionDetails'
         },
-        { id: 'countryCode', type: 'text', label: '{"en":"Country"}', sectionId: "sectionAddress", hideInTable: true },
+        { id: 'sstRegistration', type: 'text', label: '{"en":"SST Registration No"}', showInForm: true, sectionId: 'sectionDetails' },
+        {
+            id: 'industryClassification', mandatory: true, type: 'link', options: "einvoice_misc", showInForm: true,
+            linkOptions: { valueField: "id", labelField: "id,name" },
+            label: '{"en":"Industry Classification"}', sectionId: "sectionDetails"
+        },
+        //Section Address
+        { id: 'sectionAddress', type: 'section', label: '{"en":"Address"}', sorting: 2, sectionExpanded: false },
+        { id: 'address1', type: 'text', label: '{"en":"Address 1"}', showInForm: true, sectionId: "sectionAddress" },
+        { id: 'address2', type: 'text', label: '{"en":"Address 2"}', showInForm: true, sectionId: "sectionAddress" },
+        { id: 'address3', type: 'text', label: '{"en":"Address 3"}', showInForm: true, sectionId: "sectionAddress" },
+        { id: 'postcode', type: 'text', label: '{"en":"Postcode"}', showInForm: true, sectionId: "sectionAddress" },
+        { id: 'city', type: 'text', label: '{"en":"City"}', showInForm: true, sectionId: "sectionAddress" },
+        {
+            id: 'stateCode', type: 'link', options: "state", showInForm: true,
+            linkOptions: { valueField: "einvoice_code", labelField: "name" },
+            label: '{"en":"State"}', sectionId: "sectionAddress",
+        },
+        {
+            id: 'countryCode', type: 'link', options: "country", defaultValue: "MYS", showInForm: true,
+            linkOptions: { valueField: "einvoice_code", labelField: "name" },
+            label: '{"en":"Country"}', sectionId: "sectionAddress"
+        },
+        //Section E-Invoice
+        { id: 'sectionEInvoice', type: 'section', label: '{"en":"E-Invoice Setting"}', sorting: 3, sectionExpanded: false },
+        // { id: 'isSandBox', type: 'boolean', label: '{"en":"Testing Mode"}',showInForm: true, sectionId: "sectionEInvoice" },
 
-        { id: 'sectionEInvoice', type: 'section', label: '{"en":"E-Invoice Setting"}', sorting: 3 },
-        { id: 'isSandBox', type: 'boolean', label: '{"en":"Testing Mode"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'eInvoiceId', type: 'text', label: '{"en":"E-Invoice ID"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'eInvoiceSecret', type: 'text', label: '{"en":"E-Invoice Secret"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'industryClassification', type: 'text', label: '{"en":"Industry Classification"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'defaultTaxableType', type: 'text', label: '{"en":"Default Taxable Type"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'defaultItemClassification', type: 'text', label: '{"en":"Default Item Classfication"}', sectionId: "sectionEInvoice", hideInTable: true },
-        { id: 'defaultItemUOM', type: 'text', label: '{"en":"Default Item UOM"}', sectionId: "sectionEInvoice", hideInTable: true },
+        { id: 'eInvoiceIdSandbox', type: 'text', label: '{"en":"E-Invoice ID (For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
+        { id: 'eInvoiceSecretSandbox', type: 'text', label: '{"en":"E-Invoice Secret(For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
+        { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+        { id: 'eInvoiceId', type: 'text', label: '{"en":"E-Invoice ID"}', showInForm: true, sectionId: "sectionEInvoice" },
+        { id: 'eInvoiceSecret', type: 'text', label: '{"en":"E-Invoice Secret"}', showInForm: true, sectionId: "sectionEInvoice" },
+        { id: 'break_2', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+
+        {
+            id: 'defaultTaxableType', type: 'link', options: "einvoice_taxable_type", showInForm: true,
+            linkOptions: { valueField: "id", labelField: "id,name" },
+            label: '{"en":"Default Taxable Type"}', sectionId: "sectionEInvoice"
+        },
+        {
+            id: 'defaultItemClassification', type: 'link', options: "einvoice_classification", showInForm: true,
+            linkOptions: { valueField: "id", labelField: "id,name" },
+            label: '{"en":"Default Item Classfication"}', sectionId: "sectionEInvoice"
+        },
+        {
+            id: 'defaultItemUOM', type: 'link', options: "einvoice_item_uom", showInForm: true,
+            linkOptions: { valueField: "id", labelField: "id,name" },
+            label: '{"en":"Default Item UOM"}', sectionId: "sectionEInvoice"
+        },
 
         ]
     }
+
     return type;
 })
 

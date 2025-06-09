@@ -1,0 +1,252 @@
+@if(doneSetupForm){
+@if(dialogData?.dialog=="tableForm"){
+<div class="row p-3">
+    <div class="col-10">
+        <h4>{{dialogData.title | translate}}</h4>
+    </div>
+    <div class="col-2 text-end">
+        <button class="btn btn-icon" (click)="onRemoveTableRow()"><i class="bi bi-trash3 text-danger"></i></button>
+    </div>
+</div>
+}
+<form [formGroup]="config.form" class="needs-validation">
+    @if(config.tabs.length==1 && !config.tabs[0].label){
+    <ng-template [ngTemplateOutlet]="tempSectionHeader" [ngTemplateOutletContext]="{tab:config.tabs[0]}"></ng-template>
+    }@else{
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        @for(tab of config.tabs;track tab.key;let tabIndex=$index){
+        <mat-tab label="{{tab.label | mytranslate}}">
+            <ng-template [ngTemplateOutlet]="tempSectionHeader" [ngTemplateOutletContext]="{tab:tab}"></ng-template>
+        </mat-tab>
+        }
+    </mat-tab-group>
+    }
+
+    <ng-template let-tab="tab" #tempSectionHeader>
+        @for(section of tab.sections;track section.key;let sectionIndex=$index){
+        @if(!section.label){
+        <div class="form-tab m-4 mb-3"> <ng-template [ngTemplateOutlet]="tempSections"
+                [ngTemplateOutletContext]="{section:section}"></ng-template></div>
+        }@else{
+        <mat-expansion-panel [expanded]="section.sectionExpanded==undefined?true:section.sectionExpanded">
+            <mat-expansion-panel-header class="bg-body-secondary mb-3">
+                <mat-panel-title> {{section.label | mytranslate}} </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template [ngTemplateOutlet]="tempSections" [ngTemplateOutletContext]="{section:section}"></ng-template>
+        </mat-expansion-panel>
+        }
+        }
+    </ng-template>
+
+    <ng-template let-section="section" #tempSections>
+        <div class="row">
+            @for(component of section.components;track component.key;let columnIndex=$index){
+            @if(component.type=='hidden'){
+            <input type="hidden" [formControlName]="component.key">
+            }@else{
+            <div [class]="component.type=='breakline'? 'col-12' :component.col || 'col-12'">
+                <ng-template [ngTemplateOutlet]="tempFormComponent"
+                    [ngTemplateOutletContext]="{component:component}"></ng-template>
+            </div>
+            }
+            }
+        </div>
+    </ng-template>
+
+    <ng-template let-component="component" #tempFormComponent>
+        @switch (component.type) {
+        @case(multiNgSwitchCase(['text', 'email','tel','password'],
+        component.type)?component.type:''){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
+                [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
+                placeholder="{{component.placeholder || '' | mytranslate}}"
+                [minlength]="component.inputConfig?.minlength || 0"
+                [maxlength]="component.inputConfig?.maxlength || 999999999" (keyup)="onKeyUp(component,$event)"
+                (ngModelChange)="onChange(component)" [ngClass]="{
+                                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                                        }">
+
+            <div class="invalid-feedback text-start fst-italic font-x-small">
+                *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+            </div>
+        </div>
+        } @case('number'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
+                [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
+                placeholder="{{component.placeholder || '' | mytranslate}}"
+                [min]="component.numberConfig?.min || -999999999" [max]="component.numberConfig?.max || 999999999"
+                [step]="component.numberConfig?.step || 1" (ngModelChange)="onChange(component)"
+                (keyup)="onKeyUp(component,$event)" [ngClass]="{
+                                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                                        }">
+            <div class="invalid-feedback text-start fst-italic font-x-small">
+                *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+            </div>
+        </div>
+        } @case('image'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <div class="card shadow-sm rounded pointer position-relative"
+                [ngStyle]="{'width':(component.imageConfig?.width || 100)+'px','height':(component.imageConfig?.height || 100)+'px'}">
+                <i class="bi bi-trash position-absolute remove-image shadow text-light"
+                    (click)="onRemoveImage(component)" *ngIf="component.value"></i>
+                <myerp-media [src]="component.value" style="object-fit: cover;height: 100%; width: 100%;"
+                    (click)="onImageClick(component)" (error)="onImageError($event,component)"></myerp-media>
+                <input hidden="true" type="file" accept="image/*" class="file-input"
+                    (ngModelChange)="onFileSelected($event,component)" [id]="component.key" />
+            </div>
+        </div>
+        } @case('readOnly'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm bg-body-secondary" type="text" [formControlName]="component.key"
+                [id]="component.key" [required]="false" [readOnly]="true" (ngModelChange)="onChange(component)"
+                placeholder="{{component.placeholder || '' | mytranslate}}">
+        </div>
+
+        } @case('currency'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm" currencyMask [formControlName]="component.key"
+                [id]="component.key" [required]="false" (ngModelChange)="onChange(component)"
+                placeholder="{{component.placeholder || '' | mytranslate}}" [ngClass]="{
+                                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                                        }">
+            <div class="invalid-feedback text-start fst-italic font-x-small">
+                *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+            </div>
+        </div>
+
+        } @case('readOnlyCurrency'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm bg-body-secondary" currencyMask [formControlName]="component.key"
+                [id]="component.key" [required]="false" [readOnly]="true" (ngModelChange)="onChange(component)"
+                placeholder="{{component.placeholder || '' | mytranslate}}">
+        </div>
+
+        } @case(multiNgSwitchCase(['date', 'time','datetime-local'],
+        component.type)?component.type:''){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
+                [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
+                (ngModelChange)="onChange(component)" [ngClass]="{
+                                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                                        }">
+            <div class="invalid-feedback text-start fst-italic font-x-small">
+                *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+            </div>
+        </div>
+        } @case('checkbox'){
+        <div class="form-check align-items-center d-flex mb-0">
+            <input class="form-check-input mt-0" type="checkbox" [formControlName]="component.key" [id]="component.key"
+                [required]="component.required || false" [disabled]="component.disabled || false"
+                placeholder="{{component.placeholder || '' | mytranslate}}" (ngModelChange)="onChange(component)">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{ component.label | mytranslate}}
+            </label>
+        </div>
+        } @case('checkboxGroup'){
+        <div class="my-3">
+            <label class="ms-2" [for]="component.key">
+                <h6>{{ component.label | mytranslate}}</h6>
+            </label>
+            <div class="form-check align-items-center d-flex mb-0 ms-2" [formArrayName]="component.key"
+                *ngFor="let option of component.options;let i=index">
+                <input class="form-check-input mt-0" type="checkbox" [id]="component.key+i"
+                    [required]="component.required || false" [value]="option.value" [checked]="option.checked"
+                    [disabled]="component.disabled || false" (ngModelChange)="onChange(component,$event,i)">
+                <label class="form-check-label  ms-2" [for]="i">
+                    {{ option.label | mytranslate}}
+                </label>
+            </div>
+        </div>
+        } @case('select'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}} {{config.showValidation}}
+            </label>
+            <div class="input-group">
+
+                <ng-select appendTo="body" [searchable]="true" [clearable]="true" [formControlName]="component.key"
+                    class="form-control form-control-sm py-0" [ngClass]="{
+                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                        }" (ngModelChange)="onChange(component)">
+                    @if(component.selectConfig?.canAddNew){
+                    <ng-option value="_ADDNEW">
+                        <div class="nav nav-link p-1">
+                            <i class="bi bi-plus-circle me-1"></i>{{"_ADD_NEW" | translate}}
+                        </div>
+                    </ng-option>
+                    }
+                    @for(option of component.options;track $index){
+                    <ng-option [value]="option.value">{{option.label | mytranslate}}</ng-option>
+                    }
+                </ng-select>
+                @if(component.selectConfig?.canEdit || component.selectConfig?.canView){
+                <div class="btn btn-sm btn-light"
+                    (click)="onViewDocumentClick({component:component,canEdit:component.selectConfig?.canEdit})">
+                    <i class="bi bi-link"></i>
+                </div>
+                }
+            </div>
+        </div>
+        } @case('textarea'){
+        <div class="mb-2">
+            <label class="font-small text-muted ms-2" [for]="component.key">
+                {{component.required?'*':''}}{{ component.label | mytranslate}}
+            </label>
+            <textarea class="form-control form-control-sm" [formControlName]="component.key" [id]="component.key"
+                [required]="component.required || false" [disabled]="component.disabled || false"
+                placeholder="{{component.placeholder || '' | mytranslate}}" [rows]="component.textareaConfig?.rows || 5"
+                (ngModelChange)="onChange(component)" (keyup)="onKeyUp(component,$event)" [ngClass]="{
+                                            'is-valid': config.form.controls[component.key].valid && config.form.controls[component.key].touched && config.showValidation,
+                                            'is-invalid': config.form.controls[component.key].invalid && config.form.controls[component.key].touched && config.showValidation
+                                        }"></textarea>
+
+
+            <div class="invalid-feedback text-start fst-italic font-x-small">
+                *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+            </div>
+
+        </div>
+        } @case('datePicker'){
+        <div class="my-2">
+            <myerp-datepicker [selectedDate]="component.value"
+                (onChange)="onDatePickerChange(component,$event)"></myerp-datepicker>
+            <input hidden [formControlName]="component.key" />
+        </div>
+        } @case('table'){
+        <myerp-editable-table [component]="component" [formConfig]="component.tableConfig.formConfig"
+            [formArray]="getChildTableFromArray(component.key)" (onChange)="onChildTableChange($event,component)"
+            (onOpenForm)="onOpenTableForm($event,component)"
+            (onViewLinkDocument)="onViewDocumentClick($event)"></myerp-editable-table>
+        }
+        }
+    </ng-template>
+</form>
+}

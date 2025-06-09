@@ -5,6 +5,7 @@ import { AuthURL } from "./api.enum";
 export interface GetDataOption {
     mysqlConn: ConnectionAction;
     tableName: string;
+    docType: MyERPDocType;
     authURL?: AuthURL;
     selectFields?: string[];
     excludeFields?: string[];
@@ -12,12 +13,12 @@ export interface GetDataOption {
     sqlOrderBy?: string;
     sqlLimit?: string;
     language?: string;
-    sys?:string;
-    com?:string;
+    sys?: string;
+    com?: string;
     user?: any;
-    getChild?:boolean;
-    getParent?:boolean;
-    includeDeleted?:boolean;
+    getChild?: boolean;
+    getParent?: boolean;
+    includeDeleted?: boolean;
 
 }
 

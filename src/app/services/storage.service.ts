@@ -17,7 +17,7 @@ export class StorageService {
     return;
   }
 
-  set<T = string>(key: StorageKey, value: any) {
+  set(key: StorageKey, value: any) {
     if (isPlatformBrowser(this.platformID)) {
       const _value: string = typeof value != "string" ? JSON.stringify(value) : value;
       return localStorage.setItem(key, _value);

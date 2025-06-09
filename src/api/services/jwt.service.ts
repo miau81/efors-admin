@@ -19,7 +19,8 @@ export class JWTService {
     }
 
     sign(id: string) {
-        const token = jwt.sign({ id: id }, this.jwtConfig['JWT_PASS'], { expiresIn: this.jwtConfig['JWT_EXP'] as any });
+        console.log()
+        const token = jwt.sign({ id: id }, this.jwtConfig['JWT_PASS'], { expiresIn: this.jwtConfig['JWT_EXP'] as any});
         const refreshToken = jwt.sign({ id: id }, this.jwtConfig['JWT_PASS'], { expiresIn: this.jwtConfig['JWT_REFRESH_EXP'] as any });
         return { token, refreshToken };
     }
@@ -33,6 +34,7 @@ export class JWTService {
             switch (error.message) {
                 case "jwt expired":
                     errorMessage = "Authorization token is expired.";
+                    console.log(errorMessage)
                     throw new UnauthorizedException(errorMessage, "TOKEN_EXPIRED");
                 case "jwt must be provided":
                     errorMessage = "Authorization token is required.";

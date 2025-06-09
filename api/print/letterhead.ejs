@@ -1,0 +1,13 @@
+<%
+let address=[company.address1,company.address2,company.address3,`${company.postcode} ${company.city}`,company.state].join(", ");
+%>
+<div class="text-center">
+  <h5 class="m-0"><strong><%= company.companyName %></strong></h5>
+  <span class="font-small"> (<%= company.businessRegNo %>)</span><br />
+  <span> <%= address %></span><br />
+  <span> Tin No: <%= company.tinNo %></span><br />
+  <% if(company.email){ %> <span>email: <%= company.email %> </span><% } %><br />
+  <% if(company.contactNo){ %><span>contact: <%= company.contactNo %> </span><% } %><br />
+  <hr />
+</div>
+

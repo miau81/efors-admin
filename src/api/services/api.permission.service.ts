@@ -5,28 +5,28 @@ import { SRequest } from "../interfaces/api.route.interface";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 
 import Database, { dbName } from "./api.database-service";
-import { EntityService } from "./entity.service";
 import { JWTService } from "./jwt.service";
 import { GetDataOption } from "../interfaces/api.entity.interface";
+import { ApiGlobalService } from "./api.global.service";
+import { connectionPool } from "../databases";
 
 
 const db = dbName;
 export class ApiPermissionService {
 
-    private entityService = new EntityService();
+    private globalService = new ApiGlobalService();
     private jwtService = new JWTService();
 
 
     async authorizeCheck(req: SRequest) {
-
-        const mysqlConn: ConnectionAction = Database.connectionAction;
+        const mysqlConn: ConnectionAction = await connectionPool();
         try {
             //Check API Token
             const apiToken = req.headers['api-token'] || '';
             if (!apiToken) {
                 throw new UnauthorizedException("API token is required.", "REQUIRED_API_TOKEN");
             }
-            const exists: any = await this.entityService.checkExists('api_token', `WHERE token='${apiToken}'`, mysqlConn);
+            const exists: any = await this.globalService.checkExists('api_token', `WHERE token='${apiToken}'`, mysqlConn);
             if (!exists.exists) {
                 throw new UnauthorizedException("Invalid API Token.", "INVALID_API_TOKEN");
             }
@@ -66,7 +66,7 @@ export class ApiPermissionService {
             req.authUser = user;
             return;
         } finally {
-            mysqlConn.release();
+            mysqlConn?.release();
         }
     }
 
@@ -94,14 +94,16 @@ export class ApiPermissionService {
 
     private async getUser(token: string, mysqlConn: ConnectionAction): Promise<any> {
         const decoded: any = this.jwtService.verifyToken(token);
+        const docType = await this.globalService.getDocumentType("user");
         const options: GetDataOption = {
             tableName: "user",
+            docType: docType,
             mysqlConn: mysqlConn,
             getChild: true,
             getParent: true,
-            sqlWhere: `WHERE id= ${decoded.id}'`
+            sqlWhere: `WHERE id= '${decoded.id}'`
         }
-        const user = await this.entityService.getData(options);
+        const user = await this.globalService.getData(options);
         return user ? user[0] : null;
     }
 }

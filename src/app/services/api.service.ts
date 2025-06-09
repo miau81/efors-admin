@@ -41,6 +41,10 @@ export class ApiService {
     return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/type/${docType}`));
   }
 
+  runEventScript<T>(docType: string, body: any): Promise<T> {
+    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/event/${docType}`, body));
+  } 
+
   /////////////////////// User ////////////////////////
   login<T>(body: { loginId: string, password: string }): Promise<T> {
     return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/login`, body));
@@ -48,7 +52,7 @@ export class ApiService {
 
   getNewToken<T = any>(refreshToken:string):Promise<T> {
     let headers = { headers: { 'Authorization': `Bearer ${refreshToken}`  } };
-    let requestURL = environment.apiToken + '/admin/refresh_token';
+    let requestURL = this.apiUrl + '/auth/refresh_token';
     return firstValueFrom(this.http.get<T>(requestURL, headers).pipe());
   }
 

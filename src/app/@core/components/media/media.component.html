@@ -1,0 +1,12 @@
+@if((src || media?.url) || defaultImage){
+    @switch(media?.type){
+        @case ('IMAGE') {
+            <img [src]="src || media?.url" (error)="onImageError($event)" class="media image " />
+        }
+        @case('VIDEO'){
+        <video class="media video" controls controlsList="nodownload" [poster]="videoPoster">
+            <source [src]="src || media?.url">
+        </video>
+        }
+    }
+}

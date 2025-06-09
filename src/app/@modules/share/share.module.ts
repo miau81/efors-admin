@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-// import { MyMedia } from '../../../../../myerp-lib/dist/myerp-core/lib/components/media/media.component';
-import { MyMedia, MyTranslatePipe } from 'myerp-core';
+import { MyMedia } from '@myerp/components';
+import { MyTranslatePipe } from '@myerp/pipes';
 
 
 

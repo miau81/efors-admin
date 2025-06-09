@@ -54,6 +54,7 @@ export interface MyERPDocType {
   isVirtual?: boolean;
   fields: MyERPField[];
   canSubmit?: boolean;
+  canDelete?: boolean;
   isSingle?: boolean;
   isChildTable?: boolean;
   parentDocType?: string;
@@ -62,6 +63,10 @@ export interface MyERPDocType {
   submitTable?: boolean;
   namingType: MyERPDocNamingType
   namingFormat?: string;
+  searchFields?: string[];
+  printScript?: "SERVER" | "CLIENT";
+  printFormats?:MyERPPrintFormat[];
+  actionButtons?: { code: string, label: string, script?: "SERVER" | "CLIENT" }[];
 }
 
 export interface MyERPField {
@@ -73,28 +78,50 @@ export interface MyERPField {
   sectionId?: string;
   sectionExpanded?: boolean;
   tabId?: string;
-  isTranslatable?: boolean;
-  notEditable?: boolean;
   label?: string;
   defaultValue?: any;
   options?: any;
-  linkOptions?: { valueField: any, labelField: string | string[], labelSplit?: string }
-  isReadOnly?: boolean;
+  callServerScript?: boolean;
+  callClientScript?: boolean;
+  linkOptions?: { isDoc?:boolean, valueField: string, labelField: string, format?: string, customSql?: string, filters?: string }
 
   mandatory?: boolean;
   isUnique?: boolean;
   uniqueBy?: string[];
   sorting?: number;
+  canAddNew?: boolean;
+  canView?: boolean;
+  canEdit?: boolean;
 
+  isTranslatable?: boolean;
+  isNotEditable?: boolean;
+  isReadOnly?: boolean;
   isHidden?: boolean;
   isPassword?: boolean;
+  parentField?: any;
+
   tableColumnWidth?: number;
   formColumnSize?: string;
-  hideInTable?: boolean;
-  hideInForm?: boolean;
+  showInTable?: boolean;
+  showInForm?: boolean;
   showInFilter?: boolean;
   filterSorting?: number;
+  fieldsDocType?: MyERPDocType;
 
+}
+
+export interface ChangeScriptResponse {
+  formValue?: any;
+  componentOptions?: any;
+  parentFormValue?: any;
+  formConfig?: any
+}
+
+export interface MyERPPrintFormat {
+  fileName: string;
+  label: string;
+  code: string;
+  isDefault?:boolean;
 }
 
 export type MyERPDocNamingType = "random" | "sequence" | "date-sequence" | "byField"

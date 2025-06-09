@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
 import { APP_PARAMS } from '../../@interfaces/const';
-import { MyCoreService, MyFormGenerator, MyFormGeneratorConfig } from 'myerp-core';
+
 import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
+import { BaseService } from '../../services/base.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent {
   public appName: string = APP_PARAMS.appName
 
   public formConfig!: MyFormGeneratorConfig;
-  constructor(private myCoreService: MyCoreService, private authService: AuthService) {
+  constructor( private authService: AuthService,private baseService:BaseService) {
 
   }
 
@@ -24,6 +26,7 @@ export class LoginComponent {
 
     let form!: FormGroup;
     const config: MyFormGeneratorConfig = {
+      showValidation:true,
       form: form,
       tabs: [{
         key: '',
@@ -72,12 +75,11 @@ export class LoginComponent {
       await this.authService.login(this.formConfig.form.value)
       // this.baseService.showToast({ message: "_WELCOME_BACK", color: "success" });
     } catch (error: any) {
-      console.log(error)
-      if (error.status == 409) {
+      if (error.status == 401) {
         const message = "_USER_NOT_FOUND_OR_PASSWORD_NOT_CORRECT";
-        // this.baseService.showMessageBox({ message: message, button: "OKOnly", type: "warning" });
+        this.baseService.showErrorMessage({ message: message, button: "OKOnly", type: "warning" });
       } else {
-        // this.baseService.showErrorMessageBox(error.message || error.error || error);
+        this.baseService.showErrorMessage(error);
       }
     }
   }

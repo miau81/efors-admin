@@ -4,12 +4,14 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { isPlatformServer } from '@angular/common';
-import { provideHttpClient, HttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, HttpClient, withFetch, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppInitService } from './services/app-init.service';
 import { SERVER_HOST } from './app.tokens';
+import { httpInterceptor  } from './interceptors/http.interceptor';
+import { NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,12 +26,27 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient, PLATFORM_ID]
       }
     })),
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: SERVER_HOST, useValue: "./" },
+    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor , multi: true },
+    provideEnvironmentNgxCurrency({
+      align: "right",
+      allowNegative: true,
+      decimal: ".",
+      precision: 2,
+      prefix: "RM ",
+      suffix: "",
+      thousands: ",",
+      nullable: true,
+      min: null,
+      max: null,
+      inputMode: NgxCurrencyInputMode.Natural,
+    }),
+  
     provideAppInitializer(() => {
       const initializerFn = (InitializeApp)(inject(AppInitService));
       return initializerFn();
     }),
+  
   ]
 };
 

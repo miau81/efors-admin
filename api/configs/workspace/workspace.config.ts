@@ -27,15 +27,17 @@ export const config=[
       isSingle: true,
       icon: 'bi bi-database',
       sorting: 3,
+      link:"master_data",
       isHidden: false,
       // children: [
       //   {
-      //     code: 'ITEM',
-      //     name: 'Item',
+      //     id: 'item',
+      //     label: 'Item',
       //     sorting: 1,
       //     icon: 'bi bi-box-seam',
       //     link: 'item'
       //   },
+      // ]
       //   // {
       //   //   code: 'CUSTOMER',
       //   //   name: 'Customer',
@@ -73,7 +75,7 @@ export const config=[
      {
       id: 'user',
       label: 'Users',
-      icon: 'database-gear',
+      icon: 'people',
       isSingle: true,
       sorting: 999,
       isHidden: false,

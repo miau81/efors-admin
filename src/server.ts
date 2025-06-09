@@ -15,13 +15,16 @@ const angularApp = new AngularNodeAppEngine();
 
 app.use(cors({ origin: "*", credentials: true }));
 
-new API(app)
+
+app.use('/api/**', (req, res, next) => {
+  next();
+});
+
+new API(app);
 
 
 
-// app.get('/api/**', (req, res) => {
-  
-// });
+
 
 /**
  * Serve static files from /browser

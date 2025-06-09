@@ -2,8 +2,9 @@
 import dayjs from "dayjs";
 import { BadRequestException } from "../exceptions/BadRequestException";
 import { FilterType, OperatorEnum, ApiRequestMethod, OrderBy } from "../interfaces/api.enum";
-import { Filter, ApiParam } from "../interfaces/api.main.interface";
+import { Filter, ApiGetParam, ApiSaveParam, ApiParam } from "../interfaces/api.main.interface";
 import { SRequest } from "../interfaces/api.route.interface";
+import { nanoid } from 'nanoid';
 export class ConvertUtil {
 
     public convertToDataTypeValue(value: any) {
@@ -11,10 +12,13 @@ export class ConvertUtil {
         try {
             value = JSON.parse(value);
             value = value == null ? "null" : value;
+            if (typeof value == 'number') {
+                value = `'${value}'`;
+            }
         } catch {
             if (value instanceof Date) {
                 value = `'${dayjs(value).format('YYYY-MM-DD HH:mm:ss')}'`;
-            } else if (typeof value === 'string') {
+            } else {
                 value = `'${value.replace("'", "''")}'`;
 
             }
@@ -101,6 +105,23 @@ export class ConvertUtil {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 
+    public convertRequestToApiParam(req: SRequest, requestMethod: ApiRequestMethod) {
+        const tableName = this.convertDocTypeToTableName(req.params?.['document']);
+        const params: ApiParam = {
+            user: req.authUser,
+            language: req.language || 'en',
+            tableName: tableName,
+            method: requestMethod,
+            authURL: req.authURL,
+            sys: req.sys,
+            com: req.com,
+            queryParam: req.query,
+            params: req.params,
+            body: req.body
+        }
+        return params;
+    }
+
     public convertRequestToGetApiParam(req: SRequest, requestMethod: ApiRequestMethod) {
         const selectFields: any = req.query?.['selectedFields']?.toString()?.split(",") || ["*"];
         const excludedFields: any = req.query?.['exclude']?.toString()?.split(",") || [];
@@ -144,17 +165,15 @@ export class ConvertUtil {
 
         const searchFields: any = req.query?.['searchFields'] || [];
 
-        const page = this.castToJson(req.query?.['page']) || 1
+        const page = this.castToJson(req.query?.['page']) || 1;
         const limit = this.castToJson(req.query?.['limit']) || 20;
-        const tableName = this.convertDocTypeToTableName(req.params?.['docType']);
-        const params: ApiParam = {
+        const tableName = this.convertDocTypeToTableName(req.params?.['document']);
+        const params: ApiGetParam = {
             user: req.authUser,
             language: req.language || 'en',
             tableName: tableName,
             selectFields: selectFields,
             excludeFields: excludedFields,
-            byField: req.params?.['byField'],
-            byValue: req.params?.['byValue'],
             method: requestMethod,
             authURL: req.authURL,
             sys: req.sys,
@@ -174,12 +193,15 @@ export class ConvertUtil {
             filters: filters,
             getChild: this.castToJson(req.query?.['getChild']),
             getParent: this.castToJson(req.query?.['getParent']),
-            queryParam: req.query
+            queryParam: req.query,
+            params: req.params
 
         }
         return params;
 
     }
+
+
 
     public convertRequestToSaveApiParam(req: SRequest, requestMethod: ApiRequestMethod) {
 
@@ -188,17 +210,16 @@ export class ConvertUtil {
             requestBody[req.params?.['byField']] = req.params?.['byValue']
         }
 
-        const tableName = this.convertDocTypeToTableName(req.params?.['docType']);
-        const params: ApiParam = {
+        const tableName = this.convertDocTypeToTableName(req.params?.['document']);
+        const params: ApiSaveParam = {
             user: req.authUser,
             language: req.language || 'en',
-            requestBody: { ...requestBody },
+            body: { ...requestBody },
             tableName: tableName,
-            byField: req.params?.['byField'],
-            byValue: req.params?.['byValue'],
             method: requestMethod,
             authURL: req.authURL,
             queryParam: req.query,
+            params: req.params,
             sys: req.sys,
             com: req.com,
             files: req.files as Express.Multer.File[]
@@ -207,9 +228,28 @@ export class ConvertUtil {
 
     }
 
-    convertDocTypeToTableName(doctype?: string) {
-        return doctype?.toLowerCase().replaceAll(' ', '_') || '';
+
+    public convertDocTypeToTableName(document?: string) {
+        return document?.toLowerCase().replaceAll(' ', '_') || '';
     }
+
+    public hashString(str: string) {
+        return Bun.hash(str)
+    }
+
+    public deepCopyObject(object: any) {
+        return JSON.parse(JSON.stringify(object));
+    }
+
+    public generateUniqueId() {
+        return nanoid(12);
+    }
+
+    public getSQLJsonValueString(field: string, language: string = 'en') {
+        return `JSON_UNQUOTE(IF(JSON_VALID(${field} AND JSON_TYPE(${field}) IN ('OBJECT', 'ARRAY')),${field}->'$${language}',${field})) as ${field}`;
+    }
+
+
 }
 
 

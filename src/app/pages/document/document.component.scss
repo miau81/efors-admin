@@ -1,0 +1,7 @@
+.status{
+    height: fit-content;
+}
+
+.no-caret::after {
+  display: none !important;
+}

@@ -42,13 +42,12 @@ class API {
         this.app.use(express.json({ limit: "100mb" }));
         this.app.use(express.urlencoded({ limit: "100mb", extended: false }));
         // this.app.use(cookieParser());
-        this.app.use("/api-public",express.static("api-public"));       
+        this.app.use("/client-script",express.static("client-script"));       
     }
 
     private errorHander() {        
         // Error
         this.app.use((error: any, _req: any, res: any, _next: any) => {
-            console.error(error.status)
             res.status(error.status || 500).json({ ...error, message: error.message });
         });
     }

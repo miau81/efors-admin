@@ -3,7 +3,8 @@ import { ShareModule } from '../../@modules/share/share.module';
 import { ApiService } from '../../services/api.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterLink } from '@angular/router';
-import { MyErpWorkspace } from '../../@interfaces/interface';
+import { MyErpWorkspace } from '@myerp/interfaces/interface';
+
 
 
 @Component({

@@ -9,11 +9,14 @@ import { PaginationListOption } from "../interfaces/api.main.interface";
 import { logger } from "../utils/logger";
 import { dbName } from "./api.database-service";
 import { MyERPDocType, MyERPField } from "../../app/@interfaces/interface";
+import { ConvertUtil } from "../utils/convert";
 
 
 const db = dbName;
 
 export class EntityService {
+
+    public convertUtil = new ConvertUtil();
 
     async getData(options: GetDataOption): Promise<any> {
         options.sqlWhere = await this.selfOnlyFilter(options.tableName, options.authURL, options.sqlWhere, options.mysqlConn, options.user?.id);
@@ -26,7 +29,7 @@ export class EntityService {
         let selectedFields: string[];
         // Get all fields by default
         if (!options.selectFields || options.selectFields[0] == "*") {
-            options.selectFields = await this.getTableFields(options.tableName, options.mysqlConn,true) as string[];
+            options.selectFields = await this.getTableFields(options.tableName, options.mysqlConn, true) as string[];
             // options.selectFields = res.split(",");
 
         }
@@ -83,8 +86,8 @@ export class EntityService {
         }
         let result: any = await options.mysqlConn.query(resultQuery);
 
-        result =await Promise.all(result.map(async (r: any) => {
-            const docType: MyERPDocType = await this.getDocumentType(options.tableName);
+        result = await Promise.all(result.map(async (r: any) => {
+            const docType: MyERPDocType = await this.getDocumentType(options.tableName, options.mysqlConn);
             const passwordFields = docType.fields.filter(f => f.isPassword == true);
             for (let p of passwordFields) {
                 r[p.id] = null;
@@ -116,11 +119,11 @@ export class EntityService {
         return r.insertId;
     }
 
-    async save(tableName: string, data: any, mysqlConn: ConnectionAction) {
-        const fileds = await mysqlConn.query(`DESCRIBE  ${db}.${tableName}`);
-        for (let f of fileds) {
-            if (f.Type.includes("date") && data[f.Field] && typeof data[f.Field] === 'string') {
-                data[f.Field] = new Date(data[f.Field]);
+    async save( tableName: string, data: any, mysqlConn: ConnectionAction) {
+        const fields = await this.getTableFields(tableName, mysqlConn) as MyERPField[];
+        for (let f of fields) {
+            if ((f.type=="date" || f.type=="datetime") && data[f.id] && typeof data[f.id]  =="string") {
+                data[f.id] = new Date(data[f.id]);
             }
         }
         const r = await mysqlConn.query(`INSERT INTO  ${db}.${tableName} SET ? ON DUPLICATE KEY UPDATE ?`, [data, data]);
@@ -183,9 +186,9 @@ export class EntityService {
         // return result.columns;
         const fields = (await this.getDocumentType(tableName)).fields.filter(f => f.type != 'tab' && f.type != "breakline" && f.type != 'section' && !f.isVirtual);
         if (nameOnly) {
-            return fields.map(f => f.id);
+            return fields.map(f => f.id) as string[];
         }
-        return fields;
+        return fields as MyERPField[];
     }
 
     async checkTableFieldExists(tableName: string, fieldName: string, mysqlConn: ConnectionAction): Promise<boolean> {
@@ -326,13 +329,68 @@ export class EntityService {
         return await import( /* @vite-ignore */path);
     }
 
-    async getDocumentType(tableName: string): Promise<MyERPDocType> {
+    async generateDocId(tableName: string, data: any) {
+        const docType = await this.getDocumentType(tableName);
+        let id;
+        switch (docType.namingType) {
+            case "byField":
+                id = data[docType.namingFormat!];
+                break;
+            case "random":
+                id = this.convertUtil.hashString(new Date().toString());
+                break;
+            case "date-sequence":
+            case "sequence":
+                //TODO
+                break;
+        }
+        return id;
+
+
+    }
+
+    async getDocumentType(tableName: string, mysqlConn?: ConnectionAction, language: string = 'en'): Promise<MyERPDocType> {
         try {
             const imp = await this.importDocTypeFile(tableName);
-            return imp.documentType();
+            const docType: MyERPDocType = imp.documentType();
+            if (!mysqlConn) {
+                return docType;
+            }
+
+            const linkFields = docType.fields.filter(f => f.type == "link");
+            for (let field of linkFields) {
+                const linkTable = field.options;
+                const labelFields = field.linkOptions!.labelField.split(",");
+                const valueField = field.linkOptions?.valueField
+                const sql = field.linkOptions?.customSql || `SELECT ${labelFields.join()},${valueField} FROM ${linkTable}`;
+                let filter = '';
+                if (field.linkOptions?.filters == 'empty') {
+                    field.options = [];
+                    continue;
+                }
+                const linkDoc = await mysqlConn.query(sql);
+                const options = [];
+                for (const doc of linkDoc) {
+                    let label = field.linkOptions?.format;
+                    if (!label) {
+                        label = labelFields.map(f => doc[f]).join("-");
+                    } else {
+                        for (let f of labelFields) {
+                            label = label.replaceAll(`{{${f}}}`, doc[f]);
+                        }
+                    }
+                    options.push({
+                        value: doc[valueField],
+                        label: label || doc[valueField]
+                    })
+                }
+                field.options = options;
+            }
+            return docType;
         } catch (error) {
             logger.error('Error loading document type:', error);
             throw new ServiceException(`Error loading document type [${tableName}]`);
         }
     }
+
 }

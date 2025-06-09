@@ -68,9 +68,9 @@ export class ApiUserController {
         const mysqlConn: ConnectionAction = await connectionPool();
         mysqlConn.beginTransaction();
         try {
-            await this.userService.refreshToken(req.authUser);
+            const newToken=await this.userService.refreshToken(req.authUser);
             mysqlConn.commit();
-            res.status(200).json();
+            res.status(200).json(newToken);
         } catch (error) {
             mysqlConn.rollback();
             next(error);
@@ -149,7 +149,7 @@ export class ApiUserController {
             req.params['byField'] = 'id'
             req.params['byValue'] = req.authUser?.id
             const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_ONE);
-            const data = await this.documentService.getDocument(params, mysqlConn);
+            const data = await this.documentService.getSingleDocument(params, mysqlConn);
             mysqlConn.commit();
             res.status(200).json(data);
         } catch (error) {
@@ -168,7 +168,7 @@ export class ApiUserController {
             req.params['byField'] = 'id'
             req.params['byValue'] = req.authUser?.id
             const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.UPDATE);
-            const data = await this.documentService.update(params, mysqlConn);
+            const data = await this.documentService.updateDocument(params, mysqlConn);
             mysqlConn.commit();
             res.status(200).json(data);
         } catch (error) {

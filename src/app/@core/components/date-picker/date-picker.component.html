@@ -1,0 +1,7 @@
+<div style="width: 230px;">
+    <ngb-datepicker [(ngModel)]="selectedDate" (dateSelect)="onDateChange()" /><br />
+    <div class="d-flex justify-content-between">
+        <button (click)="onToday()" class="btn btn-sm btn-link mt-1">{{ _TODAY | mytranslate}}</button>
+        <button (click)="onClear()" class="btn btn-sm btn-link mt-1">{{ _CLEAR | mytranslate}}</button>
+    </div>
+</div>

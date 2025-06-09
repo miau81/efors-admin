@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MyERPField } from '../@interfaces/interface';
-import { MyCoreService } from 'myerp-core';
+import { MyMessageBoxService } from '@myerp/services';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
+
+
 
 
 @Injectable({
@@ -10,18 +14,28 @@ import { MyCoreService } from 'myerp-core';
 export class BaseService {
 
 
-  constructor(private router: Router, private myCoreService: MyCoreService) { }
+  constructor(
+    private router: Router,
+    private myMessageBoxService: MyMessageBoxService,
+    private translateService: TranslateService) { }
 
   async navigateTo(url: string, extras?: NavigationExtras) {
     return await this.router.navigate([url], extras);
   }
+
+  async refreshRoute(url?:string) {
+  const currentUrl = url || this.router.url;
+  await this.router.navigateByUrl('/', { skipLocationChange: true })
+    this.router.navigate([currentUrl]);
+
+}
+
 
   subscribeParam(route: ActivatedRoute, callback: Function) {
     route.paramMap.subscribe(p => {
       const params = {
         ...p.keys.reduce((acc, key) => ({ ...acc, [key]: p.get(key) }), {})
       }
-      console.log(params)
       callback(params)
     })
 
@@ -32,19 +46,32 @@ export class BaseService {
   }
 
   showErrorMessage(error: any) {
-    return this.myCoreService.showAlertMessage({ title: "_ERROR", message: error?.error?.mesage || error.message || error, type: "error" });
+    const errorMessage = error?.error?.message || error.error?.error || error.message || error
+    return this.myMessageBoxService.showAlertMessage({ title: "_ERROR", message: errorMessage, type: "error" });
+  }
+
+  showConfirm(message: string) {
+    return this.myMessageBoxService.showConfirmMessage({ title: "_CONFIRM", message: message });
+  }
+
+  showInputConfirm(message: string, confirmKey: string) {
+    return this.myMessageBoxService.showInputConfirmMessage({ title: "_CONFIRM", message: message, confirmKey: confirmKey });
   }
 
   showWarningMessage(message: string) {
-    return this.myCoreService.showAlertMessage({ title: "_WARNING", message: message, type: "warning" });
+    return this.myMessageBoxService.showAlertMessage({ title: "_WARNING", message: message, type: "warning" });
   }
 
   showSuccessMessage(message: string) {
-    return this.myCoreService.showAlertMessage({ title: "_SUCCESS", message: message, type: "success" });
+    return this.myMessageBoxService.showAlertMessage({ title: "_SUCCESS", message: message, type: "success" });
   }
 
   showSuccessToast(message: string) {
-    return this.myCoreService.showToast({ message: message, color: "success" });
+    return this.myMessageBoxService.showToast({ message: message, color: "success" });
+  }
+
+  async getTranslate(key: string | string[], interpolateParams?: any) {
+    return await firstValueFrom(this.translateService.get(key, interpolateParams));
   }
 
 }

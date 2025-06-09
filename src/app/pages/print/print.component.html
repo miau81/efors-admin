@@ -1,0 +1,35 @@
+@if(this.dialogData){
+<div class="sticky-top bg-secondary-subtle d-flex justify-content-between p-3">
+    <div class="d-flex align-items-center">
+        <h4>{{this.dialogData.documentId }}</h4>
+    </div>
+    <div class="d-flex gap-1">
+        <button class="btn btn-primary" (click)="onPrint()">
+            <i class="bi bi-printer"></i> {{"_PRINT" | translate}}
+        </button>
+    </div>
+</div>
+<!-- <div class="row h-100 flex-grow-1 "> -->
+<div class="row flex-column flex-sm-row flex-grow-1 m-0">
+    <div class="col-12 col-sm-4 col-md-2 m-1 mb-3 m-sm-3">
+        <label class="font-small text-muted ms-2" [for]="selectedFormat">
+            {{"_PRINT_FORMAT" | translate}}
+        </label>
+        <ng-select appendTo="body" [searchable]="true" [clearable]="false" [(ngModel)]="selectedFormat"
+            class="form-control form-control-sm w-auto py-0" (ngModelChange)="loadPrinting()">
+            @for(option of printFormats;track $index){
+            <ng-option [value]="option.code">{{option.label | mytranslate}}</ng-option>
+            }
+        </ng-select>
+    </div>
+    <div class="col d-flex flex-column p-0">
+        <div class=" bg-dark-subtle overflow-y-auto print-bg">
+            <div class="print-paper my-3">
+                <div [innerHTML]="printHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+
+}

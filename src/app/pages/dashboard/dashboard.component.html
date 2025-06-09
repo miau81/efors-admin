@@ -1,5 +1,6 @@
+<!-- <mat-dialog-content> -->
 <pre>dashboard works!123
-    <myerp-form-generator [config]="formConfig"></myerp-form-generator>
+    <myerp-form-generator [config]="formConfig" (onChange)="onChange($event)"></myerp-form-generator>
     wqe
     wqe
     wqe
@@ -34,4 +35,8 @@
         
         
         em>
+        <button (click)="onOpenModal()">Open Modal Itself</button>
 </pre>
+
+<!-- </mat-dialog-content> -->
+

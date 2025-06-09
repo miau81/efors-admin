@@ -7,6 +7,7 @@ import { WorkspaceComponent } from './pages/workspace/workspace.component';
 import { DocumentListComponent } from './pages/document-list/document-list.component';
 import { DocumentComponent } from './pages/document/document.component';
 import { LoginComponent } from './pages/login/login.component';
+import { PrintComponent } from './pages/print/print.component';
 
 export const routes: Routes = [
     {

@@ -1,0 +1,83 @@
+ <h4 class="text-end">INVOICE</h4>
+ <table class="table">
+   <tbody>
+     <tr>
+       <td>
+         <strong>Bill To:</strong><br />
+         <span>{{testData.name}}<br />
+           {{[testData.address1,testData.address2,testData.address3].join(", ")}}<br />
+           {{[`${testData.postcode} ${testData.city}`,testData.state].join(", ")}}<br />
+           {{[`${testData.tinNo} ${testData.email}`,testData.contactNo].join(" | ")}}
+         </span>
+       </td>
+       <td class="place-right">
+         <table>
+           <tr>
+             <th class="text-right">Invoice No:</th>
+             <td class="py-1"><%= inv.ID%></td>
+           </tr>
+           <tr>
+             <th class="text-right">Invoice Date: </th>
+             <td class="py-1"><%= invoiceDate%></td>
+           </tr>
+           <tr>
+             <th class="text-right">Currency Code: </th>
+             <td class="py-1">MYR</td>
+           </tr>
+           <tr>
+             <th class="text-right">Einvoice Document UID: </th>
+             <td class="py-1"><%=doc.uuid%></td>
+           </tr>
+         </table>
+       </td>
+     </tr>
+   </tbody>
+ </table>
+ <br />
+ <table class="table">
+   <thead>
+     <tr class="table-header">
+       <th>No</th>
+       <th>Description</th>
+       <th>Qty</th>
+       <th>Unit Price</th>
+       <th>Amount</th>
+     </tr>
+   </thead>
+   <tbody>
+
+   </tbody>
+   <tfoot>
+     <tr>
+       <th colspan="4" class="text-right">Subtotal:</th>
+       <td class="py-1"><%= inv.ID%></td>
+     </tr>
+     <tr>
+       <th colspan="4" class="text-right">Total Taxes:</th>
+       <td class="py-1"><%= inv.ID%></td>
+     </tr>
+     <tr>
+       <th colspan="4" class="text-right">Total Discounts:</th>
+       <td class="py-1"><%= inv.ID%></td>
+     </tr>
+     <tr>
+       <th colspan="4" class="text-right">Rounding Amount:</th>
+       <td class="py-1"><%= inv.ID%></td>
+     </tr>
+     <tr>
+       <th colspan="4" class="text-right">Grans Total:</th>
+       <td class="py-1"><%= inv.ID%></td>
+     </tr>
+   </tfoot>
+ </table>
+
+ <% if(validationQR) { %>
+ LHDN Submission Type: E-Invoice <br />
+ Validatation Datetime: <%= validateDateTime %><br />
+ LHDN Validatation: <br />
+ <img src="<%= validationQR %>" alt="Validation QR Code" style="width: 100px; height: 100px;" />
+ <% } %>
+ <% if(isSandBox) { %>
+ <h1> SANDBOX </h1>
+ <% } %>
+

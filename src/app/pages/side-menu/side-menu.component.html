@@ -1,22 +1,22 @@
 @for (group of moduleGroups;track group.label){
 <div class=" mt-2">
     @if( group.isSingle){
-    <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
-    </ng-container>
+    <ng-template [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
+    </ng-template>
     }
     @if(group.children && group.children.length>0){
 
     <div class="d-flex pe-3 justify-content-between pointer group-name" (click)="group.isCollapse=!group.isCollapse">
-        <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
-        </ng-container>
+        <ng-template [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:group}">
+        </ng-template>
         <!-- <button class="btn btn-icon text-white-50" > -->
         <i class="bi bi-caret-{{group.isCollapse?'down':'up'}} align-items-baseline"></i>
         <!-- </button> -->
     </div>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="group.isCollapse!" class="px-3">
         @for(module of group.children;track module.id){
-        <ng-container [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:module}">
-        </ng-container>
+        <ng-template [ngTemplateOutlet]="moduleTemp" [ngTemplateOutletContext]="{module:module}">
+        </ng-template>
 
         }
     </div>

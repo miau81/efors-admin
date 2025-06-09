@@ -4,6 +4,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { BaseService } from './base.service';
 import { User } from '../@interfaces/document.interfaces';
+import { MyMessageBoxResponse } from '@myerp/services';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +20,14 @@ export class AuthService {
     private baseService: BaseService,
     private api: ApiService
   ) { }
+  
 
   async logout(silent: boolean = true) {
     if (!silent) {
-      // const res = await this.baseService.showMessageBox({ message: "_CONFIRM_LOGOUT", title: "_LOGOUT", button: "YesNo", type: "question" });
-      // if (res == "NO") {
-      //   return
-      // }
+      const res = await this.baseService.showConfirm("_CONFIRM_LOGOUT");
+      if (res != MyMessageBoxResponse.confirm) {
+        return
+      }
     }
     this.storageService.clearAll();
     // this.baseService.user = undefined;
@@ -38,7 +41,7 @@ export class AuthService {
     try {
       const res: any = await this.api.login(body);
       this.storageService.set(StorageKey.TOKEN, res.token);
-      this.storageService.set(StorageKey.REFRESH_TOKEN, res.token);
+      this.storageService.set(StorageKey.REFRESH_TOKEN, res.refreshToken);
       this.storageService.set(StorageKey.USER, res.user);
       this.baseService.navigateTo('', { replaceUrl: true });
 
@@ -73,11 +76,11 @@ export class AuthService {
   }
 
   getSelectedSysAcct() {
-    return this.storageService.get<string>(StorageKey.REFRESH_TOKEN);
+    return this.storageService.get<string>(StorageKey.SELECTED_SYS_ACCT);
   }
 
   getSelectedCompany() {
-    return this.storageService.get<string>(StorageKey.REFRESH_TOKEN);
+    return this.storageService.get<string>(StorageKey.SELECTED_COMPANY);
   }
 
   async getNewTokens() {

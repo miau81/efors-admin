@@ -40,7 +40,9 @@ export enum ApiRequestMethod {
     CHECK_EXISTS = "CHECK_EXISTS",
     CREATE = "CREATE",
     UPDATE = "UPDATE",
-    DELETE = "DELETE"
+    DELETE = "DELETE",
+    POST="POST",
+    GET="GET"
 
 }
 

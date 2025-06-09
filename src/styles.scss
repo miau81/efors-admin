@@ -3,6 +3,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @import "./styles/templates.scss";
+@import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
 
 
 
@@ -113,8 +114,8 @@ body {
 
 .page-container{
   background-color: white; 
-  width: 100%; 
-  min-height: 100%
+  width: 100% !important; 
+  min-height: 100% !important;
 }
 
 .table-fixed-layout{
@@ -125,3 +126,6 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
+.sticky-top{
+  z-index: 900!important;
+}

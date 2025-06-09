@@ -1,17 +1,26 @@
 
 import { ApiRequestMethod, AuthURL,  OperatorEnum, OrderBy } from "./api.enum"
-import { Express } from 'express';
-import { Multer } from 'multer';
 export interface ApiParam{
     user:any;
     language?:string;
     tableName: string;
-    byField?: string;
-    byValue?: any;
-    selectFields?:string[];
-    excludeFields?: string[];
     sys?:string;
     com?:string;
+    method: ApiRequestMethod;
+    authURL?: AuthURL;
+    queryParam?:any;
+    params?:any;
+    body?:any;
+   
+}
+
+export interface ApiSaveParam extends ApiParam{
+    files?:Express.Multer.File[];
+}
+
+export interface ApiGetParam extends ApiParam{
+    selectFields?:string[];
+    excludeFields?: string[];
     pagination?: {
         start: number;
         limit: number;
@@ -26,13 +35,8 @@ export interface ApiParam{
     };
     filters?: Filter[];
     customWhereQuery?: string;
-    requestBody?:any;
-    method: ApiRequestMethod;
-    authURL?: AuthURL;
     getChild?:boolean;
     getParent?:boolean;
-    queryParam?:any;
-    files?:Express.Multer.File[];
 }
 
 export interface Filter {

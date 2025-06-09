@@ -1,0 +1,144 @@
+.file-button {
+  height: 80px;
+  width: 80px;
+  margin-top: 5px;
+  max-height: 80px;
+  position: relative;
+  border-radius: 10px;
+  border: solid 1px black;
+  box-shadow: 0 0 2px 2px #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.multifile-container {
+  max-width: 80%;
+  overflow-x: auto
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.thumbnail-size {
+  width: 70px;
+  height: 70px;
+  max-height: 70px;
+  max-width: 70px;
+}
+
+.fa-trash {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 16px;
+}
+
+label {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+ng-select.bootstrap>div.disabled {
+  color: rgb(43, 43, 43) !important;
+}
+
+mat-expansion-panel {
+  border-radius: 0px !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+mat-expansion-panel-body {
+  padding: 0 !important
+}
+
+mat-expansion-panel-header {
+  height: 30px !important;
+  padding: 5px 12px !important;
+}
+
+// ::ng-deep .ng-select .ng-select-container {
+//   min-height: auto!important;
+//   border: none !important;
+//   box-shadow: none !important;
+//   .ng-value-container{
+//     border: 0;
+//   }
+// }
+
+
+
+::ng-deep .ng-select .ng-select-container {
+  min-height: auto !important;
+  margin-top: -10px;
+  min-height: 42px !important;
+  max-height: 42px !important;
+
+  .ng-value-container {
+    border: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+}
+
+
+
+
+::ng-deep .ng-select.ng-select-focused .ng-select-container,
+.ng-select .ng-select-container:after {
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+}
+
+::ng-deep .ng-select .ng-select-container:after {
+  display: none !important;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper {
+  position: static !important;
+  transform: translateY(-40%); // center it vertically
+}
+
+::ng-deep .ng-select .ng-clear-wrapper {
+  position: static !important;
+  transform: translateY(-30%); // center it vertically
+}
+
+::ng-deep .ng-select .ng-input {
+  padding-left: 10px;
+}
+
+.table-header {
+  padding: 5px;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.table-checkbox {
+  width: 30px;
+  text-align: center;
+}
+
+.table-header:last-child {
+  border: none;
+}
+
+td,
+th {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.table{
+  min-width: 101%;
+}

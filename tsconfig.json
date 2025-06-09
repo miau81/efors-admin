@@ -18,7 +18,14 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "myerp-core": ["../myerp-lib/dist/myerp-core"]
+      // "myerp-core": ["../myerp-lib/dist/myerp-core"],
+      // "@myerp/core": ["./src/app/@core/index.ts"],
+      "@myerp/components": ["./src/app/@core/components/index.ts"],
+      "@myerp/pipes": ["./src/app/@core/pipes/index.ts"],
+      "@myerp/utils/*": ["./src/app/@core/utils/*"],
+      "@myerp/interfaces/*": ["./src/app/@interfaces/*"],
+      "@myerp/services": ["./src/app/@core/services/index.ts"],
+
     }
   },
   "angularCompilerOptions": {

@@ -1,0 +1,155 @@
+@if(component){
+<div class="table-responsive table-container ">
+  <label class="font-small text-muted ms-2" [for]="component.key">
+    {{ component.label | mytranslate}}
+  </label>
+  <!-- <table class="table table-sm table-fixed-layout table-bordered  m-0" [ngClass]="{'table-hover':data.length>0}"> -->
+  <table class="table table-sm table-fixed-layout table-bordered m-0">
+    <thead>
+      <tr>
+        <th class="table-checkbox bg-light" style="width: 30px;"><input type="checkbox" (ngModelChange)="onCheckAll($event)" />
+        </th>
+        @for(column of component.tableConfig?.displayColumns; track column.key){
+        <th class="table-header bg-light position-relative ">
+          <label>{{column.required?'*':''}} {{ column.label | mytranslate }}</label>
+        </th>
+        }
+        <th class="bg-light" style="width: 95px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (rows.length>0){
+      @for(row of rows; track rowIndex ;let rowIndex = $index){
+      <tr>
+        <td class="table-checkbox"><input type="checkbox" [(ngModel)]="row.isCheck" /></td>
+        @for(column of row.cols; track colIndex; let colIndex=$index){
+        <td>
+          <ng-template [ngTemplateOutlet]="tempFormComponent"
+            [ngTemplateOutletContext]="{component:column.component,value:component.value,index:rowIndex}"></ng-template>
+        </td>
+        }
+        <td>
+          <button class="btn btn-icon" (click)="onModalForm(rowIndex)"><i class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-icon" (click)="onRemoveRow(rowIndex)"><i class="bi bi-trash3 text-danger"></i></button>
+        </td>
+      </tr>
+      }
+      } @else {
+      <tr>
+        <td [colSpan]=" (component.tableConfig?.displayColumns || []).length +2" class="text-center">
+          <label class="text-muted fst-italic"> {{"_NO_DATA" | translate}}</label>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<div class="d-flex">
+  <div class="font-small btn nav nav-link p-1" (click)="onAddRow(true)">
+    <i class="bi bi-plus-circle me-1"></i>{{"_ADD_NEW" | translate}}
+  </div>
+</div>
+}
+
+<ng-template let-component="component" let-value="value" let-index="index" #tempFormComponent>
+
+  @switch (component?.type) {
+  @case(multiNgSwitchCase(['text', 'email','tel','password'],
+  component.type)?component.type:''){
+  <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
+    [required]="component.required || false" placeholder="{{component.placeholder || '' | mytranslate}}"
+    [minlength]="component.inputConfig?.minlength || 0" [maxlength]="component.inputConfig?.maxlength || 999999999"
+    (keyup)="onKeyUp(component,$event,index)" (ngModelChange)="onChange(component,index)">
+
+  } @case('number'){
+  <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
+    [required]="component.required || false" placeholder="{{component.placeholder || '' | mytranslate}}"
+    [min]="component.numberConfig?.min || -999999999" [max]="component.numberConfig?.max || 999999999"
+    [step]="component.numberConfig?.step || 1" (ngModelChange)="onChange(component,index)"
+    (keyup)="onKeyUp(component,$event,index)">
+
+  } @case('image'){
+  <div class="card shadow-sm rounded pointer position-relative"
+    [ngStyle]="{'width':(component.imageConfig?.width || 100)+'px','height':(component.imageConfig?.height || 100)+'px'}">
+    <i class="bi bi-trash position-absolute remove-image shadow text-light" (click)="onRemoveImage(component,index)"
+      *ngIf="component.value"></i>
+    <myerp-media [src]="value[index][component.key]" style="object-fit: cover;height: 100%; width: 100%;"
+      (click)="onImageClick(component,index)" (error)="onImageError($event,component)"></myerp-media>
+    <input hidden="true" type="file" accept="image/*" class="file-input"
+      (ngModelChange)="onFileSelected($event,component,index)" />
+  </div>
+
+  } @case('readOnly'){
+  <input class="form-control form-control-sm bg-body-secondary" type="text" [(ngModel)]="value[index][component.key]"
+    [required]="false" [readOnly]="true" placeholder="{{component.placeholder || '' | mytranslate}}"
+    (ngModelChange)="onChange(component,index)">
+
+  } @case('currency'){
+  <div class="mb-2">
+    <input class="form-control form-control-sm" currencyMask type="text" [(ngModel)]="value[index][component.key]"
+      [id]="component.key" [required]="false" (ngModelChange)="onChange(component,index)"
+      placeholder="{{component.placeholder || '' | mytranslate}}">
+  </div>
+
+  } @case('readOnlyCurrency'){
+  <div class="mb-2">
+    <input class="form-control form-control-sm bg-body-secondary" currencyMask  [(ngModel)]="value[index][component.key]"
+      [id]="component.key" [required]="false" [readOnly]="true" (ngModelChange)="onChange(component,index)"
+      placeholder="{{component.placeholder || '' | mytranslate}}">
+  </div>
+
+  } @case(multiNgSwitchCase(['date', 'time','datetime-local'], component.type)?component.type:''){
+  <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
+    [required]="component.required || false" [disabled]="component.disabled || false"
+    (ngModelChange)="onChange(component,index)">
+
+  } @case('checkbox'){
+  <div class="form-check align-items-center d-flex mb-0">
+    <input class="form-check-input mt-0" type="checkbox" [(ngModel)]="value[index][component.key]"
+      [required]="component.required || false" [disabled]="component.disabled || false"
+      placeholder="{{component.placeholder || '' | mytranslate}}" (ngModelChange)="onChange(component,index)">
+    <label class="font-small text-muted ms-2" [for]="component.key">
+      {{ component.label | mytranslate}}
+    </label>
+  </div>
+
+  } @case('select'){
+  <div class="input-group">
+    <ng-select appendTo="body" [searchable]="true" [clearable]="true" [(ngModel)]="value[index][component.key]"
+      class="form-control form-control-sm py-0" (ngModelChange)="onChange(component,index)">
+      @if(component.selectConfig?.canAddNew){
+      <ng-option [value]="">{{"_ADD_NEW" | mytranslate}}</ng-option>
+      }
+      @for(option of component.options;track $index){
+      <ng-option [value]="option.value">{{option.label | mytranslate}}</ng-option>
+      }
+    </ng-select>
+    @if(component.selectConfig?.canView){
+
+    @if(component.selectConfig?.canEdit){
+    <div class="btn btn-sm btn-light" (click)="onViewDocumentClick({component:component,canEdit:true})">
+      <i class="bi bi-link"></i>
+    </div>
+    }@else{
+    <div class="btn btn-sm btn-light" (click)="onViewDocumentClick({component:component})"><i class="bi bi-link"></i>
+    </div>
+    }
+    }
+  </div>
+
+  } @case('textarea'){
+  <textarea class="form-control form-control-sm" [(ngModel)]="value[index][component.key]"
+    [required]="component.required || false" [disabled]="component.disabled || false"
+    placeholder="{{component.placeholder || '' | mytranslate}}" [rows]="component.textareaConfig?.rows || 5"
+    (ngModelChange)="onChange(component,index)" (keyup)="onKeyUp(component,$event,index)"></textarea>
+
+  } @case('datePicker'){
+  <div class="my-2">
+    <myerp-datepicker [selectedDate]="component.value"
+      (onChange)="onDatePickerChange(component,$event,index)"></myerp-datepicker>
+    <input hidden [(ngModel)]="value[index][component.key]" />
+  </div>
+  }
+
+  }
+</ng-template>

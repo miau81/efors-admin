@@ -6,15 +6,9 @@ import { logger } from '../utils/logger';
 import { appConfigs } from '../configs/api.config';
 
 
-//----------------MYSQL----------------------
-const db: mysql.Connection | null = null
-// var pool: mysql.Connection | null = null;
-// var pingInterval: NodeJS.Timeout;
-const config = appConfigs.dbConfig
-export const dbName = config.database
 
-export const connection = connectionPool();
-export default db;
+const config = appConfigs.dbConfig
+export const dbName = "myerpdb_ezeinvoice"
 
 let pool: Pool;
 
@@ -38,7 +32,7 @@ function initializePool() {
 }
 
 
-export function connectionPool() {
+export function connectionPool(): Promise<ConnectionAction> {
     if (!pool) {
         logger.info(`Initializing mysql pool...`);
         initializePool();
@@ -50,6 +44,7 @@ export function connectionPool() {
             if (error) {
                 logger.error("Mysql initialize is failed!", error);
                 reject(error);
+                return;
             }
             logger.info("MySQL pool is connected! ThreadId:" + connection.threadId);
 
@@ -93,7 +88,7 @@ export function connectionPool() {
             }
 
             const rollback = () => {
-                logger.info("MySQL pool is roll back! ThreadId: " + connection.threadId);
+                logger.info("MySQL pool is rolled back! ThreadId: " + connection.threadId);
                 connection.rollback();
             }
 

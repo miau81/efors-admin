@@ -12,16 +12,16 @@
         </div>
         <div class="title d-none d-sm-flex"><a class="nav-link" routerLink="/">{{appName}}</a></div>
         <div class="buttons-end">
-            <button ngbDropdownToggle class="btn btn-icon">
+            <!-- <button ngbDropdownToggle class="btn btn-icon">
                 <i class="bi bi-translate  font-x-large"></i>
-            </button>
+            </button> -->
             <div ngbDropdown>
                 <button ngbDropdownToggle class="btn btn-icon">
                     <i class="bi bi-person-circle font-x-large"></i>
                 </button>
                 <ul ngbDropdownMenu>
                     <li>
-                        <a ngbDropdownItem routerLink="/account">{{"_MY_ACCOUNT" | translate}}</a>
+                        <a ngbDropdownItem [routerLink]="accountLink">{{"_MY_ACCOUNT" | translate}}</a>
                     </li>
                     <li>
                         <a ngbDropdownItem (click)="onLogout()" class="pointer">{{"_LOGOUT" | translate}}</a>

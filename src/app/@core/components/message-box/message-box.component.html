@@ -1,0 +1,59 @@
+<div class="dialog">
+  @if(option.title){
+  <div class="bg-{{color}} title text-light">
+    <h5>{{option.title | translate}}</h5>
+  </div>
+  }
+  <mat-dialog-content class="dialog-content">
+    <div class="row p-3">
+      @if(option.type=='loading'){
+      <div class="spinner-border text-primary col-2  d-flex align-items-center" role="status">
+      </div>
+      <div class="col  d-flex align-items-center font-large">
+        {{translateJson('_LOADING') | mytranslate }}
+      </div>
+      }@else {
+      @if(icon){
+      <div class="col-2">
+        <i class="bi bi-{{icon}} text-{{color}} font-xx-large"></i>
+      </div>
+      }
+      <div class="col"  innerHTML="{{option.message  | mytranslate}}">
+      </div>
+      }
+
+    </div>
+  </mat-dialog-content>
+
+  @if(option.button){
+  <mat-dialog-actions [align]="'center'">
+    @switch (option.button) {
+    @case ('OkOnly') {
+    <button class="btn btn-outline-{{color}}" (click)="onClick(1)">{{translateJson('_OK') | mytranslate }}</button>
+    }
+    @case ('YesNo') {
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(1)">{{translateJson('_YES') | mytranslate
+      }}</button>
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(2)">{{translateJson('_NO') | mytranslate
+      }}</button>
+    }
+    @case ('YesNoCancel') {
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(1)">{{translateJson('_YES') | mytranslate
+      }}</button>
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(2)">{{translateJson('_NO') | mytranslate
+      }}</button>
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(3)">{{translateJson('_CANCEL' )| mytranslate
+      }}</button>
+    }
+    }
+
+  </mat-dialog-actions>
+  }
+
+  @if(option.confirmKey){
+  <div class="input-group p-3">
+    <input class="form-control" [(ngModel)]="confirmInput" (keyup)="onConfirmInputKeyUp($event)" />
+    <button class="btn btn-primary" (click)=" onConfirmKeyCheck()" [disabled]="confirmInput!=option.confirmKey">{{"_CONFIRM" | translate}}</button>
+  </div>
+  }
+</div>

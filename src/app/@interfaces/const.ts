@@ -7,8 +7,8 @@ export const APP_PARAMS = {
 }
 
 export const myErpFields: MyERPField[] = [
-    { id: "id", type: "text", label:'{"en":"ID"}',formComponentType:"readOnly" , isPrimaryKey:true},
-    { id: "createdDate", type: "datetime", isHidden: true, label:'{"en":"Created Date"}', hideInForm:true },
+    { id: "id", type: "text", label:'{"en":"ID"}', isHidden: true, isReadOnly:true , isPrimaryKey:true},
+    { id: "createdDate", type: "datetime", isHidden: true, label:'{"en":"Created Date"}' },
     { id: "createdBy", type: "text", isHidden: true , label:'{"en":"Created By"}'},
     { id: "modifiedDate", type: "datetime", isHidden: true , label:'{"en":"Modified By"}'},
     { id: "lastModifiedBy", type: "text", isHidden: true , label:'{"en":"Last Modified Date"}'},

@@ -3,8 +3,8 @@ import { dbName } from "../databases";
 import { BadRequestException } from "../exceptions/BadRequestException";
 import { UnauthorizedException } from "../exceptions/UnauthorizedException";
 import { ConnectionAction } from "../interfaces/api.db.interface";
-import { EntityService } from "./entity.service";
 import { JWTService } from "./jwt.service";
+import { ApiGlobalService } from "./api.global.service";
 
 
 const db = dbName;
@@ -13,7 +13,7 @@ export class ApiUserService {
     // private convertUtil = new ConvertUtil();
     // private miscUtil = new MiscUtil();
     private jwtService = new JWTService();
-    private entityService = new EntityService();
+    private globalService = new ApiGlobalService();
     // private globalService = new GlobalService();
     // private emailService = new EmailService();
     // private fileService = new FileService();
@@ -118,8 +118,7 @@ export class ApiUserService {
         }
         if (await this.jwtService.comparePassword(body.currentPassword, user.password)) {
             let newPassword = await this.jwtService.hashPassword(body.newPassword);
-            await this.entityService.save("user", { password: newPassword, id: user.id }, mysqlConn);
-            // await this.entityService.update("user", `password='${newPassword}'`, `WHERE id=${user.id}`, mysqlConn);
+            await this.globalService.sqlUpdate("user", { password: newPassword, id: user.id },`WHERE id=${user.id}`, mysqlConn);
         } else {
             throw new BadRequestException("Current password not match.", "INCORRECT_CURRENT_PASSWORD");
         }

@@ -1,0 +1,8 @@
+// @import "../../../assets/scss/variables";
+::ng-deep [ngbDatepickerDayView]{
+    color:black!important;
+  }
+  ::ng-deep [ngbDatepickerDayView].active{
+    color: white!important;
+    background-color: #ff00ff ; //$primary!important;
+  }

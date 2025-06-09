@@ -10,7 +10,7 @@ export class ApiPermissionController {
 
     public authorizeCheck = async (req: SRequest, res: Response, next: NextFunction) => {
         try {
-            // await this.permissionService.authorizeCheck(req);
+            await this.permissionService.authorizeCheck(req);
             next();
         } catch (error) {
             next(error);

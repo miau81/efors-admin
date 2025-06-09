@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MiscService {
-  constructor() {}
+  constructor() { }
 
   getFullUrl(url: string): string {
     if (!url || url.startsWith('./assets')) {
@@ -28,6 +29,8 @@ export class MiscService {
       }
     });
   }
+
+ 
 
   // export function getFullAddress(address: Address) {
   //     const add = [address.address, address.postcode, address.city, address.state, address.country];
@@ -65,5 +68,5 @@ export class MiscService {
   isClassOf<T>(obj: any, keyToCheck: string): obj is T {
     return obj && typeof obj == 'object' && keyToCheck in obj;
   }
-  
+
 }

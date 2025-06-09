@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MyFormGenerator, MyFormGeneratorConfig, MyMedia } from 'myerp-core';
-// import {MyMedia} from '../../../../../myerp-lib/dist/myerp-comconents';
-// import {MyMedia} from 'myerp-comconents';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {  MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
+
 
 @Component({
     selector: 'app-dashboard',
-    imports: [MyFormGenerator],
+    imports: [MyFormGenerator, MatDialogModule],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
     formConfig!: MyFormGeneratorConfig
-    constructor() {
+    
+    constructor(private dialog: MatDialog) {
 
     }
     ngOnInit() {
@@ -23,12 +24,12 @@ export class DashboardComponent {
         let form!: FormGroup;
         const config: MyFormGeneratorConfig = {
             form: form,
-            tabs:[{
-                key:'',
-                label:"",
-                sections:[{
-                    key:'',
-                    label:'s',
+            tabs: [{
+                key: '',
+                label: "",
+                sections: [{
+                    key: '',
+                    label: 's',
                     components: [
                         {
                             key: 'email',
@@ -44,15 +45,30 @@ export class DashboardComponent {
                             sortOrder: 2,
                             type: 'password',
                             passwordConfig: {
-                            showHide: true,
-                            showPassword: false,
+                                showHide: true,
+                                showPassword: false,
                             },
                         },
-                        ],
+                    ],
                 }]
             }]
         };
         return config;
+    }
+
+    onChange(e:any){
+        console.log("onChange", e);
+    }
+
+    onOpenModal() {
+        const dialogRef = this.dialog.open(DashboardComponent, {
+            data: {abc:"abc"},
+            maxWidth: "90vw",
+            maxHeight: "90vh",
+            minHeight: "90vh",
+            minWidth: "90vW"
+
+        });
     }
 
 }
