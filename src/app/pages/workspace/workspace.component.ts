@@ -31,8 +31,10 @@ export class WorkspaceComponent {
 
 
   async loadWorkSpaceNav(id: string) {
-    this.workspaceNav = await this.api.getConfig('workspace-nav', id);
+    const res: any = await this.api.getConfig('workspace-nav', id);
+    this.workspaceNav = res.config;
+    this.title = res.title;
   }
 
- 
+
 }

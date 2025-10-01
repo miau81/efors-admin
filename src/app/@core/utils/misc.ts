@@ -10,9 +10,11 @@ export function toReadableDateString(date: Date | string | undefined, type: "dat
         return date;
     }
     try {
+                console.log(date)
         if (typeof date == "string") {
             date = new Date(date);
         }
+        console.log(date)
         let format: string;
         switch (type) {
             case "date":
@@ -44,4 +46,17 @@ export function getTranslateJSON(key: string) {
         _LOADING: { en: 'Loading...', zh: '努力加载中...', zht: '努力加載中...', ms: 'Sedang dimuat...' },
     }
     return JSON.stringify(translate[key]);
+}
+
+export function isMobile() {
+    const ua = navigator.userAgent;
+    
+    // Basic mobile detection
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    return isMobile;
+
+}
+
+export function isDesktop() {
+    return !isMobile();
 }

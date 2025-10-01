@@ -4,11 +4,10 @@ import { AuthURL } from "../interfaces/api.enum";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 
-import Database, { dbName } from "./api.database-service";
 import { JWTService } from "./jwt.service";
 import { GetDataOption } from "../interfaces/api.entity.interface";
 import { ApiGlobalService } from "./api.global.service";
-import { connectionPool } from "../databases";
+import { ConnectionPool, dbName } from "../databases";
 
 
 const db = dbName;
@@ -19,7 +18,7 @@ export class ApiPermissionService {
 
 
     async authorizeCheck(req: SRequest) {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         try {
             //Check API Token
             const apiToken = req.headers['api-token'] || '';

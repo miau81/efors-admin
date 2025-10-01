@@ -1,8 +1,8 @@
 export const appConfigs = {
     dbConfig: {
         host: "localhost",
-        user: "root",
-        password: "abc12345",
+        user: "myerpdb",
+        password: "myerpdb",
         database: "myerpdb_ezeinvoice",
         charset: "utf8mb4",
         pool: {

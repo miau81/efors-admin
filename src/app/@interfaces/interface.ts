@@ -59,14 +59,26 @@ export interface MyERPDocType {
   isChildTable?: boolean;
   parentDocType?: string;
   defaultSorting?: string;
-  defaultSortBy?: "asc" | "desc"
+  defaultSortBy?: "ASC" | "DESC"
   submitTable?: boolean;
   namingType: MyERPDocNamingType
   namingFormat?: string;
   searchFields?: string[];
   printScript?: "SERVER" | "CLIENT";
-  printFormats?:MyERPPrintFormat[];
+  printFormats?: MyERPPrintFormat[];
   actionButtons?: { code: string, label: string, script?: "SERVER" | "CLIENT" }[];
+  tabs?: MyERPFieldGroup[];
+  sections?:MyERPFieldGroup[];
+}
+
+export interface MyERPFieldGroup {
+  id: string;
+  parent?: string;
+  isHidden?: boolean;
+  label: string;
+  sorting?: number;
+  sectionExpanded?:boolean;
+
 }
 
 export interface MyERPField {
@@ -83,7 +95,7 @@ export interface MyERPField {
   options?: any;
   callServerScript?: boolean;
   callClientScript?: boolean;
-  linkOptions?: { isDoc?:boolean, valueField: string, labelField: string, format?: string, customSql?: string, filters?: string }
+  linkOptions?: { isDoc?: boolean, valueField: string, labelField: string, format?: string, customSql?: string, filters?: string[] }
 
   mandatory?: boolean;
   isUnique?: boolean;
@@ -121,13 +133,20 @@ export interface MyERPPrintFormat {
   fileName: string;
   label: string;
   code: string;
-  isDefault?:boolean;
+  isDefault?: boolean;
+}
+
+export interface MyErpSortAndPagination {
+  page: number;
+  limit: number;
+  sortField?: string;
+  sortBy?: "ASC" | "DESC";
 }
 
 export type MyERPDocNamingType = "random" | "sequence" | "date-sequence" | "byField"
 
 export type MyErpFieldType =
-  "text" | "currency" | "number" | "date" | "time" | "datetime"
+  "text" | "currency" | "number" | "date" | "time" | "datetime" | "textarea"
   | "boolean" | "link" | "table" | "section" | "tab" | "dropdown" | "breakline"
 
 export type FormComponentType = "text" | "password" | "email" | "number" | "tel" | "select" | "date" | "time"

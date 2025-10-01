@@ -1,0 +1,159 @@
+<% 
+const itemPerPage=23;
+
+const totalItems= items.length;
+let totalPage;
+    totalPage = Math.floor(totalItems / itemPerPage);
+    if (totalItems % itemPerPage > 0 || totalPage==0) {
+      totalPage = totalPage + 1
+    }
+let supplier = supplierObj;
+let addressArr = [supplier.address1, supplier.address2, supplier.address3, `${supplier.postcode || ''} ${supplier.city || ''}`, supplier.state].filter(a => a);
+let supplierAddress = addressArr.join(",<br> ");%>
+<div class="font-medium print-format">
+  <% for(let page=1;page<=totalPage;page++) {
+    const breakPage= page>1?'break-page':'';
+    %>
+
+  <div id="page<%= page %>" class="<%= breakPage %>">
+    <%- letterHead.html %>
+    <div class="row">
+      <div class="col-8">
+        <div class="h6"> <%= supplier.id %> </div>
+        <%- supplierAddress %>
+      </div>
+      <div class="col-4">
+        <div class="h5">PURCHASE INVOICE</div> No.: <%= id %>
+        <br /> Date: <%= postingDate %>
+        <br /> Page : <%= page %> of <%= totalPage %>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-borderless table-fixed-layout font-small">
+        <thead>
+          <tr class="border-top border-bottom border-black">
+            <th class="table-col-5 px-0">No</th>
+            <th class="px-0">Description</th>
+            <th class="table-col-10 text-center px-0">Qty</th>
+            <th class="table-col-10 text-center px-0">UOM</th>
+            <th class="table-col-20 text-end px-0">U.Price(RM)</th>
+            <th class="table-col-20 text-end px-0">Amount(RM)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%
+        const startIdx=((page-1) * itemPerPage)  ;
+        const remainingIdx=totalItems-startIdx;
+        const endIdx=(remainingIdx < itemPerPage?remainingIdx:itemPerPage) + startIdx;
+        for(let index=startIdx;index<itemPerPage+ startIdx;index++){
+        const item = items?.[index]; 
+         if(item){
+        %>
+          <tr class="<% if (index % itemPerPage == 0) { %>break-page<% } %>">
+            <td class="p-0"> <%= index+1 %> </td>
+            <td class="p-0"> <%= item.name %> </td>
+            <td class="text-center p-0"> <%= item.quantity %> </td>
+            <td class="text-center p-0"> <%= item.uom %> </td>
+            <td class="text-end p-0"> <%= item.unitPrice %> </td>
+            <td class="text-end p-0"> <%= item.amount %> </td>
+          </tr>
+          <% }else{ %>
+          <tr>
+            <td class=" p-0 invisible"> <%= index+1 %></td>
+          </tr>
+          <% } }%>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="footer">
+      <hr class="border-black">
+      <% if(page<totalPage){ %>
+      <table class="table table-borderless table-fixed-layout font-small">
+        <tr>
+          <td colspan="100%" class="text-end h6  p-0"> Continue to next page ....</td>
+        </tr>
+      </table>
+      <%}else{ %>
+
+      <table class="table table-borderless table-fixed-layout font-small">
+        <tr>
+          <td rowspan="100%" class="p-0"><%= grandTotalInText %></td>
+          <td class="table-col-25 text-end p-0">Subtotal:</td>
+          <td class="table-col-20 text-end p-0"> <%= subtotal %> </td>
+        </tr>
+        <% for(let tax of taxes){ %>
+        <tr>
+          <td class="text-end p-0"><%= tax.name %>:</td>
+          <td class="table-col-20 text-end  p-0"> <%= tax.amount %> </td>
+        </tr>
+        <% } %>
+        <% for(let discount of discounts){ %>
+        <tr>
+          <td class="text-end p-0"><%= discount.description %>:</td>
+          <td class="table-col-20 text-end  p-0"> <%= discount.amount %> </td>
+        </tr>
+        <% } %>
+        <% if(roundingAmount !=0) { %>
+        <tr>
+          <td class="text-end p-0">Rounding Amt:</td>
+          <td class="table-col-20 text-end  p-0"> <%= roundingAmount %> </td>
+        </tr>
+        <% } %>
+        <tr>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="text-end p-0 h6">Grand Total:</td>
+          <td class="table-col-20 text-end  p-0 total-border h6"> <%= grandTotal %> </td>
+        </tr>
+      </table>
+      <%} %>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+
+<style>
+
+
+  .table-col-5 {
+    width: 5% !important;
+  }
+
+  .table-col-10 {
+    width: 10% !important;
+  }
+
+  .table-col-15 {
+    width: 15% !important;
+  }
+
+  .table-col-20 {
+    width: 20% !important;
+    ;
+  }
+
+  .table-col-25 {
+    width: 25% !important;
+    ;
+  }
+
+  .total-border {
+    border-top: 1px solid !important;
+    border-bottom: double !important;
+  }
+
+
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm;
+  }
+
+  @media print {
+    .break-page {
+      page-break-before: always;
+    }
+  }
+</style>

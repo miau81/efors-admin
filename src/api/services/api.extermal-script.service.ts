@@ -8,23 +8,23 @@ export class ExternalScriptService {
     readonly printService = new ApiPrintService();
 
     async importDocTypeEventFile(docType: string) {
-        const path = new URL(`../../../api/events/${docType}-event.ts`, import.meta.url).href;
+        const path = new URL(`../../../api/events/${docType}.event.ts`, import.meta.url).href;
         return await import(/* @vite-ignore */ path);
     }
 
     async runEventScript(params: ApiParam, mysqlConn: ConnectionAction) {
         try {
             const body = params.body;
-            const imp = await this.importDocTypeEventFile(params.tableName);
+            const imp = await this.importDocTypeEventFile(params.tableName).catch(err=>console.log(err));
             switch (body.action) {
                 case "onChange":
-                    if (imp.onChange) {
+                    if (imp?.onChange) {
                         return imp.onChange(params, mysqlConn);
                     }
                     break;
                 case "onPrint":
                     let data = params.body.data;
-                    if (imp.onPrint) {
+                    if (imp?.onPrint) {
                         data = imp.onPrint(params, mysqlConn);
                     }
 

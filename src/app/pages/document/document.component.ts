@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
-import { MyFormChildTableColumn, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig, MyFormTab } from '@myerp/components';
+import { MyFormChildTableColumn, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig, MyFormTab, MyFromGroup } from '@myerp/components';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { BaseService } from '../../services/base.service';
@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { toReadableDateString } from '@myerp/utils/misc';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
-import { ChangeScriptResponse, MyERPDocType, MyERPField, MyErpFieldType } from '@myerp/interfaces/interface';
+import { ChangeScriptResponse, MyERPDocType, MyERPField, MyERPFieldGroup, MyErpFieldType } from '@myerp/interfaces/interface';
 import { environment } from '../../../environments/environment';
 import { MyMessageBoxResponse } from '@myerp/services';
 import { myErpFields } from '@myerp/interfaces/const';
@@ -16,6 +16,7 @@ import { MyTranslatePipe } from '@myerp/pipes';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PrintComponent } from '../print/print.component';
+import { read } from 'fs';
 
 @Component({
   selector: 'app-document',
@@ -53,6 +54,7 @@ export class DocumentComponent {
       case 'newForm':
         this.documentType = this.dialogData.docType;
         this.formConfig = this.populateFormConfig(this.documentType);
+        this.formConfig.initValue = this.populateDocument(this.documentType);
         this.title = this.dialogData.title;
         this.documentTypeId = this.dialogData.docType.id;
         break;
@@ -63,20 +65,23 @@ export class DocumentComponent {
         this.isNew = false;
         this.documentType = this.dialogData.docType;
         this.formConfig = this.populateFormConfig(this.documentType);
+        this.formConfig.initValue = this.populateDocument(this.documentType);
         this.title = this.dialogData.title;
         this.documentTypeId = this.dialogData.docType.id;
         break;
       case "tableForm":
+        this.isViewOnly = this.dialogData.viewOnly;
         this.showTitle = false;
         this.documentId = this.dialogData.documentId;
         this.document = this.dialogData.document;
         this.isNew = false;
         this.documentType = this.dialogData.docType;
         this.formConfig = this.populateFormConfig(this.documentType);
+        this.formConfig.initValue = this.populateDocument(this.documentType);
         this.title = this.dialogData.title;
         this.documentTypeId = this.dialogData.docType.id;
-        this.dialogRef?.beforeClosed().pipe(takeUntil(this.destroy$)).subscribe(() => {
-          this.onCloseTableFormDialog()
+        this.dialogRef?.beforeClosed().pipe(takeUntil(this.destroy$)).subscribe((res) => {
+          this.onCloseTableFormDialog(res)
         });
         break
       default:
@@ -89,8 +94,10 @@ export class DocumentComponent {
             this.isViewOnly = this.document.docStatus == 'SUBMIT' || this.document.docStatus == 'CANCELLED';
           }
           await this.getDocumentType();
+          this.formConfig.initValue = this.populateDocument(this.documentType);
 
         })
+
     }
 
 
@@ -100,6 +107,7 @@ export class DocumentComponent {
     this.documentType = await this.api.getDocumentType(this.documentTypeId);
     this.title = this.documentType.label;
     this.formConfig = this.populateFormConfig(this.documentType);
+
   }
 
   populateFormConfig(documentType: MyERPDocType) {
@@ -116,23 +124,29 @@ export class DocumentComponent {
       }
     }
     let form!: FormGroup;
-    const tabsFields: MyERPField[] = this.baseService.sortDocumentFields(documentType.fields.filter(f => f.type == "tab"));
-    const tabs: MyFormTab[] = []
+    // const tabsFields: MyERPField[] = this.baseService.sortDocumentFields(documentType.fields.filter(f => f.type == "tab"));
+    const tabGroups: MyERPFieldGroup[] = this.baseService.sortDocumentFieldGroups(documentType.tabs || []);
+    const formTabs: MyFromGroup[] = [];
 
-    for (const t of tabsFields) {
-      const sections: any = this.getSection(documentType.fields, t.tabId);
-      if (sections.length > 0) {
-        tabs.push({ key: t.id, label: t.label, sections: sections })
-      }
+
+    for (const t of tabGroups) {
+      formTabs.push({ key: t.id, label: t.label })
     }
-    const sections: any = this.getSection(documentType.fields);
-    if (sections) {
-      tabs.unshift({ key: '', label: '', sections: sections })
+
+    const sections: MyERPFieldGroup[] = this.baseService.sortDocumentFieldGroups(documentType.sections || []);
+    const formSections: MyFromGroup[] = [];
+    for (const s of sections) {
+      formSections.push({ key: s.id, label: s.label, parent: s.parent });
     }
+
+    const components: MyFormComponent[] = this.populateFieldsToFormComponents(documentType.fields);
+
     return {
-      tabs: tabs,
+      tabs: formTabs,
+      sections: formSections,
+      components: components,
       form: form,
-      initValue: this.populateDocument(documentType)
+      readOnly: this.isViewOnly
     }
   }
 
@@ -142,6 +156,7 @@ export class DocumentComponent {
     }
     for (const f of documentType.fields) {
       if (f.isReadOnly && (f.type == 'date' || f.type == "time" || f.type == "datetime")) {
+
         this.document[f.id] = toReadableDateString(this.document[f.id], f.type)
       }
     }
@@ -152,22 +167,22 @@ export class DocumentComponent {
     return await this.api.getDocumentByField(documentTypeId, "id", documentId);
   }
 
-  getSection(fields: MyERPField[], tabId?: string) {
-    const sectionFields: MyERPField[] = this.baseService.sortDocumentFields(fields.filter(f => f.type == "section" && f.tabId == tabId));
-    const sections = [];
-    for (let s of sectionFields) {
-      const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => f.sectionId == s.id)));
+  // getSection(fields: MyERPField[], tabId?: string) {
+  //   const sectionFields: MyERPField[] = this.baseService.sortDocumentFields(fields.filter(f => f.type == "section" && f.tabId == tabId));
+  //   const sections = [];
+  //   for (let s of sectionFields) {
+  //     const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => f.sectionId == s.id)));
 
-      if (components.length > 0) {
-        sections.push({ key: s.id, label: s.label, sectionExpanded: s.sectionExpanded, components: components });
-      }
-    }
-    const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => !f.sectionId && f.type != 'tab' && f.type != 'section' && !f.isHidden)));
-    if (components.length > 0) {
-      sections.unshift({ key: '', label: '', components: components });
-    }
-    return sections;
-  }
+  //     if (components.length > 0) {
+  //       sections.push({ key: s.id, label: s.label, sectionExpanded: s.sectionExpanded, components: components });
+  //     }
+  //   }
+  //   const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => !f.sectionId && f.type != 'tab' && f.type != 'section' && !f.isHidden)));
+  //   if (components.length > 0) {
+  //     sections.unshift({ key: '', label: '', components: components });
+  //   }
+  //   return sections;
+  // }
 
   populateFieldsToFormComponents(fields: MyERPField[]) {
     return fields.map(f => {
@@ -179,6 +194,7 @@ export class DocumentComponent {
     const component: MyFormComponent = {
       key: f.id,
       label: f.label,
+      group: f.sectionId,
       col: f.formColumnSize || 'col-12 col-sm-6 col-md-4 col-lg-4',
       required: f.mandatory,
       value: f.defaultValue,
@@ -199,7 +215,8 @@ export class DocumentComponent {
       component['tableConfig'] = {
         columns: this.populateChildTableColumn(f.fieldsDocType?.fields!),
         displayColumns: this.populateChildTableColumn((f.fieldsDocType?.fields || []).filter(f => !f.isHidden && f.showInTable && this.validTypeForTable(f.type))),
-        formConfig: this.populateFormConfig(f.fieldsDocType!)
+        formConfig: this.populateFormConfig(f.fieldsDocType!),
+        readOnly: this.isViewOnly
       }
     }
     return component;
@@ -232,6 +249,7 @@ export class DocumentComponent {
   }
 
   populateFormType(field: MyERPField): MyFormComponentType {
+
     if (field.isHidden || !field.showInForm) {
       return "hidden";
     }
@@ -241,6 +259,10 @@ export class DocumentComponent {
           return "readOnlyCurrency";
         case 'table':
           return 'table';
+        case 'breakline':
+          return 'breakline';
+        case 'textarea':
+          return 'readOnlyTextArea';
         default:
           return "readOnly";
       }
@@ -258,7 +280,7 @@ export class DocumentComponent {
       case "number":
         return "number";
       case "date":
-        return "datePicker";
+        return "date";
       case "time":
         return "time";
       case "datetime":
@@ -269,6 +291,8 @@ export class DocumentComponent {
         return "table";
       case "breakline":
         return "breakline";
+      case "textarea":
+        return "textarea";
       default:
         return "text";
     }
@@ -368,7 +392,7 @@ export class DocumentComponent {
   }
 
   async runClientChangeScript(documentId: string, change: any, formValue: any, parentFormValue?: any, isInit?: boolean, index?: number) {
-    const module = await import(/* @vite-ignore */`/assets/client-script/events/${documentId}-event.js`);
+    const module = await import(/* @vite-ignore */`/assets/client-script/events/${documentId}.event.js`);
     const data = {
       action: 'onChange',
       parentFormValue: parentFormValue,
@@ -413,6 +437,7 @@ export class DocumentComponent {
 
   }
 
+
   updateFormAfterScript(response: ChangeScriptResponse) {
     if (response.formValue) {
       //Temporary Solution: For force update DOM
@@ -432,10 +457,11 @@ export class DocumentComponent {
         }, 0);
       }
     }
+
     if (response.formConfig) {
       for (const key of Object.keys(response.formConfig)) {
-        const c: any = this.findFormComponent(this.formConfig, key)!;
-        c[key] = response.componentOptions[key];
+        let c: any = this.findFormComponent(this.formConfig, key)!;
+        Object.assign(c, response.formConfig[key]);
       }
     }
   }
@@ -445,7 +471,7 @@ export class DocumentComponent {
     const field = this.documentType.fields.find(f => f.id == event.component.key);
     const fieldDocType = field?.fieldsDocType!;
     const dialogRef = this.dialog.open(DocumentComponent, {
-      data: { dialog: "tableForm", docType: fieldDocType, title: event.title, documentId: event.document?.id, document: event.document },
+      data: { dialog: "tableForm", docType: fieldDocType, title: event.title, documentId: event.document?.id, document: event.document, viewOnly: this.isViewOnly },
       maxWidth: "90vw",
       minWidth: "90vw",
       maxHeight: "90vh",
@@ -459,10 +485,12 @@ export class DocumentComponent {
     const fieldDocType = field?.fieldsDocType;
     const title = component.label;
     const dialogRef = this.dialog.open(DocumentComponent, {
-      data: { dialog: "newForm", docType: fieldDocType, title: title },
+      data: { dialog: "newForm", docType: fieldDocType, title: title, viewOnly: false },
       maxWidth: "90vw",
       minWidth: "90vw",
+      minHeight: "90vh",
       maxHeight: "90vh",
+
     });
     const res = await firstValueFrom(dialogRef.afterClosed());
     if (!res) {
@@ -471,21 +499,15 @@ export class DocumentComponent {
     }
     const parentValueField = field?.linkOptions?.valueField!;
     const parentLabelField = field?.linkOptions?.labelField!;
-    for (const t of this.formConfig.tabs) {
-      let isBreak = false;
-      for (const s of t.sections) {
-        const com = s.components.find(c => c.key == component.key);
-        if (com) {
-          com.options?.push({ label: res[parentLabelField], value: res[parentValueField] });
-          isBreak = true;
-          break;
-        }
-      }
-      if (isBreak) {
-        break;
-      }
+    const com = this.formConfig.components.find(c => c.key == component.key);
+    if (com) {
+      com.options?.push({ label: res[parentLabelField], value: res[parentValueField] });
     }
     this.formConfig.form.controls[field!.id].setValue(res[parentValueField]);
+  }
+
+  onClose() {
+    this.dialogRef?.close();
   }
 
   async viewLinkDocument(event: { component: MyFormComponent, canEdit: boolean }) {
@@ -530,15 +552,7 @@ export class DocumentComponent {
   }
 
   findFormComponent(formConfig: MyFormGeneratorConfig, key: string) {
-    for (const t of formConfig.tabs) {
-      for (const s of t.sections) {
-        const com = s.components.find(c => c.key == key);
-        if (com) {
-          return com;
-        }
-      }
-    }
-    return;
+    return formConfig.components.find(c => c.key == key);
   }
 
   async onSave() {
@@ -623,13 +637,13 @@ export class DocumentComponent {
       documentId: this.documentId,
       documentType: this.documentType
     }
-    
+
     const dialogRef = this.dialog.open(PrintComponent, {
-      data:  data ,
-      maxWidth: "90vw",
-      minWidth: "90vw",
-      minHeight: "90vh",
-      maxHeight: "90vh",
+      data: data,
+      maxWidth: "95vw",
+      minWidth: "95vw",
+      minHeight: "95vh",
+      maxHeight: "95vh",
     });
 
   }

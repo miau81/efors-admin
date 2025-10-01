@@ -2,7 +2,7 @@ import type { NextFunction, Response } from "express";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ApiDocumentService } from "../services/api.document.service";
 import { ConnectionAction } from "../interfaces/api.db.interface";
-import { connectionPool } from "../databases";
+import { ConnectionPool } from "../databases";
 import { ApiRequestMethod, AuthURL } from "../interfaces/api.enum";
 import { ConvertUtil } from "../utils/convert";
 
@@ -15,7 +15,7 @@ export class ApiDocumentController {
 
 
     public getDocumentList = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_LIST);
@@ -31,7 +31,7 @@ export class ApiDocumentController {
     }
 
     public getSingleDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_ONE);
@@ -48,7 +48,7 @@ export class ApiDocumentController {
 
     public getDocumentType = async (req: SRequest, res: Response, next: NextFunction) => {
 
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const document = req.params['document'];
@@ -64,7 +64,7 @@ export class ApiDocumentController {
     }
 
     public createDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.CREATE);
@@ -80,7 +80,7 @@ export class ApiDocumentController {
     }
 
     public updateDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.UPDATE);
@@ -96,7 +96,7 @@ export class ApiDocumentController {
     }
 
     public runEventScript = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const params = this.convertUtil.convertRequestToApiParam(req, ApiRequestMethod.GET);

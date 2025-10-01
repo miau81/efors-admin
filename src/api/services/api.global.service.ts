@@ -127,17 +127,6 @@ export class ApiGlobalService {
         if (imp.beforeCreate) {
             doc = await imp.beforeCreate(doc, params, docType, mysqlConn);
         }
-        if (imp.beforeValidation) {
-            doc = await imp.beforeValidation(doc, params, docType, mysqlConn);
-        }
-
-        //TODO Validations
-
-        if (imp.afterValidation) {
-            doc = await imp.afterValidation(doc, params, docType, mysqlConn);
-        }
-
-
 
         const fields = await this.getTableFields(tableName, mysqlConn, docType) as MyERPField[];
         if (fields.find(f => f.id == "lastModifiedBy")) {
@@ -182,16 +171,17 @@ export class ApiGlobalService {
 
         const r = await mysqlConn.query(`INSERT INTO  ${db}.${tableName} SET ? ON DUPLICATE KEY UPDATE ?`, [doc, doc]);
         doc = { ...doc, ...childTableValues };
-        console.log(r.insertId, doc.id)
+
         await this.updateChildTable(docType, params, doc, mysqlConn);
-
-
-
-
 
         if (imp.afterCreate) {
             doc = await imp.afterCreate(doc, params, docType, mysqlConn);
         }
+
+        if (imp.onSubmit && doc.doc_status == 'SUBMIT') {
+            doc = await imp.onSubmit(doc, params, docType, mysqlConn);
+        }
+
         return doc;
 
     }
@@ -202,8 +192,6 @@ export class ApiGlobalService {
         const tableName = params.tableName;
         let doc = params.body;
 
-
-
         const imp = await this.importDocTypeFile(tableName);
         const docType: MyERPDocType = await imp.documentType();
 
@@ -211,14 +199,12 @@ export class ApiGlobalService {
             doc = await imp.beforeUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.beforeValidation) {
-            doc = await imp.beforeValidation(doc, params, docType, mysqlConn);
+        if (imp.beforeSubmit && doc.doc_status == 'SUBMIT') {
+            doc = await imp.beforeSubmit(doc, params, docType, mysqlConn);
         }
 
-        //TODO Validations
-
-        if (imp.afterValidation) {
-            doc = await imp.afterValidation(doc, params, docType, mysqlConn);
+        if (imp.beforeCancel && doc.doc_status == 'CANCELLED') {
+            doc = await imp.beforeCancel(doc, params, docType, mysqlConn);
         }
 
         const fields = await this.getTableFields(tableName, mysqlConn, docType) as MyERPField[];
@@ -260,15 +246,30 @@ export class ApiGlobalService {
 
         where = await this.filterSysAndCom(tableName, where, params.com, params.sys, mysqlConn, docType);
 
+        const previousDoc = await mysqlConn.querySingle(`SELECT doc_status FROM ${tableName} ${where}`);
+
+
+
+
         await this.sqlUpdate(tableName, doc, where, mysqlConn);
 
         doc = { ...doc, ...childTableValues };
+
 
         await this.updateChildTable(docType, params, doc, mysqlConn);
 
         if (imp.afterUpdate) {
             doc = await imp.afterUpdate(doc, params, docType, mysqlConn);
         }
+
+        if (imp.afterSubmit && doc.doc_status == 'SUBMIT') {
+            doc = await imp.afterSubmit(doc, params, docType, mysqlConn, previousDoc);
+        }
+
+        if (imp.afterCancel && doc.doc_status == 'CANCELLED') {
+            doc = await imp.afterCancel(doc, params, docType, mysqlConn, previousDoc);
+        }
+
 
         return doc;
 
@@ -462,7 +463,7 @@ export class ApiGlobalService {
         if (links.length == 0) {
             return link;
         }
-        
+
         for (let l of links) {
             const linkTableName = l.options;
             const linkDoctype = await this.getDocumentType(linkTableName);
@@ -476,9 +477,8 @@ export class ApiGlobalService {
                 docType: linkDoctype
             }
             const linkData: any = await this.getData(options);
-            
-            data[l.id+'Obj'] = linkData?.length >0 ? linkData[0] : undefined;
-            console.log("======>",linkData)
+
+            data[l.id + 'Obj'] = linkData?.length > 0 ? linkData[0] : undefined;
         }
         return { ...link, ...data };
     }
@@ -520,12 +520,14 @@ export class ApiGlobalService {
                 const labelFields = field.linkOptions!.labelField.split(",");
                 const valueField = field.linkOptions?.valueField!;
                 const where = await this.filterSysAndCom(linkTable, "", sys, com, mysqlConn);
-                let defaultSql = `SELECT ${labelFields.join()},${valueField} FROM ${linkTable} ${where}`;
+                const filters = (field.linkOptions?.filters || []).join(" AND ");
+                const filter = filters ? ` AND ${filters}` : "";
+                let defaultSql = `SELECT ${labelFields.join()},${valueField} FROM ${linkTable} ${where}${filter}`;
                 const sql = field.linkOptions?.customSql || defaultSql;
-                if (field.linkOptions?.filters == 'empty') {
-                    field.options = [];
-                    continue;
-                }
+                // if (field.linkOptions?.filters) {
+                //     field.options = [];
+                //     continue;
+                // }
                 const linkDoc = await mysqlConn.query(sql);
                 const options = [];
                 for (const doc of linkDoc) {
@@ -716,7 +718,7 @@ export class ApiGlobalService {
     }
 
     async importDocTypeEventFile(docType: string) {
-        const path = new URL(`../../../api/events/${docType}-event.ts`, import.meta.url).href;
+        const path = new URL(`../../../api/events/${docType}.event.ts`, import.meta.url).href;
         return await import(/* @vite-ignore */ path);
     }
 

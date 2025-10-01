@@ -1,100 +1,93 @@
 
-import mysql, { MysqlError, Pool, PoolConnection } from 'mysql'
-
+import mysql2, { type Pool, type PoolConnection } from 'mysql2/promise'
 import { ConnectionAction } from '../interfaces/api.db.interface';
 import { logger } from '../utils/logger';
 import { appConfigs } from '../configs/api.config';
 
 
 
-const config = appConfigs.dbConfig
+const dbconfig = appConfigs.dbConfig
 export const dbName = "myerpdb_ezeinvoice"
 
 let pool: Pool;
 
 function initializePool() {
-    pool = mysql.createPool({
+    logger.info(`Initializing MySQL pool...`);
+    const config = {
         connectionLimit: 100, // default 10
-        host: config.host,
-        user: config.user,
-        password: config.password,
-        database: config.database,
-        charset: config.charset,
-        typeCast: function castTinyToBoolean(field, next) {
+        host: dbconfig['host'],
+        user: dbconfig['user'],
+        password: dbconfig['password'],
+        database: dbconfig['database'],
+        charset: dbconfig['charset'],
+        typeCast: function castTinyToBoolean(field: any, next: any) {
             if ((field.type === "TINY") && (field.length === 1)) {
                 return field.string() === '1';
             }
             return next();
-
         }
-    });
-    logger.info(`Mysql pool is Initialized!`);
+    }
+    pool = mysql2.createPool(config);
+    logger.info(`MySQL pool is Initialized!`)
 }
 
 
-export function connectionPool(): Promise<ConnectionAction> {
+export function ConnectionPool(): Promise<ConnectionAction> {
     if (!pool) {
-        logger.info(`Initializing mysql pool...`);
+        logger.info(`Initializing MySQL pool...`);
         initializePool();
     }
-
     return new Promise<ConnectionAction>(async (resolve, reject) => {
-
-        pool.getConnection((error: MysqlError, connection: PoolConnection) => {
-            if (error) {
-                logger.error("Mysql initialize is failed!", error);
-                reject(error);
-                return;
-            }
+        pool.getConnection().then(connection => {
             logger.info("MySQL pool is connected! ThreadId:" + connection.threadId);
-
             const query = (sql: string, binding: any) => {
                 return new Promise((resolve, reject) => {
-                    connection.query(sql, binding, (error, result) => {
-                        if (error) {
-                            console.log(error)
-                            reject(error);
-                        }
-                        resolve(result);
-                    });
+                    // console.log("sql:",sql)
+                    connection.query<any>(sql, binding).then(result => {
+                        resolve(result[0])
+                    }).catch(error => {
+                        logger.error(error.message, `sql: ${sql}`);
+                        reject(error);
+                    })
                 });
             };
 
             const querySingle = (sql: string, binding: any) => {
-                return new Promise((resolve, reject) => {
-                    connection.query(sql, binding, (err, result) => {
-                        if (error) {
-                            console.log(error)
-                            reject(error);
-                        }
-                        resolve(result ? result[0] : result);
-                    });
+                return new Promise<any>((resolve, reject) => {
+                    // console.log("sql:",sql)
+                    connection.query(sql, binding).then(result => {
+                        resolve(result? (result[0] as any[])[0] : result);
+                    }).catch(error => {
+                        logger.error(error.message, `sql: ${sql}`);
+                        reject(error);
+                    })
                 });
             };
 
             const release = () => {
                 logger.info("MySQL pool is released! ThreadId: " + connection.threadId);
-                connection.release();
+                 connection.release();
             };
 
             const commit = () => {
                 logger.info("MySQL pool is committed! ThreadId: " + connection.threadId);
-                connection.commit();
+                 connection.commit();
             }
 
             const beginTransaction = () => {
                 logger.info("MySQL pool is begin transaction! ThreadId: " + connection.threadId);
-                connection.beginTransaction();
+                 connection.beginTransaction();
             }
 
             const rollback = () => {
-                logger.info("MySQL pool is rolled back! ThreadId: " + connection.threadId);
-                connection.rollback();
+                logger.info("MySQL pool is roll back! ThreadId: " + connection.threadId);
+                 connection.rollback();
             }
-
-            resolve({ query, querySingle, release, commit, beginTransaction, rollback });
+            resolve({ ...connection, query, querySingle, release, commit, beginTransaction, rollback });
+        }).catch(error => {
+            logger.error("MySQL initialize is failed!", error);
+            reject(error);
         })
-    });
-
+    })
 };
 

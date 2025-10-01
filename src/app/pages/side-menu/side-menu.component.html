@@ -26,7 +26,7 @@
 }
 
 <ng-template #moduleTemp let-module="module">
-    <a class="d-flex px-3 module mt-1 pointer module-name nav-link" [routerLink]="module.link">
+    <a class="d-flex px-3 module mt-1 pointer module-name nav-link" [routerLink]="module.link" (click)="dismissOffCanvas()">
         <i class="bi bi-{{module.icon}}"></i>
         <div class="ps-2">{{module.label | mytranslate}}</div>
     </a>

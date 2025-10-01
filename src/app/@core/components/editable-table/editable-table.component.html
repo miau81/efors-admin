@@ -7,7 +7,7 @@
   <table class="table table-sm table-fixed-layout table-bordered m-0">
     <thead>
       <tr>
-        <th class="table-checkbox bg-light" style="width: 30px;"><input type="checkbox" (ngModelChange)="onCheckAll($event)" />
+        <th class="table-checkbox bg-light" style="width: 30px;"><input type="checkbox" (change)="onCheckAll($event)" />
         </th>
         @for(column of component.tableConfig?.displayColumns; track column.key){
         <th class="table-header bg-light position-relative ">
@@ -30,7 +30,9 @@
         }
         <td>
           <button class="btn btn-icon" (click)="onModalForm(rowIndex)"><i class="bi bi-pencil-square"></i></button>
+          @if(!formConfig.readOnly){
           <button class="btn btn-icon" (click)="onRemoveRow(rowIndex)"><i class="bi bi-trash3 text-danger"></i></button>
+          }
         </td>
       </tr>
       }
@@ -45,9 +47,9 @@
   </table>
 </div>
 <div class="d-flex">
-  <div class="font-small btn nav nav-link p-1" (click)="onAddRow(true)">
+  <button class="font-small btn nav nav-link p-1" (click)="onAddRow(true)" [disabled]="formConfig.readOnly">
     <i class="bi bi-plus-circle me-1"></i>{{"_ADD_NEW" | translate}}
-  </div>
+  </button>
 </div>
 }
 
@@ -59,13 +61,13 @@
   <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
     [required]="component.required || false" placeholder="{{component.placeholder || '' | mytranslate}}"
     [minlength]="component.inputConfig?.minlength || 0" [maxlength]="component.inputConfig?.maxlength || 999999999"
-    (keyup)="onKeyUp(component,$event,index)" (ngModelChange)="onChange(component,index)">
+    (keyup)="onKeyUp(component,$event,index)" (change)="onChange(component,index)">
 
   } @case('number'){
   <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
     [required]="component.required || false" placeholder="{{component.placeholder || '' | mytranslate}}"
     [min]="component.numberConfig?.min || -999999999" [max]="component.numberConfig?.max || 999999999"
-    [step]="component.numberConfig?.step || 1" (ngModelChange)="onChange(component,index)"
+    [step]="component.numberConfig?.step || 1" (change)="onChange(component,index)"
     (keyup)="onKeyUp(component,$event,index)">
 
   } @case('image'){
@@ -76,38 +78,38 @@
     <myerp-media [src]="value[index][component.key]" style="object-fit: cover;height: 100%; width: 100%;"
       (click)="onImageClick(component,index)" (error)="onImageError($event,component)"></myerp-media>
     <input hidden="true" type="file" accept="image/*" class="file-input"
-      (ngModelChange)="onFileSelected($event,component,index)" />
+      (change)="onFileSelected($event,component,index)" />
   </div>
 
   } @case('readOnly'){
   <input class="form-control form-control-sm bg-body-secondary" type="text" [(ngModel)]="value[index][component.key]"
     [required]="false" [readOnly]="true" placeholder="{{component.placeholder || '' | mytranslate}}"
-    (ngModelChange)="onChange(component,index)">
+    (change)="onChange(component,index)">
 
   } @case('currency'){
   <div class="mb-2">
-    <input class="form-control form-control-sm" currencyMask type="text" [(ngModel)]="value[index][component.key]"
-      [id]="component.key" [required]="false" (ngModelChange)="onChange(component,index)"
+    <input class="form-control form-control-sm" type="number" [(ngModel)]="value[index][component.key]"
+      [id]="component.key" [required]="false" (change)="onChange(component,index)"
       placeholder="{{component.placeholder || '' | mytranslate}}">
   </div>
 
   } @case('readOnlyCurrency'){
   <div class="mb-2">
-    <input class="form-control form-control-sm bg-body-secondary" currencyMask  [(ngModel)]="value[index][component.key]"
-      [id]="component.key" [required]="false" [readOnly]="true" (ngModelChange)="onChange(component,index)"
-      placeholder="{{component.placeholder || '' | mytranslate}}">
+    <input class="form-control form-control-sm bg-body-secondary" type="number"
+      [(ngModel)]="value[index][component.key]" [id]="component.key" [required]="false" [readOnly]="true"
+      (change)="onChange(component,index)" placeholder="{{component.placeholder || '' | mytranslate}}">
   </div>
 
   } @case(multiNgSwitchCase(['date', 'time','datetime-local'], component.type)?component.type:''){
   <input class="form-control form-control-sm" [type]="component.type" [(ngModel)]="value[index][component.key]"
     [required]="component.required || false" [disabled]="component.disabled || false"
-    (ngModelChange)="onChange(component,index)">
+    (change)="onChange(component,index)">
 
   } @case('checkbox'){
   <div class="form-check align-items-center d-flex mb-0">
     <input class="form-check-input mt-0" type="checkbox" [(ngModel)]="value[index][component.key]"
       [required]="component.required || false" [disabled]="component.disabled || false"
-      placeholder="{{component.placeholder || '' | mytranslate}}" (ngModelChange)="onChange(component,index)">
+      placeholder="{{component.placeholder || '' | mytranslate}}" (change)="onChange(component,index)">
     <label class="font-small text-muted ms-2" [for]="component.key">
       {{ component.label | mytranslate}}
     </label>
@@ -116,7 +118,7 @@
   } @case('select'){
   <div class="input-group">
     <ng-select appendTo="body" [searchable]="true" [clearable]="true" [(ngModel)]="value[index][component.key]"
-      class="form-control form-control-sm py-0" (ngModelChange)="onChange(component,index)">
+      class="form-control form-control-sm py-0" (change)="onChange(component,index)">
       @if(component.selectConfig?.canAddNew){
       <ng-option [value]="">{{"_ADD_NEW" | mytranslate}}</ng-option>
       }
@@ -141,7 +143,7 @@
   <textarea class="form-control form-control-sm" [(ngModel)]="value[index][component.key]"
     [required]="component.required || false" [disabled]="component.disabled || false"
     placeholder="{{component.placeholder || '' | mytranslate}}" [rows]="component.textareaConfig?.rows || 5"
-    (ngModelChange)="onChange(component,index)" (keyup)="onKeyUp(component,$event,index)"></textarea>
+    (change)="onChange(component,index)" (keyup)="onKeyUp(component,$event,index)"></textarea>
 
   } @case('datePicker'){
   <div class="my-2">

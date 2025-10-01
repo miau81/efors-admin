@@ -51,12 +51,12 @@ class MyCustomPaginatorIntl implements MatPaginatorIntl {
 export class MyDataGridView {
   startWidth: number = 0;
   currentSortKey?: string;
-  sortBy?: "asc" | "desc";
+  sortBy?: "ASC" | "DESC";
   paginationOption!: MyDataGridPagination;
 
   @Input() config!: MyDataGridViewConfig;
   @Input() data: MyDataGridViewData[] = [];
-  @Output("onSort") onSortEvent: EventEmitter<MyDataGridViewColumn> = new EventEmitter();
+  @Output("onSort") onSortEvent: EventEmitter<{sortField:any,sortBy:"ASC" | "DESC"}> = new EventEmitter();
   @Output("onSelect") onSelectEvent: EventEmitter<MyDataGridViewData> = new EventEmitter();
   @Output("onPageChange") onPageChangeEvent: EventEmitter<MyDataGridPagination> = new EventEmitter();
 
@@ -70,21 +70,22 @@ export class MyDataGridView {
       throw new Error("config is required!");
     }
     this.currentSortKey = this.config.defaultSortKey;
-    this.sortBy = this.config.defaultSortBy || 'asc';
+    this.sortBy = this.config.defaultSortBy || 'ASC';
     this.paginationOption = this.config.paginationOption || {
       length: 100,
       pageIndex: 0,
       pageSize: 10,
       pageSizeOptions: [10, 20, 50, 100]
     };
+    console.log(this.paginationOption)
 
   }
   
 
   onSort(column: MyDataGridViewColumn) {
-    this.sortBy = column.key != this.currentSortKey ? 'asc' : this.sortBy == 'asc' ? 'desc' : 'asc';
+    this.sortBy = column.key != this.currentSortKey ? 'ASC' : this.sortBy == 'ASC' ? 'DESC' : 'ASC';
     this.currentSortKey = column.key;
-    this.onSortEvent.emit(column);
+    this.onSortEvent.emit({sortField:column.key,sortBy:this.sortBy});
   }
 
 
@@ -150,7 +151,7 @@ export class MyDataGridView {
 export interface MyDataGridViewConfig {
   columns: MyDataGridViewColumn[];
   defaultSortKey?: string;
-  defaultSortBy?: "asc" | "desc";
+  defaultSortBy?: "ASC" | "DESC";
   paginationOption?: MyDataGridPagination
 
 }

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, inject, Input, Output, PLATFORM_ID, SimpleChanges } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, EventEmitter, Inject, inject, Input, Output, PLATFORM_ID, signal, SimpleChanges, WritableSignal } from '@angular/core';
+import { CommonModule, DecimalPipe, isPlatformBrowser } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormArray, F
 import { MyMedia } from '../media/media.component';
 import { MyDatePicker } from '../date-picker/date-picker.component';
 import { MyEditableTable } from '../editable-table/editable-table.component';
-import { NgxCurrencyDirective } from "ngx-currency";
 import dayjs from 'dayjs';
 
 @Component({
@@ -31,8 +30,8 @@ import dayjs from 'dayjs';
     NgOptionComponent,
     TranslateModule,
     MyEditableTable,
-    NgxCurrencyDirective
   ],
+  providers: [DecimalPipe],
   templateUrl: './form-generator.component.html',
   styleUrl: './form-generator.component.scss'
 })
@@ -50,64 +49,102 @@ export class MyFormGenerator {
   @Output("openTableForm") openTableForm: EventEmitter<any> = new EventEmitter();
   @Output("removeTableRow") removeTableRow: EventEmitter<any> = new EventEmitter();
 
+  public changeSignal: WritableSignal<boolean> = signal(true);
+
 
   _PLEASE_INSERT_VALID_VALUE: string = getTranslateJSON("_PLEASE_INSERT_VALID_VALUE");
 
 
   constructor(
-    private fb: FormBuilder, private dialog: MatDialog) {
+    private fb: FormBuilder,
+    private decimalPipe: DecimalPipe,
+    private dialog: MatDialog,
+  ) {
 
   }
 
   ngOnInit() {
+
+    this.setDefaultTabAndSection();
     this.initValue(this.config.initValue);
     if (!this.config.form) {
       this.setupForm();
     }
     this.config.generator = this;
     this.doneSetupForm = true;
-    console.log(this.config)
   }
 
   ngOnChanges(changes: SimpleChanges) {
+  }
 
-    // const change = changes["config"];
-    // this.config.components=this.config.components.map(c=>{return {...c,value:c.value}})
+  setDefaultTabAndSection() {
+    if (this.config.tabs.length == 0 || this.config.components.some(c => !c.group)) {
+      this.config.tabs.push({ key: "DEFAULT_TAB" });
+      this.config.sections.push({ key: "DEFAULT_SECTION", parent: "DEFAULT_TAB" });
+      this.config.sections = this.config.sections.map(s => {
+        return {
+          ...s,
+          parent: s.parent || "DEFAULT_TAB"
+        }
+      })
+      this.config.components = this.config.components.map(c => {
+        return {
+          ...c,
+          group: c.group || "DEFAULT_SECTION"
+        }
+      })
+    }
+    console.log(this.config)
   }
 
   initValue(value: any) {
     if (!value) {
       return;
     }
+
     for (let key of Object.keys(value)) {
       const component = this.findComponentByKey(key);
       if (component) {
-        component.value = value[key]
+        if (component.type == 'currency' || component.type == 'readOnlyCurrency') {
+          component.value = this.getCurrencyValue(value[key]);
+        } else {
+          component.value = value[key];
+        }
+
+
       };
     }
   }
 
+  getCurrencyValue(value: any) {
+    return this.decimalPipe.transform(value, "1.2-2");
+  }
+
   findComponentByKey(key: string) {
-    for (const t of this.config.tabs) {
-      for (const s of t.sections) {
-        const component = s.components.find(c => c.key == key);
-        if (component) {
-          return component;
-        }
-      }
-    }
-    return null;
+
+    // for (const t of this.config.tabs) {
+    //   for (const s of t.sections) {
+    //     const component = s.components.find(c => c.key == key);
+    //     if (component) {
+    //       return component;
+    //     }
+    //   }
+    // }
+    return this.config.components.find(c => c.key == key);;
   }
 
   setupForm() {
     let group: any = {};
-    this.config.tabs.forEach(t => {
-      t.sections.forEach(s => {
-        s.components.forEach((c: MyFormComponent) => {
-          group = this.setupFormComponent(c, group)
-        });
-      })
-    })
+    // this.config.tabs.forEach(t => {
+    //   t.sections.forEach(s => {
+    //     s.components.forEach((c: MyFormComponent) => {
+    //       group = this.setupFormComponent(c, group)
+    //     });
+    //   })
+    // })
+    this.config.components.forEach((c: MyFormComponent) => {
+      group = this.setupFormComponent(c, group)
+    });
     this.config.form = this.fb.group(group);
     this.onFormReady.emit();
   }
@@ -135,11 +172,11 @@ export class MyFormGenerator {
     } else {
       if (c.type != "breakline") {
         if (c.type == "datetime-local") {
-          console.log(c.value)
           const date = dayjs(c.value).format("YYYY-MM-DDThh:mm:ss")
-          group[c.key] = new FormControl(date, validators);
+          group[c.key] = new FormControl(date, { validators: validators });
         } else {
-          group[c.key] = new FormControl({ value: c.value, disabled: c.disabled }, validators);
+          console.log(c.value, c.key)
+          group[c.key] = new FormControl({ value: c.value, disabled: c.disabled, }, { validators: validators });
         }
 
       }
@@ -157,6 +194,13 @@ export class MyFormGenerator {
     this.onFormKeyUp.emit({ component: component, event: e });
   }
 
+  async onBlur(component: MyFormComponent, e?: any, index?: number) {
+    // if (component.type == 'currency' || component.type == 'readOnlyCurrency') {
+    //   this.config.form.controls[component.key].setValue(this.getCurrencyValue(this.config.form.controls[component.key].value));
+    //   // this.onChange(component, e, index)
+    // }
+  }
+
   async onChange(component: MyFormComponent, e?: any, index?: number) {
     if (component.type == "checkboxGroup") {
       const formArray: FormArray = this.config.form.get(component.key) as FormArray;
@@ -168,7 +212,16 @@ export class MyFormGenerator {
       }
     } else {
       if (component.type != "image") {
-        component.value = this.config.form.controls[component.key].value;
+        if (component.type == 'currency' || component.type == 'readOnlyCurrency') {
+          const currency = this.getCurrencyValue(this.config.form.controls[component.key].value);
+          component.value = currency;
+          this.config.form.controls[component.key].patchValue(currency)
+          console.log(currency)
+          this.changeSignal.set(false)
+        } else {
+          component.value = this.config.form.controls[component.key].value;
+        }
+
       }
     }
     this.onFormChange.emit({ component: component, isInit: false });
@@ -193,7 +246,7 @@ export class MyFormGenerator {
 
   getErrorFormControlKeys() {
     const controls = this.config.form.controls
-    const invalidControls:any = {};
+    const invalidControls: any = {};
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
         invalidControls[key] = controls[key];
@@ -237,19 +290,19 @@ export class MyFormGenerator {
   }
 
   resetForm() {
-    for (const tab of this.config.tabs) {
-      for (const section of tab.sections) {
-        for (let component of section.components) {
-          switch (component.type) {
-            case "checkboxGroup":
-              component.options = component.options?.map(o => { return { ...o, checked: false } });
-              break;
-            case "datePicker":
-              component.value = undefined;
-          }
-        }
+    // for (const tab of this.config.tabs) {
+    //   for (const section of tab.sections) {
+    for (let component of this.config.components) {
+      switch (component.type) {
+        case "checkboxGroup":
+          component.options = component.options?.map(o => { return { ...o, checked: false } });
+          break;
+        case "datePicker":
+          component.value = undefined;
       }
     }
+    //   }
+    // }
 
     this.config.form.reset();
   }
@@ -259,7 +312,12 @@ export class MyFormGenerator {
     this.onFormChange.emit({ component: component, isInit: false, childTable: { row: change.row, component: change.component, index: change.index, isInit: false } });
   }
 
+  onCloseDialog() {
+    this.dialogRef?.close()
+  }
+
   onRemoveTableRow() {
+    this.dialogRef?.close({ isRemove: true })
     this.removeTableRow.emit();
   }
 
@@ -289,20 +347,36 @@ export class MyFormGenerator {
     return this.config.form.get(key) as FormArray;
   }
 
+  getSections(tab: MyFromGroup) {
+    return this.config.sections.filter(s => s.parent == tab.key)
+  }
+  getComponents(section: MyFromGroup) {
+    return this.config.components.filter(c => c.group == section.key)
+  }
+
 }
 
 export interface MyFormGeneratorConfig {
   form: FormGroup;
-  // components: MyFormComponent[];
-  tabs: MyFormTab[];
+  tabs: MyFromGroup[];
+  sections: MyFromGroup[];
+  components: MyFormComponent[];
   generator?: MyFormGenerator;
   initValue?: { [key: string]: any };
   showValidation?: boolean;
+  readOnly?: boolean;
 }
 
 export interface FormKeyboardEvent {
   component: MyFormComponent,
   event: KeyboardEvent;
+}
+
+export interface MyFromGroup {
+  key: string;
+  label?: string;
+  parent?: string;
+  sectionExpanded?: boolean;
 }
 
 export interface MyFormTab {
@@ -321,6 +395,7 @@ export interface MyFromSection {
 export interface MyFormComponent {
   key: string;
   label?: string;
+  group?: string;
   col?: string;
   type: MyFormComponentType;
   color?: "primary" | "secondary" | "light" | "dark" | "success" | "warning" | "danger" | "tertiary" | "medium";
@@ -373,6 +448,7 @@ export interface MyFormComponent {
     displayColumns: MyFormChildTableColumn[];
     columns: MyFormChildTableColumn[];
     formConfig: MyFormGeneratorConfig;
+    readOnly?: boolean
   }
 }
 
@@ -386,4 +462,4 @@ export interface MyFormChildTableColumn {
 
 export type MyFormComponentType = "text" | "password" | "email" | "number" | "tel" | "select" | "date" | "time"
   | "datetime-local" | "hidden" | "checkbox" | 'readOnly' | 'textarea' | 'currency' | 'readOnlyCurrency'
-  | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline"
+  | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline" |"readOnlyTextArea"

@@ -1,7 +1,7 @@
 
 
 import { NextFunction, Response } from "express";
-import { connectionPool } from "../databases";
+import { ConnectionPool } from "../databases";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { ApiRequestMethod, AuthURL } from "../interfaces/api.enum";
 import { SRequest } from "../interfaces/api.route.interface";
@@ -19,7 +19,7 @@ export class ApiUserController {
 
 
     public login = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const isAdmin = (req.authURL == AuthURL.ADMIN);
@@ -50,7 +50,7 @@ export class ApiUserController {
     // }
 
     public changePassword = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             await this.userService.changePassword(req.body, req.authUser, mysqlConn);
@@ -65,7 +65,7 @@ export class ApiUserController {
     }
 
     public refreshToken = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             const newToken=await this.userService.refreshToken(req.authUser);
@@ -142,7 +142,7 @@ export class ApiUserController {
     // }
 
     public getProfile = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             req.params['docType'] = 'user'
@@ -161,7 +161,7 @@ export class ApiUserController {
     }
 
     public updateProfile = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await connectionPool();
+        const mysqlConn: ConnectionAction = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
             req.params['docType'] = 'user'

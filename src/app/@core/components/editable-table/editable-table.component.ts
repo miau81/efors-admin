@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MyTranslatePipe } from '@myerp/pipes';
@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
 import { MyMedia } from '../media/media.component';
 import { MyDatePicker } from '../date-picker/date-picker.component';
 import { MyFormComponent, MyFormGenerator, MyFormGeneratorConfig } from '../form-generator/form-generator.component';
-import { NgxCurrencyDirective } from 'ngx-currency';
+// import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'myerp-editable-table',
@@ -25,8 +25,9 @@ import { NgxCurrencyDirective } from 'ngx-currency';
     NgOptionComponent,
     MyDatePicker,
     MatDialogModule,
-    NgxCurrencyDirective
+    // NgxCurrencyDirective
   ],
+  providers: [DecimalPipe],
   templateUrl: './editable-table.component.html',
   styleUrl: './editable-table.component.scss'
 })
@@ -40,7 +41,7 @@ export class MyEditableTable {
   @Output("onOpenForm") onOpenForm: EventEmitter<any> = new EventEmitter();
   @Output("onViewLinkDoc") onViewLinkDoc: EventEmitter<any> = new EventEmitter();
   public rows: any = [];
-  constructor(private cd: ChangeDetectorRef, private translateService: TranslateService, private fb: FormBuilder) {
+  constructor(private cd: ChangeDetectorRef, private translateService: TranslateService, private decimalPipe: DecimalPipe) {
 
   }
 
@@ -54,7 +55,13 @@ export class MyEditableTable {
 
   refreshRow() {
     this.rows = [];
+
     for (const v of this.component.value || []) {
+      for (const c of this.component.tableConfig!.displayColumns) {
+        if (c.component.type == 'currency' || c.component.type == 'readOnlyCurrency') {
+          v[c.component.key] = this.getCurrencyValue(v[c.component.key]);
+        }
+      }
       this.onAddRow();
     }
   }
@@ -64,7 +71,15 @@ export class MyEditableTable {
   }
 
   onChange(component: MyFormComponent, index: number): void {
+
+    if (component.type == 'currency' || component.type == 'readOnlyCurrency') {
+      this.component.value[index][component.key] = this.getCurrencyValue(this.component.value[index][component.key]);
+    }
     this.onFormChange.emit({ row: this.rows[index], component: component, values: this.component.value, index: index });
+  }
+
+  getCurrencyValue(value: any) {
+    return this.decimalPipe.transform(value, "1.2-2");
   }
 
   onImageClick(component: MyFormComponent, index: number) {
@@ -139,7 +154,11 @@ export class MyEditableTable {
       this.component.value = this.component.value || []
       const defaultValue: any = {};
       for (const c of this.component.tableConfig!.displayColumns) {
-        defaultValue[c.component.key] = c.defaultValue;
+        if (c.component.type == 'currency' || c.component.type == 'readOnlyCurrency') {
+          defaultValue[c.component.key] = this.getCurrencyValue(c.defaultValue);
+        } else {
+          defaultValue[c.component.key] = c.defaultValue;
+        }
       }
 
       this.component.value.push(defaultValue);
@@ -153,18 +172,22 @@ export class MyEditableTable {
   }
 
   async onModalForm(index: number) {
+
     const formConfig = JSON.parse(JSON.stringify(this.formConfig));
     formConfig.initValue = this.component.value[index];
     const title = await firstValueFrom(this.translateService.get("_EDIT_ROW", { row: index + 1 }));
 
 
     const callback = (res: any) => {
+      if (this.formConfig.readOnly) {
+        return
+      }
       if (res.isRemove) {
         this.onRemoveRow(index)
       } else {
         this.component.value[index] = res.value;
       }
-      this.onChange(this.component,index)
+      this.onChange(this.component, index)
     }
 
     this.onOpenForm.emit({
@@ -173,19 +196,10 @@ export class MyEditableTable {
       callback: callback
     })
 
-    // this.onOpenForm.emit({
-    //   dialogOption: {
-    //     data: { dialog: "tableForm", config: formConfig, title: title },
-    //     maxWidth: "90vw",
-    //     minWidth: "90vw",
-    //     maxHeight: "90vh",
-    //   }, callback: callback
-    // })
-
-
-  }
+ }
 
   onRemoveRow(index: number) {
+    console.log(123)
     this.component.value.splice(index, 1);
     this.rows.splice(index, 1);
   }

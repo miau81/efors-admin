@@ -6,7 +6,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <h5> {{'_MASTER_AND_REPORT' | translate }}</h5>
+                <h5> {{ title | mytranslate}}</h5>
             </div>
             @for (nav of workspaceNav; track nav.id){
             <div class="col-12 col-md-4 col-sm-6">

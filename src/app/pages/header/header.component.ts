@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
-import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownModule, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { APP_PARAMS } from '../../@interfaces/const';
 import { AuthService } from '../../services/auth.service';
+import { SideMenuComponent } from "../side-menu/side-menu.component";
 
 @Component({
   selector: 'app-header',
-  imports: [ShareModule, NgbDropdownModule],
+  imports: [ShareModule, NgbDropdownModule, SideMenuComponent],
   providers: [NgbDropdown],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -18,7 +19,7 @@ export class HeaderComponent {
   public appName: string = APP_PARAMS.appName;
   public accountLink: string = '/doc/user/'
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private offcanvasService: NgbOffcanvas) {
 
   }
 
@@ -31,5 +32,9 @@ export class HeaderComponent {
 
   onLogout() {
     this.authService.logout(false);
+  }
+
+  open(content: TemplateRef<any>) {
+    this.offcanvasService.open(content, { ariaLabelledBy: 'offcanvas-basic-title', panelClass: 'main-site-menu' })
   }
 }

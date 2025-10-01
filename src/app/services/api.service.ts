@@ -21,8 +21,8 @@ export class ApiService {
     return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/config/${type}/${docType}`));
   }
 
-  getDocuments<T>(docType: string, filter: any[]): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}`));
+  getDocuments<T>(docType: string, params: any): Promise<T> {
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}`, { params: params }));
   }
 
   getDocumentByField<T>(docType: string, field: string, value: any): Promise<T> {
@@ -43,18 +43,35 @@ export class ApiService {
 
   runEventScript<T>(docType: string, body: any): Promise<T> {
     return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/event/${docType}`, body));
-  } 
+  }
 
   /////////////////////// User ////////////////////////
   login<T>(body: { loginId: string, password: string }): Promise<T> {
     return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/login`, body));
   }
 
-  getNewToken<T = any>(refreshToken:string):Promise<T> {
-    let headers = { headers: { 'Authorization': `Bearer ${refreshToken}`  } };
-    let requestURL = this.apiUrl + '/auth/refresh_token';
-    return firstValueFrom(this.http.get<T>(requestURL, headers).pipe());
+  getNewToken<T = any>(refreshToken: string): Promise<T> {
+    let headers = { headers: { 'Authorization': `Bearer ${refreshToken}` } };
+    let requestURL = `${this.apiUrl}/auth/refresh_token`;
+    return firstValueFrom(this.http.get<T>(requestURL, headers));
   }
 
+  ////////////////////////// File //////////////////////////////
+  generatePdf(body: any): Promise<any> {
+    let requestURL = `${this.apiUrl}/public/file/generate-pdf`;
+    return firstValueFrom(this.http.post(requestURL, body, { responseType: "blob" }));
+  }
+
+  generateReport(body: any): Promise<any> {
+    let requestURL = `${this.apiUrl}/admin/report/generate-report`;
+    const options: any = body.reportType == 'html' ? {} : { responseType: "blob" };
+    return firstValueFrom(this.http.post(requestURL, body, options));
+  }
+
+  htmlToFile(body: any): Promise<any> {
+    let requestURL = `${this.apiUrl}/admin/report/html-to-file`;
+    const options: any = body.reportType == 'html' ? {} : { responseType: "blob" };
+    return firstValueFrom(this.http.post(requestURL, body, options));
+  }
 }
 

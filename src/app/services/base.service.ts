@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { MyERPField } from '../@interfaces/interface';
+import { MyERPField, MyERPFieldGroup } from '../@interfaces/interface';
 import { MyMessageBoxService } from '@myerp/services';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -45,6 +45,10 @@ export class BaseService {
     return fileds.sort((a, b) => (a.sorting || 0) - (b.sorting || 0));
   }
 
+  sortDocumentFieldGroups(fileds: MyERPFieldGroup[]) {
+    return fileds.sort((a, b) => (a.sorting || 0) - (b.sorting || 0));
+  }
+
   showErrorMessage(error: any) {
     const errorMessage = error?.error?.message || error.error?.error || error.message || error
     return this.myMessageBoxService.showAlertMessage({ title: "_ERROR", message: errorMessage, type: "error" });
@@ -72,6 +76,14 @@ export class BaseService {
 
   async getTranslate(key: string | string[], interpolateParams?: any) {
     return await firstValueFrom(this.translateService.get(key, interpolateParams));
+  }
+
+  async showLoading(){
+    return this.myMessageBoxService.showLoading();
+  }
+
+  async dismissLoading(){
+    return this.myMessageBoxService.dismissLoading();
   }
 
 }

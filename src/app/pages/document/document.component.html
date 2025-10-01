@@ -1,5 +1,7 @@
 @if(documentType){
-<div class="sticky-top bg-dark-subtle d-flex justify-content-between p-3">
+    <div class="d-flex flex-column h-100 overflow-hidden">
+<div class="bg-dark-subtle d-flex justify-content-between p-3">
+        @if(showTitle){
     <div class="d-flex align-items-center">
         <h4>{{title | mytranslate }}</h4>
         @if(!isNew && documentType.canSubmit) {
@@ -9,7 +11,7 @@
         }
     </div>
 
-    @if(showTitle){
+
 
     <div class="d-flex gap-1">
         @if(!isNew && documentType.printScript){
@@ -43,15 +45,19 @@
         @if(!isNew && documentType.canSubmit && !isChanged && document?.docStatus=='SUBMIT'){
         <button class="btn btn-sm btn-secondary" (click)="onCancel()">{{"_CANCEL" | translate}}</button>
         }
+        @if(this.dialogData){
+        <button class="btn btn-sm btn-light" (click)="onClose()">{{"_CLOSE" | translate}}</button>
+        }
     </div>
-    }
+    }@else {}
 </div>
-<div class="shadow-sm card" [class.page-container]="!dialogData?.dialog">
+<div class="card rounded-0 overflow-auto flex-grow-1" >
     <div class="card-body">
         @if(formConfig){
         <myerp-form-generator [config]="formConfig" (onChange)="onChange($event)"
             (onViewLinkDoc)="viewLinkDocument($event)" (openTableForm)="onOpenTableForm($event)"></myerp-form-generator>
         }
     </div>
+</div>
 </div>
 }

@@ -64,7 +64,10 @@ export class ConvertUtil {
                     values.push(this.convertToDataTypeValue(v));
                 });
                 value = `${values.join(" AND ")}`;
-                break
+                break;
+            case OperatorEnum.like:
+                value = `'%${value}%'`;
+                break;
             default:
                 value = this.convertToDataTypeValue(value);
         }
@@ -201,8 +204,6 @@ export class ConvertUtil {
 
     }
 
-
-
     public convertRequestToSaveApiParam(req: SRequest, requestMethod: ApiRequestMethod) {
 
         const requestBody = req.body?.body ? JSON.parse(req.body?.body) : req.body;
@@ -247,6 +248,99 @@ export class ConvertUtil {
 
     public getSQLJsonValueString(field: string, language: string = 'en') {
         return `JSON_UNQUOTE(IF(JSON_VALID(${field} AND JSON_TYPE(${field}) IN ('OBJECT', 'ARRAY')),${field}->'$${language}',${field})) as ${field}`;
+    }
+
+    public convertCurrencyToText(amount: string, style: "UPPERCSSE" | "LOWERCASE" | 'CAPITALIZE' = 'CAPITALIZE'): string {
+        // A lookup table for numbers 0-19 and tens
+        const units = [
+            '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+            'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',
+            'Seventeen', 'Eighteen', 'Nineteen'
+        ];
+        const tens = [
+            '', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'
+        ];
+        const scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion'];
+
+        // This helper function converts a number up to 999 into words.
+        const convertHundreds = (num: number): string => {
+            let result = '';
+
+            // Handle the hundreds part
+            if (Math.floor(num / 100) > 0) {
+                result += units[Math.floor(num / 100)] + ' hundred';
+                num %= 100; // Get the remainder
+            }
+
+            // Handle the tens and units part (0-99)
+            if (num > 0) {
+                if (result !== '') {
+                    result += ' '; // Add a space if hundreds were present
+                }
+                if (num < 20) {
+                    result += units[num];
+                } else {
+                    result += tens[Math.floor(num / 10)];
+                    if (num % 10 > 0) {
+                        result += ' ' + units[num % 10];
+                    }
+                }
+            }
+            return result;
+        };
+
+        // This main helper function handles numbers of any size.
+        const numberToWords = (num: number): string => {
+            if (num === 0) {
+                return '';
+            }
+
+            let words = '';
+            let scaleIndex = 0;
+
+            // Process the number in chunks of three digits (e.g., 1,234,567)
+            while (num > 0) {
+                const chunk = num % 1000;
+                if (chunk !== 0) {
+                    const chunkWords = convertHundreds(chunk);
+                    const scaleWord = scales[scaleIndex];
+                    words = chunkWords + (scaleWord ? ' ' + scaleWord : '') + (words ? ' ' + words : '');
+                }
+                num = Math.floor(num / 1000);
+                scaleIndex++;
+            }
+
+            return words.trim();
+        };
+
+        // --- Main function logic starts here ---
+        // Split the amount string into the Ringgit and sen parts
+        const [ringgitStr, senStr = '00'] = amount.split('.');
+
+        // Convert the string parts to numbers
+        const ringgit = parseInt(ringgitStr, 10);
+        const sen = parseInt(senStr.padEnd(2, '0').slice(0, 2), 10);
+
+        // Convert both parts to their word form using the new helper
+        const ringgitWords = numberToWords(ringgit);
+        const senWords = numberToWords(sen);
+
+        // Build the final string in the specified format
+        let res = `Ringgit Malaysia: ${ringgitWords}`;
+        res = res + (!senWords ? ` Only.` : ` and Sen ${senWords} Only.`)
+        // Apply the style transformation
+        switch (style) {
+            case 'UPPERCSSE':
+                res = res.toUpperCase();
+                break;
+            case 'LOWERCASE':
+                res = res.toLowerCase();
+                break;
+            case 'CAPITALIZE':
+                res = res;
+                break;
+        }
+        return res
     }
 
 

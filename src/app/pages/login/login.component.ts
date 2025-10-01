@@ -18,7 +18,7 @@ export class LoginComponent {
   public appName: string = APP_PARAMS.appName
 
   public formConfig!: MyFormGeneratorConfig;
-  constructor( private authService: AuthService,private baseService:BaseService) {
+  constructor(private authService: AuthService, private baseService: BaseService) {
 
   }
 
@@ -26,36 +26,30 @@ export class LoginComponent {
 
     let form!: FormGroup;
     const config: MyFormGeneratorConfig = {
-      showValidation:true,
+      showValidation: true,
       form: form,
-      tabs: [{
-        key: '',
-        label: "",
-        sections: [{
-          key: '',
-          label: '',
-          components: [
-            {
-              key: 'loginId',
-              label: '{"en":"Email"}',
-              required: true,
-              sortOrder: 1,
-              type: 'email',
-            },
-            {
-              key: 'password',
-              label: '{"en":"Password"}',
-              required: true,
-              sortOrder: 2,
-              type: 'password',
-              passwordConfig: {
-                showHide: true,
-                showPassword: false,
-              },
-            },
-          ],
-        }]
-      }]
+      tabs: [],
+      sections: [],
+      components: [
+        {
+          key: 'loginId',
+          label: '{"en":"Email"}',
+          required: true,
+          sortOrder: 1,
+          type: 'email',
+        },
+        {
+          key: 'password',
+          label: '{"en":"Password"}',
+          required: true,
+          sortOrder: 2,
+          type: 'password',
+          passwordConfig: {
+            showHide: true,
+            showPassword: false,
+          },
+        },
+      ],
     };
     this.formConfig = config;
 

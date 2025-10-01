@@ -12,7 +12,7 @@
   "_WARNING": "Warning",
   "_SUCCESS": "Success",
   "_ERROR": "Error",
-  "_CONFIRM_LOGOUT": "Are you sure want to logot the system?",
+  "_CONFIRM_LOGOUT": "Are you sure want to logout the system?",
   "_EDIT_ROW": "Edit Row # {{row}}",
   "_USER_NOT_FOUND_OR_PASSWORD_NOT_CORRECT": "User not found or password not correct.",
   "_DRAFT": "Draft",
@@ -25,6 +25,8 @@
   "_CONFIRM_DELETE": "Please type '{{confirmKey}}' to confrim the deletion.",
   "_HAS_CANCELLED":"Document has been cancelled",
   "_HAS_DELETED":"Document has been deleted",
-  "_PRINT":"Print"
+  "_PRINT":"Print",
+  "_CLOSE": "Close",
+  "_PRINT_FORMAT":"Printing Format"
 
 }

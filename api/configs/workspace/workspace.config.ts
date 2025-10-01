@@ -1,4 +1,4 @@
-
+export const title = "Menu";
 
 export const config=[
     {
@@ -22,12 +22,12 @@ export const config=[
       link: 'doc/company'
     },
     {
-      id: 'master_data',
-      label: 'Master Data',
+      id: 'stock',
+      label: 'Stock',
       isSingle: true,
       icon: 'bi bi-database',
       sorting: 3,
-      link:"master_data",
+      link:"stock",
       isHidden: false,
       // children: [
       //   {
@@ -47,29 +47,56 @@ export const config=[
       //   // }
       // ],
     },
+    // {
+    //   id: 'selling',
+    //   label: 'Selling',
+    //   isSingle: true,
+    //   icon: 'bi bi-currency-dollar',
+    //   sorting: 4,
+    //   link:"selling",
+    //   isHidden: false,
+    //   // children: [
+    //   //   {
+    //   //     id: 'selling',
+    //   //     label: 'Selling',
+    //   //     sorting: 1,
+    //   //     icon: 'bi bi-file-text',
+    //   //     link: 'selling'
+    //   //   },
+    //   //   {
+    //   //     id: 'e_invoice',
+    //   //     label: 'E-Invoice',
+    //   //     sorting: 1,
+    //   //     icon: 'bi bi-file-text',
+    //   //     link: 'e-invoice'
+    //   //   }
+    //   // ],
+
+    // },
     {
-      id: 'selling',
-      label: 'Selling',
-      isSingle: false,
-      icon: 'bi bi-currency-dollar',
+      id: 'trading',
+      label: 'Trading',
+      isSingle: true,
+      icon: 'bi bi-bag',
+      link:"trading",
       sorting: 4,
       isHidden: false,
-      children: [
-        {
-          id: 'invoice',
-          label: 'Invoice',
-          sorting: 1,
-          icon: 'bi bi-file-text',
-          link: 'invoice'
-        },
-        {
-          id: 'e_invoice',
-          label: 'E-Invoice',
-          sorting: 1,
-          icon: 'bi bi-file-text',
-          link: 'e-invoice'
-        }
-      ],
+      // children: [
+      //   {
+      //     id: 'selling',
+      //     label: 'Selling',
+      //     sorting: 1,
+      //     icon: 'bi bi-file-text',
+      //     link: 'selling'
+      //   },
+      //   {
+      //     id: 'e_invoice',
+      //     label: 'E-Invoice',
+      //     sorting: 1,
+      //     icon: 'bi bi-file-text',
+      //     link: 'e-invoice'
+      //   }
+      // ],
 
     },
      {

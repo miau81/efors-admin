@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import {  MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
+import { MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {  MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
 })
 export class DashboardComponent {
     formConfig!: MyFormGeneratorConfig
-    
+
     constructor(private dialog: MatDialog) {
 
     }
@@ -24,45 +24,39 @@ export class DashboardComponent {
         let form!: FormGroup;
         const config: MyFormGeneratorConfig = {
             form: form,
-            tabs: [{
-                key: '',
-                label: "",
-                sections: [{
-                    key: '',
-                    label: 's',
-                    components: [
-                        {
-                            key: 'email',
-                            label: '{"en":"Email"}',
-                            required: true,
-                            sortOrder: 1,
-                            type: 'email',
-                        },
-                        {
-                            key: 'password',
-                            label: '_PASSWORD',
-                            required: true,
-                            sortOrder: 2,
-                            type: 'password',
-                            passwordConfig: {
-                                showHide: true,
-                                showPassword: false,
-                            },
-                        },
-                    ],
-                }]
-            }]
+            tabs: [],
+            sections: [],
+            components: [
+                {
+                    key: 'email',
+                    label: '{"en":"Email"}',
+                    required: true,
+                    sortOrder: 1,
+                    type: 'email',
+                },
+                {
+                    key: 'password',
+                    label: '_PASSWORD',
+                    required: true,
+                    sortOrder: 2,
+                    type: 'password',
+                    passwordConfig: {
+                        showHide: true,
+                        showPassword: false,
+                    },
+                },
+            ],
         };
         return config;
     }
 
-    onChange(e:any){
+    onChange(e: any) {
         console.log("onChange", e);
     }
 
     onOpenModal() {
         const dialogRef = this.dialog.open(DashboardComponent, {
-            data: {abc:"abc"},
+            data: { abc: "abc" },
             maxWidth: "90vw",
             maxHeight: "90vh",
             minHeight: "90vh",

@@ -11,7 +11,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppInitService } from './services/app-init.service';
 import { SERVER_HOST } from './app.tokens';
 import { httpInterceptor  } from './interceptors/http.interceptor';
-import { NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
+// import { NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,19 +28,19 @@ export const appConfig: ApplicationConfig = {
     })),
     { provide: SERVER_HOST, useValue: "./" },
     { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor , multi: true },
-    provideEnvironmentNgxCurrency({
-      align: "right",
-      allowNegative: true,
-      decimal: ".",
-      precision: 2,
-      prefix: "RM ",
-      suffix: "",
-      thousands: ",",
-      nullable: true,
-      min: null,
-      max: null,
-      inputMode: NgxCurrencyInputMode.Natural,
-    }),
+    // provideEnvironmentNgxCurrency({
+    //   align: "right",
+    //   allowNegative: true,
+    //   decimal: ".",
+    //   precision: 2,
+    //   prefix: "RM ",
+    //   suffix: "",
+    //   thousands: ",",
+    //   nullable: true,
+    //   min: null,
+    //   max: null,
+    //   inputMode: NgxCurrencyInputMode.Natural,
+    // }),
   
     provideAppInitializer(() => {
       const initializerFn = (InitializeApp)(inject(AppInitService));
