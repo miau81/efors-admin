@@ -27,6 +27,7 @@
   "_HAS_DELETED":"Document has been deleted",
   "_PRINT":"Print",
   "_CLOSE": "Close",
-  "_PRINT_FORMAT":"Printing Format"
+  "_PRINT_FORMAT":"Printing Format",
+  "_SHARE":"Share"
 
 }

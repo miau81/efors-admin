@@ -146,6 +146,10 @@ export class PrintComponent {
     // window.URL.revokeObjectURL(url)
   }
 
+  onShare(){
+    //TODO
+  }
+
   dismiss() {
     this.dialogRef.close();
   }

@@ -1,9 +1,13 @@
 import { MyERPField } from "./interface"
+import { version } from '../../../package.json'
 
 export const APP_PARAMS = {
-    appName: "EZ E-Invoice",
+    appName: "Eforsy",
+    slogan:"Business Made Effortless",
+    tagline:"Smart, Simple, Scalable",
     defaultProfileImage: "./assets/images/default_sp_profile.png",
     defaultImage: "./assets/images/no-image.jpg",
+    version: `v${version}`
 }
 
 export const myErpFields: MyERPField[] = [

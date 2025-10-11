@@ -1,14 +1,20 @@
 @if(this.dialogData){
-<div class="bg-secondary-subtle d-flex justify-content-between p-3">
-    <div class="d-flex align-items-center">
+<div class="bg-secondary-subtle d-flex flex-column-reverse flex-sm-row justify-content-between p-2 p-sm-3">
+    <div class="d-flex align-items-center  mt-sm-0 mt-3">
         <h4>{{this.dialogData.documentId }}</h4>
     </div>
-    <div class="d-flex gap-1">
+    <div class="d-flex gap-1 justify-content-end">
         <button class="btn btn-primary" (click)="onPrint()">
-            <i class="bi bi-printer"></i> {{"_PRINT" | translate}}
+            <i class="bi bi-printer"></i>
+            <span class="d-none d-sm-inline"> {{"_PRINT" | translate}}</span>
         </button>
         <button class="btn btn-light" (click)="exportPrint('pdf')">
-            <i class="bi bi-file-earmark-pdf"></i> PDF
+            <i class="bi bi-file-earmark-pdf"></i> 
+            <span class="d-none d-sm-inline"> PDF</span>
+        </button>
+        <button class="btn btn-light" (click)="onShare()">
+            <i class="bi bi-share"></i>
+            <span class="d-none d-sm-inline"> {{"_SHARE" | translate}}</span>
         </button>
         <button class="btn btn-icon" (click)="dismiss()">
             <i class="bi bi-x-lg"></i>

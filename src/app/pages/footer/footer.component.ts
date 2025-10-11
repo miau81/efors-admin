@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { APP_PARAMS } from '../../@interfaces/const';
-import { version } from '../../../../package.json'
 
 @Component({
   selector: 'app-footer',
@@ -11,6 +10,6 @@ import { version } from '../../../../package.json'
 export class FooterComponent {
 
   public appName: string = APP_PARAMS.appName;
-  public version = `V${version}`;
+  public version = APP_PARAMS.version;
 
 }

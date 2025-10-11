@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
 import { BaseService } from '../../services/base.service';
 
+
 @Component({
   selector: 'app-login',
   imports: [ShareModule, MyFormGenerator],
@@ -16,6 +17,9 @@ import { BaseService } from '../../services/base.service';
 export class LoginComponent {
 
   public appName: string = APP_PARAMS.appName
+  public slogan: string = APP_PARAMS.slogan
+  public tagline: string = APP_PARAMS.tagline
+  public version: string = APP_PARAMS.version
 
   public formConfig!: MyFormGeneratorConfig;
   constructor(private authService: AuthService, private baseService: BaseService) {

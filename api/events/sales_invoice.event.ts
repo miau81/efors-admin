@@ -5,8 +5,18 @@ import { ApiGlobalService } from "../../src/api/services/api.global.service";
 
 
 export async function onPrint(params: ApiParam, mysqlConn: ConnectionAction) {
-        const globalService = new ApiGlobalService();
-        const body = params.body.data;
-        const data = await globalService.getSingleDocument({ ...params }, `WHERE id='${body.id}'`, mysqlConn);
-        return data;
+	const globalService = new ApiGlobalService();
+	const body = params.body.data;
+	const data = await globalService.getSingleDocument({ ...params }, `WHERE id='${body.id}'`, mysqlConn);
+	return data;
+}
+
+export async function afterSubmit(data: any, params: ApiParam, mysqlConn: ConnectionAction, previousData?: any) {
+	if (previousData.doc_status != 'DRAFT') {
+		return data;
+	}
+	const soa = {
+		
+	}
+
 }
