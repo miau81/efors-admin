@@ -17,6 +17,7 @@ export class HeaderComponent {
   public languages: any = [{ name: '', code: '' }];
   public showToggleMenu: boolean = false;
   public appName: string = APP_PARAMS.appName;
+  public systemName: string = APP_PARAMS.systemName;
   public slogan: string = APP_PARAMS.slogan;
   public tagline: string = APP_PARAMS.tagline;
   public accountLink: string = '/doc/user/'

@@ -25,6 +25,7 @@
   "_CONFIRM_DELETE": "Please type '{{confirmKey}}' to confrim the deletion.",
   "_HAS_CANCELLED":"Document has been cancelled",
   "_HAS_DELETED":"Document has been deleted",
+  "_HAS_SUBMITED":"Document has been submitted",
   "_PRINT":"Print",
   "_CLOSE": "Close",
   "_PRINT_FORMAT":"Printing Format",

@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { ConnectionAction } from "../../src/api/interfaces/api.db.interface";
 import { ApiParam, ApiSaveParam } from "../../src/api/interfaces/api.main.interface";
 import { ConvertUtil } from "../../src/api/utils/convert";
@@ -8,7 +7,7 @@ import { ApiRequestMethod } from "../../src/api/interfaces/api.enum";
 const globalService = new ApiGlobalService();
 
 export async function afterSubmit(data: any, params: ApiParam, mysqlConn: ConnectionAction, previousData?: any) {
-    if (previousData.doc_status != 'DRAFT') {
+    if (previousData.docStatus != 'DRAFT') {
         return data;
     }
 

@@ -10,6 +10,7 @@ import { APP_PARAMS } from '../../@interfaces/const';
 export class FooterComponent {
 
   public appName: string = APP_PARAMS.appName;
+  public systemName: string = APP_PARAMS.systemName;
   public version = APP_PARAMS.version;
 
 }

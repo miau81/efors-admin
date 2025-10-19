@@ -17,6 +17,7 @@ import { BaseService } from '../../services/base.service';
 export class LoginComponent {
 
   public appName: string = APP_PARAMS.appName
+  public systemName: string = APP_PARAMS.systemName;
   public slogan: string = APP_PARAMS.slogan
   public tagline: string = APP_PARAMS.tagline
   public version: string = APP_PARAMS.version

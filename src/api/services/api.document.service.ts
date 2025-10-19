@@ -12,7 +12,7 @@ export class ApiDocumentService {
 
     readonly convertUtil = new ConvertUtil();
     readonly globalService = new ApiGlobalService();
-    readonly externalScript= new ExternalScriptService
+    readonly externalScript = new ExternalScriptService
 
     async getDocumentType(document: string, mysqlConn?: ConnectionAction, sys?: string, com?: string, language = 'en') {
         return this.globalService.getDocumentType(document, mysqlConn, sys, com, language);
@@ -70,7 +70,7 @@ export class ApiDocumentService {
             if (error instanceof Error && error.constructor !== Error) {
                 throw error;
             }
-            throw new ServiceException(`Error updating document [${params.tableName}]`);
+            throw new ServiceException(`Error updating document [${params.tableName}]: ${error}`);
         }
     }
 

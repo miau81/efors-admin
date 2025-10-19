@@ -2,7 +2,8 @@ import { MyERPField } from "./interface"
 import { version } from '../../../package.json'
 
 export const APP_PARAMS = {
-    appName: "Eforsy",
+    systemName:"Business Management System",
+    appName: "Efors",
     slogan:"Business Made Effortless",
     tagline:"Smart, Simple, Scalable",
     defaultProfileImage: "./assets/images/default_sp_profile.png",

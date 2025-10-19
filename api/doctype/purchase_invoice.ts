@@ -6,7 +6,7 @@ export const documentType = (() => {
         id: "purchase_invoice",
         label: '{"en":"Purchase Invoice"}',
         namingType: "sequence",
-        namingFormat: "PINV{YYMM}-{0000}",
+        namingFormat: "PINV{YYYY}-{0000}",
         searchFields: ["id"],
         canSubmit: true,
         printScript: "SERVER",

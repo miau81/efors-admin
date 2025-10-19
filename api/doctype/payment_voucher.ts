@@ -6,7 +6,7 @@ export const documentType = (() => {
         id: "payment_voucher",
         label: '{"en":"Payment Voucher"}',
         namingType: "sequence",
-        namingFormat: "PMT{YYMM}-{0000}",
+        namingFormat: "PV-{YYYY}-{0000}",
         searchFields: ["id"],
         canSubmit: true,
         printScript: "SERVER",

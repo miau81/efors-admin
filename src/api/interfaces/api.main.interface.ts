@@ -1,31 +1,31 @@
 
-import { ApiRequestMethod, AuthURL,  OperatorEnum, OrderBy } from "./api.enum"
-export interface ApiParam{
-    user:any;
-    language?:string;
+import { ApiRequestMethod, AuthURL, OperatorEnum, OrderBy } from "./api.enum"
+export interface ApiParam {
+    user: any;
+    language?: string;
     tableName: string;
-    sys?:string;
-    com?:string;
+    sys?: string;
+    com?: string;
     method: ApiRequestMethod;
     authURL?: AuthURL;
-    queryParam?:any;
-    params?:any;
-    body?:any;
-   
+    queryParam?: any;
+    params?: any;
+    body?: any;
+
 }
 
-export interface ApiSaveParam extends ApiParam{
-    files?:Express.Multer.File[];
+export interface ApiSaveParam extends ApiParam {
+    files?: Express.Multer.File[];
 }
 
-export interface ApiGetParam extends ApiParam{
-    selectFields?:string[];
+export interface ApiGetParam extends ApiParam {
+    selectFields?: string[];
     excludeFields?: string[];
     pagination?: {
         start: number;
         limit: number;
     };
-    sorting?:{
+    sorting?: {
         sortField?: string;
         sortBy?: OrderBy;
     };
@@ -35,8 +35,10 @@ export interface ApiGetParam extends ApiParam{
     };
     filters?: Filter[];
     customWhereQuery?: string;
-    getChild?:boolean;
-    getParent?:boolean;
+    getChild?: boolean;
+    getParent?: boolean;
+    listOnly?: boolean;
+
 }
 
 export interface Filter {
@@ -55,22 +57,22 @@ export enum FilterType {
     year = "year"
 }
 
-export interface PaginationListOption{
-    selectedfields:string;
-    selectedFrom:string;
-    where?:string;
-    groupBy?:string;
-    orderBy?:string;
-    start?:number;
-    limit?:number;
+export interface PaginationListOption {
+    selectedfields: string;
+    selectedFrom: string;
+    where?: string;
+    groupBy?: string;
+    orderBy?: string;
+    start?: number;
+    limit?: number;
 }
 
-export interface FileUpladConfig{
-    files:any;
-    limit:number;
-    fileType:string;
-    savePath:string;
-    overwrite?:boolean;
+export interface FileUpladConfig {
+    files: any;
+    limit: number;
+    fileType: string;
+    savePath: string;
+    overwrite?: boolean;
 }
 
 
@@ -83,7 +85,7 @@ export interface FileUpladConfig{
 //     messageObject:string,
 //     messageType:NotificationMessageType
 //     notificationFor:"POST" | "KNOWLEDGE_BASE" | "SHOP" | "VIDEO"
-//     type:"INFO" | "FRIEND_REQUEST" 
+//     type:"INFO" | "FRIEND_REQUEST"
 //     isRead:boolean
 //     isViewed:boolean
 // }

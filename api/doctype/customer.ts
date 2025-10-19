@@ -8,8 +8,8 @@ export const documentType = (() => {
     const type: MyERPDocType = {
         id: "customer",
         label: '{"en":"Customer"}',
-        namingType: "byField",
-        namingFormat: "name",
+       namingType: "sequence",
+        namingFormat: "CUS-{YYYY}-{0000}",
         sections: [
             { id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 },
             { id: 'sectionAddress', label: '{"en":"Address"}', sorting: 2 }

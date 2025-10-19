@@ -112,6 +112,9 @@ export class ApiGlobalService {
             totalRecord: totalRecord,
             records: docs
         };
+        if (params.listOnly) {
+            return docs;
+        }
         return result;
     }
 
@@ -178,7 +181,7 @@ export class ApiGlobalService {
             doc = await imp.afterCreate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.onSubmit && doc.doc_status == 'SUBMIT') {
+        if (imp.onSubmit && doc.docStatus == 'SUBMIT') {
             doc = await imp.onSubmit(doc, params, docType, mysqlConn);
         }
 
@@ -199,11 +202,11 @@ export class ApiGlobalService {
             doc = await imp.beforeUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.beforeSubmit && doc.doc_status == 'SUBMIT') {
+        if (imp.beforeSubmit && doc.docStatus == 'SUBMIT') {
             doc = await imp.beforeSubmit(doc, params, docType, mysqlConn);
         }
 
-        if (imp.beforeCancel && doc.doc_status == 'CANCELLED') {
+        if (imp.beforeCancel && doc.docStatus == 'CANCELLED') {
             doc = await imp.beforeCancel(doc, params, docType, mysqlConn);
         }
 
@@ -246,10 +249,7 @@ export class ApiGlobalService {
 
         where = await this.filterSysAndCom(tableName, where, params.com, params.sys, mysqlConn, docType);
 
-        const previousDoc = await mysqlConn.querySingle(`SELECT doc_status FROM ${tableName} ${where}`);
-
-
-
+        const previousDoc = await mysqlConn.querySingle(`SELECT * FROM ${tableName} ${where}`);
 
         await this.sqlUpdate(tableName, doc, where, mysqlConn);
 
@@ -262,11 +262,11 @@ export class ApiGlobalService {
             doc = await imp.afterUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.afterSubmit && doc.doc_status == 'SUBMIT') {
+        if (imp.afterSubmit && doc.docStatus == 'SUBMIT') {
             doc = await imp.afterSubmit(doc, params, docType, mysqlConn, previousDoc);
         }
 
-        if (imp.afterCancel && doc.doc_status == 'CANCELLED') {
+        if (imp.afterCancel && doc.docStatus == 'CANCELLED') {
             doc = await imp.afterCancel(doc, params, docType, mysqlConn, previousDoc);
         }
 

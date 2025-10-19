@@ -11,12 +11,3 @@ export async function onPrint(params: ApiParam, mysqlConn: ConnectionAction) {
 	return data;
 }
 
-export async function afterSubmit(data: any, params: ApiParam, mysqlConn: ConnectionAction, previousData?: any) {
-	if (previousData.doc_status != 'DRAFT') {
-		return data;
-	}
-	const soa = {
-		
-	}
-
-}

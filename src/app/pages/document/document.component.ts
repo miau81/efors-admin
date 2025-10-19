@@ -88,14 +88,20 @@ export class DocumentComponent {
         this.baseService.subscribeParam(this.route, async (p: any) => {
           this.documentTypeId = p['documentType'];
           this.documentId = p['id'];
-          if (this.documentId) {
-            this.isNew = false;
-            this.document = await this.getDocumentById(this.documentTypeId, this.documentId);
-            this.isViewOnly = this.document.docStatus == 'SUBMIT' || this.document.docStatus == 'CANCELLED';
+          try {
+            await this.baseService.showLoading();
+            if (this.documentId) {
+              this.isNew = false;
+              this.document = await this.getDocumentById(this.documentTypeId, this.documentId);
+              this.isViewOnly = this.document.docStatus == 'SUBMIT' || this.document.docStatus == 'CANCELLED';
+            }
+            await this.getDocumentType();
+            this.formConfig.initValue = this.populateDocument(this.documentType);
+          } catch (error: any) {
+            await this.baseService.showErrorMessage(error);
+          } finally {
+            await this.baseService.dismissLoading();
           }
-          await this.getDocumentType();
-          this.formConfig.initValue = this.populateDocument(this.documentType);
-
         })
 
     }
@@ -107,7 +113,6 @@ export class DocumentComponent {
     this.documentType = await this.api.getDocumentType(this.documentTypeId);
     this.title = this.documentType.label;
     this.formConfig = this.populateFormConfig(this.documentType);
-
   }
 
   populateFormConfig(documentType: MyERPDocType) {
@@ -166,23 +171,6 @@ export class DocumentComponent {
   async getDocumentById(documentTypeId: string, documentId: string) {
     return await this.api.getDocumentByField(documentTypeId, "id", documentId);
   }
-
-  // getSection(fields: MyERPField[], tabId?: string) {
-  //   const sectionFields: MyERPField[] = this.baseService.sortDocumentFields(fields.filter(f => f.type == "section" && f.tabId == tabId));
-  //   const sections = [];
-  //   for (let s of sectionFields) {
-  //     const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => f.sectionId == s.id)));
-
-  //     if (components.length > 0) {
-  //       sections.push({ key: s.id, label: s.label, sectionExpanded: s.sectionExpanded, components: components });
-  //     }
-  //   }
-  //   const components = this.populateFieldsToFormComponents(this.baseService.sortDocumentFields(fields.filter(f => !f.sectionId && f.type != 'tab' && f.type != 'section' && !f.isHidden)));
-  //   if (components.length > 0) {
-  //     sections.unshift({ key: '', label: '', components: components });
-  //   }
-  //   return sections;
-  // }
 
   populateFieldsToFormComponents(fields: MyERPField[]) {
     return fields.map(f => {
@@ -298,8 +286,6 @@ export class DocumentComponent {
     }
   }
 
-
-
   isValueField(type: MyErpFieldType) {
     switch (type) {
       case 'tab':
@@ -310,7 +296,6 @@ export class DocumentComponent {
         return true;
     }
   }
-
 
   async onChange(event: { component: MyFormComponent, isInit: boolean, childTable?: { component: MyFormComponent, row: any, index: number, isInit?: boolean } }) {
     if (event.component.type == 'select' && event.component.value == '_ADDNEW') {
@@ -387,8 +372,15 @@ export class DocumentComponent {
       isInit: isInit,
       index: index
     }
-    const response: any = await this.api.runEventScript(documentId, body);
-    return response;
+    try {
+      await this.baseService.showLoading();
+      const response: any = await this.api.runEventScript(documentId, body);
+      return response;
+    } catch (error: any) {
+      await this.baseService.showErrorMessage(error);
+    } finally {
+      await this.baseService.dismissLoading();
+    }
   }
 
   async runClientChangeScript(documentId: string, change: any, formValue: any, parentFormValue?: any, isInit?: boolean, index?: number) {
@@ -571,6 +563,7 @@ export class DocumentComponent {
     }
     let response: any;
     try {
+      await this.baseService.showLoading();
       if (this.isNew) {
         response = await this.api.createDocument(this.documentTypeId, this.formConfig.form.value);
       } else {
@@ -579,16 +572,17 @@ export class DocumentComponent {
       if (this.dialogData?.dialog == "newForm") {
         this.onCloseDialog(response);
       } else {
+        await this.baseService.dismissLoading();
         await this.baseService.showSuccessToast("_HAS_SAVED");
         this.isChanged = false;
         if (this.isNew) {
           this.baseService.navigateTo(`/doc/${this.documentTypeId}/${response!['id']}`)
         }
       }
-
-
     } catch (error: any) {
       await this.baseService.showErrorMessage(error);
+    } finally {
+      await this.baseService.dismissLoading();
     }
 
 
@@ -597,10 +591,18 @@ export class DocumentComponent {
   async onSubmit() {
     const confirm = await this.baseService.showConfirm("_CONFIRM_SUBMIT");
     if (confirm == MyMessageBoxResponse.confirm) {
-      await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { docStatus: 'SUBMIT' });
-      await this.baseService.showSuccessToast("_HAS_SAVED");
-      // this.document.docStatus = 'SUBMIT';
-      await this.baseService.refreshRoute();
+      try {
+        await this.baseService.showLoading();
+        await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { docStatus: 'SUBMIT' });
+        await this.baseService.dismissLoading();
+        await this.baseService.showSuccessToast("_HAS_SUBMITED");
+        // this.document.docStatus = 'SUBMIT';
+        await this.baseService.refreshRoute();
+      } catch (error: any) {
+        await this.baseService.showErrorMessage(error);
+      } finally {
+        await this.baseService.dismissLoading();
+      }
     }
   }
 
@@ -609,10 +611,17 @@ export class DocumentComponent {
     const msg = await this.baseService.getTranslate("_CONFIRM_CANCEL", { confirmKey: confirmKey });
     const confirm = await this.baseService.showInputConfirm(msg, confirmKey)
     if (confirm == MyMessageBoxResponse.confirm) {
-      await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { docStatus: 'CANCELLED' });
-      await this.baseService.showSuccessToast("_HAS_CANCELLED");
-      // this.document.docStatus = 'SUBMIT';
-      await this.baseService.refreshRoute();
+      try {
+        await this.baseService.showLoading();
+        await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { docStatus: 'CANCELLED' });
+        await this.baseService.dismissLoading();
+        await this.baseService.showSuccessToast("_HAS_CANCELLED");
+        await this.baseService.refreshRoute();
+      } catch (error: any) {
+        await this.baseService.showErrorMessage(error);
+      } finally {
+        await this.baseService.dismissLoading();
+      }
     }
   }
 
@@ -621,10 +630,18 @@ export class DocumentComponent {
     const msg = await this.baseService.getTranslate("_CONFIRM_DELETE", { confirmKey: confirmKey });
     const confirm = await this.baseService.showInputConfirm(msg, confirmKey)
     if (confirm == MyMessageBoxResponse.confirm) {
-      await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { isDeleted: true });
-      await this.baseService.showSuccessToast("_HAS_DELETED");
-      // this.document.docStatus = 'SUBMIT';
-      await this.baseService.navigateTo(`/doc/${this.documentTypeId}`, { replaceUrl: true })
+      try {
+        await this.baseService.showLoading();
+        await this.api.updateDocumentByField(this.documentTypeId, "id", this.documentId, { isDeleted: true });
+        await this.baseService.dismissLoading();
+        await this.baseService.showSuccessToast("_HAS_DELETED");
+        // this.document.docStatus = 'SUBMIT';
+        await this.baseService.navigateTo(`/doc/${this.documentTypeId}`, { replaceUrl: true });
+      } catch (error: any) {
+        await this.baseService.showErrorMessage(error);
+      } finally {
+        await this.baseService.dismissLoading();
+      }
     }
   }
 
