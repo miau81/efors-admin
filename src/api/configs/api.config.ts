@@ -1,9 +1,9 @@
 export const appConfigs = {
     dbConfig: {
         host: "localhost",
-        user: "myerpdb",
-        password: "myerpdb",
-        database: "myerpdb_ezeinvoice",
+        user: "efors",
+        password: "efors@superadmin",
+        database: "eforsdb",
         charset: "utf8mb4",
         pool: {
             min: 10,
@@ -49,7 +49,7 @@ export const appConfigs = {
         dir: "../logs"
     },
     jwt: {
-        JWT_PASS: "@MYERP#",
+        JWT_PASS: "@EFORS#",
         JWT_EXP: "1 hour",
         JWT_REFRESH_EXP: "10 days",
     },

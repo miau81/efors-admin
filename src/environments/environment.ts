@@ -4,5 +4,5 @@ export const environment = {
     server:'http://localhost:4000',
     baseHref:"",
     host:'http://localhost:4200',
-    apiToken:"#ezeinvoice@2025"
+    apiToken:"#efors@2025"
 };

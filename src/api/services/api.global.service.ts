@@ -6,7 +6,7 @@ import { ServiceException } from "../exceptions/ServiceException";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { GetDataOption } from "../interfaces/api.entity.interface";
 import { ApiRequestMethod, AuthURL } from "../interfaces/api.enum";
-import { ApiGetParam, ApiSaveParam } from "../interfaces/api.main.interface";
+import { ApiDeleteParam, ApiGetParam, ApiSaveParam } from "../interfaces/api.main.interface";
 import { ConvertUtil } from "../utils/convert";
 import { logger } from "../utils/logger";
 import { JWTService } from "./jwt.service";
@@ -29,16 +29,21 @@ export class ApiGlobalService {
     }
 
     async getSingleDocument(params: ApiGetParam, where: string, mysqlConn: ConnectionAction) {
-        const imp = await this.importDocTypeFile(params.tableName);
-        const docType: MyERPDocType = await imp.documentType();
+        const user = params.user;
+        const tableName = params.tableName;
 
-        if (imp.beforeGet) {
-            imp.beforeGet(null, params, docType, mysqlConn);
+        const impDocType = await this.importDocTypeFile(tableName);
+        const docType: MyERPDocType = await impDocType.documentType();
+
+        const impEvent = await this.importDocTypeEventFile(tableName);
+
+        if (impEvent.beforeGet) {
+            impEvent.beforeGet(null, params, docType, mysqlConn);
         }
 
         const option: GetDataOption = {
             mysqlConn: mysqlConn,
-            tableName: params.tableName,
+            tableName: tableName,
             docType: docType,
             selectFields: params.selectFields,
             excludeFields: params.excludeFields,
@@ -47,7 +52,7 @@ export class ApiGlobalService {
             sys: params.sys,
             com: params.com,
             sqlWhere: where,
-            user: params.user,
+            user: user,
             getChild: params.getChild,
             getParent: params.getParent
         }
@@ -56,18 +61,23 @@ export class ApiGlobalService {
             throw new NoDataException(`Not data found`);
         }
         data = data[0];
-        if (imp.afterGet) {
-            data = imp.afterGet(data, params, docType, mysqlConn);
+        if (impEvent.afterGet) {
+            data = impEvent.afterGet(data, params, docType, mysqlConn);
         }
         return data;
     }
 
     async getDocumentList(params: ApiGetParam, mysqlConn: ConnectionAction) {
-        const imp = await this.importDocTypeFile(params.tableName);
-        const docType: MyERPDocType = await imp.documentType();
+        const user = params.user;
+        const tableName = params.tableName;
 
-        if (imp.beforeGetList) {
-            imp.beforeGetList(null, params, docType, mysqlConn);
+        const impDocType = await this.importDocTypeFile(tableName);
+        const docType: MyERPDocType = await impDocType.documentType();
+
+        const impEvent = await this.importDocTypeEventFile(tableName);
+
+        if (impEvent.beforeGetList) {
+            impEvent.beforeGetList(null, params, docType, mysqlConn);
         }
 
         const where = params.customWhereQuery || await this.populateWhareQuery(params);
@@ -80,7 +90,7 @@ export class ApiGlobalService {
         }
         const totalRecord: number = await this.countData(params.tableName, where, mysqlConn);
         const options: GetDataOption = {
-            tableName: params.tableName,
+            tableName: tableName,
             selectFields: params.selectFields,
             docType: docType,
             excludeFields: params.excludeFields,
@@ -89,7 +99,7 @@ export class ApiGlobalService {
             sqlLimit: pagination,
             authURL: params.authURL,
             language: params.language,
-            user: params.user,
+            user: user,
             mysqlConn: mysqlConn,
             getChild: params.getChild,
             getParent: params.getParent,
@@ -99,8 +109,8 @@ export class ApiGlobalService {
 
         let docs = await this.getData(options);
 
-        if (imp.afterGetList) {
-            docs = imp.afterGetList(docs, params, docType, mysqlConn);
+        if (impEvent.afterGetList) {
+            docs = impEvent.afterGetList(docs, params, docType, mysqlConn);
         }
 
         const limit = this.convertUtil.convertToDataTypeValue(params.pagination?.limit);
@@ -124,11 +134,13 @@ export class ApiGlobalService {
         const isAuth = params.authURL == AuthURL.AUTH;
         const tableName = params.tableName;
 
-        const imp = await this.importDocTypeFile(tableName);
-        const docType: MyERPDocType = await imp.documentType();
+        const impDocType = await this.importDocTypeFile(tableName);
+        const docType: MyERPDocType = await impDocType.documentType();
 
-        if (imp.beforeCreate) {
-            doc = await imp.beforeCreate(doc, params, docType, mysqlConn);
+        const impEvent = await this.importDocTypeEventFile(tableName);
+
+        if (impEvent.beforeCreate) {
+            doc = await impEvent.beforeCreate(doc, params, docType, mysqlConn);
         }
 
         const fields = await this.getTableFields(tableName, mysqlConn, docType) as MyERPField[];
@@ -177,12 +189,12 @@ export class ApiGlobalService {
 
         await this.updateChildTable(docType, params, doc, mysqlConn);
 
-        if (imp.afterCreate) {
-            doc = await imp.afterCreate(doc, params, docType, mysqlConn);
+        if (impEvent.afterCreate) {
+            doc = await impEvent.afterCreate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.onSubmit && doc.docStatus == 'SUBMIT') {
-            doc = await imp.onSubmit(doc, params, docType, mysqlConn);
+        if (impEvent.onSubmit && doc.docStatus == 'SUBMIT') {
+            doc = await impEvent.onSubmit(doc, params, docType, mysqlConn, doc);
         }
 
         return doc;
@@ -195,19 +207,21 @@ export class ApiGlobalService {
         const tableName = params.tableName;
         let doc = params.body;
 
-        const imp = await this.importDocTypeFile(tableName);
-        const docType: MyERPDocType = await imp.documentType();
+        const impDocType = await this.importDocTypeFile(tableName);
+        const docType: MyERPDocType = await impDocType.documentType();
 
-        if (imp.beforeUpdate) {
-            doc = await imp.beforeUpdate(doc, params, docType, mysqlConn);
+        const impEvent = await this.importDocTypeEventFile(tableName);
+
+        if (impEvent.beforeUpdate) {
+            doc = await impEvent.beforeUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.beforeSubmit && doc.docStatus == 'SUBMIT') {
-            doc = await imp.beforeSubmit(doc, params, docType, mysqlConn);
+        if (impEvent.beforeSubmit && doc.docStatus == 'SUBMIT') {
+            doc = await impEvent.beforeSubmit(doc, params, docType, mysqlConn);
         }
 
-        if (imp.beforeCancel && doc.docStatus == 'CANCELLED') {
-            doc = await imp.beforeCancel(doc, params, docType, mysqlConn);
+        if (impEvent.beforeCancel && doc.docStatus == 'CANCELLED') {
+            doc = await impEvent.beforeCancel(doc, params, docType, mysqlConn);
         }
 
         const fields = await this.getTableFields(tableName, mysqlConn, docType) as MyERPField[];
@@ -249,7 +263,7 @@ export class ApiGlobalService {
 
         where = await this.filterSysAndCom(tableName, where, params.com, params.sys, mysqlConn, docType);
 
-        const previousDoc = await mysqlConn.querySingle(`SELECT * FROM ${tableName} ${where}`);
+        const previousDoc = await mysqlConn.querySingle(`SELECT * FROM ${db}.${tableName} ${where}`);
 
         await this.sqlUpdate(tableName, doc, where, mysqlConn);
 
@@ -258,20 +272,52 @@ export class ApiGlobalService {
 
         await this.updateChildTable(docType, params, doc, mysqlConn);
 
-        if (imp.afterUpdate) {
-            doc = await imp.afterUpdate(doc, params, docType, mysqlConn);
+        if (impEvent.afterUpdate) {
+            doc = await impEvent.afterUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (imp.afterSubmit && doc.docStatus == 'SUBMIT') {
-            doc = await imp.afterSubmit(doc, params, docType, mysqlConn, previousDoc);
+        if (impEvent.afterSubmit && doc.docStatus == 'SUBMIT') {
+            doc = await impEvent.afterSubmit(doc, params, docType, mysqlConn, previousDoc);
         }
 
-        if (imp.afterCancel && doc.docStatus == 'CANCELLED') {
-            doc = await imp.afterCancel(doc, params, docType, mysqlConn, previousDoc);
+        if (impEvent.afterCancel && doc.docStatus == 'CANCELLED') {
+            doc = await impEvent.afterCancel(doc, params, docType, mysqlConn, previousDoc);
         }
 
 
         return doc;
+
+    }
+
+    async deleteDocument(params: ApiDeleteParam, where: string, mysqlConn: ConnectionAction) {
+        const user = params.user;
+        const tableName = params.tableName;
+
+        const impDocType = await this.importDocTypeFile(tableName);
+        const docType: MyERPDocType = await impDocType.documentType();
+
+
+        const impEvent = await this.importDocTypeEventFile(tableName);
+
+        if (impEvent.beforeDelete) {
+            await impEvent.beforeDelete(params, docType, mysqlConn);
+        }
+
+        where = await this.filterSysAndCom(tableName, where, params.com, params.sys, mysqlConn, docType);
+        if (!params.permanentDelete) {
+            const fields = await this.getTableFields(tableName, mysqlConn, docType) as MyERPField[];
+            const doc: any = { isDeleted: 1 }
+            if (fields.find(f => f.id == "lastModifiedBy")) {
+                doc.lastModifiedBy = user?.id || 'SYSTEM';
+            }
+            await this.sqlUpdate(tableName, doc, where, mysqlConn);
+        } else {
+            await mysqlConn.querySingle(`DELETE * FROM ${db}.${tableName} ${where}`);
+        }
+
+         if (impEvent.beforeDelete) {
+            await impEvent.afterDelete(params, docType, mysqlConn);
+        }
 
     }
 
@@ -598,7 +644,7 @@ export class ApiGlobalService {
             let str = `${b} = ${value}`;
             updateValues.push(str);
         });
-        await mysqlConn.query(`UPDATE ${tableName} SET ${updateValues.toString()} ${sqlWhere}`);
+        await mysqlConn.query(`UPDATE ${db}.${tableName} SET ${updateValues.toString()} ${sqlWhere}`);
     }
 
     async selfOnlyFilter(tableName: string, authURL: AuthURL | undefined, sqlWhere: string | undefined, mysqlConn: ConnectionAction, userId: string): Promise<string> {

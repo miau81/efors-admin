@@ -6,8 +6,8 @@ import { appConfigs } from '../configs/api.config';
 
 
 
-const dbconfig = appConfigs.dbConfig
-export const dbName = "myerpdb_ezeinvoice"
+const dbconfig = appConfigs.dbConfig;
+export const dbName = dbconfig['database'];
 
 let pool: Pool;
 

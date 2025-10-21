@@ -111,7 +111,7 @@ export class EntityService {
     }
 
     async update(tableName: string, updateValue: string, where: string, mysqlConn: ConnectionAction) {
-        return await mysqlConn.query(`UPDATE ${tableName} SET ${updateValue} ${where}`);
+        return await mysqlConn.query(`UPDATE ${db}.${tableName} SET ${updateValue} ${where}`);
     }
 
     async create(tableName: string, fields: string, values: string, mysqlConn: ConnectionAction) {

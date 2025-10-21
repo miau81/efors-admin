@@ -18,6 +18,10 @@ export interface ApiSaveParam extends ApiParam {
     files?: Express.Multer.File[];
 }
 
+export interface ApiDeleteParam extends ApiParam {
+    permanentDelete?: boolean;
+}
+
 export interface ApiGetParam extends ApiParam {
     selectFields?: string[];
     excludeFields?: string[];
