@@ -1,15 +1,12 @@
 <% 
 const itemPerPage=23;
-// for(let i=1;i<=3;i++){
-// items= items.concat(items)
-// }
 const totalItems= items.length;
 let totalPage;
     totalPage = Math.floor(totalItems / itemPerPage);
     if (totalItems % itemPerPage > 0 || totalPage==0) {
       totalPage = totalPage + 1
     }
-let customer = customerObj;
+let customer = customerIdObj;
 let addressArr = [customer.address1, customer.address2, customer.address3, `${customer.postcode ||''} ${customer.city ||''}`, customer.state].filter(a => a);
 let customerAddress = addressArr.join(",<br> ");%>
 <div class="font-medium print-format">
@@ -56,8 +53,8 @@ let customerAddress = addressArr.join(",<br> ");%>
             <td class="p-0"> <%= item.name %> </td>
             <td class="text-center p-0"> <%= item.quantity %> </td>
             <td class="text-center p-0"> <%= item.uom %> </td>
-            <td class="text-end p-0"> <%= item.unitPrice %> </td>
-            <td class="text-end p-0"> <%= item.amount %> </td>
+            <td class="text-end p-0"> <%= item.unitPrice.toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= item.amount.toFixed(2) %> </td>
           </tr>
           <% }else{ %>
           <tr>
@@ -82,30 +79,30 @@ let customerAddress = addressArr.join(",<br> ");%>
         <tr>
           <td rowspan="100%" class="p-0"><%= grandTotalInText %></td>
           <td class="table-col-25 text-end p-0">Subtotal:</td>
-          <td class="table-col-20 text-end p-0"> <%= subtotal %> </td>
+          <td class="table-col-20 text-end p-0"> <%= subtotal.toFixed(2) %> </td>
         </tr>
         <% for(let tax of taxes){ %>
         <tr>
           <td class="text-end p-0"><%= tax.name %>:</td>
-          <td class="table-col-20 text-end  p-0"> <%= tax.amount %> </td>
+          <td class="table-col-20 text-end  p-0"> <%= tax.amount.toFixed(2) %> </td>
         </tr>
         <% } %>
         <% for(let discount of discounts){ %>
         <tr>
           <td class="text-end p-0"><%= discount.description %>:</td>
-          <td class="table-col-20 text-end  p-0"> <%= discount.amount %> </td>
+          <td class="table-col-20 text-end  p-0"> <%= discount.amount.toFixed(2) %> </td>
         </tr>
         <% } %>
         <% if(roundingAmount !=0) { %>
         <tr>
           <td class="text-end p-0">Rounding Amt:</td>
-          <td class="table-col-20 text-end  p-0"> <%= roundingAmount %> </td>
+          <td class="table-col-20 text-end  p-0"> <%= roundingAmount.toFixed(2) %> </td>
         </tr>
         <% } %>
         <tr><td></td></tr>
         <tr>
           <td class="text-end p-0 h6">Grand Total:</td>
-          <td class="table-col-20 text-end  p-0 total-border h6"> <%= grandTotal %> </td>
+          <td class="table-col-20 text-end  p-0 total-border h6"> <%= grandTotal.toFixed(2) %> </td>
         </tr>
       </table>
       <%} %>

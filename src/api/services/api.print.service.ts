@@ -35,7 +35,6 @@ export class ApiPrintService {
             letterHead = await this.getLetterHead(params.com!, params.user, mysqlConn);
         }
         data.letterHead = letterHead;
-        console.log(data)
 
         let html: string = await ejs.renderFile(`${this.printFilePath}/${params.tableName}/${templateFile}.ejs`, data);
         

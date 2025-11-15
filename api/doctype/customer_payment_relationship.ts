@@ -11,10 +11,12 @@ export const documentType = (() => {
         isChildTable: true,
         sections: [],
         fields: [
-            { id: 'receivingVoicherId', type: 'text', isHidden: true },
-            { id: 'salesInvoiceId', type: 'text', isHidden: true },
+            { id: 'voucherId', type: 'text', isHidden: true },
+            { id: 'invoiceId', type: 'text', isHidden: true },
+            { id: 'advancPaymentId', type: 'text', isHidden: true },
             { id: 'paidAmount', type: 'currency', isHidden: true },
-            { id: 'postingDate', type: 'datetime', isHidden: true }
+            { id: 'postingDate', type: 'datetime', isHidden: true },
+            { id: 'companyId', type: 'text', isHidden: true },
         ]
     }
     type.fields = [...myErpFields.filter(df => !type.fields.some(f => f.id == df.id)), ...type.fields];

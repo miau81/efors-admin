@@ -85,8 +85,10 @@ export class MyMessageBoxService {
 
   }
   async dismissLoading() {
-    this.loadingDialogRef?.close();
+    await this.loadingDialogRef?.close();
+    this.loadingDialogRef = undefined;
   }
+
 }
 
 export interface MyMessageBoxOption {

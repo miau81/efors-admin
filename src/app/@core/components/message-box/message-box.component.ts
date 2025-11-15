@@ -52,7 +52,7 @@ export class MyMessageBox {
       default:
         this.color = "dark";
     }
-    this.option.message= this.option.message.replace(/\n/g,"<br>");
+    this.option.message= this.option.message?.replace(/\n/g,"<br>");
   }
 
   onClick(response: MyMessageBoxResponse) {

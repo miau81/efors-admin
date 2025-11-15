@@ -8,8 +8,12 @@
             <i class="bi bi-printer"></i>
             <span class="d-none d-sm-inline"> {{"_PRINT" | translate}}</span>
         </button>
+        <button class="btn btn-light" (click)="loadPrinting()">
+            <i class="bi bi-arrow-clockwise"></i>
+            <span class="d-none d-sm-inline"> {{"_REFRESH" | translate}}</span>
+        </button>
         <button class="btn btn-light" (click)="exportPrint('pdf')">
-            <i class="bi bi-file-earmark-pdf"></i> 
+            <i class="bi bi-file-earmark-pdf"></i>
             <span class="d-none d-sm-inline"> PDF</span>
         </button>
         <button class="btn btn-light" (click)="onShare()">

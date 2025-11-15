@@ -6,10 +6,11 @@ import { MyDataGridPagination, MyDataGridView, MyDataGridViewColumn, MyDataGridV
 import { BaseService } from '../../services/base.service';
 import { MyERPDocType, MyERPField, MyErpFieldType, MyErpSortAndPagination } from '@myerp/interfaces/interface';
 import { FormGroup } from '@angular/forms';
+import { MyBackButton } from '../../@core/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-document-list',
-  imports: [ShareModule, MyDataGridView, MyFormGenerator],
+  imports: [ShareModule, MyDataGridView, MyFormGenerator,MyBackButton],
   templateUrl: './document-list.component.html',
   styleUrl: './document-list.component.scss'
 })

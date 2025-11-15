@@ -24,6 +24,10 @@ function initializePool() {
             if ((field.type === "TINY") && (field.length === 1)) {
                 return field.string() === '1';
             }
+            if (field.type === 'DECIMAL' || field.type === 'NEWDECIMAL') {
+                    // Use parseFloat() to convert the stored string to a JS number
+                    return parseFloat(field.string());
+                }
             return next();
         }
     }
@@ -34,7 +38,6 @@ function initializePool() {
 
 export function ConnectionPool(): Promise<ConnectionAction> {
     if (!pool) {
-        logger.info(`Initializing MySQL pool...`);
         initializePool();
     }
     return new Promise<ConnectionAction>(async (resolve, reject) => {

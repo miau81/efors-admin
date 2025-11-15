@@ -3,22 +3,20 @@ import { MyERPDocType } from "../../src/app/@interfaces/interface";
 
 export const documentType = (() => {
     const type: MyERPDocType = {
-        id: "customer_advance_payment",
-        label: '{"en":"Customer Advance Payment"}',
+        id: "supplier_payment_relationship",
+        label: '{"en":"Supplier Payment Relationship"}',
         namingType: "random",
         namingFormat: "",
         searchFields: [],
         isChildTable: true,
         sections: [],
         fields: [
-            { id: 'companyId', type: 'text', isHidden: true },
-            { id: 'partyId', type: 'text', isHidden: true },
             { id: 'voucherId', type: 'text', isHidden: true },
+            { id: 'invoiceId', type: 'text', isHidden: true },
+            { id: 'advancPaymentId', type: 'text', isHidden: true },
+            { id: 'paidAmount', type: 'currency', isHidden: true },
             { id: 'postingDate', type: 'datetime', isHidden: true },
-            { id: 'status', type: 'text', isHidden: true },
-            { id: 'remark', type: 'text', isHidden: true },
-            { id: 'amount', type: 'text', isHidden: true },
-            { id: 'remainingAmount', type: 'text', isHidden: true }
+            { id: 'companyId', type: 'text', isHidden: true },
         ]
     }
     type.fields = [...myErpFields.filter(df => !type.fields.some(f => f.id == df.id)), ...type.fields];

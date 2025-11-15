@@ -33,7 +33,7 @@ export const documentType = (() => {
                 ],
             },
             {
-                id: 'supplier', type: 'link', options: "supplier", canAddNew: true, canView: true, mandatory: true, canEdit: true,
+                id: 'supplierId', type: 'link', options: "supplier", canAddNew: true, canView: true, mandatory: true, canEdit: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails',
                 linkOptions: { isDoc: true, valueField: "id", labelField: "name" },
                 label: '{"en":"Supplier"}', showInFilter: true

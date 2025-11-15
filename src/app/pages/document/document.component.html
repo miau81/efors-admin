@@ -1,63 +1,82 @@
 @if(documentType){
-    <div class="d-flex flex-column h-100 overflow-hidden">
-<div class="bg-dark-subtle d-flex justify-content-between p-3">
+<div class="d-flex flex-column h-100 overflow-hidden">
+    <div class="bg-dark-subtle d-flex justify-content-between p-3">
         @if(showTitle){
-    <div class="d-flex align-items-center">
-        <h4>{{title | mytranslate }}</h4>
-        @if(!isNew && documentType.canSubmit) {
+        <div class="d-flex align-items-center">
+            <div class="d-flex gap-3">
+                <myerp-back-button></myerp-back-button>
+                <h4>{{title | mytranslate }}</h4>
+            </div>
+            <!-- @if(!isNew && documentType.canSubmit) {
         <div class="badge status m-2"
             [ngClass]="{'bg-success':document?.docStatus=='SUBMIT','bg-secondary':document?.docStatus!='STATUS'}">{{"_"
             + document?.docStatus | translate}}</div>
-        }
-    </div>
-
-
-
-    <div class="d-flex gap-1">
-        @if(!isNew && documentType.printScript){
-        <button class="btn btn-light btn-icon" [disabled]="isChanged" (click)="onPrint()"><i class="bi bi-printer"></i></button>
-        }
-        @if(!isNew && (documentType.actionButtons?.length ?? 0) > 0){
-
-        <div ngbDropdown class="dropdown">
-            <button class="btn btn-icon btn-light no-caret" [disabled]="isChanged" ngbDropdownToggle>
-                <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div ngbDropdownMenu>
-                @for(action of documentType.actionButtons; track action.code;){
-                <button ngbDropdownItem (click)="onAction(action.code)">{{action.label | mytranslate}}</button>
-                }
-            </div>
+        } -->
         </div>
 
-        }
-        @if(!isViewOnly){
-        @if(isNew || (documentType.canSubmit && isChanged && document?.docStatus=='DRAFT') || !documentType.canSubmit) {
-        <button class="btn btn-sm btn-primary" (click)="onSave()">{{"_SAVE" | translate}}</button>
-        }
-        @if(documentType.canSubmit && !isChanged && document?.docStatus=='DRAFT'){
-        <button class="btn btn-sm btn-primary" (click)="onSubmit()">{{"_SUBMIT" | translate}}</button>
-        }
-        @if(!isNew && !isChanged && document?.docStatus!='SUBMIT' && documentType.canDelete){
-        <button class="btn btn-sm btn-secondary" (click)="onDelete()">{{"_DELETE" | translate}}</button>
-        }
-        }
-        @if(!isNew && documentType.canSubmit && !isChanged && document?.docStatus=='SUBMIT'){
-        <button class="btn btn-sm btn-secondary" (click)="onCancel()">{{"_CANCEL" | translate}}</button>
-        }
-        @if(this.dialogData){
-        <button class="btn btn-sm btn-light" (click)="onClose()">{{"_CLOSE" | translate}}</button>
-        }
+
+
+        <div class="d-flex gap-1">
+            @if(!isNew && documentType.printScript){
+            <button class="btn btn-light btn-icon" [disabled]="isChanged" (click)="onPrint()"><i
+                    class="bi bi-printer"></i></button>
+            }
+            @if(!isNew && (documentType.actionButtons?.length ?? 0) > 0){
+
+            <div ngbDropdown class="dropdown">
+                <button class="btn btn-icon btn-light no-caret" [disabled]="isChanged" ngbDropdownToggle>
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <div ngbDropdownMenu>
+                    @for(action of documentType.actionButtons; track action.code;){
+                    <button ngbDropdownItem (click)="onAction(action.code)">{{action.label | mytranslate}}</button>
+                    }
+                </div>
+            </div>
+
+            }
+            @if(!isViewOnly){
+            @if(isNew || (documentType.canSubmit && isChanged && document?.docStatus=='DRAFT') ||
+            !documentType.canSubmit) {
+            <button class="btn btn-sm btn-primary" (click)="onSave()">{{"_SAVE" | translate}}</button>
+            }
+            @if(documentType.canSubmit && !isChanged && document?.docStatus=='DRAFT'){
+            <button class="btn btn-sm btn-primary" (click)="onSubmit()">{{"_SUBMIT" | translate}}</button>
+            }
+            @if(!isNew && !isChanged && document?.docStatus!='SUBMIT' && documentType.canDelete){
+            <button class="btn btn-sm btn-secondary" (click)="onDelete()">{{"_DELETE" | translate}}</button>
+            }
+            }
+            @if(!isNew && documentType.canSubmit && !isChanged && document?.docStatus=='SUBMIT'){
+            <button class="btn btn-sm btn-secondary" (click)="onCancel()">{{"_CANCEL" | translate}}</button>
+            }
+            @if(this.dialogData){
+            <button class="btn btn-sm btn-light" (click)="onClose()">{{"_CLOSE" | translate}}</button>
+            }
+        </div>
+        }@else {}
     </div>
-    }@else {}
-</div>
-<div class="card rounded-0 overflow-auto flex-grow-1" >
-    <div class="card-body">
-        @if(formConfig){
-        <myerp-form-generator [config]="formConfig" (onChange)="onChange($event)"
-            (onViewLinkDoc)="viewLinkDocument($event)" (openTableForm)="onOpenTableForm($event)"></myerp-form-generator>
-        }
+    <div class="card rounded-0 overflow-auto flex-grow-1">
+        <div class="card-body">
+            <h4 class="m-0">
+                @if(isNew){
+                {{"_CREATE_NEW" | translate}}
+                }@else{
+                {{documentId}}
+                @if(documentType.canSubmit){
+                <div class="badge h5 status m-2"
+                    [ngClass]="{'bg-success':document?.docStatus=='SUBMIT','bg-secondary':document?.docStatus!='STATUS'}">
+                    {{"_"
+                    + document?.docStatus | translate}}</div>
+                }
+                }
+            </h4>
+            @if(formConfig){
+            <myerp-form-generator [config]="formConfig" (onChange)="onChange($event)"
+                (onViewLinkDoc)="viewLinkDocument($event)"
+                (openTableForm)="onOpenTableForm($event)"></myerp-form-generator>
+            }
+        </div>
     </div>
-</div>
 </div>
 }

@@ -8,20 +8,11 @@ import { nanoid } from 'nanoid';
 export class ConvertUtil {
 
     public convertToDataTypeValue(value: any) {
-
-        try {
-            value = JSON.parse(value);
-            value = value == null ? "null" : value;
-            if (typeof value == 'number') {
-                value = `'${value}'`;
-            }
-        } catch {
-            if (value instanceof Date) {
-                value = `'${dayjs(value).format('YYYY-MM-DD HH:mm:ss')}'`;
-            } else {
-                value = `'${value.replace("'", "''")}'`;
-
-            }
+        if (value instanceof Date) {
+            value = `'${dayjs(value).format('YYYY-MM-DD HH:mm:ss')}'`;
+        } else {
+            value = JSON.stringify(value);
+            value = value ? `${value.replace("'", "''")}` : 'null';
         }
         return value;
     }

@@ -25,14 +25,14 @@ export class PrintComponent {
   public printFormats: MyERPPrintFormat[] = [];
   public printHtml: string = '';
   public pages: string[] = [];
-  public styles!:SafeHtml;
+  public styles!: SafeHtml;
 
   zoomLevel: number = 1; // Initial zoom level (1 = 100%)
   minZoom: number = 0.5; // Minimum zoom level
   maxZoom: number = 3;   // Maximum zoom level
   zoomStep: number = 0.1; // How much to change zoom by each step
 
-  constructor(private api: ApiService, private baseService: BaseService,private sanitizer: DomSanitizer) {
+  constructor(private api: ApiService, private baseService: BaseService, private sanitizer: DomSanitizer) {
 
   }
 
@@ -44,7 +44,8 @@ export class PrintComponent {
 
   async loadPrinting() {
     const format = this.printFormats.find(f => f.code == this.selectedFormat);
-    const doc = await this.api.getDocumentByField(this.dialogData.documentType.id, 'id', this.dialogData.documentId);
+    const params = { getChild: true, getParent: true };
+    const doc = await this.api.getDocumentByField(this.dialogData.documentType.id, 'id', this.dialogData.documentId, params);
     const data = {
       action: 'onPrint',
       data: doc,
@@ -55,7 +56,7 @@ export class PrintComponent {
     let response: any;
     switch (this.dialogData.documentType.printScript) {
       case "SERVER":
-        response = await this.api.runEventScript(this.dialogData.documentType.id, data);
+        response = await this.api.runEventScript(this.dialogData.documentType.id, data, params);
         this.printHtml = response.html
         break;
       case "CLIENT":
@@ -101,13 +102,13 @@ export class PrintComponent {
     tempDiv.innerHTML = html;
 
     // Move styles to head
-   const styles = Array.from(tempDiv.querySelectorAll('style'));
+    const styles = Array.from(tempDiv.querySelectorAll('style'));
 
-  // Extract their text
+    // Extract their text
     const cssText = styles.map(style => style.outerHTML).join('\n');
 
-  
-    this.styles= this.sanitizer.bypassSecurityTrustHtml(cssText); // return cleaned HTML without <style>
+
+    this.styles = this.sanitizer.bypassSecurityTrustHtml(cssText); // return cleaned HTML without <style>
   }
 
   async onPrint() {
@@ -146,30 +147,49 @@ export class PrintComponent {
     // window.URL.revokeObjectURL(url)
   }
 
-  onShare(){
-    //TODO
+  async onShare() {
+    //TODO  
+    const generatedFile = await this.generateFile("pdf");
+    const file = new File([generatedFile.blob], generatedFile?.fileName || '', { type: generatedFile.blob.type});
+
+    window.navigator.share({
+      url: window.location.href,
+      files: [file],
+    })
+
   }
 
   dismiss() {
     this.dialogRef.close();
   }
 
-  async exportPrint(type: 'pdf' | 'xlsx') {
-    this.baseService.showLoading();
-    const body = {
-      html: this.printHtml,
-      type: type,
-      fileName: `${this.dialogData.documentType.id}-${this.dialogData.documentId}.${type}`
-    };
-    const data = await this.api.htmlToFile(body);
+  async generateFile(type: 'pdf' | 'xlsx') {
+    try {
+      this.baseService.showLoading();
+      const fileName = `${this.dialogData.documentType.id.toUpperCase()}-${this.dialogData.documentId}.${type}`;
+      const body = {
+        html: this.printHtml,
+        type: type,
+        fileName: fileName
+      };
+      return { blob: await this.api.htmlToFile(body), fileName: fileName };
+    } catch (error: any) {
+      await this.baseService.showErrorMessage(error);
+      throw error;
+    } finally {
+      this.baseService.dismissLoading();
+    }
+  }
 
-    const url = window.URL.createObjectURL(data);
+  async exportPrint(type: 'pdf' | 'xlsx') {
+     const generatedFile = await this.generateFile(type);
+    const url = window.URL.createObjectURL(generatedFile.blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = body.fileName;
+    a.download = generatedFile.fileName;
     a.click();
     if (isDesktop()) {
-      const pdfWindow = window.open(url)
+      const pdfWindow = window.open(url);
       const poll = setInterval(() => {
         if (pdfWindow?.closed) {
           clearInterval(poll);
@@ -177,9 +197,6 @@ export class PrintComponent {
         }
       }, 500);
     }
-    this.baseService.dismissLoading();
-    // 
-
   }
 
   zoomIn() {

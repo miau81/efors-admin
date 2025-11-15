@@ -31,13 +31,13 @@ export const documentType = (() => {
                     { value: "CANCELLED", label: '{"en":"Cancelled"}' }
                 ],
             },
-             {
+            {
                 id: 'partyType', type: 'dropdown', formComponentType: "select", mandatory: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails', callServerScript: true,
                 options: [
-                    { value: "Customer", label: '{"en":"Customer"}' },
-                    { value: "Supplier", label: '{"en":"Supplier"}' },
-                    { value: "Others", label: '{"en":"Other"}' }
+                    { value: "CUSTOMER", label: '{"en":"Customer"}' },
+                    { value: "SUPPLIER", label: '{"en":"Supplier"}' },
+                    { value: "OTHER", label: '{"en":"Others"}' }
                 ],
                 label: '{"en":"Party Type"}'
             },
@@ -47,7 +47,7 @@ export const documentType = (() => {
                 label: '{"en":"Receive From Party"}'
             },
             { id: 'postingDate', type: 'datetime', mandatory: true, label: '{"en":"Posting Date"}', showInTable: true, showInForm: true, showInFilter: true, sectionId: 'sectionDetails' },
-             {
+            {
                 id: 'paymentMethod', type: "link", showInForm: true, label: '{"en":"Payment Methods"}',
                 sectionId: 'sectionDetails', options: "company_account",
                 linkOptions: { isDoc: true, valueField: "id", labelField: "name" },

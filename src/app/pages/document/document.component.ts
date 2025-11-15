@@ -17,10 +17,11 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PrintComponent } from '../print/print.component';
 import { read } from 'fs';
+import { MyBackButton } from '../../@core/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-document',
-  imports: [ShareModule, MyFormGenerator, MatDialogModule, NgbDropdownModule],
+  imports: [ShareModule, MyFormGenerator, MatDialogModule, NgbDropdownModule,MyBackButton],
   providers: [MyTranslatePipe],
   templateUrl: './document.component.html',
   styleUrl: './document.component.scss'
@@ -45,7 +46,8 @@ export class DocumentComponent {
     private baseService: BaseService,
     private cd: ChangeDetectorRef,
     private myTranslate: MyTranslatePipe,
-    private dialog: MatDialog,) {
+    private dialog: MatDialog
+  ) {
 
   }
 
@@ -141,7 +143,7 @@ export class DocumentComponent {
     const sections: MyERPFieldGroup[] = this.baseService.sortDocumentFieldGroups(documentType.sections || []);
     const formSections: MyFromGroup[] = [];
     for (const s of sections) {
-      formSections.push({ key: s.id, label: s.label, parent: s.parent });
+      formSections.push({ key: s.id, label: s.label, parent: s.parent, sectionExpanded: s.sectionExpanded });
     }
 
     const components: MyFormComponent[] = this.populateFieldsToFormComponents(documentType.fields);
@@ -169,7 +171,8 @@ export class DocumentComponent {
   }
 
   async getDocumentById(documentTypeId: string, documentId: string) {
-    return await this.api.getDocumentByField(documentTypeId, "id", documentId);
+    const params = { getChild: true, getParent: true }
+    return await this.api.getDocumentByField(documentTypeId, "id", documentId, params);
   }
 
   populateFieldsToFormComponents(fields: MyERPField[]) {
@@ -206,6 +209,10 @@ export class DocumentComponent {
         formConfig: this.populateFormConfig(f.fieldsDocType!),
         readOnly: this.isViewOnly
       }
+    }
+    if (f.type == 'currency') {
+      console.log("currency")
+      component['value'] = component['value']?.toFixed(2);
     }
     return component;
   }

@@ -64,13 +64,6 @@ export const config: MyErpWorkSpaceNav[] = [
                 link: '/doc/purchase_invoice',
                 sorting: 2
             },
-            {
-                id: 'payment_voucher',
-                label: 'Payment Voucher',
-                isSingle: false,
-                link: '/doc/payment_voucher',
-                sorting: 3
-            }
         ]
     },
     {

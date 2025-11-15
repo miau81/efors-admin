@@ -25,11 +25,12 @@ export class ApiService {
     return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}`, { params: params }));
   }
 
-  getDocumentByField<T>(docType: string, field: string, value: any): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}/${field}/${value}`));
+  getDocumentByField<T>(docType: string, field: string, value: any, params?: any): Promise<T> {
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}/${field}/${value}`, { params: params }));
   }
 
   createDocument<T>(docType: string, body: any): Promise<T> {
+
     return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/${docType}`, body));
   }
 
@@ -41,8 +42,8 @@ export class ApiService {
     return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/type/${docType}`));
   }
 
-  runEventScript<T>(docType: string, body: any): Promise<T> {
-    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/event/${docType}`, body));
+  runEventScript<T>(docType: string, body: any, params?: any): Promise<T> {
+    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/event/${docType}`, body,{ params: params }));
   }
 
   /////////////////////// User ////////////////////////

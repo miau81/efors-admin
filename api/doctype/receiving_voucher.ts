@@ -19,9 +19,8 @@ export const documentType = (() => {
             { id: 'sectionDetails', label: '', sorting: 1 }
         ],
         fields: [
-            { id: "id", type: "text", label: '{"en":"Receipt No"}', showInTable: true, showInForm: true, isReadOnly: true, isPrimaryKey: true, showInFilter: true, sectionId: 'sectionDetails' },
-            { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionDetails' },
-            {
+            // { id: "id", type: "text", label: '{"en":"Receipt No"}', showInTable: true, showInForm: true, isReadOnly: true, isPrimaryKey: true, showInFilter: true, sectionId: 'sectionDetails' },
+                   {
                 id: "docStatus", type: "text", formComponentType: "select", sectionId: 'sectionDetails',
                 showInTable: true, defaultValue: 'DRAFT', label: '{"en":"Status"}', showInFilter: true,
                 options: [
@@ -34,14 +33,14 @@ export const documentType = (() => {
                 id: 'partyType', type: 'dropdown', formComponentType: "select", mandatory: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails', callServerScript: true,
                 options: [
-                    { value: "Customer", label: '{"en":"Customer"}' },
-                    { value: "Supplier", label: '{"en":"Supplier"}' },
-                    { value: "Other", label: '{"en":"Others"}' }
+                    { value: "CUSTOMER", label: '{"en":"Customer"}' },
+                    { value: "SUPPLIER", label: '{"en":"Supplier"}' },
+                    { value: "OTHER", label: '{"en":"Others"}' }
                 ],
                 label: '{"en":"Party Type"}'
             },
             {
-                id: 'party', type: 'dropdown', formComponentType: "select", options: [], canView: true, mandatory: true,
+                id: 'partyId', type: 'dropdown', formComponentType: "select", options: [], canView: true, mandatory: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails',
                 label: '{"en":"Receive From Party"}'
             },
@@ -54,8 +53,10 @@ export const documentType = (() => {
             { id: 'amount', type: 'currency', defaultValue: 0, label: '{"en":"Amount"}', showInForm: true, showInTable: true, sectionId: 'sectionDetails' },
             { id: 'refNo', type: 'text', label: '{"en":"Reference No"}', showInForm: true, sectionId: 'sectionDetails' },
             { id: 'refDate', type: 'date', label: '{"en":"Reference Date"}', showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'description', type: "textarea", label: '{"en":"Description"}', showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'remark', type: "textarea", label: '{"en":"Remark"}', showInForm: true, sectionId: 'sectionDetails' },
+
+            { id: 'description',mandatory:false, type: "text", label: '{"en":"Description"}',  sectionId: 'sectionDetails', formColumnSize:'col-12' },
+
+            { id: 'remark', type: "textarea", label: '{"en":"Remark"}', showInForm: true, sectionId: 'sectionDetails',formColumnSize:'col-12' },
 
             { id: 'companyId', type: 'text', isHidden: true },
         ]

@@ -29,6 +29,8 @@
   "_PRINT":"Print",
   "_CLOSE": "Close",
   "_PRINT_FORMAT":"Printing Format",
-  "_SHARE":"Share"
+  "_SHARE":"Share",
+  "_CREATE_NEW":"Create New",
+  "_REFRESH":"Refresh"
 
 }

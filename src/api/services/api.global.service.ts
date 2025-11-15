@@ -37,7 +37,7 @@ export class ApiGlobalService {
 
         const impEvent = await this.importDocTypeEventFile(tableName);
 
-        if (impEvent.beforeGet) {
+        if (impEvent?.beforeGet) {
             impEvent.beforeGet(null, params, docType, mysqlConn);
         }
 
@@ -61,7 +61,7 @@ export class ApiGlobalService {
             throw new NoDataException(`Not data found`);
         }
         data = data[0];
-        if (impEvent.afterGet) {
+        if (impEvent?.afterGet) {
             data = impEvent.afterGet(data, params, docType, mysqlConn);
         }
         return data;
@@ -76,7 +76,7 @@ export class ApiGlobalService {
 
         const impEvent = await this.importDocTypeEventFile(tableName);
 
-        if (impEvent.beforeGetList) {
+        if (impEvent?.beforeGetList) {
             impEvent.beforeGetList(null, params, docType, mysqlConn);
         }
 
@@ -109,7 +109,7 @@ export class ApiGlobalService {
 
         let docs = await this.getData(options);
 
-        if (impEvent.afterGetList) {
+        if (impEvent?.afterGetList) {
             docs = impEvent.afterGetList(docs, params, docType, mysqlConn);
         }
 
@@ -139,7 +139,7 @@ export class ApiGlobalService {
 
         const impEvent = await this.importDocTypeEventFile(tableName);
 
-        if (impEvent.beforeCreate) {
+        if (impEvent?.beforeCreate) {
             doc = await impEvent.beforeCreate(doc, params, docType, mysqlConn);
         }
 
@@ -189,12 +189,12 @@ export class ApiGlobalService {
 
         await this.updateChildTable(docType, params, doc, mysqlConn);
 
-        if (impEvent.afterCreate) {
+        if (impEvent?.afterCreate) {
             doc = await impEvent.afterCreate(doc, params, docType, mysqlConn);
         }
 
-        if (impEvent.onSubmit && doc.docStatus == 'SUBMIT') {
-            doc = await impEvent.onSubmit(doc, params, docType, mysqlConn, doc);
+        if (impEvent?.afterSubmit && doc.docStatus == 'SUBMIT') {
+            doc = await impEvent.afterSubmit(doc, params, docType, mysqlConn, doc);
         }
 
         return doc;
@@ -212,15 +212,15 @@ export class ApiGlobalService {
 
         const impEvent = await this.importDocTypeEventFile(tableName);
 
-        if (impEvent.beforeUpdate) {
+        if (impEvent?.beforeUpdate) {
             doc = await impEvent.beforeUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (impEvent.beforeSubmit && doc.docStatus == 'SUBMIT') {
+        if (impEvent?.beforeSubmit && doc.docStatus == 'SUBMIT') {
             doc = await impEvent.beforeSubmit(doc, params, docType, mysqlConn);
         }
 
-        if (impEvent.beforeCancel && doc.docStatus == 'CANCELLED') {
+        if (impEvent?.beforeCancel && doc.docStatus == 'CANCELLED') {
             doc = await impEvent.beforeCancel(doc, params, docType, mysqlConn);
         }
 
@@ -272,15 +272,15 @@ export class ApiGlobalService {
 
         await this.updateChildTable(docType, params, doc, mysqlConn);
 
-        if (impEvent.afterUpdate) {
+        if (impEvent?.afterUpdate) {
             doc = await impEvent.afterUpdate(doc, params, docType, mysqlConn);
         }
 
-        if (impEvent.afterSubmit && doc.docStatus == 'SUBMIT') {
+        if (impEvent?.afterSubmit && doc.docStatus == 'SUBMIT') {
             doc = await impEvent.afterSubmit(doc, params, docType, mysqlConn, previousDoc);
         }
 
-        if (impEvent.afterCancel && doc.docStatus == 'CANCELLED') {
+        if (impEvent?.afterCancel && doc.docStatus == 'CANCELLED') {
             doc = await impEvent.afterCancel(doc, params, docType, mysqlConn, previousDoc);
         }
 
@@ -299,7 +299,7 @@ export class ApiGlobalService {
 
         const impEvent = await this.importDocTypeEventFile(tableName);
 
-        if (impEvent.beforeDelete) {
+        if (impEvent?.beforeDelete) {
             await impEvent.beforeDelete(params, docType, mysqlConn);
         }
 
@@ -315,7 +315,7 @@ export class ApiGlobalService {
             await mysqlConn.querySingle(`DELETE * FROM ${db}.${tableName} ${where}`);
         }
 
-         if (impEvent.beforeDelete) {
+        if (impEvent?.afterDelete) {
             await impEvent.afterDelete(params, docType, mysqlConn);
         }
 
@@ -371,13 +371,14 @@ export class ApiGlobalService {
     }
 
     async getData(options: GetDataOption): Promise<any> {
+       
         options.sqlWhere = await this.selfOnlyFilter(options.tableName, options.authURL, options.sqlWhere, options.mysqlConn, options.user?.id);
         if (!options.includeDeleted) {
             options.sqlWhere = await this.filterDeleted(options.tableName, options.sqlWhere, options.mysqlConn);
         }
         //sysAcct and company Filter
         options.sqlWhere = await this.filterSysAndCom(options.tableName, options.sqlWhere, options.sys, options.com, options.mysqlConn, options.docType);
-        let selectedFields: string[] = [];
+        let selectedFields: string[] = options.selectFields || [];
         // Get all fields by default
         if (!options.selectFields || options.selectFields[0] == "*") {
             selectedFields = await this.getTableFields(options.tableName, options.mysqlConn, options.docType, true) as string[];
@@ -455,6 +456,7 @@ export class ApiGlobalService {
         } else {
             resultQuery = `${resultQuery} ${strWhere} ${groupBy} ${orderBy}`;
         }
+
 
         let result: any = await options.mysqlConn.query(resultQuery);
 
@@ -764,8 +766,12 @@ export class ApiGlobalService {
     }
 
     async importDocTypeEventFile(docType: string) {
-        const path = new URL(`../../../api/events/${docType}.event.ts`, import.meta.url).href;
-        return await import(/* @vite-ignore */ path);
+        try {
+            const path = new URL(`../../../api/events/${docType}.event.ts`, import.meta.url).href;
+            return await import(/* @vite-ignore */ path);
+        } catch {
+            return;
+        }
     }
 
 }
