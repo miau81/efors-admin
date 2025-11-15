@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^20.0.2",
     "@angular/platform-server": "^20.0.2",
     "@angular/router": "^20.0.2",
-    "@angular/ssr": "^20.0.1",
+    "@angular/ssr": "^20.3.10",
     "@ng-bootstrap/ng-bootstrap": "19.0.0-rc.0",
     "@ng-select/ng-select": "^15.1.0",
     "@ngx-translate/core": "^16.0.4",
@@ -63,8 +63,8 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.0.1",
-    "@angular/cli": "^20.0.1",
+    "@angular/build": "^20.3.10",
+    "@angular/cli": "^20.3.10",
     "@angular/compiler-cli": "^20.0.2",
     "@types/bun": "^1.2.8",
     "@types/ejs": "^3.1.5",
