@@ -1,19 +1,9 @@
-import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ApiParam } from "../interfaces/api.main.interface";
-import { ApiGlobalService } from "./api.global.service";
 
-// import { spawn } from "bun";
-const currentFileUrl = import.meta.url;
 
 
 
 export class ApiReportService {
-    readonly globalService = new ApiGlobalService();
     readonly reportPath = `${import.meta.dir}/../../../api/report`;
-
-
-
-
     private workerId: number = 0;
     private pendingRequests = new Map();
     private worker?: Worker
@@ -40,19 +30,19 @@ export class ApiReportService {
 
 
 
-    async generateReport(params: ApiParam, data: any, mysqlConn: ConnectionAction) {
-        const scriptFile = data.reportFile;
-        data = await data;
-        try {
-            const path = new URL(`${this.reportPath}/${scriptFile}.ts`, import.meta.url).href;
-            const imp = await import(/* @vite-ignore */ path);
-            if (imp.beforePrint) {
-                data = await imp.beforeGenerateReport(params, data, mysqlConn);
-            }
-            return await this.generateReportFile(data.html, data.type, data.fieName, data.data, data.renderEngine);
-        } catch (error) {
-            console.error(error);
-        }
+    async generateReport() {
+        // const scriptFile = data.reportFile;
+        // data = await data;
+        // try {
+        //     const path = new URL(`${this.reportPath}/${scriptFile}.ts`, import.meta.url).href;
+        //     const imp = await import(/* @vite-ignore */ path);
+        //     if (imp.beforePrint) {
+        //         data = await imp.beforeGenerateReport(data);
+        //     }
+        //     return await this.generateReportFile(data.html, data.type, data.fieName, data.data, data.renderEngine);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
 
@@ -68,9 +58,6 @@ export class ApiReportService {
         if (!this.worker) {
             this.initWorker()
         }
-
-
-
 
         const workerInput = {
             html,

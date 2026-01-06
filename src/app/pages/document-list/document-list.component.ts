@@ -33,7 +33,7 @@ export class DocumentListComponent {
     this.filter = {};
     this.docs = [];
     this.datagridConfig = undefined;
-    this.pagination = { page: 1, limit: 10 };
+    this.pagination = { _page: 1, _limit: 10 };
   }
 
   async ngOnInit() {
@@ -91,8 +91,8 @@ export class DocumentListComponent {
       }
     }
 
-    this.pagination['sortField'] = documentType.defaultSorting || "id";
-    this.pagination['sortBy'] = documentType.defaultSortBy || "ASC";
+    this.pagination['_sortField'] = documentType.defaultSorting || "id";
+    this.pagination['_sortDirection'] = documentType.defaultSortBy || "ASC";
   }
 
   populateFieldsToFormComponent(f: MyERPField) {
@@ -143,7 +143,6 @@ export class DocumentListComponent {
 
   async getDocuments() {
     const params: any = { ...this.filter, ... this.pagination }
-    console.log(params, this.filter)
     const doclist: any = await this.api.getDocuments(this.documentTypeId, params);
     this.docs = doclist.records;
     this.datagridConfig!.paginationOption!.length = doclist.totalRecord
@@ -174,40 +173,36 @@ export class DocumentListComponent {
       pagination.pageIndex = 0;
     }
 
-    this.pagination["page"] = pagination.pageIndex + 1;
-    this.pagination["limit"] = pagination.pageSize;
+    this.pagination["_page"] = pagination.pageIndex + 1;
+    this.pagination["_limit"] = pagination.pageSize;
     await this.getDocuments();
   }
 
   async onSort(sort: { sortField: string, sortBy: "ASC" | "DESC" }) {
-    this.pagination["sortField"] = sort.sortField
-    this.pagination["sortBy"] = sort.sortBy;
+    this.pagination["_sortField"] = sort.sortField
+    this.pagination["_sortDirection"] = sort.sortBy;
     await this.getDocuments();
   }
 
   async onFilter(e: { component: MyFormComponent, isInit: boolean }) {
-    let filterPrefix;
     switch (e.component.type) {
       case "text":
-        filterPrefix = "tf_";
         this.filter[`op_${e.component.key}`] = "like";
-        console.log(this.filter, e.component.type)
         break;
       case "date":
-        filterPrefix = "df_";
         this.filter[`type_${e.component.key}`] = "date";
         break;
       case "datetime-local":
-        filterPrefix = "df_";
         this.filter[`type_${e.component.key}`] = "datetime";
         break;
       default:
-        filterPrefix = "tf_";
+         this.filter[`op_${e.component.key}`] = "like";
+        break;
     }
     if (e.component.value) {
-      this.filter[`${filterPrefix}${e.component.key}`] = e.component.value;
+      this.filter[e.component.key] = e.component.value;
     } else {
-      delete this.filter[`${filterPrefix}${e.component.key}`];
+      delete this.filter[e.component.key];
     }
 
     await this.getDocuments();

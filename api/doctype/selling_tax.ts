@@ -4,7 +4,7 @@ import { MyERPDocType } from "../../src/app/@interfaces/interface";
 export const documentType = (() => {
     const type: MyERPDocType = {
         id: "selling_tax",
-        label: '{"en":"Selling Tax and Charges"}',
+        label: '{"en":"Selling Tax"}',
         namingType: "byField",
         namingFormat: "code",
         searchFields: ["code", "name"],

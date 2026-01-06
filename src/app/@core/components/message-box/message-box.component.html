@@ -29,20 +29,20 @@
   <mat-dialog-actions [align]="'center'">
     @switch (option.button) {
     @case ('OkOnly') {
-    <button class="btn btn-outline-{{color}}" (click)="onClick(1)">{{translateJson('_OK') | mytranslate }}</button>
+    <button class="btn btn-outline-{{color}}" (click)="onClick('ok')">{{translateJson('_OK') | mytranslate }}</button>
     }
     @case ('YesNo') {
-    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(1)">{{translateJson('_YES') | mytranslate
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick('yes')">{{translateJson('_YES') | mytranslate
       }}</button>
-    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(2)">{{translateJson('_NO') | mytranslate
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick('no')">{{translateJson('_NO') | mytranslate
       }}</button>
     }
     @case ('YesNoCancel') {
-    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(1)">{{translateJson('_YES') | mytranslate
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick('yes')">{{translateJson('_YES') | mytranslate
       }}</button>
-    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(2)">{{translateJson('_NO') | mytranslate
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick('no')">{{translateJson('_NO') | mytranslate
       }}</button>
-    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick(3)">{{translateJson('_CANCEL' )| mytranslate
+    <button class="btn btn-outline-{{color}} w-25 m-1" (click)="onClick('cancel')">{{translateJson('_CANCEL' )| mytranslate
       }}</button>
     }
     }

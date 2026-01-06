@@ -105,9 +105,8 @@ export interface MyMessageBoxOption {
 
 export type MyColor = "success" | "primary" | "secondary" | "warning" | "danger" | "dark" | "light" | "info";
 
-export enum MyMessageBoxResponse {
-  confirm = 1, reject = 2, cancel = 3
-}
+export type MyMessageBoxResponse = "yes" | "no" | "cancel" | "ok" | 'confirm';
+
 
 export interface MyToastOption extends MatSnackBarConfig {
   message: string;

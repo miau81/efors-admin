@@ -1,29 +1,25 @@
 
 
 import { NextFunction, Response } from "express";
-import { ConnectionPool } from "../databases";
-import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ApiRequestMethod, AuthURL } from "../interfaces/api.enum";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ApiUserService } from "../services/api.user.service";
-import { ApiParam } from "../interfaces/api.main.interface";
 import { ConvertUtil } from "../utils/convert";
-import { ApiDocumentService } from "../services/api.document.service";
+import { CoreService } from "../services/api.core.service";
+import { ConnectionPool } from "../databases";
 
 export class ApiUserController {
 
 
     private userService = new ApiUserService();
     private convertUtil = new ConvertUtil();
-    private documentService = new ApiDocumentService();
+    private globalService = new CoreService();
 
 
     public login = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
+        const mysqlConn = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
-            const isAdmin = (req.authURL == AuthURL.ADMIN);
-            const data = await this.userService.login(req.body, isAdmin, mysqlConn);
+            const data = await this.userService.login(req.body, mysqlConn);
             mysqlConn.commit();
             res.status(200).json(data);
         } catch (error) {
@@ -35,7 +31,7 @@ export class ApiUserController {
     }
 
     // public loginFirebase = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         //To do function
@@ -50,25 +46,25 @@ export class ApiUserController {
     // }
 
     public changePassword = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            await this.userService.changePassword(req.body, req.authUser, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json();
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        // mysqlConn = await getConnenctionPoolFromStorage();
+        // mysqlConn.beginTransaction();
+        // try {
+        //     await this.userService.changePassword(req.body, req.user, mysqlConn);
+        //     mysqlConn.commit();
+        //     res.status(200).json();
+        // } catch (error) {
+        //     mysqlConn.rollback();
+        //     next(error);
+        // } finally {
+        //     mysqlConn.release();
+        // }
     }
 
     public refreshToken = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
+        const mysqlConn = await ConnectionPool();
         mysqlConn.beginTransaction();
         try {
-            const newToken=await this.userService.refreshToken(req.authUser);
+            const newToken = await this.userService.refreshToken(req.user);
             mysqlConn.commit();
             res.status(200).json(newToken);
         } catch (error) {
@@ -82,7 +78,7 @@ export class ApiUserController {
 
 
     // public forgotPassword = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         await this.userService.forgotPassword(req.body, req.isAdmin, req.language, mysqlConn);
@@ -97,7 +93,7 @@ export class ApiUserController {
     // }
 
     // public resetPassword = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         await this.userService.resetPassword(req.body, mysqlConn);
@@ -112,7 +108,7 @@ export class ApiUserController {
     // }
 
     // public authRegister = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         //To do function
@@ -142,45 +138,38 @@ export class ApiUserController {
     // }
 
     public getProfile = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            req.params['docType'] = 'user'
-            req.params['byField'] = 'id'
-            req.params['byValue'] = req.authUser?.id
-            const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_ONE);
-            const data = await this.documentService.getSingleDocument(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        // mysqlConn = await getConnenctionPoolFromStorage();
+        // mysqlConn.beginTransaction();
+        // try {
+        //     const id = req.user?.id;
+        //     const data = await this.globalService.getDocument('user', id);
+        //     mysqlConn.commit();
+        //     res.status(200).json(data);
+        // } catch (error) {
+        //     mysqlConn.rollback();
+        //     next(error);
+        // } finally {
+        //     mysqlConn.release();
+        // }
     }
 
     public updateProfile = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            req.params['docType'] = 'user'
-            req.params['byField'] = 'id'
-            req.params['byValue'] = req.authUser?.id
-            const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.UPDATE);
-            const data = await this.documentService.updateDocument(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        // mysqlConn = await getConnenctionPoolFromStorage();
+        // mysqlConn.beginTransaction();
+        // try {
+        //     const data = await this.globalService.updateDocument('user', req.user?.id, req.body);
+        //     mysqlConn.commit();
+        //     res.status(200).json(data);
+        // } catch (error) {
+        //     mysqlConn.rollback();
+        //     next(error);
+        // } finally {
+        //     mysqlConn.release();
+        // }
     }
 
     // public deleteAccount = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         const params: ApiParam = {
@@ -217,7 +206,7 @@ export class ApiUserController {
     // }
 
     // public uploadProfile = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         const response= await this.userService.uploadProfile("profile",req.files,req.authUser,mysqlConn);
@@ -232,7 +221,7 @@ export class ApiUserController {
     // }
 
     // public uploadBanner = async (req: SRequest, res: Response, next: NextFunction) => {
-    //     const mysqlConn: ConnectionAction = await connectionPool();
+    //     mysqlConn = await getConenctionPool();
     //     mysqlConn.beginTransaction();
     //     try {
     //         const response= await this.userService.uploadProfile("banner",req.files,req.authUser,mysqlConn);

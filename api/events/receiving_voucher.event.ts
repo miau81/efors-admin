@@ -1,20 +1,17 @@
-import { ConnectionAction } from "../../src/api/interfaces/api.db.interface";
-import { ApiDeleteParam, ApiGetParam, ApiParam, ApiSaveParam } from "../../src/api/interfaces/api.main.interface";
+import { SRequest } from "../../src/api/interfaces/api.route.interface";
 import { ConvertUtil } from "../../src/api/utils/convert";
-import { ApiGlobalService } from "../../src/api/services/api.global.service";
-import { ApiRequestMethod, OrderBy } from "../../src/api/interfaces/api.enum";
 import { AccountTransaction, AdvancePayment, InvoicePaymentStatus, PaymentRelationship, TransactionUtilService } from "./trnx_util.event";
 
-const globalService = new ApiGlobalService();
+
 const tranxUtil = new TransactionUtilService();
 
-export async function onChange(params: ApiParam, mysqlConn: ConnectionAction) {
+export async function onChange(document: string, req: SRequest) {
     const convertUtil = new ConvertUtil();
-    const changes = params.body.change;
+    const changes = req.body.change;
     const changeKeys = Object.keys(changes);
-    const existFormValue = params.body.formValue;
+    // const existFormValue = req.body.formValue;
     const formValue: any = {};
-    const parentFormValue: any = {};
+    // const parentFormValue: any = {};
     const formConfig: any = {};
 
 
@@ -24,9 +21,9 @@ export async function onChange(params: ApiParam, mysqlConn: ConnectionAction) {
         switch (partyType) {
             case "CUSTOMER":
             case "SUPPLIER":
-                const sqlJson = convertUtil.getSQLJsonValueString('name', params.language)
-                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${params.sys}' AND companyId='${params.com}'`;
-                const parties = await mysqlConn.query(sql);
+                const sqlJson = convertUtil.getSQLJsonValueString('name', req.language)
+                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${req.sys}' AND companyId='${req.com}'`;
+                const parties = await req.mysqlConn!.query(sql);
                 formConfig['partyId'] = {
                     type: 'select',
                     options: parties.map((p: any) => { return { value: p.id, label: p.name } }),
@@ -50,39 +47,39 @@ export async function onChange(params: ApiParam, mysqlConn: ConnectionAction) {
 }
 
 
-export async function afterSubmit(data: any, params: ApiParam, docType: DocumentType, mysqlConn: ConnectionAction, previousData?: any) {
+export async function afterSubmit(data: any, previousData: any, req: SRequest) {
     if (previousData?.docStatus != 'DRAFT') {
         return data;
     }
-    await debitCompanyAcctTrnx(data, params, mysqlConn);
+    await debitCompanyAcctTrnx(data, req);
 
     switch (previousData.partyType) {
         case "CUSTOMER":
-            await receiveCustomerPayment(previousData, params, mysqlConn);
+            await receiveCustomerPayment(previousData, req);
             break;
         case "SUPPLIER":
-            await receiveSupplierPayment(previousData, params, mysqlConn);
+            await receiveSupplierPayment(previousData, req);
             break;
     }
     return data;
 }
 
-export async function afterCancel(data: any, params: ApiParam, docType: DocumentType, mysqlConn: ConnectionAction, previousData?: any) {
+export async function afterCancel(data: any, previousData: any, req: SRequest) {
     if (previousData?.docStatus != 'SUBMIT') {
         return data;
     }
-    await creditCompanyAcctTrnx(data, params, mysqlConn);
+    await creditCompanyAcctTrnx(data, req);
     switch (previousData.partyType) {
         case "Customer":
-            await cancelCustomerPayment(previousData, params, mysqlConn);
+            await cancelCustomerPayment(previousData, req);
             break;
         case "Supplier":
-            await cancelSupplierPayment(previousData, params, mysqlConn);
+            await cancelSupplierPayment(previousData, req);
             break;
     }
 }
 
-async function receiveCustomerPayment(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function receiveCustomerPayment(payment: any, req: SRequest) {
     // Credit Customer Account Transaction
     const trnx: AccountTransaction = {
         partyId: payment.partyId,
@@ -93,13 +90,14 @@ async function receiveCustomerPayment(payment: any, params: ApiParam, mysqlConn:
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("CUSTOMER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("CUSTOMER", trnx);
 
     // Create relationship and update Sales Invoice Payment Status
 
-    const unpaidSI = await tranxUtil.getUnpaidInvoice("SALES", payment.partyId, params, mysqlConn);
+    const unpaidSI = await tranxUtil.getUnpaidInvoice("SALES", payment.partyId);
 
     let remainingPaidAmount = payment.amount;
     for (const si of unpaidSI) {
@@ -114,14 +112,10 @@ async function receiveCustomerPayment(payment: any, params: ApiParam, mysqlConn:
             paidAmount = si.grandTotal - remainingPaidAmount;
             paymentStatus = 'PARTIALLY_PAID'
         }
-            console.log("si.grandTotal :",si.grandTotal )
-     console.log("si.paidAmount :",si.paidAmount )
-     console.log("payment.amount :",payment.amount)
-     console.log("remainingPaidAmount :",remainingPaidAmount)
-     console.log("paidAmount :",paidAmount)
+
         // Update Sales Invoice Payment Status
 
-        await tranxUtil.updateInvoicePayment("SALES", si.id, paidAmount, paymentStatus, params, mysqlConn);
+        await tranxUtil.updateInvoicePayment("SALES", si.id, paidAmount, paymentStatus);
 
         // Create relationship Ledger
         const cpr: PaymentRelationship = {
@@ -131,7 +125,7 @@ async function receiveCustomerPayment(payment: any, params: ApiParam, mysqlConn:
             postingDate: payment.postingDate,
         }
 
-        await tranxUtil.insertPaymentRelationship("CUSTOMER", cpr, params, mysqlConn);
+        await tranxUtil.insertPaymentRelationship("CUSTOMER", cpr);
 
         if (remainingPaidAmount == 0) {
             break;
@@ -148,10 +142,10 @@ async function receiveCustomerPayment(payment: any, params: ApiParam, mysqlConn:
             status: "OPEN",
             remarks: ""
         }
-        await tranxUtil.insertAdvancePayment("CUSTOMER", cap, params, mysqlConn);
+        await tranxUtil.insertAdvancePayment("CUSTOMER", cap);
     }
 }
-async function cancelCustomerPayment(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function cancelCustomerPayment(payment: any, req: SRequest) {
     // Debit Customer Account Transaction
     const trnx: AccountTransaction = {
         partyId: payment.partyId,
@@ -162,19 +156,20 @@ async function cancelCustomerPayment(payment: any, params: ApiParam, mysqlConn: 
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("CUSTOMER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("CUSTOMER", trnx);
 
     // delete relationship and update Sales Invoice Payment Status
 
-    const relationship = await tranxUtil.getPaymentRelationShip("CUSTOMER", payment.id, params, mysqlConn);
+    const relationship = await tranxUtil.getPaymentRelationShip("CUSTOMER", payment.id);
 
     for (const r of relationship) {
         let paymentStatus: InvoicePaymentStatus;
         let paidAmount = 0;
 
-        const si = await tranxUtil.getInvoiceById("SALES", r.invoiceId, params, mysqlConn);
+        const si = await tranxUtil.getInvoiceById("SALES", r.invoiceId);
         if (si.paidAmount == r.paidAmount) {
             paymentStatus = 'UNPAID';
             paidAmount = 0;
@@ -183,16 +178,16 @@ async function cancelCustomerPayment(payment: any, params: ApiParam, mysqlConn: 
             paidAmount = si.paidAmount - r.paidAmount;
         }
         // Update Sales Invoice Payment Status
-        await tranxUtil.updateInvoicePayment("SALES", si.id, paidAmount, paymentStatus, params, mysqlConn);
+        await tranxUtil.updateInvoicePayment("SALES", si.id, paidAmount, paymentStatus);
     }
     // Delete relationship Ledger
-    await tranxUtil.deleteRelationshipByVoucherId("CUSTOMER", payment.id, params, mysqlConn);
+    await tranxUtil.deleteRelationshipByVoucherId("CUSTOMER", payment.id);
 
     //Delete Customer Advance Payment if any
-    await tranxUtil.deleteAdvancePaymentByVoucherId("CUSTOMER", payment.id, params, mysqlConn);
+    await tranxUtil.deleteAdvancePaymentByVoucherId("CUSTOMER", payment.id);
 }
 
-async function debitCompanyAcctTrnx(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function debitCompanyAcctTrnx(payment: any, req: SRequest) {
     // Debit Company Account Transaction
     const comTrnx: AccountTransaction = {
         accountId: payment.paymentMethod,
@@ -204,12 +199,13 @@ async function debitCompanyAcctTrnx(payment: any, params: ApiParam, mysqlConn: C
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("COMPANY", comTrnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("COMPANY", comTrnx);
 }
 
-async function creditCompanyAcctTrnx(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function creditCompanyAcctTrnx(payment: any, req: SRequest) {
     // Credit Company Account Transaction
     const comTrnx: AccountTransaction = {
         accountId: payment.paymentMethod,
@@ -221,12 +217,13 @@ async function creditCompanyAcctTrnx(payment: any, params: ApiParam, mysqlConn: 
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("COMPANY", comTrnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("COMPANY", comTrnx);
 }
 
-async function receiveSupplierPayment(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function receiveSupplierPayment(payment: any, req: SRequest) {
     // Credit Supplier Account Transaction
     const trnx: AccountTransaction = {
         partyId: payment.partyId,
@@ -237,12 +234,13 @@ async function receiveSupplierPayment(payment: any, params: ApiParam, mysqlConn:
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("SUPPLIER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 }
 
-async function cancelSupplierPayment(payment: any, params: ApiParam, mysqlConn: ConnectionAction) {
+async function cancelSupplierPayment(payment: any, req: SRequest) {
     // Credit Supplier Account Transaction
     const trnx: AccountTransaction = {
         partyId: payment.partyId,
@@ -253,9 +251,10 @@ async function cancelSupplierPayment(payment: any, params: ApiParam, mysqlConn: 
         refNo: payment.id,
         remark: payment.remark,
         amount: payment.amount,
-        postingDate: payment.postingDate
+        postingDate: payment.postingDate,
+        companyId: req.com
     }
-    await tranxUtil.insertAcctTranx("SUPPLIER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 
 
 }

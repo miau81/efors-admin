@@ -63,7 +63,7 @@ async function generateReportFile(req: any): Promise<any> {
 
         return result.content;
     } catch (error) {
-        console.error("JS ERROR:", error)
+        console.error("JS Report Error:", error)
     }
 
 }

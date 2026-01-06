@@ -1,12 +1,12 @@
 
 
 import { Router } from "express";
-import { ApiPermissionController } from "../controllers/api.permission.controller";
+import { AuthGuardController } from "../controllers/api.auth-guard.controller";
 import type { Route } from "../interfaces/api.route.interface";
 
-export class ApiPermissionRoute implements Route {
+export class ApiAuthGuardRoute implements Route {
   public router = Router();
-  private controller= new ApiPermissionController();
+  private controller= new AuthGuardController();
   constructor() {
     this.initializeRoutes();
   }

@@ -1,23 +1,32 @@
 import { Route } from "./interfaces/api.route.interface";
 import { ApiConfigRoute } from "./routers/api.config.route";
 import { ApiDocumentRoute } from "./routers/api.document.route";
-import { ApiPermissionRoute } from "./routers/api.permission.route";
-import express, { Router } from "express";
+import { ApiAuthGuardRoute } from "./routers/api.auth-guard.route";
+import express from "express";
 import { ApiUserRoute } from "./routers/api.user.route";
 import { ApiFileRoute } from "./routers/api.file.router";
 import { ApiReportRoute } from "./routers/api.report.route";
+import { logger } from "./utils/logger";
 
+import figlet from "figlet";
 class API {
     constructor(public app: express.Application) {
+        this.init();
+  }
+
+    private async init() {
+        const file = await Bun.file('package.json').json();
+        // const appName = `${await figlet.text("Efors!")} v${file.version}\n`;
+        const appName = `${'Efors'} v${file.version}\n`;
+        logger.notimeLog(appName);
         this.initializeMiddlewares();
         this.initRouter();
         this.errorHander();
-
     }
 
     private initRouter() {
         const routes: Route[] = [
-            new ApiPermissionRoute(),
+            new ApiAuthGuardRoute(),
             new ApiUserRoute(),
             new ApiConfigRoute(),
             new ApiDocumentRoute(),
@@ -33,7 +42,9 @@ class API {
     }
 
     private initializeMiddlewares() {
-        // logger.info(`Initializing Middlewares...`);
+
+
+        logger.info(`Initializing Middlewares...`);
         // const logConfig = appConfigs.log
         // this.app.use(morgan(logConfig['format'], { stream }));
         // const corsConfig = appConfigs.cors

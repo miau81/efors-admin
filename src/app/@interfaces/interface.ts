@@ -66,7 +66,7 @@ export interface MyERPDocType {
   searchFields?: string[];
   printScript?: "SERVER" | "CLIENT";
   printFormats?: MyERPPrintFormat[];
-  actionButtons?: { code: string, label: string, script?: "SERVER" | "CLIENT" }[];
+  actionButtons?: { code: string, label: string, script?: "SERVER" | "CLIENT", disabled?:boolean, hidden?:boolean}[];
   tabs?: MyERPFieldGroup[];
   sections?:MyERPFieldGroup[];
 }
@@ -127,6 +127,7 @@ export interface ChangeScriptResponse {
   componentOptions?: any;
   parentFormValue?: any;
   formConfig?: any
+  tableValue?:any[]
 }
 
 export interface MyERPPrintFormat {
@@ -137,10 +138,10 @@ export interface MyERPPrintFormat {
 }
 
 export interface MyErpSortAndPagination {
-  page: number;
-  limit: number;
-  sortField?: string;
-  sortBy?: "ASC" | "DESC";
+  _page: number;
+  _limit: number;
+  _sortField?: string;
+  _sortDirection?: "ASC" | "DESC";
 }
 
 export type MyERPDocNamingType = "random" | "sequence" | "date-sequence" | "byField"

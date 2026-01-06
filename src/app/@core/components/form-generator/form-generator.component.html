@@ -164,7 +164,7 @@
       </div>
     </div>
     } @case('checkbox'){
-    <div class="form-check align-items-center d-flex mb-0">
+    <div class="form-check align-items-center d-flex mb-0"  style="min-height: 50px;">
       <input class="form-check-input mt-0" type="checkbox" [formControlName]="component.key" [id]="component.key"
         [required]="component.required || false" [disabled]="component.disabled || false"
         placeholder="{{component.placeholder || '' | mytranslate}}" (change)="onChange(component)">

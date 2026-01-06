@@ -1,37 +1,35 @@
 import { NextFunction, Response } from "express";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ApiReportService } from "../services/api.report.service";
-import { ConnectionPool } from "../databases";
-import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ApiRequestMethod } from "../interfaces/api.enum";
 import { ConvertUtil } from "../utils/convert";
+
 
 export class ApiReportController {
     private reportService = new ApiReportService();
     private convertUtil = new ConvertUtil();
 
     public generateReport = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
+        // req.mysqlConn = await getConnenctionPoolFromStorage();
+        // req.mysqlConn.beginTransaction();
+        // try {
 
-            const params = this.convertUtil.convertRequestToApiParam(req, ApiRequestMethod.GET);
-            const body = params.body;
-            const data = await this.reportService.generateReport(params, body, mysqlConn);
-            mysqlConn.commit();
+        //     const params = this.convertUtil.convertRequestToApiParam(req);
+        //     const body = params.body;
+        //     const data = await this.reportService.generateReport(params, body, req.mysqlConn);
+        //     req.mysqlConn.commit();
 
 
-            res.setHeader('Content-Type', data.contentType);
-            res.setHeader('Content-Disposition', `inline; filename=${data.fileName}`);
-            res.end(data.buffer)
+        //     res.setHeader('Content-Type', data.contentType);
+        //     res.setHeader('Content-Disposition', `inline; filename=${data.fileName}`);
+        //     res.end(data.buffer)
 
-            // res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        //     // res.status(200).json(data);
+        // } catch (error) {
+        //     req.mysqlConn.rollback();
+        //     next(error);
+        // } finally {
+        //     req.mysqlConn.release();
+        // }
 
     }
 

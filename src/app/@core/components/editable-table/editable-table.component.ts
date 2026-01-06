@@ -49,8 +49,13 @@ export class MyEditableTable {
   ngOnInit() {
     this.formArray.valueChanges.subscribe((r) => {
       this.component.value = r;
+      this.refreshRow()
+      console.log("value Changes",r)
     })
     this.refreshRow()
+  }
+
+  ngOnChanges() {
   }
 
   refreshRow() {

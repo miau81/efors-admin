@@ -25,7 +25,7 @@ export class AuthService {
   async logout(silent: boolean = true) {
     if (!silent) {
       const res = await this.baseService.showConfirm("_CONFIRM_LOGOUT");
-      if (res != MyMessageBoxResponse.confirm) {
+      if (res != 'yes') {
         return
       }
     }

@@ -10,11 +10,13 @@ export const documentType = (() => {
         searchFields: ["sku", "name"],
         tabs: [
             { id: 'tabDetails', label: '{"en":"Details"}', sorting: 1 },
+            { id: 'tabTax', label: '{"en":"Tax"}', sorting: 1 },
             { id: 'tabEinvoice', label: '{"en":"E-Invoice Settings"}', sorting: 2 },
         ],
         sections: [
-            { id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1, parent: 'tabDetails' },
-            { id: 'sectionEinvoice', label: '{"en":"E-Invoice Settings"}', sorting: 2, parent: 'tabEinvoice' },
+            { id: 'sectionDetails', label: '', sorting: 1, parent: 'tabDetails' },
+            { id: 'sectionTax', label: '', sorting: 1, parent: 'tabTax' },
+            { id: 'sectionEinvoice', label: '', sorting: 2, parent: 'tabEinvoice' },
         ],
         fields: [
             { id: 'isActive', type: 'boolean', defaultValue: true, label: '{"en":"Avaliable"}', showInForm: true, sectionId: 'sectionDetails' },
@@ -38,6 +40,13 @@ export const documentType = (() => {
             { id: 'unitPrice', mandatory: true, defaultValue: 0, type: 'currency', label: '{"en":"Unit Price"}', showInForm: true, sectionId: 'sectionDetails' },
 
             { id: 'description', type: 'text', formColumnSize: "col-12", formComponentType: "textarea", label: '{"en":"Description"}', showInForm: true, sectionId: 'sectionDetails' },
+
+            {
+                id: 'taxId', type: 'link', options: "selling_tax", showInForm: true,
+                linkOptions: { valueField: "id", labelField: "name" },
+                label: '{"en":"Tax Class"}', sectionId: 'sectionTax'
+            },
+            
 
             {
                 id: 'eInvoiceUOM', type: 'link', options: "einvoice_item_uom", showInForm: true,

@@ -1,16 +1,16 @@
 import type { NextFunction,Response } from "express";
 // import { ApiPermissionService } from "../services/api.permission.service";
 import { SRequest } from "../interfaces/api.route.interface";
-import { ApiPermissionService } from "../services/api.permission.service";
+import { ApiAuthGuardService } from "../services/api.auth-guard.service";
 
-export class ApiPermissionController {
+export class AuthGuardController {
 
-    private permissionService = new ApiPermissionService();
+    private authGuardService = new ApiAuthGuardService();
 
 
     public authorizeCheck = async (req: SRequest, res: Response, next: NextFunction) => {
         try {
-            await this.permissionService.authorizeCheck(req);
+            await this.authGuardService.authorizeCheck(req);
             next();
         } catch (error) {
             next(error);

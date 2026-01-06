@@ -1,0 +1,96 @@
+2026-01-06 00:15:18 [error]: [401]Authorization token is expired.
+2026-01-06 00:23:49 [error]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:53 [error]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:55 [error]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:59 [error]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:24:50 [error]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:25:00 [error]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:25:15 [error]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 01:15:29 [error]: [401]Authorization token is expired.
+2026-01-06 01:31:10 [error]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2026-01-06 01:31:10 [error]: [500]Error loading document type [tax]
+2026-01-06 02:17:12 [error]: [401]Authorization token is expired.
+2026-01-06 02:17:12 [error]: [401]Authorization token is expired.
+2026-01-06 02:57:29 [error]:
+Error loading event script:
+{}
+2026-01-06 02:57:36 [error]:
+Error loading event script:
+{}
+2026-01-06 02:58:45 [error]:
+Error loading event script:
+{}
+2026-01-06 03:22:49 [error]: [401]Authorization token is expired.

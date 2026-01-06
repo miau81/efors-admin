@@ -30,6 +30,7 @@ export const documentType = (() => {
             { id: 'email', type: 'text', formComponentType: "email", mandatory: true, label: '{"en":"Email"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'tinNo', type: 'text', label: '{"en":"Tin No"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'businessRegNo', type: 'text', label: '{"en":"Business Registration No"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'businessActivity', type: 'text', label: '{"en":"Business Activity Description"}', showInTable: false, showInForm: true, sectionId: 'sectionDetails' },
             {
                 id: 'identificationType', type: 'link', options: "einvoice_id_type", showInForm: true,
                 linkOptions: { valueField: "id", labelField: "id,name" },
@@ -65,12 +66,14 @@ export const documentType = (() => {
             },
             //Section E-Invoice
             // { id: 'sectionEInvoice', type: 'section', label: '{"en":"E-Invoice Setting"}', sorting: 3, sectionExpanded: false, tabId: 'tabEinvoice' },
-            { id: 'eInvoiceIdSandbox', type: 'text', label: '{"en":"E-Invoice ID (For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
+            { id: 'isSandbox', type: 'boolean', label: '{"en":"Enable Testing Mode"}', showInForm: true, sectionId: "sectionEInvoice" },
+           { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+           { id: 'eInvoiceIdSandbox', type: 'text', label: '{"en":"E-Invoice ID (For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
             { id: 'eInvoiceSecretSandbox', type: 'text', label: '{"en":"E-Invoice Secret(For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
-            { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
-            { id: 'eInvoiceId', type: 'text', label: '{"en":"E-Invoice ID"}', showInForm: true, sectionId: "sectionEInvoice" },
-            { id: 'eInvoiceSecret', type: 'text', label: '{"en":"E-Invoice Secret"}', showInForm: true, sectionId: "sectionEInvoice" },
             { id: 'break_2', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+             { id: 'eInvoiceId', type: 'text', label: '{"en":"E-Invoice ID"}', showInForm: true, sectionId: "sectionEInvoice" },
+            { id: 'eInvoiceSecret', type: 'text', label: '{"en":"E-Invoice Secret"}', showInForm: true, sectionId: "sectionEInvoice" },
+            { id: 'break_3', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
 
             {
                 id: 'defaultTaxableType', type: 'link', options: "einvoice_taxable_type", showInForm: true,

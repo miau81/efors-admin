@@ -67,7 +67,7 @@ export class MyMessageBox {
 
   onConfirmKeyCheck() {
     if (this.confirmInput == this.option.confirmKey) {
-      this.dialogRef.close(MyMessageBoxResponse.confirm);
+      this.dialogRef.close("confirm");
     }
   }
 

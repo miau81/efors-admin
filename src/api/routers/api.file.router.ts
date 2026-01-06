@@ -13,7 +13,7 @@ export class ApiFileRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.post("/public/file/generate-pdf", this.controller.generatePdf);
+    this.router.post("/file/generate-pdf", this.controller.generatePdf);
   }
 
 }

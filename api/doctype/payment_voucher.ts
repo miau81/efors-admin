@@ -16,12 +16,10 @@ export const documentType = (() => {
             { code: "STD_PAYMENT_VOUCHER", fileName: "standard_payment_voucher", label: '{"en":"Standard Payment Voucher"}', isDefault: true },
         ],
         sections: [
-            { id: 'sectionDetails', label: '', sorting: 1 },
-            { id: 'sectionPaymentMethod', label: '{"en":"Payment Method"}', sorting: 2 },
-            { id: 'sectionInv', label: '{"en":"Pay For Invoice"}', sorting: 2 },
+            { id: 'sectionDetails', label: '', sorting: 1 }
         ],
         fields: [
-            { id: "id", type: "text", label: '{"en":"Payment No"}', showInTable: true, showInForm: true, isReadOnly: true, isPrimaryKey: true, showInFilter: true, sectionId: 'sectionDetails' },
+            // { id: "id", type: "text", label: '{"en":"Receipt No"}', showInTable: true, showInForm: true, isReadOnly: true, isPrimaryKey: true, showInFilter: true, sectionId: 'sectionDetails' },
             {
                 id: "docStatus", type: "text", formComponentType: "select", sectionId: 'sectionDetails',
                 showInTable: true, defaultValue: 'DRAFT', label: '{"en":"Status"}', showInFilter: true,
@@ -42,9 +40,9 @@ export const documentType = (() => {
                 label: '{"en":"Party Type"}'
             },
             {
-                id: 'party', type: 'dropdown', formComponentType: "select", options: [], canView: true, mandatory: true,
+                id: 'partyId', type: 'dropdown', formComponentType: "select", options: [], canView: true, mandatory: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails',
-                label: '{"en":"Receive From Party"}'
+                label: '{"en":"Paid To Party"}'
             },
             { id: 'postingDate', type: 'datetime', mandatory: true, label: '{"en":"Posting Date"}', showInTable: true, showInForm: true, showInFilter: true, sectionId: 'sectionDetails' },
             {
@@ -52,14 +50,15 @@ export const documentType = (() => {
                 sectionId: 'sectionDetails', options: "company_account",
                 linkOptions: { isDoc: true, valueField: "id", labelField: "name" },
             },
+            { id: 'amount', type: 'currency', defaultValue: 0, label: '{"en":"Amount"}', showInForm: true, showInTable: true, sectionId: 'sectionDetails' },
             { id: 'refNo', type: 'text', label: '{"en":"Reference No"}', showInForm: true, sectionId: 'sectionDetails' },
             { id: 'refDate', type: 'date', label: '{"en":"Reference Date"}', showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'description', type: "textarea", label: '{"en":"Description"}', showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'remark', type: "textarea", label: '{"en":"Remark"}', showInForm: true, sectionId: 'sectionDetails' },
+
+            { id: 'description', mandatory: true, type: "text", label: '{"en":"Description"}', showInForm: true, sectionId: 'sectionDetails', formColumnSize: 'col-12' },
+
+            { id: 'remark', type: "textarea", label: '{"en":"Remark"}', showInForm: true, sectionId: 'sectionDetails', formColumnSize: 'col-12' },
 
             { id: 'companyId', type: 'text', isHidden: true },
-
-
         ]
     }
     type.fields = [...myErpFields.filter(df => !type.fields.some(f => f.id == df.id)), ...type.fields];

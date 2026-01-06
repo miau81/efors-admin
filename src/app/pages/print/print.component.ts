@@ -44,8 +44,8 @@ export class PrintComponent {
 
   async loadPrinting() {
     const format = this.printFormats.find(f => f.code == this.selectedFormat);
-    const params = { getChild: true, getParent: true };
-    const doc = await this.api.getDocumentByField(this.dialogData.documentType.id, 'id', this.dialogData.documentId, params);
+    const params = { getChild: true, getLink: true };
+    const doc = await this.api.getDocument(this.dialogData.documentType.id,  this.dialogData.documentId, params);
     const data = {
       action: 'onPrint',
       data: doc,

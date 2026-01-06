@@ -1,81 +1,83 @@
 
-import { NoDataException } from "../exceptions/NoDataException";
 import { ServiceException } from "../exceptions/ServiceException";
 import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ApiGetParam, ApiParam, ApiSaveParam } from "../interfaces/api.main.interface";
+import { DBFilter } from "../interfaces/api.main.interface";
+import { SRequest } from "../interfaces/api.route.interface";
 import { ConvertUtil } from "../utils/convert";
 import { logger } from "../utils/logger";
 import { ExternalScriptService } from "./api.extermal-script.service";
-import { ApiGlobalService } from "./api.global.service";
+import { CoreService } from "./api.core.service";
+import { core } from "../core/core";
 
 export class ApiDocumentService {
 
-    readonly convertUtil = new ConvertUtil();
-    readonly globalService = new ApiGlobalService();
-    readonly externalScript = new ExternalScriptService
 
-    async getDocumentType(document: string, mysqlConn?: ConnectionAction, sys?: string, com?: string, language = 'en') {
-        return this.globalService.getDocumentType(document, mysqlConn, sys, com, language);
+    async getDocumentType(req: SRequest) {
+        const document = req.params['document'];
+        return core.getDocumentType(document, req.mysqlConn, req.sys, req.com, (req.language || 'en'));
     }
 
-    async getDocumentList(params: ApiGetParam, mysqlConn: ConnectionAction) {
+    async getDocuments(req: SRequest) {
         try {
-            return await this.globalService.getDocumentList(params, mysqlConn);
+            const document = core.convertUtil.convertDocTypeToTableName(req.params?.['document']);
+            const options = core.convertUtil.convertQueryParamToDBOption(req);
+            options.pagination = true;
+            return await core.getDocuments(req, document, options);
         } catch (error) {
             if (error instanceof Error && error.constructor !== Error) {
                 throw error;
             }
-            logger.error('Error loading document type:', error);
-            throw new ServiceException(`Error loading document type [${params.tableName}]`);
+            logger.error('Error getting documents:', error);
+            throw new ServiceException(`Error getting documents: [${document}]`);
         }
     }
 
-    async getSingleDocument(params: ApiGetParam, mysqlConn: ConnectionAction) {
-
+    async getDocument(req: SRequest) {
         try {
-            const byValue = this.convertUtil.convertToDataTypeValue(params.params['byValue']);
-            const where = `WHERE ${params.params['byField']} = ${byValue}`;
-            return await this.globalService.getSingleDocument(params, where, mysqlConn);
+            const document = core.convertUtil.convertDocTypeToTableName(req.params?.['document']);
+            const id = req.params?.['id'];
+            const fields: any = req.query?.['_fields']?.toString()?.split(",") || ["*"];
+            const excFields: any = req.query?.['_exclude']?.toString()?.split(",") || [];
+            return await core.getDocument(req, document, id, fields, excFields);
         } catch (error) {
             if (error instanceof Error && error.constructor !== Error) {
                 throw error;
             }
-            logger.error('Error get document type:', error);
-            throw new ServiceException(`Error loading document type [${params.tableName}]`);
+            logger.error('Error get document:', error);
+            throw new ServiceException(`Error loading document [${document}]`);
         }
     }
 
-    async createDocument(params: ApiSaveParam, mysqlConn: ConnectionAction) {
+    async createDocument(req: SRequest) {
         try {
-
-            return await this.globalService.createDocument(params, mysqlConn);
+            const document = core.convertUtil.convertDocTypeToTableName(req.params?.['document']);
+            return await core.createDocument(req, document, req.body);
         } catch (error) {
             logger.error('Error creating document type:', error);
-            throw new ServiceException(`Error creating document type [${params.tableName}]`);
+            throw new ServiceException(`Error creating document type [${document}]`);
         }
     }
 
-    async updateDocument(params: ApiSaveParam, mysqlConn: ConnectionAction) {
+    async updateDocument(req: SRequest) {
         try {
-
-            const byValue = this.convertUtil.convertToDataTypeValue(params.params['byValue']);
-            let where = `WHERE ${params.params['byField']} = ${byValue}`;
-            const exists = await this.globalService.checkExists(params.tableName, where, mysqlConn, params.com, params.sys);
-            if (!exists.exists) {
-                throw new NoDataException(`Data not found with [${params.params['byField']}]: ${params.params['byValue']}`);
-            }
-            return await this.globalService.updateDocument(params, where, mysqlConn);
-
+            const document = core.convertUtil.convertDocTypeToTableName(req.params?.['document']);
+            const id = req.params?.['id'];
+            const filter: DBFilter = [{ field: 'id', operator: '=', value: id }];
+            return await core.updateDocument(req, document, req.body, filter);
         } catch (error) {
             if (error instanceof Error && error.constructor !== Error) {
                 throw error;
             }
-            throw new ServiceException(`Error updating document [${params.tableName}]: ${error}`);
+            throw new ServiceException(`Error updating document [${document}]: ${error}`);
         }
     }
 
-    async runEventScript(params: ApiParam, mysqlConn: ConnectionAction) {
-        return this.externalScript.runEventScript(params, mysqlConn);
+    async runEventScript(req: SRequest) {
+        return await core.externalScript.runEventScript(req.params?.['document'], req);
+    }
+
+    async runCustomScript(req: SRequest) {
+        return await core.externalScript.runCustomScript(req.params?.['module'], req.params?.['method'], req);
     }
 
 

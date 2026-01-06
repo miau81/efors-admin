@@ -12,8 +12,8 @@ export class ApiReportRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.all("/admin/report/generate-report", this.controller.generateReport);
-    this.router.all("/admin/report/html-to-file", this.controller.htmlToFile);
+    this.router.all("/report/generate-report", this.controller.generateReport);
+    this.router.all("/report/html-to-file", this.controller.htmlToFile);
   }
 
 }

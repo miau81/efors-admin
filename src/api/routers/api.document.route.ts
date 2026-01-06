@@ -14,13 +14,16 @@ export class ApiDocumentRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get("/admin/document/type/:document", this.controller.getDocumentType);
-    this.router.post("/admin/document/event/:document", this.controller.runEventScript);
-    this.router.get("/:authURL/document/:document", this.controller.getDocumentList);
-    this.router.get("/:authURL/document/:document/:byField/:byValue", this.controller.getSingleDocument);
-    this.router.post("/:authURL/document/:document", this.controller.createDocument);
-    this.router.put("/:authURL/document/:document/:byField/:byValue", this.controller.updateDocument);
-
+    this.router.get("/document/type/:document", this.controller.getDocumentType);
+    this.router.post("/document/event/:document", this.controller.runEventScript);
+    this.router.get("/document/:document", this.controller.getDocuments);
+    this.router.get("/document/:document/:id", this.controller.getDocument);
+    this.router.post("/document/:document", this.controller.createDocument);
+    this.router.put("/document/:document/:id", this.controller.updateDocument);
+    this.router.put("/document/:document/:id", this.controller.updateDocument);
+    this.router.put("/document/custom/:module/:method", this.controller.runCustomScript);
   }
 
 }
+
+

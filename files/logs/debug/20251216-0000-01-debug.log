@@ -1,0 +1,784 @@
+2025-12-15 00:13:26 [debug]: MySQL pool is connected! ThreadId:282
+2025-12-15 00:13:26 [debug]: MySQL pool is begin transaction! ThreadId: 282
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_misc.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_misc.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [einvoice_misc]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [state]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [country]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:13:26 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_item_uom.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_item_uom.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:26 [debug]: [500]Error loading document type [einvoice_item_uom]
+2025-12-15 00:13:26 [debug]: MySQL pool is committed! ThreadId: 282
+2025-12-15 00:13:26 [debug]: MySQL pool is released! ThreadId: 282
+2025-12-15 00:13:26 [debug]: MySQL pool is connected! ThreadId:282
+2025-12-15 00:13:26 [debug]: MySQL pool is begin transaction! ThreadId: 282
+2025-12-15 00:13:26 [debug]: MySQL pool is committed! ThreadId: 282
+2025-12-15 00:13:26 [debug]: MySQL pool is released! ThreadId: 282
+2025-12-15 00:13:27 [debug]: MySQL pool is connected! ThreadId:282
+2025-12-15 00:13:28 [debug]: MySQL pool is connected! ThreadId:283
+2025-12-15 00:13:28 [debug]: MySQL pool is begin transaction! ThreadId: 283
+2025-12-15 00:13:28 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_item_uom.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_item_uom.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:28 [debug]: [500]Error loading document type [einvoice_item_uom]
+2025-12-15 00:13:28 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:28 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:13:28 [debug]: MySQL pool is committed! ThreadId: 283
+2025-12-15 00:13:28 [debug]: MySQL pool is released! ThreadId: 283
+2025-12-15 00:13:28 [debug]: MySQL pool is connected! ThreadId:283
+2025-12-15 00:13:28 [debug]: MySQL pool is begin transaction! ThreadId: 283
+2025-12-15 00:13:28 [debug]: MySQL pool is committed! ThreadId: 283
+2025-12-15 00:13:28 [debug]: MySQL pool is released! ThreadId: 283
+2025-12-15 00:13:30 [debug]: MySQL pool is connected! ThreadId:283
+2025-12-15 00:13:32 [debug]: MySQL pool is connected! ThreadId:284
+2025-12-15 00:13:32 [debug]: MySQL pool is begin transaction! ThreadId: 284
+2025-12-15 00:13:32 [debug]: MySQL pool is committed! ThreadId: 284
+2025-12-15 00:13:32 [debug]: MySQL pool is released! ThreadId: 284
+2025-12-15 00:13:32 [debug]: MySQL pool is connected! ThreadId:284
+2025-12-15 00:13:32 [debug]: MySQL pool is begin transaction! ThreadId: 284
+2025-12-15 00:13:36 [debug]: MySQL pool is connected! ThreadId:285
+2025-12-15 00:13:36 [debug]: MySQL pool is committed! ThreadId: 284
+2025-12-15 00:13:36 [debug]: MySQL pool is released! ThreadId: 284
+2025-12-15 00:13:36 [debug]: MySQL pool is connected! ThreadId:284
+2025-12-15 00:13:36 [debug]: MySQL pool is connected! ThreadId:286
+2025-12-15 00:13:39 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:39 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:39 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:39 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:13:39 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:39 [debug]: [500]Error loading document type [state]
+2025-12-15 00:13:39 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:39 [debug]: [500]Error loading document type [country]
+2025-12-15 00:13:39 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:39 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:13:39 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:39 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:13:39 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:39 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:13:39 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:39 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:39 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:39 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:13:40 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:41 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:41 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:41 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:13:41 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:41 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:41 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:41 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:13:41 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:41 [debug]: [500]Error loading document type [state]
+2025-12-15 00:13:41 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:41 [debug]: [500]Error loading document type [country]
+2025-12-15 00:13:41 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:41 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:13:41 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:13:41 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:13:41 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:41 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:13:50 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:50 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:50 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:50 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:13:50 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:13:50 [debug]: MySQL pool is begin transaction! ThreadId: 287
+2025-12-15 00:13:51 [debug]:
+Error loading event script:
+{
+  path: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server/../../../api/print_format/sales_invoice/standard_sales_invoice.ejs"
+}
+2025-12-15 00:13:51 [debug]: MySQL pool is committed! ThreadId: 287
+2025-12-15 00:13:51 [debug]: MySQL pool is released! ThreadId: 287
+2025-12-15 00:14:18 [debug]: MySQL pool is connected! ThreadId:287
+2025-12-15 00:14:18 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:14:18 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:14:18 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:14:18 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:14:18 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:14:18 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:14:18 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:14:18 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:14:18 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:14:18 [debug]: [500]Error loading document type [state]
+2025-12-15 00:14:19 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:14:19 [debug]: [500]Error loading document type [country]
+2025-12-15 00:14:19 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:14:19 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:14:19 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:14:19 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:14:19 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:14:19 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:14:24 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:14:24 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:14:24 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:14:24 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:14:24 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:14:24 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:14:24 [debug]:
+Error loading event script:
+{
+  path: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server/../../../api/print_format/sales_invoice/standard_sales_invoice.ejs"
+}
+2025-12-15 00:14:24 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:14:24 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:15:55 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:15:55 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:15:55 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:15:55 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:15:55 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:15:55 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:15:55 [debug]:
+Error loading event script:
+{
+  path: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server/../../../api/print_format/sales_invoice/standard_sales_invoice.ejs"
+}
+2025-12-15 00:15:55 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:15:55 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:16:07 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:16:08 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:16:08 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:16:08 [debug]: MySQL pool is released! ThreadId: 288
+2025-12-15 00:16:08 [debug]: MySQL pool is connected! ThreadId:288
+2025-12-15 00:16:08 [debug]: MySQL pool is begin transaction! ThreadId: 288
+2025-12-15 00:16:08 [debug]:
+Error loading event script:
+{
+  path: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server/../../../api/print_format/sales_invoice/standard_sales_invoice.ejs"
+}
+2025-12-15 00:16:08 [debug]: MySQL pool is committed! ThreadId: 288
+2025-12-15 00:16:08 [debug]: MySQL pool is released! ThreadId: 288
+ Efors v0.0.1
+
+2025-12-15 00:18:38 [debug]: Initializing Middlewares...
+2025-12-15 00:18:42 [debug]: Initializing MySQL pool...
+2025-12-15 00:18:42 [debug]: MySQL pool is Initialized!
+2025-12-15 00:18:42 [debug]: MySQL pool is connected! ThreadId:289
+2025-12-15 00:18:42 [debug]: MySQL pool is begin transaction! ThreadId: 289
+2025-12-15 00:18:42 [debug]: MySQL pool is committed! ThreadId: 289
+2025-12-15 00:18:42 [debug]: MySQL pool is released! ThreadId: 289
+2025-12-15 00:18:42 [debug]: MySQL pool is connected! ThreadId:289
+2025-12-15 00:18:42 [debug]: MySQL pool is begin transaction! ThreadId: 289
+2025-12-15 00:18:42 [debug]: MySQL pool is committed! ThreadId: 289
+2025-12-15 00:18:42 [debug]: MySQL pool is released! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is connected! ThreadId:289
+2025-12-15 00:20:38 [debug]: MySQL pool is begin transaction! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is committed! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is released! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is connected! ThreadId:289
+2025-12-15 00:20:38 [debug]: MySQL pool is begin transaction! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is committed! ThreadId: 289
+2025-12-15 00:20:38 [debug]: MySQL pool is released! ThreadId: 289
+2025-12-15 00:20:46 [debug]: MySQL pool is connected! ThreadId:289
+2025-12-15 00:21:47 [debug]: MySQL pool is connected! ThreadId:290
+2025-12-15 00:21:47 [debug]: MySQL pool is begin transaction! ThreadId: 290
+2025-12-15 00:21:47 [debug]: MySQL pool is committed! ThreadId: 290
+2025-12-15 00:21:47 [debug]: MySQL pool is released! ThreadId: 290
+2025-12-15 00:21:47 [debug]: MySQL pool is connected! ThreadId:290
+2025-12-15 00:21:47 [debug]: MySQL pool is begin transaction! ThreadId: 290
+2025-12-15 00:21:47 [debug]: MySQL pool is committed! ThreadId: 290
+2025-12-15 00:21:47 [debug]: MySQL pool is released! ThreadId: 290
+2025-12-15 00:21:50 [debug]: MySQL pool is connected! ThreadId:290
+2025-12-15 00:23:52 [debug]: MySQL pool is connected! ThreadId:291
+2025-12-15 00:25:53 [debug]: MySQL pool is connected! ThreadId:292
+2025-12-15 00:25:53 [debug]: MySQL pool is begin transaction! ThreadId: 292
+2025-12-15 00:25:53 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:53 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:25:53 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:53 [debug]: [500]Error loading document type [state]
+2025-12-15 00:25:53 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:53 [debug]: [500]Error loading document type [country]
+2025-12-15 00:25:53 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:53 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:25:53 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:53 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:25:53 [debug]: MySQL pool is committed! ThreadId: 292
+2025-12-15 00:25:53 [debug]: MySQL pool is released! ThreadId: 292
+2025-12-15 00:25:53 [debug]: MySQL pool is connected! ThreadId:292
+2025-12-15 00:25:53 [debug]: MySQL pool is begin transaction! ThreadId: 292
+2025-12-15 00:25:53 [debug]: MySQL pool is committed! ThreadId: 292
+2025-12-15 00:25:53 [debug]: MySQL pool is released! ThreadId: 292
+2025-12-15 00:25:54 [debug]: MySQL pool is connected! ThreadId:292
+2025-12-15 00:25:54 [debug]: MySQL pool is begin transaction! ThreadId: 292
+2025-12-15 00:25:54 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:54 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:25:54 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:54 [debug]: [500]Error loading document type [state]
+2025-12-15 00:25:54 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:54 [debug]: [500]Error loading document type [country]
+2025-12-15 00:25:54 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:54 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:25:54 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:25:54 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:25:54 [debug]: MySQL pool is committed! ThreadId: 292
+2025-12-15 00:25:54 [debug]: MySQL pool is released! ThreadId: 292
+2025-12-15 00:26:01 [debug]: MySQL pool is connected! ThreadId:292
+2025-12-15 00:26:01 [debug]: MySQL pool is begin transaction! ThreadId: 292
+2025-12-15 00:26:01 [debug]: MySQL pool is roll back! ThreadId: 292
+2025-12-15 00:26:01 [debug]: MySQL pool is released! ThreadId: 292
+ Efors v0.0.1
+
+2025-12-15 00:29:19 [debug]: Initializing Middlewares...
+2025-12-15 00:31:51 [debug]: Initializing MySQL pool...
+2025-12-15 00:31:51 [debug]: MySQL pool is Initialized!
+2025-12-15 00:31:51 [debug]: MySQL pool is connected! ThreadId:293
+2025-12-15 00:31:51 [debug]: MySQL pool is connected! ThreadId:294
+2025-12-15 00:31:52 [debug]: MySQL pool is begin transaction! ThreadId: 294
+2025-12-15 00:31:52 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:31:52 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:31:52 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:31:52 [debug]: [500]Error loading document type [state]
+2025-12-15 00:31:52 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:31:52 [debug]: [500]Error loading document type [country]
+2025-12-15 00:31:52 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:31:52 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:31:52 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:31:52 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:31:52 [debug]: MySQL pool is committed! ThreadId: 294
+2025-12-15 00:31:52 [debug]: MySQL pool is released! ThreadId: 294
+2025-12-15 00:31:55 [debug]: MySQL pool is connected! ThreadId:294
+2025-12-15 00:31:55 [debug]: MySQL pool is begin transaction! ThreadId: 294
+2025-12-15 00:31:55 [debug]: MySQL pool is committed! ThreadId: 294
+2025-12-15 00:31:55 [debug]: MySQL pool is released! ThreadId: 294
+2025-12-15 00:32:23 [debug]: MySQL pool is connected! ThreadId:294
+2025-12-15 00:32:23 [debug]: MySQL pool is begin transaction! ThreadId: 294
+2025-12-15 00:32:23 [debug]: MySQL pool is committed! ThreadId: 294
+2025-12-15 00:32:23 [debug]: MySQL pool is released! ThreadId: 294
+2025-12-15 00:35:19 [debug]: MySQL pool is connected! ThreadId:294
+2025-12-15 00:35:19 [debug]: MySQL pool is begin transaction! ThreadId: 294
+2025-12-15 00:35:19 [debug]:
+Error creating document type:
+{
+  message: "Field 'description' doesn't have a default value",
+  code: "ER_NO_DEFAULT_FOR_FIELD",
+  errno: 1364,
+  sql: "INSERT INTO  eforsdb.sales_invoice_discount SET `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'EUn15zmkmLBZ' ON DUPLICATE KEY UPDATE `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'EUn15zmkmLBZ'",
+  sqlState: "HY000",
+  sqlMessage: "Field 'description' doesn't have a default value"
+}
+2025-12-15 00:35:19 [debug]: MySQL pool is roll back! ThreadId: 294
+2025-12-15 00:35:19 [debug]: MySQL pool is released! ThreadId: 294
+ Efors v0.0.1
+
+2025-12-15 00:35:32 [debug]: Initializing Middlewares...
+2025-12-15 00:39:44 [debug]: Initializing MySQL pool...
+2025-12-15 00:39:44 [debug]: MySQL pool is Initialized!
+2025-12-15 00:39:44 [debug]: MySQL pool is connected! ThreadId:295
+2025-12-15 00:39:44 [debug]: MySQL pool is begin transaction! ThreadId: 295
+2025-12-15 00:39:44 [debug]:
+Error creating document type:
+{
+  message: "Field 'description' doesn't have a default value",
+  code: "ER_NO_DEFAULT_FOR_FIELD",
+  errno: 1364,
+  sql: "INSERT INTO  eforsdb.sales_invoice_discount SET `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'YYvgO_2VSfMZ' ON DUPLICATE KEY UPDATE `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'YYvgO_2VSfMZ'",
+  sqlState: "HY000",
+  sqlMessage: "Field 'description' doesn't have a default value"
+}
+2025-12-15 00:39:44 [debug]: MySQL pool is roll back! ThreadId: 295
+2025-12-15 00:39:44 [debug]: MySQL pool is released! ThreadId: 295
+ Efors v0.0.1
+
+2025-12-15 00:42:16 [debug]: Initializing Middlewares...
+2025-12-15 00:42:40 [debug]: Initializing MySQL pool...
+2025-12-15 00:42:40 [debug]: MySQL pool is Initialized!
+2025-12-15 00:42:40 [debug]: MySQL pool is connected! ThreadId:296
+2025-12-15 00:42:40 [debug]: MySQL pool is begin transaction! ThreadId: 296
+2025-12-15 00:42:40 [debug]:
+Error creating document type:
+{
+  message: "Field 'description' doesn't have a default value",
+  code: "ER_NO_DEFAULT_FOR_FIELD",
+  errno: 1364,
+  sql: "INSERT INTO  eforsdb.sales_invoice_discount SET `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'gR6Zg7d972Fz' ON DUPLICATE KEY UPDATE `docStatus` = 'DRAFT', `isActive` = true, `isDeleted` = false, `sysAcct` = 'SYS', `discountBy` = 'PERCENTAGE', `rate` = '5.00', `amount` = '-0.30', `invoiceId` = 'SYS-SINV-2025-0003', `lastModifiedBy` = 'sys@superadmin', `createdBy` = 'sys@superadmin', `id` = 'gR6Zg7d972Fz'",
+  sqlState: "HY000",
+  sqlMessage: "Field 'description' doesn't have a default value"
+}
+2025-12-15 00:42:40 [debug]: MySQL pool is roll back! ThreadId: 296
+2025-12-15 00:42:40 [debug]: MySQL pool is released! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is connected! ThreadId:296
+2025-12-15 00:43:51 [debug]: MySQL pool is begin transaction! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is committed! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is released! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is connected! ThreadId:296
+2025-12-15 00:43:51 [debug]: MySQL pool is begin transaction! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is committed! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is released! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is connected! ThreadId:296
+2025-12-15 00:43:51 [debug]: MySQL pool is begin transaction! ThreadId: 296
+2025-12-15 00:43:51 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_id_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:43:51 [debug]: [500]Error loading document type [einvoice_id_type]
+2025-12-15 00:43:51 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\state.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:43:51 [debug]: [500]Error loading document type [state]
+2025-12-15 00:43:51 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\country.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:43:51 [debug]: [500]Error loading document type [country]
+2025-12-15 00:43:51 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_classification.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:43:51 [debug]: [500]Error loading document type [einvoice_classification]
+2025-12-15 00:43:51 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\einvoice_taxable_type.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2025-12-15 00:43:51 [debug]: [500]Error loading document type [einvoice_taxable_type]
+2025-12-15 00:43:51 [debug]: MySQL pool is committed! ThreadId: 296
+2025-12-15 00:43:51 [debug]: MySQL pool is released! ThreadId: 296
+2025-12-15 00:44:55 [debug]: MySQL pool is connected! ThreadId:296
+2025-12-15 00:44:55 [debug]: MySQL pool is begin transaction! ThreadId: 296
+2025-12-15 00:44:55 [debug]: MySQL pool is committed! ThreadId: 296
+2025-12-15 00:44:55 [debug]: MySQL pool is released! ThreadId: 296
+ Efors v0.0.1
+
+2025-12-15 00:52:35 [debug]: Initializing Middlewares...
+ Efors v0.0.1
+
+2025-12-15 22:39:52 [debug]: Initializing Middlewares...
+2025-12-15 22:40:01 [debug]: Initializing MySQL pool...
+2025-12-15 22:40:01 [debug]: MySQL pool is Initialized!
+2025-12-15 22:40:01 [debug]: MySQL pool is connected! ThreadId:297
+2025-12-15 22:40:01 [debug]: [401]Authorization token is expired.
+2025-12-15 22:40:01 [debug]: MySQL pool is released! ThreadId: 297
+2025-12-15 22:40:01 [debug]: MySQL pool is connected! ThreadId:297
+2025-12-15 22:40:01 [debug]: MySQL pool is begin transaction! ThreadId: 297
+2025-12-15 22:40:01 [debug]: MySQL pool is committed! ThreadId: 297
+2025-12-15 22:40:01 [debug]: MySQL pool is released! ThreadId: 297
+2025-12-15 22:40:01 [debug]: MySQL pool is connected! ThreadId:297

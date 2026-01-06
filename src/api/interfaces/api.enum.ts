@@ -45,10 +45,3 @@ export enum ApiRequestMethod {
     GET="GET"
 
 }
-
-export enum AuthURL {
-    ADMIN = "admin",
-    MERCHANT = "merchant",
-    AUTH = "auth",
-    PUBLIC = "public"
-}

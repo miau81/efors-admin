@@ -46,8 +46,8 @@ export class httpInterceptor implements HttpInterceptor {
 
     const user = this.authService.getLoginUser();
 
-    if (req.method && req.method !== 'DELETE' && !req.params.get("language")) {
-      req = req.clone({ setParams: { "language": user?.language || 'en' } });
+    if (req.method && req.method !== 'DELETE' && !req.params.get("_language")) {
+      req = req.clone({ setParams: { "_language": user?.language || 'en' } });
     }
 
     if (user?.isSystemAdmin) {

@@ -4,21 +4,16 @@ import { BadRequestException } from "../exceptions/BadRequestException";
 import { UnauthorizedException } from "../exceptions/UnauthorizedException";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { JWTService } from "./jwt.service";
-import { ApiGlobalService } from "./api.global.service";
+import { CoreService } from "./api.core.service";
+
 
 
 const db = dbName;
 export class ApiUserService {
-
-    // private convertUtil = new ConvertUtil();
-    // private miscUtil = new MiscUtil();
     private jwtService = new JWTService();
-    private globalService = new ApiGlobalService();
-    // private globalService = new GlobalService();
-    // private emailService = new EmailService();
-    // private fileService = new FileService();
+    private globalService = new CoreService();
 
-    async login(body: any, isAdmin: boolean, mysqlConn: ConnectionAction): Promise<any> {
+    async login(body: any, mysqlConn: ConnectionAction): Promise<any> {
 
         if (!body.loginId || !body.password) {
             throw new BadRequestException("[loginId] and [password] is required!", "REQUIRED_FIELD");

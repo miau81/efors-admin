@@ -1,115 +1,38 @@
 import type { NextFunction, Response } from "express";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ApiDocumentService } from "../services/api.document.service";
-import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ConnectionPool } from "../databases";
-import { ApiRequestMethod, AuthURL } from "../interfaces/api.enum";
-import { ConvertUtil } from "../utils/convert";
+import { core } from "../core/core";
 
 
 export class ApiDocumentController {
 
     private documentService = new ApiDocumentService();
-    private convertUtil = new ConvertUtil();
 
-
-
-    public getDocumentList = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_LIST);
-            const data = await this.documentService.getDocumentList(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+    public getDocuments = async (req: SRequest, res: Response, next: NextFunction) => {
+        return core.beingRequest(req, res, next, this.documentService.getDocuments.bind(req));
     }
 
-    public getSingleDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const params = this.convertUtil.convertRequestToGetApiParam(req, ApiRequestMethod.GET_ONE);
-            const data = await this.documentService.getSingleDocument(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+    public getDocument = async (req: SRequest, res: Response, next: NextFunction) => {
+        return core.beingRequest(req, res, next, this.documentService.getDocument.bind(req));
     }
 
     public getDocumentType = async (req: SRequest, res: Response, next: NextFunction) => {
-
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const document = req.params['document'];
-            const data = await this.documentService.getDocumentType(document, mysqlConn, req.sys, req.com, req.language);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        return core.beingRequest(req, res, next, this.documentService.getDocumentType.bind(req));
     }
 
     public createDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.CREATE);
-            const data = await this.documentService.createDocument(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        return core.beingRequest(req, res, next, this.documentService.createDocument.bind(req));
     }
 
     public updateDocument = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const params = this.convertUtil.convertRequestToSaveApiParam(req, ApiRequestMethod.UPDATE);
-            const data = await this.documentService.updateDocument(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+        return core.beingRequest(req, res, next, this.documentService.updateDocument.bind(req));
     }
 
     public runEventScript = async (req: SRequest, res: Response, next: NextFunction) => {
-        const mysqlConn: ConnectionAction = await ConnectionPool();
-        mysqlConn.beginTransaction();
-        try {
-            const params = this.convertUtil.convertRequestToApiParam(req, ApiRequestMethod.GET);
-            const data = await this.documentService.runEventScript(params, mysqlConn);
-            mysqlConn.commit();
-            res.status(200).json(data);
-        } catch (error) {
-            mysqlConn.rollback();
-            next(error);
-        } finally {
-            mysqlConn.release();
-        }
+         return core.beingRequest(req, res, next, this.documentService.runEventScript.bind(req));
     }
 
-
+    public runCustomScript = async (req: SRequest, res: Response, next: NextFunction) => {
+        return core.beingRequest(req, res, next, this.documentService.runCustomScript.bind(req));
+    }
 }

@@ -83,7 +83,7 @@ export async function onChange(data) {
         calculateTotalAndRounding();
     }
 
-    
+
     const response = {
         formValue: formValue,
         componentOptions: componentOptions,
@@ -91,5 +91,66 @@ export async function onChange(data) {
     }
 
     return response;
+}
+
+
+export async function onRefreshActionButton(data) {
+    const actionButtons = data.actionButtons;
+    const formValue = data.formValue;
+    if (formValue.docStatus == 'DRAFT') {
+        return actionButtons;
+    }
+    if (formValue.docStatus == 'CANCELLED') {
+        return actionButtons.filter(ab => ['CANCEL_EINVOICE', 'CANCEL_EINVOICE_SANDBOX'].includes(ab.code)).map(ab => {
+            return {
+                ...ab,
+                disabled: false,
+                hidden: false
+            }
+        });
+    }
+
+    if (formValue.docStatus == 'SUBMIT') {
+        return actionButtons.filter(ab => ['SUBMIT_EINVOICE', 'SUBMIT_EINVOICE_SANDBOX'].includes(ab.code)).map(ab => {
+            return {
+                ...ab,
+                disabled: false,
+                hidden: false
+            }
+        });
+    }
+
+}
+
+
+export async function onActionButtonClick(action, thisObj) {
+    let confirmMessage = '';
+    let isSandBox;
+    switch (action.code) {
+        case "SUBMIT_EINVOICE":
+            confirmMessage = '{"en":"Are you sure you want to submit e-invoice?"}';
+            isSandBox=true;
+            break;
+        case "CANCEL_EINVOICE":
+            confirmMessage = '{"en":"Are you sure you want to cancel e-invoice?"}';
+            isSandBox=true;
+            break;
+        case "SUBMIT_EINVOICE_SANDBOX":
+            confirmMessage = '{"en":"Are you sure you want to submit e-invoice to testing server?"}';
+            isSandBox=false;
+            break;
+        case "CANCEL_EINVOICE_SANDBOX":
+            confirmMessage = '{"en":"Are you sure you want to cancel e-invoice in testing server?"}';
+            isSandBox=false;
+            break;
+    }
+    if (confirmMessage) {
+        const confirm = await thisObj.baseService.showConfirm(confirmMessage);
+        if (confirm == 'no') {
+            return;
+        }
+    }
+    
+
 }
 

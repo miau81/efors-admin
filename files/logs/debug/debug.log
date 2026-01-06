@@ -1,0 +1,1482 @@
+2026-01-06 00:04:21 [debug]: MySQL pool is connected! ThreadId:1498
+2026-01-06 00:04:23 [debug]: MySQL pool is connected! ThreadId:1499
+2026-01-06 00:04:23 [debug]: MySQL pool is connected! ThreadId:1500
+2026-01-06 00:04:23 [debug]: MySQL pool is begin transaction! ThreadId: 1500
+2026-01-06 00:04:23 [debug]: MySQL pool is committed! ThreadId: 1500
+2026-01-06 00:04:23 [debug]: MySQL pool is released! ThreadId: 1500
+2026-01-06 00:04:23 [debug]: MySQL pool is connected! ThreadId:1500
+2026-01-06 00:04:23 [debug]: MySQL pool is connected! ThreadId:1501
+2026-01-06 00:04:23 [debug]: MySQL pool is begin transaction! ThreadId: 1501
+2026-01-06 00:04:23 [debug]: MySQL pool is committed! ThreadId: 1501
+2026-01-06 00:04:23 [debug]: MySQL pool is released! ThreadId: 1501
+2026-01-06 00:04:27 [debug]: MySQL pool is connected! ThreadId:1501
+2026-01-06 00:04:27 [debug]: MySQL pool is connected! ThreadId:1502
+2026-01-06 00:04:27 [debug]: MySQL pool is begin transaction! ThreadId: 1502
+2026-01-06 00:04:27 [debug]: MySQL pool is committed! ThreadId: 1502
+2026-01-06 00:04:27 [debug]: MySQL pool is released! ThreadId: 1502
+2026-01-06 00:04:27 [debug]: MySQL pool is connected! ThreadId:1502
+2026-01-06 00:04:27 [debug]: MySQL pool is connected! ThreadId:1503
+2026-01-06 00:04:27 [debug]: MySQL pool is begin transaction! ThreadId: 1503
+2026-01-06 00:04:27 [debug]: MySQL pool is committed! ThreadId: 1503
+2026-01-06 00:04:27 [debug]: MySQL pool is released! ThreadId: 1503
+2026-01-06 00:04:34 [debug]: MySQL pool is connected! ThreadId:1503
+2026-01-06 00:04:34 [debug]: MySQL pool is connected! ThreadId:1504
+2026-01-06 00:04:34 [debug]: MySQL pool is begin transaction! ThreadId: 1504
+2026-01-06 00:04:34 [debug]: MySQL pool is committed! ThreadId: 1504
+2026-01-06 00:04:34 [debug]: MySQL pool is released! ThreadId: 1504
+ Efors v0.0.1
+
+2026-01-06 00:05:08 [debug]: Initializing Middlewares...
+2026-01-06 00:05:14 [debug]: Initializing MySQL pool...
+2026-01-06 00:05:14 [debug]: MySQL pool is Initialized!
+2026-01-06 00:05:14 [debug]: MySQL pool is connected! ThreadId:1505
+2026-01-06 00:05:14 [debug]: MySQL pool is connected! ThreadId:1506
+2026-01-06 00:05:14 [debug]: MySQL pool is begin transaction! ThreadId: 1506
+2026-01-06 00:05:15 [debug]: MySQL pool is committed! ThreadId: 1506
+2026-01-06 00:05:15 [debug]: MySQL pool is released! ThreadId: 1506
+2026-01-06 00:05:16 [debug]: MySQL pool is connected! ThreadId:1506
+2026-01-06 00:05:16 [debug]: MySQL pool is connected! ThreadId:1507
+2026-01-06 00:05:16 [debug]: MySQL pool is begin transaction! ThreadId: 1507
+2026-01-06 00:05:16 [debug]: MySQL pool is committed! ThreadId: 1507
+2026-01-06 00:05:16 [debug]: MySQL pool is released! ThreadId: 1507
+ Efors v0.0.1
+
+2026-01-06 00:06:05 [debug]: Initializing Middlewares...
+2026-01-06 00:15:07 [debug]: Initializing MySQL pool...
+2026-01-06 00:15:07 [debug]: MySQL pool is Initialized!
+2026-01-06 00:15:07 [debug]: MySQL pool is connected! ThreadId:1508
+2026-01-06 00:15:07 [debug]: MySQL pool is connected! ThreadId:1509
+2026-01-06 00:15:07 [debug]: MySQL pool is connected! ThreadId:1510
+2026-01-06 00:15:07 [debug]: MySQL pool is begin transaction! ThreadId: 1510
+2026-01-06 00:15:08 [debug]: MySQL pool is committed! ThreadId: 1510
+2026-01-06 00:15:08 [debug]: MySQL pool is released! ThreadId: 1510
+2026-01-06 00:15:08 [debug]: MySQL pool is connected! ThreadId:1510
+2026-01-06 00:15:08 [debug]: MySQL pool is connected! ThreadId:1511
+2026-01-06 00:15:08 [debug]: MySQL pool is begin transaction! ThreadId: 1511
+2026-01-06 00:15:08 [debug]: MySQL pool is committed! ThreadId: 1511
+2026-01-06 00:15:08 [debug]: MySQL pool is released! ThreadId: 1511
+2026-01-06 00:15:18 [debug]: MySQL pool is connected! ThreadId:1511
+2026-01-06 00:15:18 [debug]: [401]Authorization token is expired.
+2026-01-06 00:15:18 [debug]: MySQL pool is released! ThreadId: 1511
+2026-01-06 00:15:18 [debug]: MySQL pool is connected! ThreadId:1511
+2026-01-06 00:15:18 [debug]: MySQL pool is connected! ThreadId:1512
+2026-01-06 00:15:18 [debug]: MySQL pool is begin transaction! ThreadId: 1512
+2026-01-06 00:15:18 [debug]: MySQL pool is committed! ThreadId: 1512
+2026-01-06 00:15:18 [debug]: MySQL pool is released! ThreadId: 1512
+2026-01-06 00:15:18 [debug]: MySQL pool is connected! ThreadId:1512
+2026-01-06 00:15:18 [debug]: MySQL pool is connected! ThreadId:1513
+2026-01-06 00:15:18 [debug]: MySQL pool is begin transaction! ThreadId: 1513
+2026-01-06 00:15:18 [debug]: MySQL pool is committed! ThreadId: 1513
+2026-01-06 00:15:18 [debug]: MySQL pool is released! ThreadId: 1513
+2026-01-06 00:15:21 [debug]: MySQL pool is connected! ThreadId:1513
+2026-01-06 00:15:21 [debug]: MySQL pool is connected! ThreadId:1514
+2026-01-06 00:15:21 [debug]: MySQL pool is begin transaction! ThreadId: 1514
+2026-01-06 00:15:21 [debug]: MySQL pool is committed! ThreadId: 1514
+2026-01-06 00:15:21 [debug]: MySQL pool is released! ThreadId: 1514
+ Efors v0.0.1
+
+2026-01-06 00:23:15 [debug]: Initializing Middlewares...
+2026-01-06 00:23:32 [debug]: Initializing MySQL pool...
+2026-01-06 00:23:32 [debug]: MySQL pool is Initialized!
+2026-01-06 00:23:32 [debug]: MySQL pool is connected! ThreadId:1515
+2026-01-06 00:23:32 [debug]: MySQL pool is connected! ThreadId:1516
+2026-01-06 00:23:32 [debug]: MySQL pool is begin transaction! ThreadId: 1516
+2026-01-06 00:23:32 [debug]: MySQL pool is committed! ThreadId: 1516
+2026-01-06 00:23:32 [debug]: MySQL pool is released! ThreadId: 1516
+2026-01-06 00:23:34 [debug]: MySQL pool is connected! ThreadId:1516
+2026-01-06 00:23:34 [debug]: MySQL pool is connected! ThreadId:1517
+2026-01-06 00:23:34 [debug]: MySQL pool is begin transaction! ThreadId: 1517
+2026-01-06 00:23:34 [debug]: MySQL pool is committed! ThreadId: 1517
+2026-01-06 00:23:34 [debug]: MySQL pool is released! ThreadId: 1517
+2026-01-06 00:23:49 [debug]: MySQL pool is connected! ThreadId:1517
+2026-01-06 00:23:49 [debug]: MySQL pool is connected! ThreadId:1518
+2026-01-06 00:23:49 [debug]: MySQL pool is connected! ThreadId:1519
+2026-01-06 00:23:49 [debug]: MySQL pool is begin transaction! ThreadId: 1519
+2026-01-06 00:23:49 [debug]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:49 [debug]: MySQL pool is roll back! ThreadId: 1519
+2026-01-06 00:23:49 [debug]: MySQL pool is released! ThreadId: 1519
+2026-01-06 00:23:53 [debug]: MySQL pool is connected! ThreadId:1519
+2026-01-06 00:23:53 [debug]: MySQL pool is connected! ThreadId:1520
+2026-01-06 00:23:53 [debug]: MySQL pool is connected! ThreadId:1521
+2026-01-06 00:23:53 [debug]: MySQL pool is begin transaction! ThreadId: 1521
+2026-01-06 00:23:53 [debug]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:53 [debug]: MySQL pool is roll back! ThreadId: 1521
+2026-01-06 00:23:53 [debug]: MySQL pool is released! ThreadId: 1521
+2026-01-06 00:23:55 [debug]: MySQL pool is connected! ThreadId:1521
+2026-01-06 00:23:55 [debug]: MySQL pool is connected! ThreadId:1522
+2026-01-06 00:23:55 [debug]: MySQL pool is begin transaction! ThreadId: 1522
+2026-01-06 00:23:55 [debug]: MySQL pool is committed! ThreadId: 1522
+2026-01-06 00:23:55 [debug]: MySQL pool is released! ThreadId: 1522
+2026-01-06 00:23:55 [debug]: MySQL pool is connected! ThreadId:1522
+2026-01-06 00:23:55 [debug]: MySQL pool is connected! ThreadId:1523
+2026-01-06 00:23:55 [debug]: MySQL pool is begin transaction! ThreadId: 1523
+2026-01-06 00:23:55 [debug]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:55 [debug]: MySQL pool is roll back! ThreadId: 1523
+2026-01-06 00:23:55 [debug]: MySQL pool is released! ThreadId: 1523
+2026-01-06 00:23:59 [debug]: MySQL pool is connected! ThreadId:1523
+2026-01-06 00:23:59 [debug]: MySQL pool is connected! ThreadId:1524
+2026-01-06 00:23:59 [debug]: MySQL pool is begin transaction! ThreadId: 1524
+2026-01-06 00:23:59 [debug]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:23:59 [debug]: MySQL pool is roll back! ThreadId: 1524
+2026-01-06 00:23:59 [debug]: MySQL pool is released! ThreadId: 1524
+2026-01-06 00:24:50 [debug]: MySQL pool is connected! ThreadId:1524
+2026-01-06 00:24:50 [debug]: MySQL pool is connected! ThreadId:1525
+2026-01-06 00:24:50 [debug]: MySQL pool is connected! ThreadId:1526
+2026-01-06 00:24:50 [debug]: MySQL pool is begin transaction! ThreadId: 1526
+2026-01-06 00:24:50 [debug]:
+Error get document:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:24:50 [debug]: MySQL pool is roll back! ThreadId: 1526
+2026-01-06 00:24:50 [debug]: MySQL pool is released! ThreadId: 1526
+2026-01-06 00:24:53 [debug]: MySQL pool is connected! ThreadId:1526
+2026-01-06 00:24:53 [debug]: MySQL pool is connected! ThreadId:1527
+2026-01-06 00:24:53 [debug]: MySQL pool is begin transaction! ThreadId: 1527
+2026-01-06 00:24:53 [debug]: MySQL pool is committed! ThreadId: 1527
+2026-01-06 00:24:53 [debug]: MySQL pool is released! ThreadId: 1527
+2026-01-06 00:24:53 [debug]: MySQL pool is connected! ThreadId:1527
+2026-01-06 00:24:53 [debug]: MySQL pool is connected! ThreadId:1528
+2026-01-06 00:24:53 [debug]: MySQL pool is begin transaction! ThreadId: 1528
+2026-01-06 00:24:53 [debug]: MySQL pool is committed! ThreadId: 1528
+2026-01-06 00:24:53 [debug]: MySQL pool is released! ThreadId: 1528
+2026-01-06 00:24:56 [debug]: MySQL pool is connected! ThreadId:1528
+2026-01-06 00:25:00 [debug]: MySQL pool is connected! ThreadId:1529
+2026-01-06 00:25:00 [debug]: MySQL pool is connected! ThreadId:1530
+2026-01-06 00:25:00 [debug]: MySQL pool is begin transaction! ThreadId: 1530
+2026-01-06 00:25:00 [debug]: MySQL pool is committed! ThreadId: 1530
+2026-01-06 00:25:00 [debug]: MySQL pool is released! ThreadId: 1530
+2026-01-06 00:25:00 [debug]: MySQL pool is connected! ThreadId:1530
+2026-01-06 00:25:00 [debug]: MySQL pool is connected! ThreadId:1531
+2026-01-06 00:25:00 [debug]: MySQL pool is begin transaction! ThreadId: 1531
+2026-01-06 00:25:00 [debug]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:25:00 [debug]: MySQL pool is roll back! ThreadId: 1531
+2026-01-06 00:25:00 [debug]: MySQL pool is released! ThreadId: 1531
+2026-01-06 00:25:15 [debug]: MySQL pool is connected! ThreadId:1531
+2026-01-06 00:25:15 [debug]: MySQL pool is connected! ThreadId:1532
+2026-01-06 00:25:15 [debug]: MySQL pool is connected! ThreadId:1533
+2026-01-06 00:25:15 [debug]: MySQL pool is begin transaction! ThreadId: 1533
+2026-01-06 00:25:15 [debug]: MySQL pool is committed! ThreadId: 1533
+2026-01-06 00:25:15 [debug]: MySQL pool is released! ThreadId: 1533
+2026-01-06 00:25:15 [debug]: MySQL pool is connected! ThreadId:1533
+2026-01-06 00:25:15 [debug]: MySQL pool is connected! ThreadId:1534
+2026-01-06 00:25:15 [debug]: MySQL pool is begin transaction! ThreadId: 1534
+2026-01-06 00:25:15 [debug]:
+Error getting documents:
+{
+  message: "Unknown column 't.taxRate' in 'field list'",
+  code: "ER_BAD_FIELD_ERROR",
+  errno: 1054,
+  sql: "SELECT t.idx,t.id,t.createdDate,t.createdBy,t.modifiedDate,t.lastModifiedBy,t.docStatus,t.isActive,t.isDeleted,t.sysAcct,t.invoiceId,t.name,t.quantity,t.unitPrice,t.amountExcTax,t.taxAmount,t.totalAmount,t.taxClass,t.uom,t.classfication,t.itemId,t.taxRate,t.taxChargeBy FROM eforsdb.sales_invoice_item AS t WHERE invoiceId = \"SYS-SINV-2025-0003\" and ( isDeleted = 0 or isDeleted is null )  ORDER BY createdDate DESC LIMIT 50 OFFSET 0",
+  sqlState: "42S22",
+  sqlMessage: "Unknown column 't.taxRate' in 'field list'"
+}
+2026-01-06 00:25:15 [debug]: MySQL pool is roll back! ThreadId: 1534
+2026-01-06 00:25:15 [debug]: MySQL pool is released! ThreadId: 1534
+ Efors v0.0.1
+
+2026-01-06 00:26:26 [debug]: Initializing Middlewares...
+2026-01-06 00:26:35 [debug]: Initializing MySQL pool...
+2026-01-06 00:26:35 [debug]: MySQL pool is Initialized!
+2026-01-06 00:26:35 [debug]: MySQL pool is connected! ThreadId:1535
+2026-01-06 00:26:35 [debug]: MySQL pool is connected! ThreadId:1536
+2026-01-06 00:26:35 [debug]: MySQL pool is connected! ThreadId:1537
+2026-01-06 00:26:35 [debug]: MySQL pool is begin transaction! ThreadId: 1537
+2026-01-06 00:26:35 [debug]: MySQL pool is committed! ThreadId: 1537
+2026-01-06 00:26:35 [debug]: MySQL pool is released! ThreadId: 1537
+2026-01-06 00:26:35 [debug]: MySQL pool is connected! ThreadId:1537
+2026-01-06 00:26:35 [debug]: MySQL pool is connected! ThreadId:1538
+2026-01-06 00:26:35 [debug]: MySQL pool is begin transaction! ThreadId: 1538
+2026-01-06 00:26:36 [debug]: MySQL pool is committed! ThreadId: 1538
+2026-01-06 00:26:36 [debug]: MySQL pool is released! ThreadId: 1538
+2026-01-06 00:26:37 [debug]: MySQL pool is connected! ThreadId:1538
+2026-01-06 00:26:37 [debug]: MySQL pool is connected! ThreadId:1539
+2026-01-06 00:26:37 [debug]: MySQL pool is begin transaction! ThreadId: 1539
+2026-01-06 00:26:37 [debug]: MySQL pool is committed! ThreadId: 1539
+2026-01-06 00:26:37 [debug]: MySQL pool is released! ThreadId: 1539
+2026-01-06 00:26:37 [debug]: MySQL pool is connected! ThreadId:1539
+2026-01-06 00:26:37 [debug]: MySQL pool is connected! ThreadId:1540
+2026-01-06 00:26:37 [debug]: MySQL pool is begin transaction! ThreadId: 1540
+2026-01-06 00:26:37 [debug]: MySQL pool is committed! ThreadId: 1540
+2026-01-06 00:26:37 [debug]: MySQL pool is released! ThreadId: 1540
+2026-01-06 00:30:22 [debug]: MySQL pool is connected! ThreadId:1540
+2026-01-06 00:30:22 [debug]: MySQL pool is connected! ThreadId:1543
+2026-01-06 00:30:22 [debug]: MySQL pool is begin transaction! ThreadId: 1543
+2026-01-06 00:30:22 [debug]: MySQL pool is committed! ThreadId: 1543
+2026-01-06 00:30:22 [debug]: MySQL pool is released! ThreadId: 1543
+2026-01-06 00:30:27 [debug]: MySQL pool is connected! ThreadId:1543
+2026-01-06 00:30:27 [debug]: MySQL pool is connected! ThreadId:1544
+2026-01-06 00:30:27 [debug]: MySQL pool is begin transaction! ThreadId: 1544
+2026-01-06 00:30:27 [debug]: MySQL pool is committed! ThreadId: 1544
+2026-01-06 00:30:27 [debug]: MySQL pool is released! ThreadId: 1544
+ Efors v0.0.1
+
+2026-01-06 00:30:41 [debug]: Initializing Middlewares...
+2026-01-06 00:30:57 [debug]: Initializing MySQL pool...
+2026-01-06 00:30:57 [debug]: MySQL pool is Initialized!
+2026-01-06 00:30:57 [debug]: MySQL pool is connected! ThreadId:1545
+2026-01-06 00:30:57 [debug]: MySQL pool is connected! ThreadId:1546
+2026-01-06 00:30:57 [debug]: MySQL pool is connected! ThreadId:1547
+2026-01-06 00:30:57 [debug]: MySQL pool is begin transaction! ThreadId: 1547
+2026-01-06 00:30:57 [debug]: MySQL pool is committed! ThreadId: 1547
+2026-01-06 00:30:57 [debug]: MySQL pool is released! ThreadId: 1547
+2026-01-06 00:30:57 [debug]: MySQL pool is connected! ThreadId:1547
+2026-01-06 00:30:57 [debug]: MySQL pool is connected! ThreadId:1548
+2026-01-06 00:30:57 [debug]: MySQL pool is begin transaction! ThreadId: 1548
+2026-01-06 00:30:57 [debug]: MySQL pool is committed! ThreadId: 1548
+2026-01-06 00:30:57 [debug]: MySQL pool is released! ThreadId: 1548
+2026-01-06 00:31:00 [debug]: MySQL pool is connected! ThreadId:1548
+2026-01-06 00:31:00 [debug]: MySQL pool is connected! ThreadId:1549
+2026-01-06 00:31:00 [debug]: MySQL pool is begin transaction! ThreadId: 1549
+2026-01-06 00:31:00 [debug]: MySQL pool is committed! ThreadId: 1549
+2026-01-06 00:31:00 [debug]: MySQL pool is released! ThreadId: 1549
+2026-01-06 00:31:47 [debug]: MySQL pool is connected! ThreadId:1549
+2026-01-06 00:31:47 [debug]: MySQL pool is connected! ThreadId:1550
+2026-01-06 00:31:47 [debug]: MySQL pool is begin transaction! ThreadId: 1550
+2026-01-06 00:31:47 [debug]: MySQL pool is committed! ThreadId: 1550
+2026-01-06 00:31:47 [debug]: MySQL pool is released! ThreadId: 1550
+2026-01-06 00:31:49 [debug]: MySQL pool is connected! ThreadId:1550
+2026-01-06 00:31:49 [debug]: MySQL pool is connected! ThreadId:1551
+2026-01-06 00:31:49 [debug]: MySQL pool is begin transaction! ThreadId: 1551
+2026-01-06 00:31:49 [debug]: MySQL pool is committed! ThreadId: 1551
+2026-01-06 00:31:49 [debug]: MySQL pool is released! ThreadId: 1551
+2026-01-06 00:32:13 [debug]: MySQL pool is connected! ThreadId:1551
+2026-01-06 00:32:13 [debug]: MySQL pool is connected! ThreadId:1552
+2026-01-06 00:32:13 [debug]: MySQL pool is begin transaction! ThreadId: 1552
+2026-01-06 00:32:14 [debug]: MySQL pool is committed! ThreadId: 1552
+2026-01-06 00:32:14 [debug]: MySQL pool is released! ThreadId: 1552
+ Efors v0.0.1
+
+2026-01-06 00:51:26 [debug]: Initializing Middlewares...
+2026-01-06 00:51:27 [debug]: Initializing MySQL pool...
+2026-01-06 00:51:27 [debug]: MySQL pool is Initialized!
+2026-01-06 00:51:27 [debug]: MySQL pool is connected! ThreadId:1553
+2026-01-06 00:51:27 [debug]: MySQL pool is connected! ThreadId:1554
+2026-01-06 00:51:27 [debug]: MySQL pool is connected! ThreadId:1555
+2026-01-06 00:51:27 [debug]: MySQL pool is begin transaction! ThreadId: 1555
+2026-01-06 00:51:27 [debug]: MySQL pool is committed! ThreadId: 1555
+2026-01-06 00:51:27 [debug]: MySQL pool is released! ThreadId: 1555
+2026-01-06 00:51:27 [debug]: MySQL pool is connected! ThreadId:1555
+2026-01-06 00:51:27 [debug]: MySQL pool is connected! ThreadId:1556
+2026-01-06 00:51:27 [debug]: MySQL pool is begin transaction! ThreadId: 1556
+2026-01-06 00:51:27 [debug]: MySQL pool is committed! ThreadId: 1556
+2026-01-06 00:51:27 [debug]: MySQL pool is released! ThreadId: 1556
+2026-01-06 00:51:52 [debug]: MySQL pool is connected! ThreadId:1556
+2026-01-06 00:51:52 [debug]: MySQL pool is connected! ThreadId:1557
+2026-01-06 00:51:52 [debug]: MySQL pool is begin transaction! ThreadId: 1557
+2026-01-06 00:51:52 [debug]: MySQL pool is committed! ThreadId: 1557
+2026-01-06 00:51:52 [debug]: MySQL pool is released! ThreadId: 1557
+2026-01-06 00:52:01 [debug]: MySQL pool is connected! ThreadId:1557
+2026-01-06 00:52:01 [debug]: MySQL pool is connected! ThreadId:1558
+2026-01-06 00:52:01 [debug]: MySQL pool is begin transaction! ThreadId: 1558
+2026-01-06 00:52:01 [debug]: MySQL pool is committed! ThreadId: 1558
+2026-01-06 00:52:01 [debug]: MySQL pool is released! ThreadId: 1558
+ Efors v0.0.1
+
+2026-01-06 00:53:58 [debug]: Initializing Middlewares...
+ Efors v0.0.1
+
+2026-01-06 00:55:24 [debug]: Initializing Middlewares...
+2026-01-06 00:57:10 [debug]: Initializing MySQL pool...
+2026-01-06 00:57:10 [debug]: MySQL pool is Initialized!
+2026-01-06 00:57:10 [debug]: MySQL pool is connected! ThreadId:1559
+2026-01-06 00:57:10 [debug]: MySQL pool is connected! ThreadId:1560
+2026-01-06 00:57:10 [debug]: MySQL pool is connected! ThreadId:1561
+2026-01-06 00:57:10 [debug]: MySQL pool is begin transaction! ThreadId: 1561
+2026-01-06 00:57:11 [debug]: MySQL pool is committed! ThreadId: 1561
+2026-01-06 00:57:11 [debug]: MySQL pool is released! ThreadId: 1561
+2026-01-06 00:57:11 [debug]: MySQL pool is connected! ThreadId:1561
+2026-01-06 00:57:11 [debug]: MySQL pool is connected! ThreadId:1562
+2026-01-06 00:57:11 [debug]: MySQL pool is begin transaction! ThreadId: 1562
+2026-01-06 00:57:11 [debug]: MySQL pool is committed! ThreadId: 1562
+2026-01-06 00:57:11 [debug]: MySQL pool is released! ThreadId: 1562
+2026-01-06 00:58:03 [debug]: MySQL pool is connected! ThreadId:1562
+2026-01-06 00:58:03 [debug]: MySQL pool is connected! ThreadId:1563
+2026-01-06 00:58:03 [debug]: MySQL pool is begin transaction! ThreadId: 1563
+2026-01-06 00:58:03 [debug]: MySQL pool is committed! ThreadId: 1563
+2026-01-06 00:58:03 [debug]: MySQL pool is released! ThreadId: 1563
+2026-01-06 00:58:07 [debug]: MySQL pool is connected! ThreadId:1563
+2026-01-06 00:58:07 [debug]: MySQL pool is connected! ThreadId:1564
+2026-01-06 00:58:07 [debug]: MySQL pool is begin transaction! ThreadId: 1564
+2026-01-06 00:58:07 [debug]: MySQL pool is committed! ThreadId: 1564
+2026-01-06 00:58:07 [debug]: MySQL pool is released! ThreadId: 1564
+2026-01-06 00:58:19 [debug]: MySQL pool is connected! ThreadId:1564
+2026-01-06 00:58:19 [debug]: MySQL pool is connected! ThreadId:1565
+2026-01-06 00:58:19 [debug]: MySQL pool is begin transaction! ThreadId: 1565
+2026-01-06 00:58:19 [debug]: MySQL pool is committed! ThreadId: 1565
+2026-01-06 00:58:19 [debug]: MySQL pool is released! ThreadId: 1565
+ Efors v0.0.1
+
+2026-01-06 01:02:54 [debug]: Initializing Middlewares...
+2026-01-06 01:02:56 [debug]: Initializing MySQL pool...
+2026-01-06 01:02:56 [debug]: MySQL pool is Initialized!
+2026-01-06 01:02:56 [debug]: MySQL pool is connected! ThreadId:1566
+2026-01-06 01:02:56 [debug]: MySQL pool is connected! ThreadId:1567
+2026-01-06 01:02:56 [debug]: MySQL pool is connected! ThreadId:1568
+2026-01-06 01:02:56 [debug]: MySQL pool is begin transaction! ThreadId: 1568
+2026-01-06 01:02:57 [debug]: MySQL pool is committed! ThreadId: 1568
+2026-01-06 01:02:57 [debug]: MySQL pool is released! ThreadId: 1568
+2026-01-06 01:02:57 [debug]: MySQL pool is connected! ThreadId:1568
+2026-01-06 01:02:57 [debug]: MySQL pool is connected! ThreadId:1569
+2026-01-06 01:02:57 [debug]: MySQL pool is begin transaction! ThreadId: 1569
+2026-01-06 01:02:57 [debug]: MySQL pool is committed! ThreadId: 1569
+2026-01-06 01:02:57 [debug]: MySQL pool is released! ThreadId: 1569
+2026-01-06 01:03:13 [debug]: MySQL pool is connected! ThreadId:1569
+2026-01-06 01:03:13 [debug]: MySQL pool is connected! ThreadId:1570
+2026-01-06 01:03:13 [debug]: MySQL pool is begin transaction! ThreadId: 1570
+2026-01-06 01:03:13 [debug]: MySQL pool is committed! ThreadId: 1570
+2026-01-06 01:03:13 [debug]: MySQL pool is released! ThreadId: 1570
+2026-01-06 01:05:07 [debug]: MySQL pool is connected! ThreadId:1570
+2026-01-06 01:05:07 [debug]: MySQL pool is connected! ThreadId:1571
+2026-01-06 01:05:07 [debug]: MySQL pool is connected! ThreadId:1572
+2026-01-06 01:05:07 [debug]: MySQL pool is begin transaction! ThreadId: 1572
+2026-01-06 01:05:07 [debug]: MySQL pool is committed! ThreadId: 1572
+2026-01-06 01:05:07 [debug]: MySQL pool is released! ThreadId: 1572
+2026-01-06 01:05:07 [debug]: MySQL pool is connected! ThreadId:1572
+2026-01-06 01:05:07 [debug]: MySQL pool is connected! ThreadId:1573
+2026-01-06 01:05:07 [debug]: MySQL pool is begin transaction! ThreadId: 1573
+ Efors v0.0.1
+
+2026-01-06 01:05:08 [debug]: Initializing Middlewares...
+2026-01-06 01:05:09 [debug]: Initializing MySQL pool...
+2026-01-06 01:05:09 [debug]: MySQL pool is Initialized!
+2026-01-06 01:05:09 [debug]: MySQL pool is connected! ThreadId:1574
+2026-01-06 01:05:09 [debug]: MySQL pool is connected! ThreadId:1575
+2026-01-06 01:05:09 [debug]: MySQL pool is begin transaction! ThreadId: 1575
+2026-01-06 01:05:09 [debug]: MySQL pool is committed! ThreadId: 1575
+2026-01-06 01:05:09 [debug]: MySQL pool is released! ThreadId: 1575
+2026-01-06 01:05:14 [debug]: MySQL pool is connected! ThreadId:1575
+2026-01-06 01:05:14 [debug]: MySQL pool is connected! ThreadId:1576
+2026-01-06 01:05:14 [debug]: MySQL pool is begin transaction! ThreadId: 1576
+2026-01-06 01:05:14 [debug]: MySQL pool is committed! ThreadId: 1576
+2026-01-06 01:05:14 [debug]: MySQL pool is released! ThreadId: 1576
+2026-01-06 01:06:00 [debug]: MySQL pool is connected! ThreadId:1576
+2026-01-06 01:06:00 [debug]: MySQL pool is connected! ThreadId:1577
+2026-01-06 01:06:00 [debug]: MySQL pool is connected! ThreadId:1578
+2026-01-06 01:06:00 [debug]: MySQL pool is begin transaction! ThreadId: 1578
+2026-01-06 01:06:00 [debug]: MySQL pool is committed! ThreadId: 1578
+2026-01-06 01:06:00 [debug]: MySQL pool is released! ThreadId: 1578
+2026-01-06 01:06:00 [debug]: MySQL pool is connected! ThreadId:1578
+2026-01-06 01:06:00 [debug]: MySQL pool is connected! ThreadId:1579
+2026-01-06 01:06:00 [debug]: MySQL pool is begin transaction! ThreadId: 1579
+2026-01-06 01:06:00 [debug]: MySQL pool is committed! ThreadId: 1579
+2026-01-06 01:06:00 [debug]: MySQL pool is released! ThreadId: 1579
+ Efors v0.0.1
+
+2026-01-06 01:06:01 [debug]: Initializing Middlewares...
+2026-01-06 01:06:10 [debug]: Initializing MySQL pool...
+2026-01-06 01:06:10 [debug]: MySQL pool is Initialized!
+2026-01-06 01:06:10 [debug]: MySQL pool is connected! ThreadId:1580
+2026-01-06 01:06:10 [debug]: MySQL pool is connected! ThreadId:1581
+2026-01-06 01:06:10 [debug]: MySQL pool is begin transaction! ThreadId: 1581
+2026-01-06 01:06:10 [debug]: MySQL pool is committed! ThreadId: 1581
+2026-01-06 01:06:10 [debug]: MySQL pool is released! ThreadId: 1581
+2026-01-06 01:07:24 [debug]: MySQL pool is connected! ThreadId:1581
+2026-01-06 01:07:24 [debug]: MySQL pool is connected! ThreadId:1582
+2026-01-06 01:07:24 [debug]: MySQL pool is begin transaction! ThreadId: 1582
+2026-01-06 01:07:24 [debug]: MySQL pool is committed! ThreadId: 1582
+2026-01-06 01:07:24 [debug]: MySQL pool is released! ThreadId: 1582
+2026-01-06 01:07:26 [debug]: MySQL pool is connected! ThreadId:1582
+2026-01-06 01:07:26 [debug]: MySQL pool is connected! ThreadId:1583
+2026-01-06 01:07:26 [debug]: MySQL pool is begin transaction! ThreadId: 1583
+2026-01-06 01:07:26 [debug]: MySQL pool is committed! ThreadId: 1583
+2026-01-06 01:07:26 [debug]: MySQL pool is released! ThreadId: 1583
+2026-01-06 01:07:48 [debug]: MySQL pool is connected! ThreadId:1583
+2026-01-06 01:07:48 [debug]: MySQL pool is connected! ThreadId:1584
+2026-01-06 01:07:49 [debug]: MySQL pool is connected! ThreadId:1585
+2026-01-06 01:07:49 [debug]: MySQL pool is begin transaction! ThreadId: 1585
+2026-01-06 01:07:49 [debug]: MySQL pool is committed! ThreadId: 1585
+2026-01-06 01:07:49 [debug]: MySQL pool is released! ThreadId: 1585
+2026-01-06 01:07:49 [debug]: MySQL pool is connected! ThreadId:1585
+2026-01-06 01:07:49 [debug]: MySQL pool is connected! ThreadId:1586
+2026-01-06 01:07:49 [debug]: MySQL pool is begin transaction! ThreadId: 1586
+2026-01-06 01:07:49 [debug]: MySQL pool is committed! ThreadId: 1586
+2026-01-06 01:07:49 [debug]: MySQL pool is released! ThreadId: 1586
+2026-01-06 01:07:56 [debug]: MySQL pool is connected! ThreadId:1586
+2026-01-06 01:07:56 [debug]: MySQL pool is connected! ThreadId:1587
+2026-01-06 01:07:56 [debug]: MySQL pool is begin transaction! ThreadId: 1587
+2026-01-06 01:07:56 [debug]: MySQL pool is committed! ThreadId: 1587
+2026-01-06 01:07:56 [debug]: MySQL pool is released! ThreadId: 1587
+ Efors v0.0.1
+
+2026-01-06 01:08:36 [debug]: Initializing Middlewares...
+2026-01-06 01:08:38 [debug]: Initializing MySQL pool...
+2026-01-06 01:08:38 [debug]: MySQL pool is Initialized!
+2026-01-06 01:08:38 [debug]: MySQL pool is connected! ThreadId:1588
+2026-01-06 01:08:38 [debug]: MySQL pool is connected! ThreadId:1589
+2026-01-06 01:08:38 [debug]: MySQL pool is connected! ThreadId:1590
+2026-01-06 01:08:38 [debug]: MySQL pool is begin transaction! ThreadId: 1590
+2026-01-06 01:08:38 [debug]: MySQL pool is committed! ThreadId: 1590
+2026-01-06 01:08:38 [debug]: MySQL pool is released! ThreadId: 1590
+2026-01-06 01:08:38 [debug]: MySQL pool is connected! ThreadId:1590
+2026-01-06 01:08:38 [debug]: MySQL pool is connected! ThreadId:1591
+2026-01-06 01:08:38 [debug]: MySQL pool is begin transaction! ThreadId: 1591
+2026-01-06 01:08:38 [debug]: MySQL pool is committed! ThreadId: 1591
+2026-01-06 01:08:38 [debug]: MySQL pool is released! ThreadId: 1591
+2026-01-06 01:08:44 [debug]: MySQL pool is connected! ThreadId:1591
+2026-01-06 01:08:44 [debug]: MySQL pool is connected! ThreadId:1592
+2026-01-06 01:08:44 [debug]: MySQL pool is begin transaction! ThreadId: 1592
+2026-01-06 01:08:44 [debug]: MySQL pool is committed! ThreadId: 1592
+2026-01-06 01:08:44 [debug]: MySQL pool is released! ThreadId: 1592
+2026-01-06 01:14:49 [debug]: MySQL pool is connected! ThreadId:1592
+2026-01-06 01:14:49 [debug]: MySQL pool is connected! ThreadId:1593
+2026-01-06 01:14:49 [debug]: MySQL pool is begin transaction! ThreadId: 1593
+2026-01-06 01:14:49 [debug]: MySQL pool is committed! ThreadId: 1593
+2026-01-06 01:14:49 [debug]: MySQL pool is released! ThreadId: 1593
+2026-01-06 01:14:52 [debug]: MySQL pool is connected! ThreadId:1593
+2026-01-06 01:14:52 [debug]: MySQL pool is connected! ThreadId:1594
+2026-01-06 01:14:52 [debug]: MySQL pool is begin transaction! ThreadId: 1594
+2026-01-06 01:14:52 [debug]: MySQL pool is committed! ThreadId: 1594
+2026-01-06 01:14:52 [debug]: MySQL pool is released! ThreadId: 1594
+2026-01-06 01:14:54 [debug]: MySQL pool is connected! ThreadId:1594
+2026-01-06 01:14:54 [debug]: MySQL pool is connected! ThreadId:1595
+2026-01-06 01:14:54 [debug]: MySQL pool is begin transaction! ThreadId: 1595
+2026-01-06 01:14:54 [debug]: MySQL pool is committed! ThreadId: 1595
+2026-01-06 01:14:54 [debug]: MySQL pool is released! ThreadId: 1595
+2026-01-06 01:15:29 [debug]: MySQL pool is connected! ThreadId:1595
+2026-01-06 01:15:29 [debug]: [401]Authorization token is expired.
+2026-01-06 01:15:29 [debug]: MySQL pool is released! ThreadId: 1595
+2026-01-06 01:15:29 [debug]: MySQL pool is connected! ThreadId:1595
+2026-01-06 01:15:29 [debug]: MySQL pool is connected! ThreadId:1596
+2026-01-06 01:15:29 [debug]: MySQL pool is begin transaction! ThreadId: 1596
+2026-01-06 01:15:29 [debug]: MySQL pool is committed! ThreadId: 1596
+2026-01-06 01:15:29 [debug]: MySQL pool is released! ThreadId: 1596
+2026-01-06 01:15:29 [debug]: MySQL pool is connected! ThreadId:1596
+2026-01-06 01:15:29 [debug]: MySQL pool is connected! ThreadId:1597
+2026-01-06 01:15:29 [debug]: MySQL pool is begin transaction! ThreadId: 1597
+2026-01-06 01:15:29 [debug]: MySQL pool is committed! ThreadId: 1597
+2026-01-06 01:15:29 [debug]: MySQL pool is released! ThreadId: 1597
+2026-01-06 01:15:37 [debug]: MySQL pool is connected! ThreadId:1597
+2026-01-06 01:15:37 [debug]: MySQL pool is connected! ThreadId:1598
+2026-01-06 01:15:37 [debug]: MySQL pool is begin transaction! ThreadId: 1598
+2026-01-06 01:15:37 [debug]: MySQL pool is committed! ThreadId: 1598
+2026-01-06 01:15:37 [debug]: MySQL pool is released! ThreadId: 1598
+2026-01-06 01:18:08 [debug]: MySQL pool is connected! ThreadId:1598
+2026-01-06 01:18:08 [debug]: MySQL pool is connected! ThreadId:1599
+2026-01-06 01:18:08 [debug]: MySQL pool is begin transaction! ThreadId: 1599
+2026-01-06 01:18:08 [debug]: MySQL pool is committed! ThreadId: 1599
+2026-01-06 01:18:08 [debug]: MySQL pool is released! ThreadId: 1599
+2026-01-06 01:18:09 [debug]: MySQL pool is connected! ThreadId:1599
+2026-01-06 01:18:09 [debug]: MySQL pool is connected! ThreadId:1600
+2026-01-06 01:18:09 [debug]: MySQL pool is begin transaction! ThreadId: 1600
+2026-01-06 01:18:09 [debug]: MySQL pool is committed! ThreadId: 1600
+2026-01-06 01:18:09 [debug]: MySQL pool is released! ThreadId: 1600
+2026-01-06 01:30:55 [debug]: MySQL pool is connected! ThreadId:1600
+2026-01-06 01:31:05 [debug]: MySQL pool is connected! ThreadId:1601
+2026-01-06 01:31:05 [debug]: MySQL pool is connected! ThreadId:1602
+2026-01-06 01:31:05 [debug]: MySQL pool is begin transaction! ThreadId: 1602
+2026-01-06 01:31:05 [debug]: MySQL pool is committed! ThreadId: 1602
+2026-01-06 01:31:05 [debug]: MySQL pool is released! ThreadId: 1602
+2026-01-06 01:31:05 [debug]: MySQL pool is connected! ThreadId:1602
+2026-01-06 01:31:05 [debug]: MySQL pool is connected! ThreadId:1603
+2026-01-06 01:31:05 [debug]: MySQL pool is begin transaction! ThreadId: 1603
+2026-01-06 01:31:05 [debug]: MySQL pool is committed! ThreadId: 1603
+2026-01-06 01:31:05 [debug]: MySQL pool is released! ThreadId: 1603
+2026-01-06 01:31:08 [debug]: MySQL pool is connected! ThreadId:1603
+2026-01-06 01:31:10 [debug]: MySQL pool is connected! ThreadId:1604
+2026-01-06 01:31:10 [debug]: MySQL pool is connected! ThreadId:1605
+2026-01-06 01:31:10 [debug]: MySQL pool is begin transaction! ThreadId: 1605
+2026-01-06 01:31:10 [debug]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2026-01-06 01:31:10 [debug]: [500]Error loading document type [tax]
+2026-01-06 01:31:10 [debug]: MySQL pool is roll back! ThreadId: 1605
+2026-01-06 01:31:10 [debug]: MySQL pool is released! ThreadId: 1605
+2026-01-06 01:31:11 [debug]: MySQL pool is connected! ThreadId:1605
+2026-01-06 01:31:13 [debug]: MySQL pool is connected! ThreadId:1606
+2026-01-06 01:31:14 [debug]: MySQL pool is connected! ThreadId:1607
+2026-01-06 01:31:14 [debug]: MySQL pool is connected! ThreadId:1608
+2026-01-06 01:31:14 [debug]: MySQL pool is begin transaction! ThreadId: 1608
+2026-01-06 01:31:14 [debug]: MySQL pool is committed! ThreadId: 1608
+2026-01-06 01:31:14 [debug]: MySQL pool is released! ThreadId: 1608
+2026-01-06 01:31:14 [debug]: MySQL pool is connected! ThreadId:1608
+2026-01-06 01:31:14 [debug]: MySQL pool is connected! ThreadId:1609
+2026-01-06 01:31:14 [debug]: MySQL pool is begin transaction! ThreadId: 1609
+2026-01-06 01:31:14 [debug]: MySQL pool is committed! ThreadId: 1609
+2026-01-06 01:31:14 [debug]: MySQL pool is released! ThreadId: 1609
+2026-01-06 01:31:16 [debug]: MySQL pool is connected! ThreadId:1609
+2026-01-06 01:31:16 [debug]: MySQL pool is connected! ThreadId:1610
+2026-01-06 01:31:16 [debug]: MySQL pool is begin transaction! ThreadId: 1610
+2026-01-06 01:31:16 [debug]: MySQL pool is committed! ThreadId: 1610
+2026-01-06 01:31:16 [debug]: MySQL pool is released! ThreadId: 1610
+2026-01-06 01:31:16 [debug]: MySQL pool is connected! ThreadId:1610
+2026-01-06 01:31:16 [debug]: MySQL pool is connected! ThreadId:1611
+2026-01-06 01:31:16 [debug]: MySQL pool is begin transaction! ThreadId: 1611
+2026-01-06 01:31:16 [debug]: MySQL pool is committed! ThreadId: 1611
+2026-01-06 01:31:16 [debug]: MySQL pool is released! ThreadId: 1611
+ Efors v0.0.1
+
+2026-01-06 01:32:01 [debug]: Initializing Middlewares...
+2026-01-06 01:32:22 [debug]: Initializing MySQL pool...
+2026-01-06 01:32:22 [debug]: MySQL pool is Initialized!
+2026-01-06 01:32:22 [debug]: MySQL pool is connected! ThreadId:1612
+2026-01-06 01:32:22 [debug]: MySQL pool is connected! ThreadId:1613
+2026-01-06 01:32:22 [debug]: MySQL pool is begin transaction! ThreadId: 1613
+2026-01-06 01:32:22 [debug]: MySQL pool is committed! ThreadId: 1613
+2026-01-06 01:32:22 [debug]: MySQL pool is released! ThreadId: 1613
+2026-01-06 01:32:37 [debug]: MySQL pool is connected! ThreadId:1613
+2026-01-06 01:32:39 [debug]: MySQL pool is connected! ThreadId:1614
+2026-01-06 01:32:39 [debug]: MySQL pool is connected! ThreadId:1615
+2026-01-06 01:32:39 [debug]: MySQL pool is begin transaction! ThreadId: 1615
+2026-01-06 01:32:39 [debug]: MySQL pool is committed! ThreadId: 1615
+2026-01-06 01:32:39 [debug]: MySQL pool is released! ThreadId: 1615
+2026-01-06 01:32:39 [debug]: MySQL pool is connected! ThreadId:1615
+2026-01-06 01:32:39 [debug]: MySQL pool is connected! ThreadId:1616
+2026-01-06 01:32:39 [debug]: MySQL pool is begin transaction! ThreadId: 1616
+2026-01-06 01:32:39 [debug]: MySQL pool is committed! ThreadId: 1616
+2026-01-06 01:32:39 [debug]: MySQL pool is released! ThreadId: 1616
+2026-01-06 01:32:41 [debug]: MySQL pool is connected! ThreadId:1616
+2026-01-06 01:32:41 [debug]: MySQL pool is connected! ThreadId:1617
+2026-01-06 01:32:41 [debug]: MySQL pool is begin transaction! ThreadId: 1617
+2026-01-06 01:32:41 [debug]: MySQL pool is committed! ThreadId: 1617
+2026-01-06 01:32:41 [debug]: MySQL pool is released! ThreadId: 1617
+2026-01-06 01:32:41 [debug]: MySQL pool is connected! ThreadId:1617
+2026-01-06 01:32:41 [debug]: MySQL pool is connected! ThreadId:1618
+2026-01-06 01:32:41 [debug]: MySQL pool is begin transaction! ThreadId: 1618
+2026-01-06 01:32:41 [debug]: MySQL pool is committed! ThreadId: 1618
+2026-01-06 01:32:41 [debug]: MySQL pool is released! ThreadId: 1618
+2026-01-06 01:36:59 [debug]: MySQL pool is connected! ThreadId:1618
+2026-01-06 01:37:01 [debug]: MySQL pool is connected! ThreadId:1619
+2026-01-06 01:37:01 [debug]: MySQL pool is connected! ThreadId:1620
+2026-01-06 01:37:01 [debug]: MySQL pool is begin transaction! ThreadId: 1620
+2026-01-06 01:37:01 [debug]: MySQL pool is committed! ThreadId: 1620
+2026-01-06 01:37:01 [debug]: MySQL pool is released! ThreadId: 1620
+2026-01-06 01:37:01 [debug]: MySQL pool is connected! ThreadId:1620
+2026-01-06 01:37:01 [debug]: MySQL pool is connected! ThreadId:1621
+2026-01-06 01:37:01 [debug]: MySQL pool is begin transaction! ThreadId: 1621
+2026-01-06 01:37:01 [debug]: MySQL pool is committed! ThreadId: 1621
+2026-01-06 01:37:01 [debug]: MySQL pool is released! ThreadId: 1621
+2026-01-06 01:37:02 [debug]: MySQL pool is connected! ThreadId:1621
+2026-01-06 01:37:02 [debug]: MySQL pool is connected! ThreadId:1622
+2026-01-06 01:37:02 [debug]: MySQL pool is begin transaction! ThreadId: 1622
+2026-01-06 01:37:02 [debug]: MySQL pool is committed! ThreadId: 1622
+2026-01-06 01:37:02 [debug]: MySQL pool is released! ThreadId: 1622
+2026-01-06 01:37:02 [debug]: MySQL pool is connected! ThreadId:1622
+2026-01-06 01:37:02 [debug]: MySQL pool is connected! ThreadId:1623
+2026-01-06 01:37:02 [debug]: MySQL pool is begin transaction! ThreadId: 1623
+2026-01-06 01:37:02 [debug]: MySQL pool is committed! ThreadId: 1623
+2026-01-06 01:37:02 [debug]: MySQL pool is released! ThreadId: 1623
+2026-01-06 01:42:12 [debug]: MySQL pool is connected! ThreadId:1623
+2026-01-06 01:42:12 [debug]: MySQL pool is connected! ThreadId:1624
+2026-01-06 01:42:12 [debug]: MySQL pool is begin transaction! ThreadId: 1624
+2026-01-06 01:42:12 [debug]: MySQL pool is committed! ThreadId: 1624
+2026-01-06 01:42:12 [debug]: MySQL pool is released! ThreadId: 1624
+2026-01-06 01:42:48 [debug]: MySQL pool is connected! ThreadId:1624
+2026-01-06 01:42:48 [debug]: MySQL pool is connected! ThreadId:1625
+2026-01-06 01:42:48 [debug]: MySQL pool is begin transaction! ThreadId: 1625
+2026-01-06 01:42:48 [debug]: MySQL pool is committed! ThreadId: 1625
+2026-01-06 01:42:48 [debug]: MySQL pool is released! ThreadId: 1625
+2026-01-06 01:43:28 [debug]: MySQL pool is connected! ThreadId:1625
+2026-01-06 01:43:31 [debug]: MySQL pool is connected! ThreadId:1626
+2026-01-06 01:43:31 [debug]: MySQL pool is connected! ThreadId:1627
+2026-01-06 01:43:31 [debug]: MySQL pool is begin transaction! ThreadId: 1627
+2026-01-06 01:43:31 [debug]: MySQL pool is committed! ThreadId: 1627
+2026-01-06 01:43:31 [debug]: MySQL pool is released! ThreadId: 1627
+2026-01-06 01:43:31 [debug]: MySQL pool is connected! ThreadId:1627
+2026-01-06 01:43:31 [debug]: MySQL pool is connected! ThreadId:1628
+2026-01-06 01:43:31 [debug]: MySQL pool is begin transaction! ThreadId: 1628
+2026-01-06 01:43:31 [debug]: MySQL pool is committed! ThreadId: 1628
+2026-01-06 01:43:31 [debug]: MySQL pool is released! ThreadId: 1628
+2026-01-06 01:43:34 [debug]: MySQL pool is connected! ThreadId:1628
+2026-01-06 01:43:34 [debug]: MySQL pool is connected! ThreadId:1629
+2026-01-06 01:43:34 [debug]: MySQL pool is begin transaction! ThreadId: 1629
+2026-01-06 01:43:34 [debug]: MySQL pool is committed! ThreadId: 1629
+2026-01-06 01:43:34 [debug]: MySQL pool is released! ThreadId: 1629
+2026-01-06 01:43:34 [debug]: MySQL pool is connected! ThreadId:1629
+2026-01-06 01:43:34 [debug]: MySQL pool is connected! ThreadId:1630
+2026-01-06 01:43:34 [debug]: MySQL pool is begin transaction! ThreadId: 1630
+2026-01-06 01:43:34 [debug]: MySQL pool is committed! ThreadId: 1630
+2026-01-06 01:43:34 [debug]: MySQL pool is released! ThreadId: 1630
+2026-01-06 01:43:53 [debug]: MySQL pool is connected! ThreadId:1630
+2026-01-06 01:43:53 [debug]: MySQL pool is connected! ThreadId:1631
+2026-01-06 01:43:53 [debug]: MySQL pool is begin transaction! ThreadId: 1631
+2026-01-06 01:43:53 [debug]: MySQL pool is committed! ThreadId: 1631
+2026-01-06 01:43:53 [debug]: MySQL pool is released! ThreadId: 1631
+2026-01-06 01:53:54 [debug]: MySQL pool is connected! ThreadId:1631
+2026-01-06 01:53:54 [debug]: MySQL pool is connected! ThreadId:1632
+2026-01-06 01:53:54 [debug]: MySQL pool is begin transaction! ThreadId: 1632
+2026-01-06 01:53:54 [debug]: MySQL pool is committed! ThreadId: 1632
+2026-01-06 01:53:54 [debug]: MySQL pool is released! ThreadId: 1632
+ Efors v0.0.1
+
+2026-01-06 02:06:52 [debug]: Initializing Middlewares...
+2026-01-06 02:07:06 [debug]: Initializing MySQL pool...
+2026-01-06 02:07:06 [debug]: MySQL pool is Initialized!
+2026-01-06 02:07:06 [debug]: MySQL pool is connected! ThreadId:1633
+2026-01-06 02:07:06 [debug]: MySQL pool is connected! ThreadId:1634
+2026-01-06 02:07:06 [debug]: MySQL pool is connected! ThreadId:1635
+2026-01-06 02:07:06 [debug]: MySQL pool is begin transaction! ThreadId: 1635
+2026-01-06 02:07:06 [debug]: MySQL pool is committed! ThreadId: 1635
+2026-01-06 02:07:06 [debug]: MySQL pool is released! ThreadId: 1635
+2026-01-06 02:07:06 [debug]: MySQL pool is connected! ThreadId:1635
+2026-01-06 02:07:06 [debug]: MySQL pool is connected! ThreadId:1636
+2026-01-06 02:07:06 [debug]: MySQL pool is begin transaction! ThreadId: 1636
+2026-01-06 02:07:06 [debug]: MySQL pool is committed! ThreadId: 1636
+2026-01-06 02:07:06 [debug]: MySQL pool is released! ThreadId: 1636
+2026-01-06 02:07:17 [debug]: MySQL pool is connected! ThreadId:1636
+2026-01-06 02:07:17 [debug]: MySQL pool is connected! ThreadId:1637
+2026-01-06 02:07:17 [debug]: MySQL pool is begin transaction! ThreadId: 1637
+2026-01-06 02:07:17 [debug]: MySQL pool is committed! ThreadId: 1637
+2026-01-06 02:07:17 [debug]: MySQL pool is released! ThreadId: 1637
+2026-01-06 02:07:20 [debug]: MySQL pool is connected! ThreadId:1637
+2026-01-06 02:07:20 [debug]: MySQL pool is connected! ThreadId:1638
+2026-01-06 02:07:20 [debug]: MySQL pool is begin transaction! ThreadId: 1638
+2026-01-06 02:07:20 [debug]: MySQL pool is roll back! ThreadId: 1638
+2026-01-06 02:07:20 [debug]: MySQL pool is released! ThreadId: 1638
+2026-01-06 02:07:33 [debug]: MySQL pool is connected! ThreadId:1638
+2026-01-06 02:07:33 [debug]: MySQL pool is connected! ThreadId:1639
+2026-01-06 02:07:33 [debug]: MySQL pool is begin transaction! ThreadId: 1639
+2026-01-06 02:07:33 [debug]: MySQL pool is committed! ThreadId: 1639
+2026-01-06 02:07:33 [debug]: MySQL pool is released! ThreadId: 1639
+ Efors v0.0.1
+
+2026-01-06 02:07:45 [debug]: Initializing Middlewares...
+2026-01-06 02:08:01 [debug]: Initializing MySQL pool...
+2026-01-06 02:08:01 [debug]: MySQL pool is Initialized!
+2026-01-06 02:08:01 [debug]: MySQL pool is connected! ThreadId:1640
+2026-01-06 02:08:01 [debug]: MySQL pool is connected! ThreadId:1641
+2026-01-06 02:08:01 [debug]: MySQL pool is connected! ThreadId:1642
+2026-01-06 02:08:01 [debug]: MySQL pool is begin transaction! ThreadId: 1642
+2026-01-06 02:08:02 [debug]: MySQL pool is committed! ThreadId: 1642
+2026-01-06 02:08:02 [debug]: MySQL pool is released! ThreadId: 1642
+2026-01-06 02:08:02 [debug]: MySQL pool is connected! ThreadId:1642
+2026-01-06 02:08:02 [debug]: MySQL pool is connected! ThreadId:1643
+2026-01-06 02:08:02 [debug]: MySQL pool is begin transaction! ThreadId: 1643
+2026-01-06 02:08:02 [debug]: MySQL pool is committed! ThreadId: 1643
+2026-01-06 02:08:02 [debug]: MySQL pool is released! ThreadId: 1643
+2026-01-06 02:10:25 [debug]: MySQL pool is connected! ThreadId:1643
+2026-01-06 02:10:25 [debug]: MySQL pool is connected! ThreadId:1644
+2026-01-06 02:10:25 [debug]: MySQL pool is begin transaction! ThreadId: 1644
+2026-01-06 02:10:25 [debug]: MySQL pool is committed! ThreadId: 1644
+2026-01-06 02:10:25 [debug]: MySQL pool is released! ThreadId: 1644
+2026-01-06 02:12:50 [debug]: MySQL pool is connected! ThreadId:1644
+2026-01-06 02:12:50 [debug]: MySQL pool is connected! ThreadId:1645
+2026-01-06 02:12:50 [debug]: MySQL pool is begin transaction! ThreadId: 1645
+2026-01-06 02:12:50 [debug]: MySQL pool is committed! ThreadId: 1645
+2026-01-06 02:12:50 [debug]: MySQL pool is released! ThreadId: 1645
+2026-01-06 02:12:53 [debug]: MySQL pool is connected! ThreadId:1645
+2026-01-06 02:12:53 [debug]: MySQL pool is connected! ThreadId:1646
+2026-01-06 02:12:53 [debug]: MySQL pool is begin transaction! ThreadId: 1646
+2026-01-06 02:12:53 [debug]: MySQL pool is committed! ThreadId: 1646
+2026-01-06 02:12:53 [debug]: MySQL pool is released! ThreadId: 1646
+ Efors v0.0.1
+
+2026-01-06 02:16:54 [debug]: Initializing Middlewares...
+2026-01-06 02:17:12 [debug]: Initializing MySQL pool...
+2026-01-06 02:17:12 [debug]: MySQL pool is Initialized!
+2026-01-06 02:17:12 [debug]: MySQL pool is connected! ThreadId:1647
+2026-01-06 02:17:12 [debug]: [401]Authorization token is expired.
+2026-01-06 02:17:12 [debug]: MySQL pool is released! ThreadId: 1647
+2026-01-06 02:17:12 [debug]: MySQL pool is connected! ThreadId:1648
+2026-01-06 02:17:12 [debug]: MySQL pool is connected! ThreadId:1647
+2026-01-06 02:17:12 [debug]: [401]Authorization token is expired.
+2026-01-06 02:17:12 [debug]: MySQL pool is released! ThreadId: 1648
+2026-01-06 02:17:12 [debug]: MySQL pool is connected! ThreadId:1648
+2026-01-06 02:17:12 [debug]: MySQL pool is begin transaction! ThreadId: 1648
+2026-01-06 02:17:12 [debug]: MySQL pool is committed! ThreadId: 1648
+2026-01-06 02:17:12 [debug]: MySQL pool is released! ThreadId: 1648
+2026-01-06 02:17:12 [debug]: MySQL pool is connected! ThreadId:1648
+2026-01-06 02:17:13 [debug]: MySQL pool is connected! ThreadId:1649
+2026-01-06 02:17:13 [debug]: MySQL pool is connected! ThreadId:1650
+2026-01-06 02:17:13 [debug]: MySQL pool is begin transaction! ThreadId: 1650
+2026-01-06 02:17:13 [debug]: MySQL pool is committed! ThreadId: 1650
+2026-01-06 02:17:13 [debug]: MySQL pool is released! ThreadId: 1650
+2026-01-06 02:17:13 [debug]: MySQL pool is connected! ThreadId:1650
+2026-01-06 02:17:13 [debug]: MySQL pool is connected! ThreadId:1651
+2026-01-06 02:17:13 [debug]: MySQL pool is begin transaction! ThreadId: 1651
+2026-01-06 02:17:13 [debug]: MySQL pool is committed! ThreadId: 1651
+2026-01-06 02:17:13 [debug]: MySQL pool is released! ThreadId: 1651
+2026-01-06 02:17:35 [debug]: MySQL pool is connected! ThreadId:1651
+2026-01-06 02:17:35 [debug]: MySQL pool is connected! ThreadId:1652
+2026-01-06 02:17:35 [debug]: MySQL pool is begin transaction! ThreadId: 1652
+2026-01-06 02:17:35 [debug]: MySQL pool is committed! ThreadId: 1652
+2026-01-06 02:17:35 [debug]: MySQL pool is released! ThreadId: 1652
+ Efors v0.0.1
+
+2026-01-06 02:17:58 [debug]: Initializing Middlewares...
+2026-01-06 02:18:25 [debug]: Initializing MySQL pool...
+2026-01-06 02:18:25 [debug]: MySQL pool is Initialized!
+2026-01-06 02:18:25 [debug]: MySQL pool is connected! ThreadId:1653
+2026-01-06 02:18:25 [debug]: MySQL pool is connected! ThreadId:1654
+2026-01-06 02:18:25 [debug]: MySQL pool is connected! ThreadId:1655
+2026-01-06 02:18:25 [debug]: MySQL pool is begin transaction! ThreadId: 1655
+2026-01-06 02:18:25 [debug]: MySQL pool is committed! ThreadId: 1655
+2026-01-06 02:18:25 [debug]: MySQL pool is released! ThreadId: 1655
+2026-01-06 02:18:25 [debug]: MySQL pool is connected! ThreadId:1655
+2026-01-06 02:18:25 [debug]: MySQL pool is connected! ThreadId:1656
+2026-01-06 02:18:25 [debug]: MySQL pool is begin transaction! ThreadId: 1656
+2026-01-06 02:18:25 [debug]: MySQL pool is committed! ThreadId: 1656
+2026-01-06 02:18:25 [debug]: MySQL pool is released! ThreadId: 1656
+2026-01-06 02:18:31 [debug]: MySQL pool is connected! ThreadId:1656
+2026-01-06 02:18:31 [debug]: MySQL pool is connected! ThreadId:1657
+2026-01-06 02:18:31 [debug]: MySQL pool is begin transaction! ThreadId: 1657
+2026-01-06 02:18:31 [debug]: MySQL pool is committed! ThreadId: 1657
+2026-01-06 02:18:31 [debug]: MySQL pool is released! ThreadId: 1657
+ Efors v0.0.1
+
+2026-01-06 02:19:06 [debug]: Initializing Middlewares...
+2026-01-06 02:19:19 [debug]: Initializing MySQL pool...
+2026-01-06 02:19:19 [debug]: MySQL pool is Initialized!
+2026-01-06 02:19:19 [debug]: MySQL pool is connected! ThreadId:1658
+2026-01-06 02:19:19 [debug]: MySQL pool is connected! ThreadId:1659
+2026-01-06 02:19:19 [debug]: MySQL pool is connected! ThreadId:1660
+2026-01-06 02:19:19 [debug]: MySQL pool is begin transaction! ThreadId: 1660
+2026-01-06 02:19:20 [debug]: MySQL pool is committed! ThreadId: 1660
+2026-01-06 02:19:20 [debug]: MySQL pool is released! ThreadId: 1660
+2026-01-06 02:19:20 [debug]: MySQL pool is connected! ThreadId:1660
+2026-01-06 02:19:20 [debug]: MySQL pool is connected! ThreadId:1661
+2026-01-06 02:19:20 [debug]: MySQL pool is begin transaction! ThreadId: 1661
+2026-01-06 02:19:20 [debug]: MySQL pool is committed! ThreadId: 1661
+2026-01-06 02:19:20 [debug]: MySQL pool is released! ThreadId: 1661
+2026-01-06 02:19:28 [debug]: MySQL pool is connected! ThreadId:1661
+2026-01-06 02:19:28 [debug]: MySQL pool is connected! ThreadId:1662
+2026-01-06 02:19:28 [debug]: MySQL pool is begin transaction! ThreadId: 1662
+2026-01-06 02:19:28 [debug]: MySQL pool is committed! ThreadId: 1662
+2026-01-06 02:19:28 [debug]: MySQL pool is released! ThreadId: 1662
+2026-01-06 02:19:37 [debug]: MySQL pool is connected! ThreadId:1662
+2026-01-06 02:19:37 [debug]: MySQL pool is connected! ThreadId:1663
+2026-01-06 02:19:37 [debug]: MySQL pool is connected! ThreadId:1664
+2026-01-06 02:19:37 [debug]: MySQL pool is begin transaction! ThreadId: 1664
+2026-01-06 02:19:37 [debug]: MySQL pool is committed! ThreadId: 1664
+2026-01-06 02:19:37 [debug]: MySQL pool is released! ThreadId: 1664
+2026-01-06 02:19:37 [debug]: MySQL pool is connected! ThreadId:1664
+2026-01-06 02:19:37 [debug]: MySQL pool is connected! ThreadId:1665
+2026-01-06 02:19:37 [debug]: MySQL pool is begin transaction! ThreadId: 1665
+2026-01-06 02:19:37 [debug]: MySQL pool is committed! ThreadId: 1665
+2026-01-06 02:19:37 [debug]: MySQL pool is released! ThreadId: 1665
+2026-01-06 02:19:41 [debug]: MySQL pool is connected! ThreadId:1665
+2026-01-06 02:19:41 [debug]: MySQL pool is connected! ThreadId:1666
+2026-01-06 02:19:41 [debug]: MySQL pool is begin transaction! ThreadId: 1666
+2026-01-06 02:19:41 [debug]: MySQL pool is committed! ThreadId: 1666
+2026-01-06 02:19:41 [debug]: MySQL pool is released! ThreadId: 1666
+ Efors v0.0.1
+
+2026-01-06 02:20:18 [debug]: Initializing Middlewares...
+2026-01-06 02:20:33 [debug]: Initializing MySQL pool...
+2026-01-06 02:20:33 [debug]: MySQL pool is Initialized!
+2026-01-06 02:20:33 [debug]: MySQL pool is connected! ThreadId:1667
+2026-01-06 02:20:33 [debug]: MySQL pool is connected! ThreadId:1668
+2026-01-06 02:20:34 [debug]: MySQL pool is connected! ThreadId:1669
+2026-01-06 02:20:34 [debug]: MySQL pool is begin transaction! ThreadId: 1669
+2026-01-06 02:20:34 [debug]: MySQL pool is committed! ThreadId: 1669
+2026-01-06 02:20:34 [debug]: MySQL pool is released! ThreadId: 1669
+2026-01-06 02:20:34 [debug]: MySQL pool is connected! ThreadId:1669
+2026-01-06 02:20:34 [debug]: MySQL pool is connected! ThreadId:1670
+2026-01-06 02:20:34 [debug]: MySQL pool is begin transaction! ThreadId: 1670
+2026-01-06 02:20:34 [debug]: MySQL pool is committed! ThreadId: 1670
+2026-01-06 02:20:34 [debug]: MySQL pool is released! ThreadId: 1670
+2026-01-06 02:20:38 [debug]: MySQL pool is connected! ThreadId:1670
+2026-01-06 02:20:38 [debug]: MySQL pool is connected! ThreadId:1671
+2026-01-06 02:20:38 [debug]: MySQL pool is begin transaction! ThreadId: 1671
+2026-01-06 02:20:38 [debug]: MySQL pool is committed! ThreadId: 1671
+2026-01-06 02:20:38 [debug]: MySQL pool is released! ThreadId: 1671
+2026-01-06 02:20:53 [debug]: MySQL pool is connected! ThreadId:1671
+2026-01-06 02:20:53 [debug]: MySQL pool is connected! ThreadId:1672
+2026-01-06 02:20:53 [debug]: MySQL pool is begin transaction! ThreadId: 1672
+2026-01-06 02:20:53 [debug]: MySQL pool is committed! ThreadId: 1672
+2026-01-06 02:20:53 [debug]: MySQL pool is released! ThreadId: 1672
+2026-01-06 02:20:55 [debug]: MySQL pool is connected! ThreadId:1672
+2026-01-06 02:20:55 [debug]: MySQL pool is connected! ThreadId:1673
+2026-01-06 02:20:55 [debug]: MySQL pool is begin transaction! ThreadId: 1673
+2026-01-06 02:20:55 [debug]: MySQL pool is committed! ThreadId: 1673
+2026-01-06 02:20:55 [debug]: MySQL pool is released! ThreadId: 1673
+2026-01-06 02:21:18 [debug]: MySQL pool is connected! ThreadId:1673
+2026-01-06 02:21:18 [debug]: MySQL pool is connected! ThreadId:1674
+2026-01-06 02:21:18 [debug]: MySQL pool is begin transaction! ThreadId: 1674
+2026-01-06 02:21:18 [debug]: MySQL pool is committed! ThreadId: 1674
+2026-01-06 02:21:18 [debug]: MySQL pool is released! ThreadId: 1674
+2026-01-06 02:21:24 [debug]: MySQL pool is connected! ThreadId:1674
+2026-01-06 02:21:24 [debug]: MySQL pool is connected! ThreadId:1675
+2026-01-06 02:21:24 [debug]: MySQL pool is begin transaction! ThreadId: 1675
+2026-01-06 02:21:24 [debug]: MySQL pool is committed! ThreadId: 1675
+2026-01-06 02:21:24 [debug]: MySQL pool is released! ThreadId: 1675
+ Efors v0.0.1
+
+2026-01-06 02:22:54 [debug]: Initializing Middlewares...
+2026-01-06 02:23:14 [debug]: Initializing MySQL pool...
+2026-01-06 02:23:14 [debug]: MySQL pool is Initialized!
+2026-01-06 02:23:14 [debug]: MySQL pool is connected! ThreadId:1676
+2026-01-06 02:23:14 [debug]: MySQL pool is connected! ThreadId:1677
+2026-01-06 02:23:15 [debug]: MySQL pool is connected! ThreadId:1678
+2026-01-06 02:23:15 [debug]: MySQL pool is begin transaction! ThreadId: 1678
+2026-01-06 02:23:15 [debug]: MySQL pool is committed! ThreadId: 1678
+2026-01-06 02:23:15 [debug]: MySQL pool is released! ThreadId: 1678
+2026-01-06 02:23:15 [debug]: MySQL pool is connected! ThreadId:1678
+2026-01-06 02:23:15 [debug]: MySQL pool is connected! ThreadId:1679
+2026-01-06 02:23:15 [debug]: MySQL pool is begin transaction! ThreadId: 1679
+2026-01-06 02:23:15 [debug]: MySQL pool is committed! ThreadId: 1679
+2026-01-06 02:23:15 [debug]: MySQL pool is released! ThreadId: 1679
+2026-01-06 02:23:40 [debug]: MySQL pool is connected! ThreadId:1679
+2026-01-06 02:23:40 [debug]: MySQL pool is connected! ThreadId:1680
+2026-01-06 02:23:40 [debug]: MySQL pool is begin transaction! ThreadId: 1680
+2026-01-06 02:23:40 [debug]: MySQL pool is committed! ThreadId: 1680
+2026-01-06 02:23:40 [debug]: MySQL pool is released! ThreadId: 1680
+2026-01-06 02:23:48 [debug]: MySQL pool is connected! ThreadId:1680
+2026-01-06 02:23:48 [debug]: MySQL pool is connected! ThreadId:1681
+2026-01-06 02:23:48 [debug]: MySQL pool is begin transaction! ThreadId: 1681
+2026-01-06 02:23:48 [debug]: MySQL pool is committed! ThreadId: 1681
+2026-01-06 02:23:48 [debug]: MySQL pool is released! ThreadId: 1681
+2026-01-06 02:23:51 [debug]: MySQL pool is connected! ThreadId:1681
+2026-01-06 02:23:51 [debug]: MySQL pool is connected! ThreadId:1682
+2026-01-06 02:23:51 [debug]: MySQL pool is begin transaction! ThreadId: 1682
+2026-01-06 02:23:51 [debug]: MySQL pool is committed! ThreadId: 1682
+2026-01-06 02:23:51 [debug]: MySQL pool is released! ThreadId: 1682
+ Efors v0.0.1
+
+2026-01-06 02:27:45 [debug]: Initializing Middlewares...
+2026-01-06 02:34:31 [debug]: Initializing MySQL pool...
+2026-01-06 02:34:31 [debug]: MySQL pool is Initialized!
+2026-01-06 02:34:32 [debug]: MySQL pool is connected! ThreadId:1683
+2026-01-06 02:34:32 [debug]: MySQL pool is connected! ThreadId:1684
+2026-01-06 02:34:32 [debug]: MySQL pool is connected! ThreadId:1685
+2026-01-06 02:34:32 [debug]: MySQL pool is begin transaction! ThreadId: 1685
+2026-01-06 02:34:32 [debug]: MySQL pool is committed! ThreadId: 1685
+2026-01-06 02:34:32 [debug]: MySQL pool is released! ThreadId: 1685
+2026-01-06 02:34:32 [debug]: MySQL pool is connected! ThreadId:1685
+2026-01-06 02:34:32 [debug]: MySQL pool is connected! ThreadId:1686
+2026-01-06 02:34:32 [debug]: MySQL pool is begin transaction! ThreadId: 1686
+2026-01-06 02:34:32 [debug]: MySQL pool is committed! ThreadId: 1686
+2026-01-06 02:34:32 [debug]: MySQL pool is released! ThreadId: 1686
+2026-01-06 02:34:39 [debug]: MySQL pool is connected! ThreadId:1686
+2026-01-06 02:34:39 [debug]: MySQL pool is connected! ThreadId:1687
+2026-01-06 02:34:39 [debug]: MySQL pool is begin transaction! ThreadId: 1687
+2026-01-06 02:34:39 [debug]: MySQL pool is committed! ThreadId: 1687
+2026-01-06 02:34:39 [debug]: MySQL pool is released! ThreadId: 1687
+2026-01-06 02:34:42 [debug]: MySQL pool is connected! ThreadId:1687
+2026-01-06 02:34:42 [debug]: MySQL pool is connected! ThreadId:1688
+2026-01-06 02:34:42 [debug]: MySQL pool is begin transaction! ThreadId: 1688
+2026-01-06 02:34:42 [debug]: MySQL pool is committed! ThreadId: 1688
+2026-01-06 02:34:42 [debug]: MySQL pool is released! ThreadId: 1688
+2026-01-06 02:34:43 [debug]: MySQL pool is connected! ThreadId:1688
+2026-01-06 02:34:43 [debug]: MySQL pool is connected! ThreadId:1689
+2026-01-06 02:34:43 [debug]: MySQL pool is begin transaction! ThreadId: 1689
+2026-01-06 02:34:43 [debug]: MySQL pool is committed! ThreadId: 1689
+2026-01-06 02:34:43 [debug]: MySQL pool is released! ThreadId: 1689
+ Efors v0.0.1
+
+2026-01-06 02:35:55 [debug]: Initializing Middlewares...
+2026-01-06 02:37:47 [debug]: Initializing MySQL pool...
+2026-01-06 02:37:47 [debug]: MySQL pool is Initialized!
+2026-01-06 02:37:47 [debug]: MySQL pool is connected! ThreadId:1690
+2026-01-06 02:37:47 [debug]: MySQL pool is connected! ThreadId:1691
+2026-01-06 02:37:48 [debug]: MySQL pool is connected! ThreadId:1692
+2026-01-06 02:37:48 [debug]: MySQL pool is begin transaction! ThreadId: 1692
+2026-01-06 02:37:48 [debug]: MySQL pool is committed! ThreadId: 1692
+2026-01-06 02:37:48 [debug]: MySQL pool is released! ThreadId: 1692
+2026-01-06 02:37:48 [debug]: MySQL pool is connected! ThreadId:1692
+2026-01-06 02:37:48 [debug]: MySQL pool is connected! ThreadId:1693
+2026-01-06 02:37:48 [debug]: MySQL pool is begin transaction! ThreadId: 1693
+2026-01-06 02:37:48 [debug]: MySQL pool is committed! ThreadId: 1693
+2026-01-06 02:37:48 [debug]: MySQL pool is released! ThreadId: 1693
+2026-01-06 02:37:57 [debug]: MySQL pool is connected! ThreadId:1693
+2026-01-06 02:37:57 [debug]: MySQL pool is connected! ThreadId:1694
+2026-01-06 02:37:57 [debug]: MySQL pool is begin transaction! ThreadId: 1694
+2026-01-06 02:37:57 [debug]: MySQL pool is committed! ThreadId: 1694
+2026-01-06 02:37:57 [debug]: MySQL pool is released! ThreadId: 1694
+ Efors v0.0.1
+
+2026-01-06 02:42:17 [debug]: Initializing Middlewares...
+2026-01-06 02:42:24 [debug]: Initializing MySQL pool...
+2026-01-06 02:42:24 [debug]: MySQL pool is Initialized!
+2026-01-06 02:42:24 [debug]: MySQL pool is connected! ThreadId:1695
+2026-01-06 02:42:24 [debug]: MySQL pool is connected! ThreadId:1696
+2026-01-06 02:42:25 [debug]: MySQL pool is connected! ThreadId:1697
+2026-01-06 02:42:25 [debug]: MySQL pool is begin transaction! ThreadId: 1697
+2026-01-06 02:42:25 [debug]: MySQL pool is committed! ThreadId: 1697
+2026-01-06 02:42:25 [debug]: MySQL pool is released! ThreadId: 1697
+2026-01-06 02:42:25 [debug]: MySQL pool is connected! ThreadId:1697
+2026-01-06 02:42:25 [debug]: MySQL pool is connected! ThreadId:1698
+2026-01-06 02:42:25 [debug]: MySQL pool is begin transaction! ThreadId: 1698
+2026-01-06 02:42:25 [debug]: MySQL pool is committed! ThreadId: 1698
+2026-01-06 02:42:25 [debug]: MySQL pool is released! ThreadId: 1698
+ Efors v0.0.1
+
+2026-01-06 02:42:37 [debug]: Initializing Middlewares...
+2026-01-06 02:43:07 [debug]: Initializing MySQL pool...
+2026-01-06 02:43:07 [debug]: MySQL pool is Initialized!
+2026-01-06 02:43:07 [debug]: MySQL pool is connected! ThreadId:1699
+2026-01-06 02:43:07 [debug]: MySQL pool is connected! ThreadId:1700
+2026-01-06 02:43:07 [debug]: MySQL pool is connected! ThreadId:1701
+2026-01-06 02:43:07 [debug]: MySQL pool is begin transaction! ThreadId: 1701
+2026-01-06 02:43:07 [debug]: MySQL pool is committed! ThreadId: 1701
+2026-01-06 02:43:07 [debug]: MySQL pool is released! ThreadId: 1701
+2026-01-06 02:43:07 [debug]: MySQL pool is connected! ThreadId:1701
+2026-01-06 02:43:07 [debug]: MySQL pool is connected! ThreadId:1702
+2026-01-06 02:43:07 [debug]: MySQL pool is begin transaction! ThreadId: 1702
+2026-01-06 02:43:07 [debug]: MySQL pool is committed! ThreadId: 1702
+2026-01-06 02:43:07 [debug]: MySQL pool is released! ThreadId: 1702
+ Efors v0.0.1
+
+2026-01-06 02:43:57 [debug]: Initializing Middlewares...
+2026-01-06 02:44:04 [debug]: Initializing MySQL pool...
+2026-01-06 02:44:04 [debug]: MySQL pool is Initialized!
+2026-01-06 02:44:04 [debug]: MySQL pool is connected! ThreadId:1703
+2026-01-06 02:44:04 [debug]: MySQL pool is connected! ThreadId:1704
+2026-01-06 02:44:04 [debug]: MySQL pool is connected! ThreadId:1705
+2026-01-06 02:44:04 [debug]: MySQL pool is begin transaction! ThreadId: 1705
+2026-01-06 02:44:04 [debug]: MySQL pool is committed! ThreadId: 1705
+2026-01-06 02:44:04 [debug]: MySQL pool is released! ThreadId: 1705
+2026-01-06 02:44:04 [debug]: MySQL pool is connected! ThreadId:1705
+2026-01-06 02:44:04 [debug]: MySQL pool is connected! ThreadId:1706
+2026-01-06 02:44:04 [debug]: MySQL pool is begin transaction! ThreadId: 1706
+2026-01-06 02:44:04 [debug]: MySQL pool is committed! ThreadId: 1706
+2026-01-06 02:44:04 [debug]: MySQL pool is released! ThreadId: 1706
+ Efors v0.0.1
+
+2026-01-06 02:44:22 [debug]: Initializing Middlewares...
+2026-01-06 02:44:30 [debug]: Initializing MySQL pool...
+2026-01-06 02:44:30 [debug]: MySQL pool is Initialized!
+2026-01-06 02:44:30 [debug]: MySQL pool is connected! ThreadId:1707
+2026-01-06 02:44:30 [debug]: MySQL pool is connected! ThreadId:1708
+2026-01-06 02:44:30 [debug]: MySQL pool is connected! ThreadId:1709
+2026-01-06 02:44:30 [debug]: MySQL pool is begin transaction! ThreadId: 1709
+2026-01-06 02:44:31 [debug]: MySQL pool is committed! ThreadId: 1709
+2026-01-06 02:44:31 [debug]: MySQL pool is released! ThreadId: 1709
+2026-01-06 02:44:31 [debug]: MySQL pool is connected! ThreadId:1709
+2026-01-06 02:44:31 [debug]: MySQL pool is connected! ThreadId:1710
+2026-01-06 02:44:31 [debug]: MySQL pool is begin transaction! ThreadId: 1710
+2026-01-06 02:44:31 [debug]: MySQL pool is committed! ThreadId: 1710
+2026-01-06 02:44:31 [debug]: MySQL pool is released! ThreadId: 1710
+2026-01-06 02:44:37 [debug]: MySQL pool is connected! ThreadId:1710
+2026-01-06 02:44:37 [debug]: MySQL pool is connected! ThreadId:1711
+2026-01-06 02:44:37 [debug]: MySQL pool is begin transaction! ThreadId: 1711
+2026-01-06 02:44:37 [debug]: MySQL pool is committed! ThreadId: 1711
+2026-01-06 02:44:37 [debug]: MySQL pool is released! ThreadId: 1711
+2026-01-06 02:44:41 [debug]: MySQL pool is connected! ThreadId:1711
+2026-01-06 02:44:41 [debug]: MySQL pool is connected! ThreadId:1712
+2026-01-06 02:44:41 [debug]: MySQL pool is begin transaction! ThreadId: 1712
+2026-01-06 02:44:41 [debug]: MySQL pool is committed! ThreadId: 1712
+2026-01-06 02:44:41 [debug]: MySQL pool is released! ThreadId: 1712
+2026-01-06 02:44:43 [debug]: MySQL pool is connected! ThreadId:1712
+2026-01-06 02:44:43 [debug]: MySQL pool is connected! ThreadId:1713
+2026-01-06 02:44:43 [debug]: MySQL pool is begin transaction! ThreadId: 1713
+2026-01-06 02:44:43 [debug]: MySQL pool is committed! ThreadId: 1713
+2026-01-06 02:44:43 [debug]: MySQL pool is released! ThreadId: 1713
+ Efors v0.0.1
+
+2026-01-06 02:44:47 [debug]: Initializing Middlewares...
+2026-01-06 02:44:57 [debug]: Initializing MySQL pool...
+2026-01-06 02:44:57 [debug]: MySQL pool is Initialized!
+2026-01-06 02:44:57 [debug]: MySQL pool is connected! ThreadId:1714
+2026-01-06 02:44:57 [debug]: MySQL pool is connected! ThreadId:1715
+2026-01-06 02:44:57 [debug]: MySQL pool is connected! ThreadId:1716
+2026-01-06 02:44:57 [debug]: MySQL pool is begin transaction! ThreadId: 1716
+2026-01-06 02:44:57 [debug]: MySQL pool is committed! ThreadId: 1716
+2026-01-06 02:44:57 [debug]: MySQL pool is released! ThreadId: 1716
+2026-01-06 02:44:57 [debug]: MySQL pool is connected! ThreadId:1716
+2026-01-06 02:44:57 [debug]: MySQL pool is connected! ThreadId:1717
+2026-01-06 02:44:57 [debug]: MySQL pool is begin transaction! ThreadId: 1717
+2026-01-06 02:44:57 [debug]: MySQL pool is committed! ThreadId: 1717
+2026-01-06 02:44:57 [debug]: MySQL pool is released! ThreadId: 1717
+2026-01-06 02:45:02 [debug]: MySQL pool is connected! ThreadId:1717
+2026-01-06 02:45:02 [debug]: MySQL pool is connected! ThreadId:1718
+2026-01-06 02:45:02 [debug]: MySQL pool is begin transaction! ThreadId: 1718
+2026-01-06 02:45:03 [debug]: MySQL pool is committed! ThreadId: 1718
+2026-01-06 02:45:03 [debug]: MySQL pool is released! ThreadId: 1718
+ Efors v0.0.1
+
+2026-01-06 02:45:34 [debug]: Initializing Middlewares...
+2026-01-06 02:45:53 [debug]: Initializing MySQL pool...
+2026-01-06 02:45:53 [debug]: MySQL pool is Initialized!
+2026-01-06 02:45:53 [debug]: MySQL pool is connected! ThreadId:1719
+2026-01-06 02:45:53 [debug]: MySQL pool is connected! ThreadId:1720
+2026-01-06 02:45:54 [debug]: MySQL pool is connected! ThreadId:1721
+2026-01-06 02:45:54 [debug]: MySQL pool is begin transaction! ThreadId: 1721
+2026-01-06 02:45:54 [debug]: MySQL pool is committed! ThreadId: 1721
+2026-01-06 02:45:54 [debug]: MySQL pool is released! ThreadId: 1721
+2026-01-06 02:45:54 [debug]: MySQL pool is connected! ThreadId:1721
+2026-01-06 02:45:54 [debug]: MySQL pool is connected! ThreadId:1722
+2026-01-06 02:45:54 [debug]: MySQL pool is begin transaction! ThreadId: 1722
+2026-01-06 02:45:54 [debug]: MySQL pool is committed! ThreadId: 1722
+2026-01-06 02:45:54 [debug]: MySQL pool is released! ThreadId: 1722
+2026-01-06 02:46:00 [debug]: MySQL pool is connected! ThreadId:1722
+2026-01-06 02:46:00 [debug]: MySQL pool is connected! ThreadId:1723
+2026-01-06 02:46:00 [debug]: MySQL pool is begin transaction! ThreadId: 1723
+2026-01-06 02:46:00 [debug]: MySQL pool is committed! ThreadId: 1723
+2026-01-06 02:46:00 [debug]: MySQL pool is released! ThreadId: 1723
+ Efors v0.0.1
+
+2026-01-06 02:47:00 [debug]: Initializing Middlewares...
+2026-01-06 02:47:13 [debug]: Initializing MySQL pool...
+2026-01-06 02:47:13 [debug]: MySQL pool is Initialized!
+2026-01-06 02:47:13 [debug]: MySQL pool is connected! ThreadId:1724
+2026-01-06 02:47:13 [debug]: MySQL pool is connected! ThreadId:1725
+2026-01-06 02:47:13 [debug]: MySQL pool is connected! ThreadId:1726
+2026-01-06 02:47:13 [debug]: MySQL pool is begin transaction! ThreadId: 1726
+2026-01-06 02:47:14 [debug]: MySQL pool is committed! ThreadId: 1726
+2026-01-06 02:47:14 [debug]: MySQL pool is released! ThreadId: 1726
+2026-01-06 02:47:14 [debug]: MySQL pool is connected! ThreadId:1726
+2026-01-06 02:47:14 [debug]: MySQL pool is connected! ThreadId:1727
+2026-01-06 02:47:14 [debug]: MySQL pool is begin transaction! ThreadId: 1727
+2026-01-06 02:47:14 [debug]: MySQL pool is committed! ThreadId: 1727
+2026-01-06 02:47:14 [debug]: MySQL pool is released! ThreadId: 1727
+2026-01-06 02:47:28 [debug]: MySQL pool is connected! ThreadId:1727
+2026-01-06 02:47:28 [debug]: MySQL pool is connected! ThreadId:1728
+2026-01-06 02:47:28 [debug]: MySQL pool is begin transaction! ThreadId: 1728
+2026-01-06 02:47:28 [debug]: MySQL pool is committed! ThreadId: 1728
+2026-01-06 02:47:28 [debug]: MySQL pool is released! ThreadId: 1728
+ Efors v0.0.1
+
+2026-01-06 02:47:46 [debug]: Initializing Middlewares...
+2026-01-06 02:48:16 [debug]: Initializing MySQL pool...
+2026-01-06 02:48:16 [debug]: MySQL pool is Initialized!
+2026-01-06 02:48:16 [debug]: MySQL pool is connected! ThreadId:1729
+2026-01-06 02:48:16 [debug]: MySQL pool is connected! ThreadId:1730
+2026-01-06 02:48:16 [debug]: MySQL pool is connected! ThreadId:1731
+2026-01-06 02:48:16 [debug]: MySQL pool is begin transaction! ThreadId: 1731
+2026-01-06 02:48:16 [debug]: MySQL pool is committed! ThreadId: 1731
+2026-01-06 02:48:16 [debug]: MySQL pool is released! ThreadId: 1731
+2026-01-06 02:48:16 [debug]: MySQL pool is connected! ThreadId:1731
+2026-01-06 02:48:16 [debug]: MySQL pool is connected! ThreadId:1732
+2026-01-06 02:48:16 [debug]: MySQL pool is begin transaction! ThreadId: 1732
+2026-01-06 02:48:16 [debug]: MySQL pool is committed! ThreadId: 1732
+2026-01-06 02:48:16 [debug]: MySQL pool is released! ThreadId: 1732
+2026-01-06 02:48:32 [debug]: MySQL pool is connected! ThreadId:1732
+2026-01-06 02:48:32 [debug]: MySQL pool is connected! ThreadId:1733
+2026-01-06 02:48:32 [debug]: MySQL pool is begin transaction! ThreadId: 1733
+2026-01-06 02:48:32 [debug]: MySQL pool is committed! ThreadId: 1733
+2026-01-06 02:48:32 [debug]: MySQL pool is released! ThreadId: 1733
+ Efors v0.0.1
+
+2026-01-06 02:51:00 [debug]: Initializing Middlewares...
+2026-01-06 02:56:30 [debug]: Initializing MySQL pool...
+2026-01-06 02:56:30 [debug]: MySQL pool is Initialized!
+2026-01-06 02:56:30 [debug]: MySQL pool is connected! ThreadId:1734
+2026-01-06 02:56:30 [debug]: MySQL pool is connected! ThreadId:1735
+2026-01-06 02:56:30 [debug]: MySQL pool is connected! ThreadId:1736
+2026-01-06 02:56:30 [debug]: MySQL pool is begin transaction! ThreadId: 1736
+2026-01-06 02:56:30 [debug]: MySQL pool is committed! ThreadId: 1736
+2026-01-06 02:56:30 [debug]: MySQL pool is released! ThreadId: 1736
+2026-01-06 02:56:30 [debug]: MySQL pool is connected! ThreadId:1736
+2026-01-06 02:56:30 [debug]: MySQL pool is connected! ThreadId:1737
+2026-01-06 02:56:30 [debug]: MySQL pool is begin transaction! ThreadId: 1737
+2026-01-06 02:56:30 [debug]: MySQL pool is committed! ThreadId: 1737
+2026-01-06 02:56:30 [debug]: MySQL pool is released! ThreadId: 1737
+2026-01-06 02:56:57 [debug]: MySQL pool is connected! ThreadId:1737
+2026-01-06 02:56:57 [debug]: MySQL pool is connected! ThreadId:1738
+2026-01-06 02:56:57 [debug]: MySQL pool is begin transaction! ThreadId: 1738
+2026-01-06 02:56:57 [debug]: MySQL pool is committed! ThreadId: 1738
+2026-01-06 02:56:57 [debug]: MySQL pool is released! ThreadId: 1738
+2026-01-06 02:57:22 [debug]: MySQL pool is connected! ThreadId:1738
+2026-01-06 02:57:22 [debug]: MySQL pool is connected! ThreadId:1739
+2026-01-06 02:57:22 [debug]: MySQL pool is begin transaction! ThreadId: 1739
+2026-01-06 02:57:22 [debug]: MySQL pool is committed! ThreadId: 1739
+2026-01-06 02:57:22 [debug]: MySQL pool is released! ThreadId: 1739
+2026-01-06 02:57:22 [debug]: MySQL pool is connected! ThreadId:1739
+2026-01-06 02:57:22 [debug]: MySQL pool is connected! ThreadId:1740
+2026-01-06 02:57:22 [debug]: MySQL pool is begin transaction! ThreadId: 1740
+2026-01-06 02:57:22 [debug]: MySQL pool is committed! ThreadId: 1740
+2026-01-06 02:57:22 [debug]: MySQL pool is released! ThreadId: 1740
+2026-01-06 02:57:24 [debug]: MySQL pool is connected! ThreadId:1740
+2026-01-06 02:57:24 [debug]: MySQL pool is connected! ThreadId:1741
+2026-01-06 02:57:24 [debug]: MySQL pool is begin transaction! ThreadId: 1741
+2026-01-06 02:57:24 [debug]: MySQL pool is committed! ThreadId: 1741
+2026-01-06 02:57:24 [debug]: MySQL pool is released! ThreadId: 1741
+2026-01-06 02:57:29 [debug]: MySQL pool is connected! ThreadId:1741
+2026-01-06 02:57:29 [debug]: MySQL pool is connected! ThreadId:1742
+2026-01-06 02:57:29 [debug]: MySQL pool is begin transaction! ThreadId: 1742
+2026-01-06 02:57:29 [debug]:
+Error loading event script:
+{}
+2026-01-06 02:57:29 [debug]: MySQL pool is roll back! ThreadId: 1742
+2026-01-06 02:57:29 [debug]: MySQL pool is released! ThreadId: 1742
+2026-01-06 02:57:34 [debug]: MySQL pool is connected! ThreadId:1742
+2026-01-06 02:57:34 [debug]: MySQL pool is connected! ThreadId:1743
+2026-01-06 02:57:34 [debug]: MySQL pool is begin transaction! ThreadId: 1743
+2026-01-06 02:57:34 [debug]: MySQL pool is committed! ThreadId: 1743
+2026-01-06 02:57:34 [debug]: MySQL pool is released! ThreadId: 1743
+2026-01-06 02:57:36 [debug]: MySQL pool is connected! ThreadId:1743
+2026-01-06 02:57:36 [debug]: MySQL pool is connected! ThreadId:1744
+2026-01-06 02:57:36 [debug]: MySQL pool is begin transaction! ThreadId: 1744
+2026-01-06 02:57:36 [debug]:
+Error loading event script:
+{}
+2026-01-06 02:57:36 [debug]: MySQL pool is roll back! ThreadId: 1744
+2026-01-06 02:57:36 [debug]: MySQL pool is released! ThreadId: 1744
+ Efors v0.0.1
+
+2026-01-06 02:58:38 [debug]: Initializing Middlewares...
+2026-01-06 02:58:43 [debug]: Initializing MySQL pool...
+2026-01-06 02:58:43 [debug]: MySQL pool is Initialized!
+2026-01-06 02:58:43 [debug]: MySQL pool is connected! ThreadId:1745
+2026-01-06 02:58:44 [debug]: MySQL pool is connected! ThreadId:1746
+2026-01-06 02:58:44 [debug]: MySQL pool is begin transaction! ThreadId: 1746
+2026-01-06 02:58:44 [debug]: MySQL pool is committed! ThreadId: 1746
+2026-01-06 02:58:44 [debug]: MySQL pool is released! ThreadId: 1746
+2026-01-06 02:58:45 [debug]: MySQL pool is connected! ThreadId:1746
+2026-01-06 02:58:45 [debug]: MySQL pool is connected! ThreadId:1747
+2026-01-06 02:58:45 [debug]: MySQL pool is begin transaction! ThreadId: 1747
+2026-01-06 02:58:45 [debug]:
+Error loading event script:
+{}
+2026-01-06 02:58:45 [debug]: MySQL pool is roll back! ThreadId: 1747
+2026-01-06 02:58:45 [debug]: MySQL pool is released! ThreadId: 1747
+ Efors v0.0.1
+
+2026-01-06 02:59:34 [debug]: Initializing Middlewares...
+2026-01-06 02:59:39 [debug]: Initializing MySQL pool...
+2026-01-06 02:59:39 [debug]: MySQL pool is Initialized!
+2026-01-06 02:59:39 [debug]: MySQL pool is connected! ThreadId:1748
+2026-01-06 02:59:39 [debug]: MySQL pool is connected! ThreadId:1749
+2026-01-06 02:59:39 [debug]: MySQL pool is begin transaction! ThreadId: 1749
+2026-01-06 02:59:39 [debug]: MySQL pool is committed! ThreadId: 1749
+2026-01-06 02:59:39 [debug]: MySQL pool is released! ThreadId: 1749
+2026-01-06 02:59:41 [debug]: MySQL pool is connected! ThreadId:1749
+2026-01-06 02:59:41 [debug]: MySQL pool is connected! ThreadId:1750
+2026-01-06 02:59:41 [debug]: MySQL pool is begin transaction! ThreadId: 1750
+2026-01-06 02:59:41 [debug]: MySQL pool is committed! ThreadId: 1750
+2026-01-06 02:59:41 [debug]: MySQL pool is released! ThreadId: 1750
+ Efors v0.0.1
+
+2026-01-06 02:59:54 [debug]: Initializing Middlewares...
+2026-01-06 03:03:47 [debug]: Initializing MySQL pool...
+2026-01-06 03:03:47 [debug]: MySQL pool is Initialized!
+2026-01-06 03:03:47 [debug]: MySQL pool is connected! ThreadId:1751
+2026-01-06 03:03:47 [debug]: MySQL pool is connected! ThreadId:1752
+2026-01-06 03:03:47 [debug]: MySQL pool is connected! ThreadId:1753
+2026-01-06 03:03:47 [debug]: MySQL pool is begin transaction! ThreadId: 1753
+2026-01-06 03:03:47 [debug]: MySQL pool is committed! ThreadId: 1753
+2026-01-06 03:03:47 [debug]: MySQL pool is released! ThreadId: 1753
+2026-01-06 03:04:08 [debug]: MySQL pool is connected! ThreadId:1753
+2026-01-06 03:04:08 [debug]: MySQL pool is connected! ThreadId:1754
+2026-01-06 03:04:08 [debug]: MySQL pool is begin transaction! ThreadId: 1754
+2026-01-06 03:04:08 [debug]: MySQL pool is committed! ThreadId: 1754
+2026-01-06 03:04:08 [debug]: MySQL pool is released! ThreadId: 1754
+2026-01-06 03:05:03 [debug]: MySQL pool is connected! ThreadId:1754
+2026-01-06 03:05:04 [debug]: MySQL pool is connected! ThreadId:1755
+2026-01-06 03:05:04 [debug]: MySQL pool is connected! ThreadId:1756
+2026-01-06 03:05:04 [debug]: MySQL pool is begin transaction! ThreadId: 1756
+2026-01-06 03:05:04 [debug]: MySQL pool is committed! ThreadId: 1756
+2026-01-06 03:05:04 [debug]: MySQL pool is released! ThreadId: 1756
+2026-01-06 03:05:12 [debug]: MySQL pool is connected! ThreadId:1756
+2026-01-06 03:05:12 [debug]: MySQL pool is connected! ThreadId:1757
+2026-01-06 03:05:12 [debug]: MySQL pool is begin transaction! ThreadId: 1757
+2026-01-06 03:05:12 [debug]: MySQL pool is committed! ThreadId: 1757
+2026-01-06 03:05:12 [debug]: MySQL pool is released! ThreadId: 1757
+ Efors v0.0.1
+
+2026-01-06 03:05:34 [debug]: Initializing Middlewares...
+ Efors v0.0.1
+
+2026-01-06 03:05:41 [debug]: Initializing Middlewares...
+2026-01-06 03:06:36 [debug]: Initializing MySQL pool...
+2026-01-06 03:06:36 [debug]: MySQL pool is Initialized!
+2026-01-06 03:06:36 [debug]: MySQL pool is connected! ThreadId:1758
+2026-01-06 03:06:36 [debug]: MySQL pool is connected! ThreadId:1759
+2026-01-06 03:06:36 [debug]: MySQL pool is connected! ThreadId:1760
+2026-01-06 03:06:36 [debug]: MySQL pool is begin transaction! ThreadId: 1760
+2026-01-06 03:06:36 [debug]: MySQL pool is committed! ThreadId: 1760
+2026-01-06 03:06:36 [debug]: MySQL pool is released! ThreadId: 1760
+2026-01-06 03:06:39 [debug]: MySQL pool is connected! ThreadId:1760
+2026-01-06 03:06:39 [debug]: MySQL pool is connected! ThreadId:1761
+2026-01-06 03:06:39 [debug]: MySQL pool is begin transaction! ThreadId: 1761
+2026-01-06 03:06:39 [debug]: MySQL pool is committed! ThreadId: 1761
+2026-01-06 03:06:39 [debug]: MySQL pool is released! ThreadId: 1761
+ Efors v0.0.1
+
+2026-01-06 03:07:45 [debug]: Initializing Middlewares...
+2026-01-06 03:07:47 [debug]: Initializing MySQL pool...
+2026-01-06 03:07:47 [debug]: MySQL pool is Initialized!
+2026-01-06 03:07:47 [debug]: MySQL pool is connected! ThreadId:1762
+2026-01-06 03:07:47 [debug]: MySQL pool is connected! ThreadId:1763
+2026-01-06 03:07:47 [debug]: MySQL pool is connected! ThreadId:1764
+2026-01-06 03:07:47 [debug]: MySQL pool is begin transaction! ThreadId: 1764
+2026-01-06 03:07:47 [debug]: MySQL pool is committed! ThreadId: 1764
+2026-01-06 03:07:47 [debug]: MySQL pool is released! ThreadId: 1764
+2026-01-06 03:07:50 [debug]: MySQL pool is connected! ThreadId:1764
+2026-01-06 03:07:50 [debug]: MySQL pool is connected! ThreadId:1765
+2026-01-06 03:07:50 [debug]: MySQL pool is begin transaction! ThreadId: 1765
+2026-01-06 03:07:50 [debug]: MySQL pool is committed! ThreadId: 1765
+2026-01-06 03:07:50 [debug]: MySQL pool is released! ThreadId: 1765
+ Efors v0.0.1
+
+2026-01-06 03:09:32 [debug]: Initializing Middlewares...
+2026-01-06 03:09:35 [debug]: Initializing MySQL pool...
+2026-01-06 03:09:35 [debug]: MySQL pool is Initialized!
+2026-01-06 03:09:35 [debug]: MySQL pool is connected! ThreadId:1766
+2026-01-06 03:09:35 [debug]: MySQL pool is connected! ThreadId:1767
+2026-01-06 03:09:35 [debug]: MySQL pool is connected! ThreadId:1768
+2026-01-06 03:09:35 [debug]: MySQL pool is begin transaction! ThreadId: 1768
+2026-01-06 03:09:35 [debug]: MySQL pool is committed! ThreadId: 1768
+2026-01-06 03:09:35 [debug]: MySQL pool is released! ThreadId: 1768
+2026-01-06 03:09:43 [debug]: MySQL pool is connected! ThreadId:1768
+2026-01-06 03:09:43 [debug]: MySQL pool is connected! ThreadId:1769
+2026-01-06 03:09:43 [debug]: MySQL pool is begin transaction! ThreadId: 1769
+2026-01-06 03:09:43 [debug]: MySQL pool is committed! ThreadId: 1769
+2026-01-06 03:09:43 [debug]: MySQL pool is released! ThreadId: 1769
+2026-01-06 03:09:55 [debug]: MySQL pool is connected! ThreadId:1769
+2026-01-06 03:09:55 [debug]: MySQL pool is connected! ThreadId:1770
+2026-01-06 03:09:55 [debug]: MySQL pool is begin transaction! ThreadId: 1770
+2026-01-06 03:09:55 [debug]: MySQL pool is committed! ThreadId: 1770
+2026-01-06 03:09:55 [debug]: MySQL pool is released! ThreadId: 1770
+2026-01-06 03:09:56 [debug]: MySQL pool is connected! ThreadId:1770
+2026-01-06 03:09:56 [debug]: MySQL pool is connected! ThreadId:1771
+2026-01-06 03:09:56 [debug]: MySQL pool is begin transaction! ThreadId: 1771
+2026-01-06 03:09:56 [debug]: MySQL pool is committed! ThreadId: 1771
+2026-01-06 03:09:56 [debug]: MySQL pool is released! ThreadId: 1771
+ Efors v0.0.1
+
+2026-01-06 03:11:48 [debug]: Initializing Middlewares...
+2026-01-06 03:11:56 [debug]: Initializing MySQL pool...
+2026-01-06 03:11:56 [debug]: MySQL pool is Initialized!
+2026-01-06 03:11:56 [debug]: MySQL pool is connected! ThreadId:1772
+2026-01-06 03:11:56 [debug]: MySQL pool is connected! ThreadId:1773
+2026-01-06 03:11:56 [debug]: MySQL pool is connected! ThreadId:1774
+2026-01-06 03:11:56 [debug]: MySQL pool is begin transaction! ThreadId: 1774
+2026-01-06 03:11:56 [debug]: MySQL pool is committed! ThreadId: 1774
+2026-01-06 03:11:56 [debug]: MySQL pool is released! ThreadId: 1774
+2026-01-06 03:11:59 [debug]: MySQL pool is connected! ThreadId:1774
+2026-01-06 03:11:59 [debug]: MySQL pool is connected! ThreadId:1775
+2026-01-06 03:11:59 [debug]: MySQL pool is begin transaction! ThreadId: 1775
+2026-01-06 03:11:59 [debug]: MySQL pool is committed! ThreadId: 1775
+2026-01-06 03:11:59 [debug]: MySQL pool is released! ThreadId: 1775
+ Efors v0.0.1
+
+2026-01-06 03:12:07 [debug]: Initializing Middlewares...
+2026-01-06 03:12:37 [debug]: Initializing MySQL pool...
+2026-01-06 03:12:37 [debug]: MySQL pool is Initialized!
+2026-01-06 03:12:37 [debug]: MySQL pool is connected! ThreadId:1776
+2026-01-06 03:12:37 [debug]: MySQL pool is connected! ThreadId:1777
+2026-01-06 03:12:37 [debug]: MySQL pool is connected! ThreadId:1778
+2026-01-06 03:12:37 [debug]: MySQL pool is begin transaction! ThreadId: 1778
+2026-01-06 03:12:37 [debug]: MySQL pool is committed! ThreadId: 1778
+2026-01-06 03:12:37 [debug]: MySQL pool is released! ThreadId: 1778
+2026-01-06 03:12:41 [debug]: MySQL pool is connected! ThreadId:1778
+2026-01-06 03:12:41 [debug]: MySQL pool is connected! ThreadId:1779
+2026-01-06 03:12:41 [debug]: MySQL pool is begin transaction! ThreadId: 1779
+2026-01-06 03:12:42 [debug]: MySQL pool is committed! ThreadId: 1779
+2026-01-06 03:12:42 [debug]: MySQL pool is released! ThreadId: 1779
+2026-01-06 03:12:47 [debug]: MySQL pool is connected! ThreadId:1779
+2026-01-06 03:12:47 [debug]: MySQL pool is connected! ThreadId:1780
+2026-01-06 03:12:47 [debug]: MySQL pool is begin transaction! ThreadId: 1780
+2026-01-06 03:12:47 [debug]: MySQL pool is committed! ThreadId: 1780
+2026-01-06 03:12:47 [debug]: MySQL pool is released! ThreadId: 1780
+2026-01-06 03:12:49 [debug]: MySQL pool is connected! ThreadId:1780
+2026-01-06 03:12:49 [debug]: MySQL pool is connected! ThreadId:1781
+2026-01-06 03:12:49 [debug]: MySQL pool is begin transaction! ThreadId: 1781
+2026-01-06 03:12:49 [debug]: MySQL pool is committed! ThreadId: 1781
+2026-01-06 03:12:49 [debug]: MySQL pool is released! ThreadId: 1781
+ Efors v0.0.1
+
+2026-01-06 03:13:36 [debug]: Initializing Middlewares...
+2026-01-06 03:13:40 [debug]: Initializing MySQL pool...
+2026-01-06 03:13:40 [debug]: MySQL pool is Initialized!
+2026-01-06 03:13:40 [debug]: MySQL pool is connected! ThreadId:1782
+2026-01-06 03:13:41 [debug]: MySQL pool is connected! ThreadId:1783
+2026-01-06 03:13:41 [debug]: MySQL pool is connected! ThreadId:1784
+2026-01-06 03:13:41 [debug]: MySQL pool is begin transaction! ThreadId: 1784
+2026-01-06 03:13:41 [debug]: MySQL pool is committed! ThreadId: 1784
+2026-01-06 03:13:41 [debug]: MySQL pool is released! ThreadId: 1784
+2026-01-06 03:13:45 [debug]: MySQL pool is connected! ThreadId:1784
+2026-01-06 03:13:45 [debug]: MySQL pool is connected! ThreadId:1785
+2026-01-06 03:13:45 [debug]: MySQL pool is begin transaction! ThreadId: 1785
+2026-01-06 03:13:45 [debug]: MySQL pool is committed! ThreadId: 1785
+2026-01-06 03:13:45 [debug]: MySQL pool is released! ThreadId: 1785
+2026-01-06 03:22:49 [debug]: MySQL pool is connected! ThreadId:1785
+2026-01-06 03:22:49 [debug]: [401]Authorization token is expired.
+2026-01-06 03:22:49 [debug]: MySQL pool is released! ThreadId: 1785
+2026-01-06 03:22:49 [debug]: MySQL pool is connected! ThreadId:1785
+2026-01-06 03:22:49 [debug]: MySQL pool is connected! ThreadId:1786
+2026-01-06 03:22:49 [debug]: MySQL pool is begin transaction! ThreadId: 1786
+2026-01-06 03:22:49 [debug]: MySQL pool is committed! ThreadId: 1786
+2026-01-06 03:22:49 [debug]: MySQL pool is released! ThreadId: 1786
+2026-01-06 03:22:49 [debug]: MySQL pool is connected! ThreadId:1786
+2026-01-06 03:22:49 [debug]: MySQL pool is connected! ThreadId:1787
+2026-01-06 03:22:49 [debug]: MySQL pool is begin transaction! ThreadId: 1787
+2026-01-06 03:22:49 [debug]: MySQL pool is committed! ThreadId: 1787
+2026-01-06 03:22:49 [debug]: MySQL pool is released! ThreadId: 1787
+2026-01-06 03:22:51 [debug]: MySQL pool is connected! ThreadId:1787
+2026-01-06 03:22:51 [debug]: MySQL pool is connected! ThreadId:1788
+2026-01-06 03:22:51 [debug]: MySQL pool is begin transaction! ThreadId: 1788
+2026-01-06 03:22:51 [debug]: MySQL pool is committed! ThreadId: 1788
+2026-01-06 03:22:51 [debug]: MySQL pool is released! ThreadId: 1788
+2026-01-06 03:22:52 [debug]: MySQL pool is connected! ThreadId:1788
+2026-01-06 03:22:52 [debug]: MySQL pool is connected! ThreadId:1789
+2026-01-06 03:22:52 [debug]: MySQL pool is begin transaction! ThreadId: 1789
+2026-01-06 03:22:52 [debug]: MySQL pool is committed! ThreadId: 1789
+2026-01-06 03:22:52 [debug]: MySQL pool is released! ThreadId: 1789
+2026-01-06 03:22:54 [debug]: MySQL pool is connected! ThreadId:1789
+2026-01-06 03:22:54 [debug]: MySQL pool is connected! ThreadId:1790
+2026-01-06 03:22:54 [debug]: MySQL pool is begin transaction! ThreadId: 1790
+2026-01-06 03:22:54 [debug]: MySQL pool is committed! ThreadId: 1790
+2026-01-06 03:22:54 [debug]: MySQL pool is released! ThreadId: 1790
+ Efors v0.0.1
+
+2026-01-06 03:25:54 [debug]: Initializing Middlewares...
+2026-01-06 03:29:17 [debug]: Initializing MySQL pool...
+2026-01-06 03:29:17 [debug]: MySQL pool is Initialized!
+2026-01-06 03:29:17 [debug]: MySQL pool is connected! ThreadId:1791
+2026-01-06 03:29:17 [debug]: MySQL pool is connected! ThreadId:1792
+2026-01-06 03:29:17 [debug]: MySQL pool is connected! ThreadId:1793
+2026-01-06 03:29:17 [debug]: MySQL pool is begin transaction! ThreadId: 1793
+2026-01-06 03:29:18 [debug]: MySQL pool is committed! ThreadId: 1793
+2026-01-06 03:29:18 [debug]: MySQL pool is released! ThreadId: 1793
+2026-01-06 03:29:21 [debug]: MySQL pool is connected! ThreadId:1793
+2026-01-06 03:29:21 [debug]: MySQL pool is connected! ThreadId:1794
+2026-01-06 03:29:21 [debug]: MySQL pool is begin transaction! ThreadId: 1794
+2026-01-06 03:29:21 [debug]: MySQL pool is committed! ThreadId: 1794
+2026-01-06 03:29:21 [debug]: MySQL pool is released! ThreadId: 1794
+ Efors v0.0.1
+
+2026-01-06 03:30:20 [debug]: Initializing Middlewares...
+2026-01-06 03:33:11 [debug]: Initializing MySQL pool...
+2026-01-06 03:33:11 [debug]: MySQL pool is Initialized!
+2026-01-06 03:33:11 [debug]: MySQL pool is connected! ThreadId:1795
+2026-01-06 03:33:11 [debug]: MySQL pool is connected! ThreadId:1796
+2026-01-06 03:33:11 [debug]: MySQL pool is connected! ThreadId:1797
+2026-01-06 03:33:11 [debug]: MySQL pool is begin transaction! ThreadId: 1797
+2026-01-06 03:33:11 [debug]: MySQL pool is committed! ThreadId: 1797
+2026-01-06 03:33:11 [debug]: MySQL pool is released! ThreadId: 1797
+2026-01-06 03:33:15 [debug]: MySQL pool is connected! ThreadId:1797
+2026-01-06 03:33:15 [debug]: MySQL pool is connected! ThreadId:1798
+2026-01-06 03:33:15 [debug]: MySQL pool is begin transaction! ThreadId: 1798
+2026-01-06 03:33:16 [debug]: MySQL pool is committed! ThreadId: 1798
+2026-01-06 03:33:16 [debug]: MySQL pool is released! ThreadId: 1798
+ Efors v0.0.1
+
+2026-01-06 03:35:57 [debug]: Initializing Middlewares...
+2026-01-06 03:36:05 [debug]: Initializing MySQL pool...
+2026-01-06 03:36:05 [debug]: MySQL pool is Initialized!
+2026-01-06 03:36:05 [debug]: MySQL pool is connected! ThreadId:1799
+2026-01-06 03:36:05 [debug]: MySQL pool is connected! ThreadId:1800
+2026-01-06 03:36:05 [debug]: MySQL pool is begin transaction! ThreadId: 1800
+2026-01-06 03:36:05 [debug]: MySQL pool is committed! ThreadId: 1800
+2026-01-06 03:36:05 [debug]: MySQL pool is released! ThreadId: 1800
+2026-01-06 03:36:06 [debug]: MySQL pool is connected! ThreadId:1800
+2026-01-06 03:36:06 [debug]: MySQL pool is connected! ThreadId:1801
+2026-01-06 03:36:06 [debug]: MySQL pool is begin transaction! ThreadId: 1801
+2026-01-06 03:36:06 [debug]: MySQL pool is committed! ThreadId: 1801
+2026-01-06 03:36:06 [debug]: MySQL pool is released! ThreadId: 1801
+ Efors v0.0.1
+
+2026-01-06 03:39:40 [debug]: Initializing Middlewares...
+2026-01-06 03:40:08 [debug]: Initializing MySQL pool...
+2026-01-06 03:40:08 [debug]: MySQL pool is Initialized!
+2026-01-06 03:40:08 [debug]: MySQL pool is connected! ThreadId:1802
+2026-01-06 03:40:08 [debug]: MySQL pool is connected! ThreadId:1803
+2026-01-06 03:40:08 [debug]: MySQL pool is connected! ThreadId:1804
+2026-01-06 03:40:08 [debug]: MySQL pool is begin transaction! ThreadId: 1804
+2026-01-06 03:40:08 [debug]: MySQL pool is committed! ThreadId: 1804
+2026-01-06 03:40:08 [debug]: MySQL pool is released! ThreadId: 1804
+2026-01-06 03:40:11 [debug]: MySQL pool is connected! ThreadId:1804
+2026-01-06 03:40:11 [debug]: MySQL pool is connected! ThreadId:1805
+2026-01-06 03:40:11 [debug]: MySQL pool is begin transaction! ThreadId: 1805
+2026-01-06 03:40:11 [debug]: MySQL pool is committed! ThreadId: 1805
+2026-01-06 03:40:11 [debug]: MySQL pool is released! ThreadId: 1805
+ Efors v0.0.1
+
+2026-01-06 03:41:42 [debug]: Initializing Middlewares...
+2026-01-06 03:41:58 [debug]: Initializing MySQL pool...
+2026-01-06 03:41:58 [debug]: MySQL pool is Initialized!
+2026-01-06 03:41:58 [debug]: MySQL pool is connected! ThreadId:1806
+2026-01-06 03:41:58 [debug]: MySQL pool is connected! ThreadId:1807
+2026-01-06 03:41:58 [debug]: MySQL pool is connected! ThreadId:1808
+2026-01-06 03:41:58 [debug]: MySQL pool is begin transaction! ThreadId: 1808
+2026-01-06 03:41:58 [debug]: MySQL pool is committed! ThreadId: 1808
+2026-01-06 03:41:58 [debug]: MySQL pool is released! ThreadId: 1808
+2026-01-06 03:42:03 [debug]: MySQL pool is connected! ThreadId:1808
+2026-01-06 03:42:03 [debug]: MySQL pool is connected! ThreadId:1809
+2026-01-06 03:42:03 [debug]: MySQL pool is begin transaction! ThreadId: 1809
+2026-01-06 03:42:04 [debug]: MySQL pool is committed! ThreadId: 1809
+2026-01-06 03:42:04 [debug]: MySQL pool is released! ThreadId: 1809
+ Efors v0.0.1
+
+2026-01-06 03:42:38 [debug]: Initializing Middlewares...
+2026-01-06 03:42:50 [debug]: Initializing MySQL pool...
+2026-01-06 03:42:50 [debug]: MySQL pool is Initialized!
+2026-01-06 03:42:50 [debug]: MySQL pool is connected! ThreadId:1810
+2026-01-06 03:42:50 [debug]: MySQL pool is connected! ThreadId:1811
+2026-01-06 03:42:50 [debug]: MySQL pool is connected! ThreadId:1812
+2026-01-06 03:42:50 [debug]: MySQL pool is begin transaction! ThreadId: 1812
+2026-01-06 03:42:50 [debug]: MySQL pool is committed! ThreadId: 1812
+2026-01-06 03:42:50 [debug]: MySQL pool is released! ThreadId: 1812
+2026-01-06 03:42:54 [debug]: MySQL pool is connected! ThreadId:1812
+2026-01-06 03:42:54 [debug]: MySQL pool is connected! ThreadId:1813
+2026-01-06 03:42:54 [debug]: MySQL pool is begin transaction! ThreadId: 1813
+2026-01-06 03:42:54 [debug]: MySQL pool is committed! ThreadId: 1813
+2026-01-06 03:42:54 [debug]: MySQL pool is released! ThreadId: 1813
+ Efors v0.0.1
+
+2026-01-06 03:43:47 [debug]: Initializing Middlewares...
+2026-01-06 03:43:49 [debug]: Initializing MySQL pool...
+2026-01-06 03:43:49 [debug]: MySQL pool is Initialized!
+2026-01-06 03:43:49 [debug]: MySQL pool is connected! ThreadId:1814
+2026-01-06 03:43:49 [debug]: MySQL pool is connected! ThreadId:1815
+2026-01-06 03:43:49 [debug]: MySQL pool is connected! ThreadId:1816
+2026-01-06 03:43:49 [debug]: MySQL pool is begin transaction! ThreadId: 1816
+2026-01-06 03:43:49 [debug]: MySQL pool is committed! ThreadId: 1816
+2026-01-06 03:43:49 [debug]: MySQL pool is released! ThreadId: 1816
+2026-01-06 03:43:55 [debug]: MySQL pool is connected! ThreadId:1816
+2026-01-06 03:43:55 [debug]: MySQL pool is connected! ThreadId:1817
+2026-01-06 03:43:55 [debug]: MySQL pool is begin transaction! ThreadId: 1817
+2026-01-06 03:43:56 [debug]: MySQL pool is committed! ThreadId: 1817
+2026-01-06 03:43:56 [debug]: MySQL pool is released! ThreadId: 1817
+2026-01-06 03:45:27 [debug]: MySQL pool is connected! ThreadId:1817
+2026-01-06 03:45:27 [debug]: MySQL pool is connected! ThreadId:1818
+2026-01-06 03:45:27 [debug]: MySQL pool is connected! ThreadId:1819
+2026-01-06 03:45:27 [debug]: MySQL pool is begin transaction! ThreadId: 1819
+2026-01-06 03:45:27 [debug]: MySQL pool is committed! ThreadId: 1819
+2026-01-06 03:45:27 [debug]: MySQL pool is released! ThreadId: 1819
+2026-01-06 03:45:29 [debug]: MySQL pool is connected! ThreadId:1819
+2026-01-06 03:45:29 [debug]: MySQL pool is connected! ThreadId:1820
+2026-01-06 03:45:29 [debug]: MySQL pool is begin transaction! ThreadId: 1820
+2026-01-06 03:45:29 [debug]: MySQL pool is committed! ThreadId: 1820
+2026-01-06 03:45:29 [debug]: MySQL pool is released! ThreadId: 1820

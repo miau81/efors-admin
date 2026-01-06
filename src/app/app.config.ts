@@ -10,7 +10,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppInitService } from './services/app-init.service';
 import { SERVER_HOST } from './app.tokens';
-import { httpInterceptor  } from './interceptors/http.interceptor';
+import { httpInterceptor } from './interceptors/http.interceptor';
+import { DOCUMENT_SCRIPTS } from './doctype/doctype';
+import { SalesInvoice } from './doctype/sales-invoice';
+import { SalesInvoiceItem } from './doctype/sales-invoice_item';
 // import { NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
 
 export const appConfig: ApplicationConfig = {
@@ -27,7 +30,9 @@ export const appConfig: ApplicationConfig = {
       }
     })),
     { provide: SERVER_HOST, useValue: "./" },
-    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor , multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
+    { provide: DOCUMENT_SCRIPTS, useClass: SalesInvoice, multi: true },
+    { provide: DOCUMENT_SCRIPTS, useClass: SalesInvoiceItem, multi: true },
     // provideEnvironmentNgxCurrency({
     //   align: "right",
     //   allowNegative: true,
@@ -41,12 +46,12 @@ export const appConfig: ApplicationConfig = {
     //   max: null,
     //   inputMode: NgxCurrencyInputMode.Natural,
     // }),
-  
+
     provideAppInitializer(() => {
       const initializerFn = (InitializeApp)(inject(AppInitService));
       return initializerFn();
     }),
-  
+
   ]
 };
 

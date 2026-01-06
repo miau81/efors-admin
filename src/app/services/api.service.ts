@@ -18,37 +18,37 @@ export class ApiService {
   ///////////Document Document Type aand Workspace////////////
 
   getConfig<T>(type: 'workspace' | 'workspace-nav' | 'datagrid' | 'form', docType: string): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/config/${type}/${docType}`));
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/config/${type}/${docType}`));
   }
 
   getDocuments<T>(docType: string, params: any): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}`, { params: params }));
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/document/${docType}`, { params: params }));
   }
 
-  getDocumentByField<T>(docType: string, field: string, value: any, params?: any): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/${docType}/${field}/${value}`, { params: params }));
+  getDocument<T>(docType: string, id: string, params?: any): Promise<T> {
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/document/${docType}/${id}`, { params: params }));
   }
 
   createDocument<T>(docType: string, body: any): Promise<T> {
 
-    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/${docType}`, body));
+    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/document/${docType}`, body));
   }
 
-  updateDocumentByField<T>(docType: string, field: string, value: any, body: any): Promise<T> {
-    return firstValueFrom(this.http.put<T>(`${this.apiUrl}/admin/document/${docType}/${field}/${value}`, body));
+  updateDocument<T>(docType: string, id: string, body: any): Promise<T> {
+    return firstValueFrom(this.http.put<T>(`${this.apiUrl}/document/${docType}/${id}`, body));
   }
 
   getDocumentType<T>(docType: string): Promise<T> {
-    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/admin/document/type/${docType}`));
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/document/type/${docType}`));
   }
 
   runEventScript<T>(docType: string, body: any, params?: any): Promise<T> {
-    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/document/event/${docType}`, body,{ params: params }));
+    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/document/event/${docType}`, body,{ params: params }));
   }
 
   /////////////////////// User ////////////////////////
   login<T>(body: { loginId: string, password: string }): Promise<T> {
-    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/login`, body));
+    return firstValueFrom(this.http.post<T>(`${this.apiUrl}/auth/login`, body));
   }
 
   getNewToken<T = any>(refreshToken: string): Promise<T> {
@@ -58,19 +58,19 @@ export class ApiService {
   }
 
   ////////////////////////// File //////////////////////////////
-  generatePdf(body: any): Promise<any> {
-    let requestURL = `${this.apiUrl}/public/file/generate-pdf`;
-    return firstValueFrom(this.http.post(requestURL, body, { responseType: "blob" }));
-  }
+  // generatePdf(body: any): Promise<any> {
+  //   let requestURL = `${this.apiUrl}/public/file/generate-pdf`;
+  //   return firstValueFrom(this.http.post(requestURL, body, { responseType: "blob" }));
+  // }
 
-  generateReport(body: any): Promise<any> {
-    let requestURL = `${this.apiUrl}/admin/report/generate-report`;
-    const options: any = body.reportType == 'html' ? {} : { responseType: "blob" };
-    return firstValueFrom(this.http.post(requestURL, body, options));
-  }
+  // generateReport(body: any): Promise<any> {
+  //   let requestURL = `${this.apiUrl}/report/generate-report`;
+  //   const options: any = body.reportType == 'html' ? {} : { responseType: "blob" };
+  //   return firstValueFrom(this.http.post(requestURL, body, options));
+  // }
 
   htmlToFile(body: any): Promise<any> {
-    let requestURL = `${this.apiUrl}/admin/report/html-to-file`;
+    let requestURL = `${this.apiUrl}/report/html-to-file`;
     const options: any = body.reportType == 'html' ? {} : { responseType: "blob" };
     return firstValueFrom(this.http.post(requestURL, body, options));
   }

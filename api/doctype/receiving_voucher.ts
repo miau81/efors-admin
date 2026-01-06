@@ -42,7 +42,7 @@ export const documentType = (() => {
             {
                 id: 'partyId', type: 'dropdown', formComponentType: "select", options: [], canView: true, mandatory: true,
                 showInTable: true, showInForm: true, sectionId: 'sectionDetails',
-                label: '{"en":"Receive From Party"}'
+                label: '{"en":"Received From Party"}'
             },
             { id: 'postingDate', type: 'datetime', mandatory: true, label: '{"en":"Posting Date"}', showInTable: true, showInForm: true, showInFilter: true, sectionId: 'sectionDetails' },
             {
@@ -54,7 +54,7 @@ export const documentType = (() => {
             { id: 'refNo', type: 'text', label: '{"en":"Reference No"}', showInForm: true, sectionId: 'sectionDetails' },
             { id: 'refDate', type: 'date', label: '{"en":"Reference Date"}', showInForm: true, sectionId: 'sectionDetails' },
 
-            { id: 'description',mandatory:false, type: "text", label: '{"en":"Description"}',  sectionId: 'sectionDetails', formColumnSize:'col-12' },
+            { id: 'description',mandatory:true, type: "text", label: '{"en":"Description"}',  showInForm: true,sectionId: 'sectionDetails', formColumnSize:'col-12' },
 
             { id: 'remark', type: "textarea", label: '{"en":"Remark"}', showInForm: true, sectionId: 'sectionDetails',formColumnSize:'col-12' },
 

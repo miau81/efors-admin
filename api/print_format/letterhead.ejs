@@ -6,12 +6,15 @@ let address=[company.address1,company.address2,company.address3,`${company.postc
 address= address.filter(a=>a).join(", ");;
 %>
 <div class="font-medium">
-  <div class="m-0 h5"><strong><%= company.companyName %></strong></div>
-  <span class="font-small"> (<%= company.businessRegNo %>)</span><br />
+  <div class="m-0 h5"><strong><%= company.companyName %></strong>
+  <span class="font-small"> (<%= company.businessRegNo %>)</span>
+  </div>
   <span> <%= address %></span><br />
   <span> Tin No: <%= company.tinNo %></span><br />
-  <% if(company.email){ %> <span>email: <%= company.email %> </span><% } %><br />
-  <% if(company.contactNo){ %><span>contact: <%= company.contactNo %> </span><% } %><br />
+  <div class="gap-3 d-flex">
+  <% if(company.email){ %> <span>Email: <%= company.email %> </span><% } %>
+  <% if(company.contactNo){ %><span>Contact: <%= company.contactNo %> </span><% } %><br />
+  </div>
   <hr />
 </div>
 

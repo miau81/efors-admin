@@ -1,20 +1,17 @@
 import dayjs from "dayjs";
-import { ConnectionAction } from "../../src/api/interfaces/api.db.interface";
-import { ApiRequestMethod } from "../../src/api/interfaces/api.enum";
-import { ApiParam, ApiSaveParam } from "../../src/api/interfaces/api.main.interface";
-import { ApiGlobalService } from "../../src/api/services/api.global.service";
 import { AccountTransaction, TransactionUtilService } from "./trnx_util.event";
+import { SRequest } from "../../src/api/interfaces/api.route.interface";
 
-const globalService = new ApiGlobalService();
+
 const tranxUtil = new TransactionUtilService();
 
-export async function onPrint(params: ApiParam, mysqlConn: ConnectionAction) {
-    const body = params.body.data;
-    const data = await globalService.getSingleDocument({ ...params }, `WHERE id='${body.id}'`, mysqlConn);
+export async function onPrint(data:string, req:SRequest) {
+    const body = req.body.data;
+    // const data = await globalService.getSingleDocument({ ...params }, `WHERE id='${body.id}'`, mysqlConn);
     return data;
 }
 
-export async function afterSubmit(data: any, params: ApiParam, docType: DocumentType, mysqlConn: ConnectionAction, previousData?: any) {
+export async function afterSubmit(data: any, previousData: any,req:SRequest) {
     if (previousData?.docStatus != 'DRAFT') {
         return data;
     }
@@ -27,12 +24,13 @@ export async function afterSubmit(data: any, params: ApiParam, docType: Document
         refDoc: "Purchase Invoice",
         refNo: previousData.id,
         amount: previousData.grandTotal,
-        postingDate: previousData.postingDate
+        postingDate: previousData.postingDate,
+        companyId : req.com
     }
-    await tranxUtil.insertAcctTranx("SUPPLIER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 }
 
-export async function afterCancel(data: any, params: ApiParam, docType: DocumentType, mysqlConn: ConnectionAction, previousData?: any) {
+export async function afterCancel(data: any,previousData: any,req:SRequest) {
     if (previousData?.docStatus != 'SUBMIT') {
         return data;
     }
@@ -45,9 +43,10 @@ export async function afterCancel(data: any, params: ApiParam, docType: Document
         refDoc: "Purchase Invoice",
         refNo: data.id,
         amount: previousData.grandTotal,
-        postingDate: dayjs().format("YYYY-MM-DD HH:mm:ss")
+        postingDate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        companyId : req.com
     }
-    await tranxUtil.insertAcctTranx("SUPPLIER", trnx, params, mysqlConn);
+    await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
     if (previousData?.paymentStatus == 'UNPAID') {
         return;
     }

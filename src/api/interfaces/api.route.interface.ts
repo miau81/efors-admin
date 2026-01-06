@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import type { Request } from 'express';
-import { AuthURL } from './api.enum';
-// import type { AuthURL } from './enum';
-
+import { ConnectionAction } from './api.db.interface';
 
 export interface Route {
   path?: string
@@ -10,12 +8,12 @@ export interface Route {
 }
 
 export interface SRequest extends Request {
-  authUser?: any;
+  requestId?: string;
+  user?: any;
   language?: string;
-  isAdmin?: boolean;
-  authURL?: AuthURL;
   sys?:string;
   com?:string;
+  fromApp?:string;
+  mysqlConn?:ConnectionAction;
+  isSelf?:boolean;
 }
-
-// export type AuthURL = "admin" | "auth" | "public";

@@ -1,76 +1,19 @@
 
-import { ApiRequestMethod, AuthURL, OperatorEnum, OrderBy } from "./api.enum"
+import { MyERPDocType } from "@myerp/interfaces/interface";
+import { ConnectionAction } from "./api.db.interface";
+
+
 export interface ApiParam {
     user: any;
     language?: string;
-    tableName: string;
+    document: string;
     sys?: string;
     com?: string;
-    method: ApiRequestMethod;
-    authURL?: AuthURL;
     queryParam?: any;
     params?: any;
     body?: any;
 
 }
-
-export interface ApiSaveParam extends ApiParam {
-    files?: Express.Multer.File[];
-}
-
-export interface ApiDeleteParam extends ApiParam {
-    permanentDelete?: boolean;
-}
-
-export interface ApiGetParam extends ApiParam {
-    selectFields?: string[];
-    excludeFields?: string[];
-    pagination?: {
-        start: number;
-        limit: number;
-    };
-    sorting?: {
-        sortField?: string;
-        sortBy?: OrderBy;
-    };
-    search?: {
-        searchFields?: string;
-        searchValue?: string;
-    };
-    filters?: Filter[];
-    customWhereQuery?: string;
-    getChild?: boolean;
-    getParent?: boolean;
-    listOnly?: boolean;
-
-}
-
-export interface Filter {
-    field: string;
-    value: any;
-    operator: OperatorEnum;
-    type: FilterType;
-
-}
-
-export enum FilterType {
-    text = "text",
-    date = "date",
-    datetime = "datetime",
-    month = "month",
-    year = "year"
-}
-
-export interface PaginationListOption {
-    selectedfields: string;
-    selectedFrom: string;
-    where?: string;
-    groupBy?: string;
-    orderBy?: string;
-    start?: number;
-    limit?: number;
-}
-
 export interface FileUpladConfig {
     files: any;
     limit: number;
@@ -79,17 +22,50 @@ export interface FileUpladConfig {
     overwrite?: boolean;
 }
 
+export interface DBOption {
+    filter?: DBFilter
+    sort?: string;
+    limit?: number;
+    offset?: number;
+    search?: string;
+    searchFields?: string[];
+    fields?: string[];
+    excludeFields?: string[];
+    getChild?: boolean;
+    getLink?: boolean;
+    pagination?: boolean;
+    customSql?: string;
+}
 
-// export interface Notification{
-//     id?:number
-//     createdDate:Date
-//     senderId:number,
-//     userId:number,
-//     senderType:"PERSONAL" | "PAGE" | "STUDYWITH"
-//     messageObject:string,
-//     messageType:NotificationMessageType
-//     notificationFor:"POST" | "KNOWLEDGE_BASE" | "SHOP" | "VIDEO"
-//     type:"INFO" | "FRIEND_REQUEST"
-//     isRead:boolean
-//     isViewed:boolean
-// }
+export type DBFilterOperator = "and" | "or";
+export interface DBFilterCondition {
+    field: string;
+    operator?: '=' | 'in' | '<' | '<=' | '>' | '>=' | 'between' | '!=' | 'like' | 'is' | 'is not';
+    value: any;
+}
+export type DBFilter = (DBFilterCondition | DBFilterOperator | DBFilter)[]
+
+
+
+export interface GetDataOption {
+    mysqlConn: ConnectionAction;
+    document: string;
+    docType: MyERPDocType;
+    selectFields?: string[];
+    excludeFields?: string[];
+    language?: string;
+    sys?: string;
+    com?: string;
+    user?: any;
+    getChild?: boolean;
+    getLink?: boolean;
+    includeDeleted?: boolean;
+    filter?: DBFilter;
+    sort?: string;
+    limit?: number;
+    offset?: number;
+    search?: string;
+    searchFields?: string[];
+    pagination?: boolean;
+    customSql?: string;
+}

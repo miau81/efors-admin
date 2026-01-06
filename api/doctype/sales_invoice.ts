@@ -16,6 +16,13 @@ export const documentType = (() => {
         printScript: "SERVER",
         defaultSorting: 'createdDate',
         defaultSortBy: "DESC",
+        actionButtons: [
+            { code: "SUBMIT_EINVOICE", label: '{"en":"Submit E-Invoice"}', script: "CLIENT" },
+            { code: "CANCEL_EINVOICE", label: '{"en":"Cancel E-Invoice"}', script: "CLIENT", disabled: false, hidden: false },
+            { code: "SUBMIT_EINVOICE_SANDBOX", label: '{"en":"Submit E-Invoice (Testing Server)"}', script: "CLIENT" },
+            { code: "CANCEL_EINVOICE_SANDBOX", label: '{"en":"Cancel E-Invoice (Testing Server)"}', script: "CLIENT", disabled: false, hidden: false },
+
+        ],
         printFormats: [
             { code: "STD_SALES_INVOICE", fileName: "standard_sales_invoice", label: '{"en":"Standard Sales Invoice"}', isDefault: true },],
         sections: [
@@ -23,7 +30,7 @@ export const documentType = (() => {
             { id: 'sectionItems', label: '{"en":"Items"}', sorting: 3 },
             { id: 'sectionChargesAndDiscount', sectionExpanded: false, label: '{"en":"Charges And Discount"}', sorting: 4 },
             { id: 'sectionTotal', label: '{"en":"Total"}', sorting: 5 },
-            { id: 'sectionPaymentStatus', label: '{"en":"Payment Status"}', sorting: 5,sectionExpanded:false },
+            { id: 'sectionPaymentStatus', label: '{"en":"Payment Status"}', sorting: 5, sectionExpanded: false },
         ],
         fields: [
 
@@ -52,9 +59,14 @@ export const documentType = (() => {
             //Section sub Tables
 
             // Section Items
+             {
+                id: 'itemId', type: 'link', options: "item", showInForm: true,
+                linkOptions: { valueField: "id", labelField: "name" }, isVirtual:true,
+                label: '{"en":"Item Id"}', sectionId: 'sectionItems',callServerScript:true
+            },
             {
                 id: 'items', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Items"}',
-                sectionId: 'sectionItems', options: "sales_invoice_item", callClientScript: true
+                sectionId: 'sectionItems', options: "sales_invoice_item", callClientScript: true, 
             },
             // Section Taxes
             {
@@ -78,8 +90,8 @@ export const documentType = (() => {
             // { id: 'remarks', type: 'text', label: '{"en":"Remarks"}', showInForm: true, sectionId: 'sectionTotal' },
             { id: 'companyId', type: 'text', isHidden: true },
             { id: "paymentStatus", type: "text", label: '{"en":"Payment Status"}', showInTable: true, showInForm: true, isReadOnly: true, sectionId: 'sectionPaymentStatus', defaultValue: 'UNPAID' },
-              { id: 'paidAmount', type: 'currency', isReadOnly: true, label: '{"en":"Paid Amont"}', showInTable: true, defaultValue: 0, showInForm: true, sectionId: 'sectionPaymentStatus'},
-         
+            { id: 'paidAmount', type: 'currency', isReadOnly: true, label: '{"en":"Paid Amont"}', showInTable: true, defaultValue: 0, showInForm: true, sectionId: 'sectionPaymentStatus' },
+
 
             //Section E-Invoice
         ]

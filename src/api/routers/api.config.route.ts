@@ -12,7 +12,7 @@ export class ApiConfigRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get("/admin/config/:type/:docType", this.controller.getConfig);
+    this.router.get("/config/:type/:docType", this.controller.getConfig);
   }
 
 }

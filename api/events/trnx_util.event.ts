@@ -1,205 +1,155 @@
-import { dbName } from "../../src/api/databases";
-import { ConnectionAction } from "../../src/api/interfaces/api.db.interface";
-import { ApiRequestMethod, OrderBy } from "../../src/api/interfaces/api.enum";
-import { ApiDeleteParam, ApiGetParam, ApiParam, ApiSaveParam } from "../../src/api/interfaces/api.main.interface";
-import { ApiGlobalService } from "../../src/api/services/api.global.service";
+import {  DBOption } from "../../src/api/interfaces/api.main.interface";
+import { CoreService } from "../../src/api/services/api.core.service";
 
-const globalService = new ApiGlobalService();
+const globalService = new CoreService();
 
 export class TransactionUtilService {
 
-    async insertAcctTranx(accountType: "COMPANY" | "CUSTOMER" | "SUPPLIER", trnx: AccountTransaction, params: ApiParam, mysqlConn: ConnectionAction) {
+    async insertAcctTranx(accountType: "COMPANY" | "CUSTOMER" | "SUPPLIER", trnx: AccountTransaction) {
 
-        trnx.companyId = params.com;
         trnx.remark = trnx.remark ?? '';
 
-        let tableName = "";
+        let document = "";
         switch (accountType) {
             case "COMPANY":
-                tableName = "company_acct_tranx";
+                document = "company_acct_tranx";
                 break;
             case "CUSTOMER":
-                tableName = "customer_acct_tranx";
+                document = "customer_acct_tranx";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_acct_tranx";
+                document = "supplier_acct_tranx";
                 break;
         }
-        const saveParams: ApiSaveParam = {
-            ...params,
-            tableName: tableName,
-            body: trnx,
-            method: ApiRequestMethod.CREATE
-        }
-        await globalService.createDocument(saveParams, mysqlConn);
+        await globalService.createDocument(document, trnx);
     }
 
-    async insertPaymentRelationship(type: "CUSTOMER" | "SUPPLIER", relationship: PaymentRelationship, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async insertPaymentRelationship(type: "CUSTOMER" | "SUPPLIER", relationship: PaymentRelationship) {
+        let document = "";
         switch (type) {
             case "CUSTOMER":
-                tableName = "customer_payment_relationship";
+                document = "customer_payment_relationship";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_payment_relationship";
+                document = "supplier_payment_relationship";
                 break;
         }
-        const saveCPRParams: ApiSaveParam = {
-            ...params,
-            tableName: tableName,
-            body: relationship,
-            method: ApiRequestMethod.CREATE
-        }
-        await globalService.createDocument(saveCPRParams, mysqlConn);
+        await globalService.createDocument(document, relationship);
     }
 
 
-    async getUnpaidInvoice(invoiceType: "SALES" | "PURCHASE", partyId: string, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
-        let partyIdField=""
+    async getUnpaidInvoice(invoiceType: "SALES" | "PURCHASE", partyId: string) {
+        let document = "";
+        let partyIdField = ""
         switch (invoiceType) {
             case "SALES":
-                tableName = "sales_invoice";
-                partyIdField='customerId';
+                document = "sales_invoice";
+                partyIdField = 'customerId';
                 break;
             case "PURCHASE":
-                tableName = "purchase_invoice";
-                 partyIdField='supplierId';
+                document = "purchase_invoice";
+                partyIdField = 'supplierId';
                 break;
         }
-        const getSIParams: ApiGetParam = {
-            ...params,
-            tableName: tableName,
-            method: ApiRequestMethod.GET_LIST,
-            customWhereQuery: `  WHERE ${partyIdField}= '${partyId}' AND (paymentStatus!='PAID' OR paidAmount !=grandTotal) AND docStatus='SUBMIT'`,
-            sorting: { sortBy: OrderBy.ASC, sortField: "postingDate" },
-            listOnly: true
+        const options: DBOption = {
+            filter: [
+                { field: 'partyIdField', value: partyId },
+                [{ field: 'paymentStatus', operator: "!=", value: 'PAID' }, 'or', { field: 'paidAmount', operator: "!=", value: '`grandTotal`' }],
+                { field: 'docStatus', value: 'SUBMIT' }
+            ],
+            sort: 'postingDate ASC'
         }
-        return await globalService.getDocumentList(getSIParams, mysqlConn);
+        return await globalService.getDocuments(document, options);
 
     }
 
-    async updateInvoicePayment(invoiceType: "SALES" | "PURCHASE", invoiceId: string, paidAmount: number, paymentStatus: InvoicePaymentStatus, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async updateInvoicePayment(invoiceType: "SALES" | "PURCHASE", invoiceId: string, paidAmount: number, paymentStatus: InvoicePaymentStatus) {
+        let document = "";
         switch (invoiceType) {
             case "SALES":
-                tableName = "sales_invoice";
+                document = "sales_invoice";
                 break;
             case "PURCHASE":
-                tableName = "purchase_invoice";
+                document = "purchase_invoice";
                 break;
         }
         const updateSI = {
             paidAmount: paidAmount,
             paymentStatus: paymentStatus
         }
-        console.log("updateSI:",updateSI)
-        const updateSIParams: ApiSaveParam = {
-            ...params,
-            tableName: tableName,
-            body: updateSI,
-            method: ApiRequestMethod.UPDATE
-        }
-        await globalService.updateDocument(updateSIParams, `WHERE id='${invoiceId}'`, mysqlConn);
+        await globalService.updateDocument(document, updateSI, [{ field: 'id', value: invoiceId }]);
 
     }
 
-    async insertAdvancePayment(type: "CUSTOMER" | "SUPPLIER", advancePayment: AdvancePayment, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async insertAdvancePayment(type: "CUSTOMER" | "SUPPLIER", advancePayment: AdvancePayment) {
+        let document = "";
         switch (type) {
             case "CUSTOMER":
-                tableName = "customer_advance_payment";
+                document = "customer_advance_payment";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_advance_payment";
+                document = "supplier_advance_payment";
                 break;
         }
-        const saveCAPParams: ApiSaveParam = {
-            ...params,
-            tableName: tableName,
-            body: advancePayment,
-            method: ApiRequestMethod.CREATE
-        }
-        await globalService.createDocument(saveCAPParams, mysqlConn);
+        await globalService.createDocument(document, advancePayment);
     }
 
-    async getPaymentRelationShip(type: "CUSTOMER" | "SUPPLIER", voucherId: string, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async getPaymentRelationShip(type: "CUSTOMER" | "SUPPLIER", voucherId: string) {
+        let document = "";
         switch (type) {
             case "CUSTOMER":
-                tableName = "customer_payment_relationship";
+                document = "customer_payment_relationship";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_payment_relationship";
+                document = "supplier_payment_relationship";
                 break;
         }
-        const getRelationshipParam: ApiGetParam = {
-            ...params,
-            tableName: tableName,
-            method: ApiRequestMethod.GET_LIST,
-            selectFields: ["invoiceId", "paidAmount"],
-            customWhereQuery: `  WHERE voucherId= '${voucherId}'`,
-            sorting: { sortBy: OrderBy.ASC, sortField: "id" },
-            listOnly: true
+        const options: DBOption = {
+            fields: ["invoiceId", "paidAmount"],
+            filter: [{ field: 'voucherId', value: voucherId }],
+            sort: "id ASC"
         }
-        return await globalService.getDocumentList(getRelationshipParam, mysqlConn);
+        return await globalService.getDocuments(document, options);
 
     }
 
-    async getInvoiceById(invoiceType: "SALES" | "PURCHASE", invoiceId: number, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async getInvoiceById(invoiceType: "SALES" | "PURCHASE", invoiceId: string) {
+        let document = "";
         switch (invoiceType) {
             case "SALES":
-                tableName = "sales_invoice";
+                document = "sales_invoice";
                 break;
             case "PURCHASE":
-                tableName = "purchase_invoice";
+                document = "purchase_invoice";
                 break;
         }
-        const getSiParam: ApiGetParam = {
-            ...params,
-            tableName: tableName,
-            method: ApiRequestMethod.GET_ONE,
-        }
-        return await globalService.getSingleDocument(getSiParam, `WHERE id='${invoiceId}'`, mysqlConn);
+        return await globalService.getDocument(document, invoiceId);
     }
 
-    async deleteRelationshipByVoucherId(type: "CUSTOMER" | "SUPPLIER", voucherId: string, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async deleteRelationshipByVoucherId(type: "CUSTOMER" | "SUPPLIER", voucherId: string) {
+        let document = "";
         switch (type) {
             case "CUSTOMER":
-                tableName = "customer_payment_relationship";
+                document = "customer_payment_relationship";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_payment_relationship";
+                document = "supplier_payment_relationship";
                 break;
         }
-        const deleteCPRParams: ApiDeleteParam = {
-            ...params,
-            tableName: tableName,
-            method: ApiRequestMethod.DELETE,
-            permanentDelete: true
-        }
-        await globalService.deleteDocument(deleteCPRParams, `WHERE voucherId='${voucherId}'`, mysqlConn);
+        await globalService.deleteDocument(document, [{ field: 'voucherId', value: voucherId }]);
     }
 
-        async deleteAdvancePaymentByVoucherId(type: "CUSTOMER" | "SUPPLIER", voucherId: string, params: ApiParam, mysqlConn: ConnectionAction) {
-        let tableName = "";
+    async deleteAdvancePaymentByVoucherId(type: "CUSTOMER" | "SUPPLIER", voucherId: string) {
+        let document = "";
         switch (type) {
             case "CUSTOMER":
-                tableName = "customer_advance_payment";
+                document = "customer_advance_payment";
                 break;
             case "SUPPLIER":
-                tableName = "supplier_advance_payment";
+                document = "supplier_advance_payment";
                 break;
         }
-        const deleteCPRParams: ApiDeleteParam = {
-            ...params,
-            tableName: tableName,
-            method: ApiRequestMethod.DELETE,
-            permanentDelete: true
-        }
-        await globalService.deleteDocument(deleteCPRParams, `WHERE voucherId='${voucherId}'`, mysqlConn);
+        await globalService.deleteDocument(document, [{ field: 'voucherId', value: voucherId }]);
     }
 
 

@@ -15,12 +15,12 @@ export class AuthHttpService {
 
   /////////////////////// User ////////////////////////
   login<T>(body: { loginId: string, password: string }) {
-    return  // firstValueFrom(this.http.post<T>(`${this.apiUrl}/admin/login`, body));
+    return  // firstValueFrom(this.http.post<T>(`${this.apiUrl}/login`, body));
   }
 
   getNewToken<T = any>(refreshToken: string) {
     let headers = { headers: { 'Authorization': `Bearer ${refreshToken}` } };
-    let requestURL = environment.apiToken + '/admin/refresh_token';
+    let requestURL = environment.apiToken + '/auth/refresh_token';
     return  // firstValueFrom(this.http.get<T>(requestURL, headers).pipe());
   }
 

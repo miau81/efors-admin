@@ -21,15 +21,17 @@
             <button class="btn btn-light btn-icon" [disabled]="isChanged" (click)="onPrint()"><i
                     class="bi bi-printer"></i></button>
             }
-            @if(!isNew && (documentType.actionButtons?.length ?? 0) > 0){
+            @if(!isNew && actionButtons.length  > 0){
 
             <div ngbDropdown class="dropdown">
                 <button class="btn btn-icon btn-light no-caret" [disabled]="isChanged" ngbDropdownToggle>
                     <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <div ngbDropdownMenu>
-                    @for(action of documentType.actionButtons; track action.code;){
-                    <button ngbDropdownItem (click)="onAction(action.code)">{{action.label | mytranslate}}</button>
+                    @for(action of actionButtons; track action.code;){
+                    <button ngbDropdownItem (click)="onAction(action)" [disabled]="action.disabled??false">
+                        {{action.label | mytranslate}}
+                    </button>
                     }
                 </div>
             </div>

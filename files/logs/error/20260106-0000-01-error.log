@@ -1,0 +1,63 @@
+2025-12-23 00:16:54 [error]: [401]Authorization token is expired.
+2025-12-23 00:16:54 [error]: [401]Authorization token is expired.
+2025-12-23 01:17:31 [error]: [401]Authorization token is expired.
+2025-12-23 01:17:31 [error]: [401]Authorization token is expired.
+2025-12-23 01:23:41 [error]:
+Error loading event script:
+{}
+2025-12-23 02:14:01 [error]:
+Error loading event script:
+{}
+2025-12-23 02:18:23 [error]: [401]Authorization token is expired.
+2025-12-23 02:18:23 [error]: [401]Authorization token is expired.
+2025-12-23 03:18:45 [error]: [401]Authorization token is expired.
+2025-12-23 03:18:45 [error]: [401]Authorization token is expired.
+2025-12-25 16:46:50 [error]: [401]Authorization token is expired.
+2025-12-25 16:59:20 [error]:
+Error loading event script:
+{}
+2025-12-25 17:13:40 [error]:
+Error loading event script:
+{}
+2025-12-25 17:22:12 [error]:
+Error loading event script:
+{}
+2025-12-25 18:01:58 [error]: [401]Authorization token is expired.
+2026-01-05 23:15:00 [error]: [401]Authorization token is expired.
+2026-01-05 23:15:00 [error]: [401]Authorization token is expired.
+2026-01-05 23:54:03 [error]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2026-01-05 23:54:03 [error]: [500]Error loading document type [tax]
+2026-01-05 23:54:08 [error]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2026-01-05 23:54:08 [error]: [500]Error loading document type [tax]
+2026-01-05 23:54:19 [error]:
+Error loading document type:
+{
+  name: "ResolveMessage",
+  position: null,
+  message: "Cannot find module 'D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts' from 'D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs'",
+  level: "error",
+  specifier: "D:\\miau\\apps\\efors-admin\\api\\doctype\\tax.ts",
+  importKind: "import-statement",
+  referrer: "D:\\miau\\apps\\efors-admin\\dist\\apps\\server\\server.mjs"
+}
+2026-01-05 23:54:19 [error]: [500]Error loading document type [tax]

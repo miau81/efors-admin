@@ -1,5 +1,4 @@
-import { ConnectionAction } from "../interfaces/api.db.interface";
-import { ApiParam } from "../interfaces/api.main.interface";
+import { SRequest } from "../interfaces/api.route.interface";
 import { logger } from "../utils/logger";
 import { ApiPrintService } from "./api.print.service";
 
@@ -9,33 +8,48 @@ export class ExternalScriptService {
 
     async importDocTypeEventFile(docType: string) {
         const path = new URL(`../../../api/events/${docType}.event.ts`, import.meta.url).href;
+        return  import(/* @vite-ignore */ path);
+    }
+
+    async importCustomScriptFile(method: string) {
+        const path = new URL(`../../../api/custom-scripts/${method}.ts`, import.meta.url).href;
         return await import(/* @vite-ignore */ path);
     }
 
-    async runEventScript(params: ApiParam, mysqlConn: ConnectionAction) {
+    async runEventScript(document: string, req: SRequest) {
         try {
-            const body = params.body;
-            const imp = await this.importDocTypeEventFile(params.tableName).catch(err=>console.log(err));
+            const body = req.body;
+            const imp = await this.importDocTypeEventFile(document).catch(err => console.log(err));
             switch (body.action) {
                 case "onChange":
                     if (imp?.onChange) {
-                        return imp.onChange(params, mysqlConn);
+                        return await imp.onChange(document, req);
                     }
                     break;
                 case "onPrint":
-                    let data = params.body.data;
+                    let data = body.data;
                     if (imp?.onPrint) {
-                        data = imp.onPrint(params, mysqlConn);
+                        data = imp.onPrint(document, req);
                     }
-
-                    data = await this.printService.renderPrintFile(params, data, body.format, mysqlConn, true);
-                    return data;
-
+                    return await this.printService.renderPrintFile(document, data, body.format, true);
             }
         } catch (error) {
             logger.error('Error loading event script:', error);
-
+            throw error
         }
         return {};
+    }
+
+    async runCustomScript(module: string, method: string, req: SRequest) {
+        try {
+            const imp = await this.importDocTypeEventFile(module).catch(err => console.log(err));
+            if (imp?.[method]) {
+                return await imp?.[method];
+            }
+
+        } catch (error) {
+            logger.error('Error loading event script:', error);
+            throw error;
+        }
     }
 }

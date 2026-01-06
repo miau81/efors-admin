@@ -78,7 +78,7 @@ export class MyFormGenerator {
   }
 
   setDefaultTabAndSection() {
-    if (this.config.tabs.length == 0 || this.config.components.some(c => !c.group)) {
+    if (this.config.tabs.length == 0 || this.config.components.some(c => !c.group && c.type != 'hidden')) {
       this.config.tabs.push({ key: "DEFAULT_TAB" });
       this.config.sections.push({ key: "DEFAULT_SECTION", parent: "DEFAULT_TAB" });
       this.config.sections = this.config.sections.map(s => {
@@ -94,6 +94,12 @@ export class MyFormGenerator {
         }
       })
     }
+    this.config.components = this.config.components.map(c => {
+      return {
+        ...c,
+        group: c.type == 'hidden' ? this.config.sections[0].key : c.group
+      }
+    })
     console.log(this.config)
   }
 
@@ -144,6 +150,10 @@ export class MyFormGenerator {
     // })
     this.config.components.forEach((c: MyFormComponent) => {
       group = this.setupFormComponent(c, group)
+      if (c.key == "items") {
+        console.log(group["items"])
+        return
+      }
     });
     this.config.form = this.fb.group(group);
     this.onFormReady.emit();
@@ -152,13 +162,13 @@ export class MyFormGenerator {
 
   setupFormComponent(c: MyFormComponent, group: any) {
 
+
+
     let validators: any[] = [];
     if (c.required) {
       validators.push(Validators.required);
     }
-    if (c.type == "table") {
-      group[c.key] = new FormArray([], validators);
-    }
+
     if (c.type == "email") {
       validators.push(Validators.email);
     }
@@ -167,7 +177,7 @@ export class MyFormGenerator {
       validators.push(Validators.max);
     }
 
-    if (c.type == "checkboxGroup") {
+    if (c.type == "checkboxGroup" ) {
       group[c.key] = new FormArray([], validators);
     } else {
       if (c.type != "breakline") {
@@ -175,7 +185,6 @@ export class MyFormGenerator {
           const date = dayjs(c.value).format("YYYY-MM-DDThh:mm:ss")
           group[c.key] = new FormControl(date, { validators: validators });
         } else {
-          console.log(c.value, c.key)
           group[c.key] = new FormControl({ value: c.value, disabled: c.disabled, }, { validators: validators });
         }
 
@@ -462,4 +471,4 @@ export interface MyFormChildTableColumn {
 
 export type MyFormComponentType = "text" | "password" | "email" | "number" | "tel" | "select" | "date" | "time"
   | "datetime-local" | "hidden" | "checkbox" | 'readOnly' | 'textarea' | 'currency' | 'readOnlyCurrency'
-  | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline" |"readOnlyTextArea"
+  | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline" | "readOnlyTextArea"
