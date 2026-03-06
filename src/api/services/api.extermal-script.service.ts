@@ -31,7 +31,7 @@ export class ExternalScriptService {
                     if (imp?.onPrint) {
                         data = imp.onPrint(document, req);
                     }
-                    return await this.printService.renderPrintFile(document, data, body.format, true);
+                    return await this.printService.renderPrintFile(req,document, data, body.format, true);
             }
         } catch (error) {
             logger.error('Error loading event script:', error);

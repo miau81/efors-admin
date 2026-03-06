@@ -11,11 +11,13 @@ export const documentType = (() => {
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 }],
         isChildTable: true,
         fields: [
-            { id: 'invoiceId', isHidden: true, type: 'text', label: '{"en":"Invoice ID"}', sectionId: 'sectionDetails', isReadOnly: true, parentField: "id" },
+            { id: 'invoiceId', isHidden: true, type: 'text', label: '{"en":"Invoice ID"}', sectionId: 'sectionDetails', isReadOnly: true, parentField: "sales_invoice" },
 
             { id: 'name', type: 'text', mandatory: true, label: '{"en":"Item Name"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'quantity', type: 'number', mandatory: true, label: '{"en":"Quantity"}', defaultValue: 1, showInTable: true, showInForm: true, sectionId: 'sectionDetails', callClientScript: true },
             { id: 'unitPrice', type: 'currency', mandatory: true, label: '{"en":"Unit Price"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails', callClientScript: true },
+            { id: 'discountRate', type: 'currency', mandatory: true, label: '{"en":"Discount Rate(%)"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails', callClientScript: true },
+            { id: 'discount', type: 'currency', mandatory: true, label: '{"en":"Discount"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails', callClientScript: true },
             { id: 'amountExcTax', type: 'currency', isReadOnly: true, label: '{"en":"Amount exc.Tax"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'taxAmount', type: 'currency', isReadOnly: true, label: '{"en":"Tax Amount"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'totalAmount', type: 'currency', isReadOnly: true, label: '{"en":"Total Amount"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails' },

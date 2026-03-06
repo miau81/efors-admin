@@ -57,7 +57,6 @@ export interface MyERPDocType {
   canDelete?: boolean;
   isSingle?: boolean;
   isChildTable?: boolean;
-  parentDocType?: string;
   defaultSorting?: string;
   defaultSortBy?: "ASC" | "DESC"
   submitTable?: boolean;
@@ -66,10 +65,10 @@ export interface MyERPDocType {
   searchFields?: string[];
   printScript?: "SERVER" | "CLIENT";
   printFormats?: MyERPPrintFormat[];
-  actionButtons?: { code: string, label: string, script?: "SERVER" | "CLIENT", disabled?:boolean, hidden?:boolean}[];
   tabs?: MyERPFieldGroup[];
-  sections?:MyERPFieldGroup[];
+  sections?: MyERPFieldGroup[];
 }
+
 
 export interface MyERPFieldGroup {
   id: string;
@@ -77,7 +76,7 @@ export interface MyERPFieldGroup {
   isHidden?: boolean;
   label: string;
   sorting?: number;
-  sectionExpanded?:boolean;
+  sectionExpanded?: boolean;
 
 }
 
@@ -127,7 +126,7 @@ export interface ChangeScriptResponse {
   componentOptions?: any;
   parentFormValue?: any;
   formConfig?: any
-  tableValue?:any[]
+  tableValue?: any[]
 }
 
 export interface MyERPPrintFormat {

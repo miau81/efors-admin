@@ -11,7 +11,7 @@ export const documentType = (() => {
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 }],
         isChildTable: true,
         fields: [
-            { id: 'invoiceId', isHidden: true, type: 'text', label: '{"en":"Invoice ID"}', sectionId: 'sectionDetails', isReadOnly: true, parentField: "id" },
+            { id: 'invoiceId', isHidden: true, type: 'text', label: '{"en":"Invoice ID"}', sectionId: 'sectionDetails', isReadOnly: true, parentField: "purchase_invoice" },
             {
                 id: 'itemId', type: 'link', options: "item", showInTable: true, showInForm: true,
                 linkOptions: { valueField: "id", labelField: "name" },

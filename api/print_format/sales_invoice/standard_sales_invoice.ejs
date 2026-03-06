@@ -6,7 +6,7 @@ let totalPage;
     if (totalItems % itemPerPage > 0 || totalPage==0) {
       totalPage = totalPage + 1
     }
-let customer = customerIdObj;
+// let customer = customer;
 let addressArr = [customer.address1, customer.address2, customer.address3, `${customer.postcode ||''} ${customer.city ||''}`, customer.state].filter(a => a);
 let customerAddress = addressArr.join(",<br> ");%>
 <div class="font-medium print-format">
@@ -35,8 +35,11 @@ let customerAddress = addressArr.join(",<br> ");%>
             <th class="px-0">Description</th>
             <th class="table-col-10 text-center px-0">Qty</th>
             <th class="table-col-10 text-center px-0">UOM</th>
-            <th class="table-col-20 text-end px-0">U.Price(RM)</th>
-            <th class="table-col-20 text-end px-0">Amount(RM)</th>
+            <th class="table-col-10 text-end px-0">U.Price</th>
+            <th class="table-col-10 text-end px-0">Discount</th>
+            <th class="table-col-10 text-end px-0">Exc.Tax</th>
+            <th class="table-col-10 text-end px-0">Tax</th>
+            <th class="table-col-10 text-end px-0">Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -53,8 +56,11 @@ let customerAddress = addressArr.join(",<br> ");%>
             <td class="p-0"> <%= item.name %> </td>
             <td class="text-center p-0"> <%= item.quantity %> </td>
             <td class="text-center p-0"> <%= item.uom %> </td>
-            <td class="text-end p-0"> <%= item.unitPrice.toFixed(2) %> </td>
-            <td class="text-end p-0"> <%= item.amount.toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= (item.unitPrice|| 0).toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= (item.discount|| 0).toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= (item.amountExcTax|| 0).toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= (item.taxAmount|| 0).toFixed(2) %> </td>
+            <td class="text-end p-0"> <%= (item.totalAmount|| 0).toFixed(2) %> </td>
           </tr>
           <% }else{ %>
           <tr>
@@ -81,25 +87,33 @@ let customerAddress = addressArr.join(",<br> ");%>
           <td class="table-col-25 text-end p-0">Subtotal:</td>
           <td class="table-col-20 text-end p-0"> <%= subtotal.toFixed(2) %> </td>
         </tr>
-        <% for(let tax of taxes){ %>
+        <% if(totalTaxes){ %>
         <tr>
-          <td class="text-end p-0"><%= tax.name %>:</td>
-          <td class="table-col-20 text-end  p-0"> <%= tax.amount.toFixed(2) %> </td>
+          <td class="text-end p-0">Total Taxes:</td>
+          <td class="table-col-20 text-end  p-0"> <%= totalTaxes.toFixed(2) %> </td>
         </tr>
         <% } %>
-        <% for(let discount of discounts){ %>
+        <% if(totalCharges){ %>
         <tr>
-          <td class="text-end p-0"><%= discount.description %>:</td>
-          <td class="table-col-20 text-end  p-0"> <%= discount.amount.toFixed(2) %> </td>
+          <td class="text-end p-0">Additional Charge:</td>
+          <td class="table-col-20 text-end  p-0"> <%= totalCharges.toFixed(2) %> </td>
         </tr>
         <% } %>
-        <% if(roundingAmount !=0) { %>
+        <% if(totalDiscounts){ %>
+        <tr>
+          <td class="text-end p-0">Additional Discount:</td>
+          <td class="table-col-20 text-end  p-0"> <%= totalDiscounts.toFixed(2) %> </td>
+        </tr>
+        <% } %>
+        <% if(roundingAmount) { %>
         <tr>
           <td class="text-end p-0">Rounding Amt:</td>
           <td class="table-col-20 text-end  p-0"> <%= roundingAmount.toFixed(2) %> </td>
         </tr>
         <% } %>
-        <tr><td></td></tr>
+        <tr>
+          <td></td>
+        </tr>
         <tr>
           <td class="text-end p-0 h6">Grand Total:</td>
           <td class="table-col-20 text-end  p-0 total-border h6"> <%= grandTotal.toFixed(2) %> </td>
@@ -113,7 +127,6 @@ let customerAddress = addressArr.join(",<br> ");%>
 
 
 <style>
-
   .table-col-5 {
     width: 5% !important;
   }
@@ -135,9 +148,9 @@ let customerAddress = addressArr.join(",<br> ");%>
     width: 25% !important;
     ;
   }
-  
 
-  .total-border{
+
+  .total-border {
     border-top: 1px solid !important;
     border-bottom: double !important;
   }

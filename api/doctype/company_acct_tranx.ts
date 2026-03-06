@@ -3,15 +3,15 @@ import { MyERPDocType } from "../../src/app/@interfaces/interface";
 
 export const documentType = (() => {
     const type: MyERPDocType = {
-        id: "company_acct_tranx",
-        label: '{"en":"Company Account Transaction"}',
+        id: "branch_acct_tranx",
+        label: '{"en":"Branch Account Transaction"}',
         namingType: "random",
         namingFormat: "",
         searchFields: [],
         isChildTable: true,
         sections: [],
         fields: [
-            { id: 'companyId', type: 'text', isHidden: true },
+            { id: 'branchId', type: 'text', isHidden: true },
             { id: 'accountId', type: 'text', isHidden: true },
             { id: 'partyId', type: 'text', isHidden: true },
             { id: 'partyType', type: 'text', isHidden: true },

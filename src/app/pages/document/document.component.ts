@@ -13,8 +13,9 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PrintComponent } from '../print/print.component';
 import { MyBackButton } from '../../@core/components/back-button/back-button.component';
-import { DOCUMENT_SCRIPTS } from '../../doctype/doctype';
 import { FormGroup } from '@angular/forms';
+import { DocTypeEvent } from '../../doctype-event/core/doctype.event';
+import { DocTypeRegistry } from '../../doctype-event/core/doctype.registry';
 
 @Component({
   selector: 'app-document',
@@ -39,90 +40,96 @@ export class DocumentComponent {
   public isChanged: boolean = false;
   public actionButtons: any[] = [];
   public eventScript?: any;
-  private docTypeInstance?: any;
-  public allScripts = inject(DOCUMENT_SCRIPTS, { optional: true }) ?? [];
+  private docTypeInstance?: DocTypeEvent;
+
   constructor(
-    private route: ActivatedRoute,
-    private api: ApiService,
-    private baseService: BaseService,
-    private cd: ChangeDetectorRef,
-    private myTranslate: MyTranslatePipe,
-    private dialog: MatDialog
+    public route: ActivatedRoute,
+    public api: ApiService,
+    public baseService: BaseService,
+    public cd: ChangeDetectorRef,
+    public myTranslate: MyTranslatePipe,
+    public dialog: MatDialog
 
   ) {
 
   }
 
   async ngOnInit() {
-    switch (this.dialogData?.dialog) {
-      case 'newForm':
-        this.documentType = this.dialogData.docType;
-        this.formConfig = this.populateFormConfig(this.documentType);
-        this.formConfig.initValue = this.populateDocument(this.documentType);
-        this.title = this.dialogData.title;
-        this.documentTypeId = this.dialogData.docType.id;
-        break;
-      case 'viewDocs':
-        this.isViewOnly = this.dialogData.viewOnly;
-        this.documentId = this.dialogData.documentId;
-        this.document = this.dialogData.document;
-        this.isNew = false;
-        this.documentType = this.dialogData.docType;
-        this.formConfig = this.populateFormConfig(this.documentType);
-        this.formConfig.initValue = this.populateDocument(this.documentType);
-        this.title = this.dialogData.title;
-        this.documentTypeId = this.dialogData.docType.id;
-        break;
-      case "tableForm":
-        this.isViewOnly = this.dialogData.viewOnly;
-        this.showTitle = false;
-        this.documentId = this.dialogData.documentId;
-        this.document = this.dialogData.document;
-        this.isNew = false;
-        this.documentType = this.dialogData.docType;
-        this.formConfig = this.populateFormConfig(this.documentType);
-        this.formConfig.initValue = this.populateDocument(this.documentType);
-        this.title = this.dialogData.title;
-        this.documentTypeId = this.dialogData.docType.id;
-        this.dialogRef?.beforeClosed().pipe(takeUntil(this.destroy$)).subscribe((res) => {
-          this.onCloseTableFormDialog(res)
-        });
-        break
-      default:
-        this.baseService.subscribeParam(this.route, async (p: any) => {
-          this.documentTypeId = p['documentType'];
-          this.documentId = p['id'];
-          try {
-            await this.baseService.showLoading();
-            if (this.documentId) {
-              this.isNew = false;
-              this.document = await this.getDocumentById(this.documentTypeId, this.documentId);
-              this.isViewOnly = this.document.docStatus == 'SUBMIT' || this.document.docStatus == 'CANCELLED';
-            }
-            await this.getDocumentType();
-            this.actionButtons = (this.documentType?.actionButtons || []).filter(b => !b.hidden);
-            this.formConfig.initValue = this.populateDocument(this.documentType);
-            // await this.importClientScript();
-            await this.onRefreshActionButtonClientScript(this.documentTypeId, this.formConfig.initValue);
-          } catch (error: any) {
-            console.log(error)
-            await this.baseService.showErrorMessage(error);
-          } finally {
-            await this.baseService.dismissLoading();
+    if (this.dialogData?.dialog) {
+      switch (this.dialogData?.dialog) {
+        case 'newForm':
+          this.documentType = this.dialogData.docType;
+          this.formConfig = this.populateFormConfig(this.documentType);
+          this.formConfig.initValue = this.populateDocument(this.documentType);
+          this.title = this.dialogData.title;
+          this.documentTypeId = this.dialogData.docType.id;
+          break;
+        case 'viewDocs':
+          this.isViewOnly = this.dialogData.viewOnly;
+          this.documentId = this.dialogData.documentId;
+          this.document = this.dialogData.document;
+          this.isNew = false;
+          this.documentType = this.dialogData.docType;
+          this.formConfig = this.populateFormConfig(this.documentType);
+          this.formConfig.initValue = this.populateDocument(this.documentType);
+          this.title = this.dialogData.title;
+          this.documentTypeId = this.dialogData.docType.id;
+          break;
+        case "tableForm":
+          this.isViewOnly = this.dialogData.viewOnly;
+          this.showTitle = false;
+          this.documentId = this.dialogData.documentId;
+          this.document = this.dialogData.document;
+          this.isNew = false;
+          this.documentType = this.dialogData.docType;
+          this.formConfig = this.populateFormConfig(this.documentType);
+          this.formConfig.initValue = this.populateDocument(this.documentType);
+          this.title = this.dialogData.title;
+          this.documentTypeId = this.dialogData.docType.id;
+          this.dialogRef?.beforeClosed().pipe(takeUntil(this.destroy$)).subscribe((res) => {
+            this.onCloseTableFormDialog(res)
+          });
+          break
+      }
+      this.docTypeInstance = await this.loadDocTypeInstance(this.documentTypeId);
+    } else {
+      this.baseService.subscribeParam(this.route, async (p: any) => {
+        this.documentTypeId = p['documentType'];
+        this.documentId = p['id'];
+        try {
+          await this.baseService.showLoading();
+          if (this.documentId) {
+            this.isNew = false;
+            this.document = await this.getDocumentById(this.documentTypeId, this.documentId);
+            this.isViewOnly = this.document.docStatus == 'SUBMIT' || this.document.docStatus == 'CANCELLED';
           }
-        })
+          await this.getDocumentType();
+          this.formConfig.initValue = this.populateDocument(this.documentType);
+        } catch (error: any) {
+          console.log(error)
+          await this.baseService.showErrorMessage(error);
+        } finally {
+          await this.baseService.dismissLoading();
+        }
+        this.docTypeInstance = await this.loadDocTypeInstance(this.documentTypeId);
+      })
     }
-    // await this.importClientScript();
-    await this.loadDocTypeInstance();
 
   }
 
-  async loadDocTypeInstance() {
+  async loadDocTypeInstance(documentTypeId: string) {
 
-    const docTypeInstance = this.allScripts.find(s => s.docType === this.documentTypeId);
+    let docTypeInstance: DocTypeEvent | undefined
+    try {
+      const DocTypeClass = await DocTypeRegistry.get(documentTypeId);
+      docTypeInstance = new DocTypeClass();
+    } catch (error) {
+      console.error(error)
+    }
     docTypeInstance?.init(this);
     await docTypeInstance?.onLoad?.();
-    this.docTypeInstance=docTypeInstance;
+    return docTypeInstance;
+
   }
 
   async getDocumentType() {
@@ -264,6 +271,8 @@ export class DocumentComponent {
       switch (field.type) {
         case 'currency':
           return "readOnlyCurrency";
+        case 'boolean':
+          return "readOnlyCheckbox";
         case 'table':
           return 'table';
         case 'breakline':
@@ -317,7 +326,7 @@ export class DocumentComponent {
   }
 
   async onChange(event: { component: MyFormComponent, isInit: boolean, childTable?: { component: MyFormComponent, row: any, index: number, isInit?: boolean } }) {
-    console.log("onChange",await this.docTypeInstance)
+
     if (event.component.type == 'select' && event.component.value == '_ADDNEW') {
       await this.addNewLinkDocument(event.component);
       return;
@@ -325,45 +334,20 @@ export class DocumentComponent {
     const field = this.documentType.fields.find(f => f.id == event.component.key);
     if (field?.type == "table") {
       const childField = field.fieldsDocType?.fields.find(f => f.id == event.childTable?.component.key!);
-      const componentKey = event.childTable!.component.key;
-      if (childField?.callServerScript) {
-        const response = await this.runServerChangeScript(
-          field.fieldsDocType?.id!,
+      if (childField) {
+        const componentKey = event.childTable!.component.key;
+        const childInstance = await this.loadDocTypeInstance(field.fieldsDocType?.id!);
+        const response = await childInstance?.onFormChange?.(
           { [componentKey]: event.component.value[event.childTable!.index][componentKey] },
           event.component.value[event.childTable!.index],
           this.formConfig.form.value,
           event.childTable?.isInit,
-          event.childTable!.index
-        )
-        this.updateChildTableFormAfterScript(response, event.component, event.childTable);
+          event.childTable!.index) || {}
+        this.updateChildTableFormAfterScript(response || {}, event.component, event.childTable);
       }
-
-      const childInstance = this.allScripts.find(s => s.docType === field.fieldsDocType?.id!);
-      childInstance?.init(this);
-      const response = await childInstance?.onFormChange?.(
-        { [componentKey]: event.component.value[event.childTable!.index][componentKey] },
-        event.component.value[event.childTable!.index],
-        this.formConfig.form.value,
-        event.childTable?.isInit,
-        event.childTable!.index) ||{}
-      this.updateChildTableFormAfterScript(response || {}, event.component, event.childTable);
     }
-
-    if (field?.callServerScript) {
-      const response = await this.runServerChangeScript(
-        this.documentTypeId,
-        { [event.component.key]: event.component.value },
-        this.formConfig.form.value,
-        null,
-        event.isInit,
-        event.childTable?.index
-      )
-      this.updateFormAfterScript(response);
-    }
-
 
     this.isChanged = true;
-        
     const response = await this.docTypeInstance?.onFormChange?.(
       { [event.component.key]: event.component.value },
       this.formConfig.form.value,
@@ -372,7 +356,9 @@ export class DocumentComponent {
       event.childTable?.index
     ) || {}
     this.updateFormAfterScript(response);
+
   }
+
 
 
 
@@ -432,11 +418,9 @@ export class DocumentComponent {
 
   updateFormAfterScript(response: ChangeScriptResponse) {
     if (response.formValue) {
-      //Temporary Solution: For force update DOM
       this.formConfig.form.patchValue(response.formValue);
       setTimeout(() => {
         this.formConfig.form.patchValue(response.formValue);
-        console.log(this.formConfig.form.value, response.formValue)
       }, 0);
     }
 
@@ -561,6 +545,11 @@ export class DocumentComponent {
       await this.baseService.showWarningMessage(message);
       return;
     }
+
+    if ((await this.docTypeInstance?.onBeforeSave?.())?.skip || false) {
+      return;
+    }
+
     let response: any;
     try {
       await this.baseService.showLoading();
@@ -569,6 +558,11 @@ export class DocumentComponent {
       } else {
         response = await this.api.updateDocument(this.documentTypeId, this.documentId, this.formConfig.form.value);
       }
+
+
+      await this.docTypeInstance?.onAfterSave?.()
+
+
       if (this.dialogData?.dialog == "newForm") {
         this.onCloseDialog(response);
       } else {
@@ -589,11 +583,16 @@ export class DocumentComponent {
   }
 
   async onSubmit() {
+    if ((await this.docTypeInstance?.onBeforeSubmit?.())?.skip || false) {
+      return;
+    }
+
     const confirm = await this.baseService.showConfirm("_CONFIRM_SUBMIT");
     if (confirm == 'yes') {
       try {
         await this.baseService.showLoading();
         await this.api.updateDocument(this.documentTypeId, this.documentId, { docStatus: 'SUBMIT' });
+        await this.docTypeInstance?.onAfterSubmit?.();
         await this.baseService.dismissLoading();
         await this.baseService.showSuccessToast("_HAS_SUBMITED");
         // this.document.docStatus = 'SUBMIT';
@@ -607,6 +606,10 @@ export class DocumentComponent {
   }
 
   async onCancel() {
+      if ((await this.docTypeInstance?.onBeforeCancel?.())?.skip || false) {
+      return;
+    }
+
     const confirmKey = "CANCEL";
     const msg = await this.baseService.getTranslate("_CONFIRM_CANCEL", { confirmKey: confirmKey });
     const confirm = await this.baseService.showInputConfirm(msg, confirmKey)
@@ -614,6 +617,9 @@ export class DocumentComponent {
       try {
         await this.baseService.showLoading();
         await this.api.updateDocument(this.documentTypeId, this.documentId, { docStatus: 'CANCELLED' });
+
+        await this.docTypeInstance?.onAfterCancel?.()
+
         await this.baseService.dismissLoading();
         await this.baseService.showSuccessToast("_HAS_CANCELLED");
         await this.baseService.refreshRoute();
@@ -665,46 +671,16 @@ export class DocumentComponent {
 
   }
 
-  async onAction(action: any) {
-    switch (action.script) {
-      case "CLIENT":
-        if (this.eventScript.onActionButtonClick) {
-          const response = await this.eventScript.onActionButtonClick(action, this);
-        }
-        break;
-      case "SERVER":
-        await this.runServerActionScript(this.documentTypeId, action);
-        break;
-    }
-  }
-
-  async onRefreshActionButtonClientScript(documentId: string, formValue: any) {
-    try {
-      const data = {
-        formValue: formValue,
-        isNew: this.isNew,
-        actionButtons: this.documentType.actionButtons
-      }
-      if (this.eventScript.onRefreshActionButton) {
-        const response = await this.eventScript.onRefreshActionButton(data);
-        this.actionButtons = response || [];
-      }
-    } catch {
-      return;
-    }
-
-  }
-
-  async importClientScript() {
-    try {
-      if (!this.eventScript) {
-        this.eventScript = await import(/* @vite-ignore */`/assets/client-script/events/${this.documentTypeId}.event.js`);
-      }
-      return this.eventScript;
-    } catch (error: any) {
-      console.log(error)
-    }
-  }
+  // async importClientScript() {
+  //   try {
+  //     if (!this.eventScript) {
+  //       this.eventScript = await import(/* @vite-ignore */`/assets/client-script/events/${this.documentTypeId}.event.js`);
+  //     }
+  //     return this.eventScript;
+  //   } catch (error: any) {
+  //     console.log(error)
+  //   }
+  // }
 
   async runServerActionScript(documentId: string, actionButton: any) {
     const body = {

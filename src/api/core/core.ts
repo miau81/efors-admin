@@ -4,13 +4,13 @@ import { ConnectionPool, dbName } from "../databases";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { ConvertUtil } from "../utils/convert";
 import { JWTService } from "../services/jwt.service";
-import { MyERPDocType, MyERPField } from "@myerp/interfaces/interface";
+
 import dayjs from "dayjs";
 import { ServiceException } from "../exceptions/ServiceException";
 import { DBOption, GetDataOption, DBFilter } from "../interfaces/api.main.interface";
 import { logger } from "../utils/logger";
 import { ExternalScriptService } from "../services/api.extermal-script.service";
-import { link } from "fs";
+import { MyERPDocType, MyERPField } from "../../app/@interfaces/interface";
 
 const db = dbName;
 const defaultSqlLimit: number = 50;
@@ -20,7 +20,7 @@ class Core {
     public readonly jswService = new JWTService();
     public readonly externalScript = new ExternalScriptService();
 
- 
+
 
     async beingRequest(req: SRequest, res: Response, next: NextFunction, fn: Function) {
         const mysqlConn = await ConnectionPool()
@@ -54,7 +54,7 @@ class Core {
     }
 
     async getDocuments(req: SRequest, document: string, options: DBOption) {
-        
+
         const impDocType = await this.importDocTypeFile(document);
         const docType: MyERPDocType = await impDocType.documentType();
         const impEvent = await this.importDocTypeEventFile(document);
@@ -107,7 +107,7 @@ class Core {
     }
 
     async createDocument(req: SRequest, document: string, doc: any) {
-        
+
         const user = req.user;
         const mysqlConn = req.mysqlConn!;
         const isSelf = req.isSelf
@@ -179,7 +179,7 @@ class Core {
     }
 
     async updateDocument(req: SRequest, document: string, doc: any, filter?: DBFilter) {
-        
+
         const user = req.user;
         const mysqlConn = req.mysqlConn!;
 
@@ -205,12 +205,12 @@ class Core {
         if (fields.find(f => f.id == "lastModifiedBy")) {
             doc.lastModifiedBy = user?.id || 'SYSTEM';
         }
+
         delete doc.createdDate;
         delete doc.createdBy;
         delete doc.userId;
         delete doc.copmayId;
         delete doc.sysAcct;
-
 
         for (let f of fields) {
             if (f.isNotEditable) {
@@ -230,13 +230,15 @@ class Core {
             }
 
         }
-
         const childTableValues: any = {};
         for (const field of docType.fields.filter(f => f.type == 'table')) {
             childTableValues[field.id] = doc[field.id] ? this.convertUtil.deepCopyObject(doc[field.id]) : null;
             delete doc[field.id];
         }
-
+        //Delete virtual fields
+        for (const field of docType.fields.filter(f => f.isVirtual)) {
+            delete doc[field.id];
+        }
 
         filter = await this.filterSysAndCom(document, filter, req.sys, req.com, mysqlConn, docType);
 
@@ -247,7 +249,6 @@ class Core {
         await this.sqlUpdate(document, doc, strWhere, mysqlConn);
 
         doc = { ...doc, ...childTableValues };
-
 
         await this.updateChildTable(req, docType, doc, mysqlConn);
 
@@ -269,7 +270,7 @@ class Core {
     }
 
     async deleteDocument(req: SRequest, document: string, filter: DBFilter, permanentDelete = false) {
-        
+
         const user = req.user;
         const mysqlConn = req.mysqlConn!;
 
@@ -474,7 +475,7 @@ class Core {
                     docType: await this.getDocumentType(linkTable),
                     com: com,
                     sys: sys,
-                    filter:where,
+                    filter: where,
 
                 }
                 const linkDoc = (await this.getData(getDataOptions)).data;
@@ -505,7 +506,6 @@ class Core {
                 const linkTable = field.options;
                 field.fieldsDocType = await this.getDocumentType(linkTable, mysqlConn, sys, com, language);
             }
-            // console.log(tableFields[0].fieldsDocType)
             return docType;
         } catch (error) {
             logger.error('Error loading document type:', error);
@@ -536,7 +536,7 @@ class Core {
         for (let c of childTables) {
             const childDocument = c.options;
             const childDocType = await this.getDocumentType(childDocument);
-            const parentField = childDocType.fields.find(f => f.parentField);
+            const parentField = childDocType.fields.find(f => f.parentField==parentDocType.id);
             if (!parentField) {
                 continue;
             }
@@ -545,7 +545,7 @@ class Core {
                 document: childDocument,
                 selectFields: ["*"],
                 language: language,
-                filter: [{ field: parentField.id, operator: '=', value: parent[parentField.parentField] }],
+                filter: [{ field: parentField.id, operator: '=', value: parent["id"] }],
                 getChild: true,
                 docType: childDocType,
                 pagination: false
@@ -662,8 +662,8 @@ class Core {
             }
             const childTableName = child.options;
             const childDocType = await this.getDocumentType(childTableName);
-            const parentField = childDocType.fields.find(f => f.parentField);
-            const sqlWhere = `WHERE ${parentField?.id}='${parentDoc[parentField?.parentField]}'`;
+            const parentField = childDocType.fields.find(f => f.parentField==parentDocType.id);
+            const sqlWhere = `WHERE ${parentField?.id}='${parentDoc["id"]}'`;
             let sqlDelete = ''
             if (childDocs.length == 0) {
                 sqlDelete = `DELETE FROM ${db}.${childTableName} ${sqlWhere}`;
@@ -682,7 +682,7 @@ class Core {
                     const filter: DBFilter = [{ field: 'id', operator: '=', value: childDoc.id }];
                     await this.updateDocument(req, childTableName, childDoc, filter);
                 } else {
-                    childDoc[parentField!.id] = parentDoc[parentField?.parentField];
+                    childDoc[parentField!.id] = parentDoc["id"];
                     await this.createDocument(req, childTableName, childDoc);
                 }
 

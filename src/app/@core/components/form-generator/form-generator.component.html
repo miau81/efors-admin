@@ -172,6 +172,14 @@
         {{ component.label | mytranslate}}
       </label>
     </div>
+    } @case('readOnlyCheckbox'){
+    <div class="form-check align-items-center d-flex mb-0"  style="min-height: 50px;">
+      <input class="form-check-input mt-0 pe-none" type="checkbox" [formControlName]="component.key" [id]="component.key"
+        [readonly]="true" (click)="$event.preventDefault()">
+      <label class="font-small text-muted ms-2 pe-none" [for]="component.key">
+        {{ component.label | mytranslate}}
+      </label>
+    </div>
     } @case('checkboxGroup'){
     <div class="my-3">
       <label class="ms-2" [for]="component.key">
@@ -266,7 +274,8 @@
     } @case('table'){
     <myerp-editable-table [component]="component" [formConfig]="component.tableConfig.formConfig"
       [formArray]="getChildTableFromArray(component.key)" (onChange)="onChildTableChange($event,component)"
-      (onOpenForm)="onOpenTableForm($event,component)" (onViewLinkDocument)="onViewDocumentClick($event)">
+      (onOpenForm)="onOpenTableForm($event,component)" (onViewLinkDocument)="onViewDocumentClick($event)"
+      (onRowChange)="onRowChange(component)">
     </myerp-editable-table>
     }
     }

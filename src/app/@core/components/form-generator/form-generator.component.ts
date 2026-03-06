@@ -100,7 +100,6 @@ export class MyFormGenerator {
         group: c.type == 'hidden' ? this.config.sections[0].key : c.group
       }
     })
-    console.log(this.config)
   }
 
   initValue(value: any) {
@@ -151,7 +150,6 @@ export class MyFormGenerator {
     this.config.components.forEach((c: MyFormComponent) => {
       group = this.setupFormComponent(c, group)
       if (c.key == "items") {
-        console.log(group["items"])
         return
       }
     });
@@ -225,7 +223,6 @@ export class MyFormGenerator {
           const currency = this.getCurrencyValue(this.config.form.controls[component.key].value);
           component.value = currency;
           this.config.form.controls[component.key].patchValue(currency)
-          console.log(currency)
           this.changeSignal.set(false)
         } else {
           component.value = this.config.form.controls[component.key].value;
@@ -319,6 +316,10 @@ export class MyFormGenerator {
   onChildTableChange(change: { index: number, row: any, component: MyFormComponent, values: any[] }, component: MyFormComponent) {
     this.config.form.controls[component.key].setValue(change.values);
     this.onFormChange.emit({ component: component, isInit: false, childTable: { row: change.row, component: change.component, index: change.index, isInit: false } });
+  }
+
+  onRowChange(component: MyFormComponent){
+    this.onFormChange.emit({component: component,isInit:false});
   }
 
   onCloseDialog() {
@@ -470,5 +471,5 @@ export interface MyFormChildTableColumn {
 }
 
 export type MyFormComponentType = "text" | "password" | "email" | "number" | "tel" | "select" | "date" | "time"
-  | "datetime-local" | "hidden" | "checkbox" | 'readOnly' | 'textarea' | 'currency' | 'readOnlyCurrency'
+  | "datetime-local" | "hidden" | "checkbox" | 'readOnlyCheckbox' | 'readOnly' | 'textarea' | 'currency' | 'readOnlyCurrency'
   | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline" | "readOnlyTextArea"

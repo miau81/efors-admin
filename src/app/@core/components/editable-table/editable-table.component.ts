@@ -40,6 +40,7 @@ export class MyEditableTable {
   @Output("onKeyUp") onFormKeyUp: EventEmitter<any> = new EventEmitter();
   @Output("onOpenForm") onOpenForm: EventEmitter<any> = new EventEmitter();
   @Output("onViewLinkDoc") onViewLinkDoc: EventEmitter<any> = new EventEmitter();
+  @Output("onRowChange") onRowChange: EventEmitter<any> = new EventEmitter();
   public rows: any = [];
   constructor(private cd: ChangeDetectorRef, private translateService: TranslateService, private decimalPipe: DecimalPipe) {
 
@@ -50,7 +51,6 @@ export class MyEditableTable {
     this.formArray.valueChanges.subscribe((r) => {
       this.component.value = r;
       this.refreshRow()
-      console.log("value Changes",r)
     })
     this.refreshRow()
   }
@@ -165,7 +165,6 @@ export class MyEditableTable {
           defaultValue[c.component.key] = c.defaultValue;
         }
       }
-
       this.component.value.push(defaultValue);
     }
     const cols = []
@@ -174,6 +173,9 @@ export class MyEditableTable {
       cols.push({ component: component, isCheck: false });
     }
     this.rows.push({ cols });
+    if (isNew) {
+      this.onRowChange.emit();
+    }
   }
 
   async onModalForm(index: number) {
@@ -201,12 +203,12 @@ export class MyEditableTable {
       callback: callback
     })
 
- }
+  }
 
   onRemoveRow(index: number) {
-    console.log(123)
     this.component.value.splice(index, 1);
     this.rows.splice(index, 1);
+    this.onRowChange.emit();
   }
 
   multiNgSwitchCase(arr: string[], type: string): boolean {

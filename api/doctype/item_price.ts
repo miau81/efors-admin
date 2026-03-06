@@ -11,7 +11,7 @@ export const documentType = (() => {
         isChildTable: true,
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 }],
         fields: [
-            { id: 'itemId', type: 'text', label: '{"en":"Item ID"}', isHidden: true, sectionId: 'sectionDetails', isReadOnly: true, parentField: "id" },
+            { id: 'itemId', type: 'text', label: '{"en":"Item ID"}', isHidden: true, sectionId: 'sectionDetails', isReadOnly: true, parentField: "item" },
             { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionDetails' },
             {
                 id: 'type', type: 'text', formComponentType: "select", showInTable: true, showInForm: true,

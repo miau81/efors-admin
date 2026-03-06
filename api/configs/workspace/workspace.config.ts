@@ -12,14 +12,14 @@ export const config=[
       link: 'dashboard'
     },
     {
-      id: 'company',
-      label: 'Company',
+      id: 'branch',
+      label: 'Branch',
       isSingle: true,
       children: [],
       icon: 'bi bi-building',
       sorting: 2,
       isHidden: false,
-      link: 'doc/company'
+      link: 'doc/branch'
     },
     {
       id: 'stock',
@@ -107,15 +107,16 @@ export const config=[
       sorting: 999,
       isHidden: false,
       link: 'doc/user'
-     }
-    // {
-    //   id: 'system_settings',
-    //   label: 'System Settings',
-    //   icon: 'database-gear',
-    //   isSingle: true,
-    //   sorting: 999,
-    //   isHidden: false,
-    //   link: 'system-settings'
-    // }
+     },
+    {
+      id: 'system_acct',
+      label: 'System Account',
+      icon: 'database-gear',
+      isSingle: true,
+      sorting: 999,
+      isHidden: false,
+      link: 'system-account',
+      
+    }
 
   ]

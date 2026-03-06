@@ -10,7 +10,7 @@ export function toReadableDateString(date: Date | string | undefined, type: "dat
         return date;
     }
     try {
-                console.log(date)
+        console.log(date)
         if (typeof date == "string") {
             date = new Date(date);
         }
@@ -50,7 +50,7 @@ export function getTranslateJSON(key: string) {
 
 export function isMobile() {
     const ua = navigator.userAgent;
-    
+
     // Basic mobile detection
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
     return isMobile;
@@ -59,4 +59,17 @@ export function isMobile() {
 
 export function isDesktop() {
     return !isMobile();
+}
+
+export function calculateListTotal(list: any, key: string) {
+    return (list || []).reduce((a: any, b: any) => Number(a) + Number(b[key] || 0), 0);
+}
+
+export function roundTo5Cent(total: number) {
+    return Math.round(total * 20) / 20;
+}
+
+export function roundToDecimal(value: number, decimal: number = 2) {
+    const cal = Math.pow(10, decimal);
+    return Math.round(value * cal) / cal;
 }

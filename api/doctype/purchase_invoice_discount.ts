@@ -12,7 +12,7 @@ export const documentType = (() => {
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 },],
         fields: [
 
-            { id: 'invoiceId', type: 'text', label: '{"en":"Item ID"}', sectionId: 'sectionDetails', isHidden: true, parentField: "id" },
+            { id: 'invoiceId', type: 'text', label: '{"en":"Item ID"}', sectionId: 'sectionDetails', isHidden: true, parentField: "purchase_invoice" },
             { id: 'description', type: 'text', mandatory: true, label: '{"en":"Description"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             {
                 id: 'discountBy', type: 'text', formComponentType: "select", showInTable: true, showInForm: true, callClientScript: true,

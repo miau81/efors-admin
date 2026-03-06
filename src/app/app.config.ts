@@ -11,10 +11,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppInitService } from './services/app-init.service';
 import { SERVER_HOST } from './app.tokens';
 import { httpInterceptor } from './interceptors/http.interceptor';
-import { DOCUMENT_SCRIPTS } from './doctype/doctype';
-import { SalesInvoice } from './doctype/sales-invoice';
-import { SalesInvoiceItem } from './doctype/sales-invoice_item';
-// import { NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
+
+import './doctype-event/core/doctype-manifest';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,8 +30,7 @@ export const appConfig: ApplicationConfig = {
     })),
     { provide: SERVER_HOST, useValue: "./" },
     { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
-    { provide: DOCUMENT_SCRIPTS, useClass: SalesInvoice, multi: true },
-    { provide: DOCUMENT_SCRIPTS, useClass: SalesInvoiceItem, multi: true },
+
     // provideEnvironmentNgxCurrency({
     //   align: "right",
     //   allowNegative: true,

@@ -16,13 +16,6 @@ export const documentType = (() => {
         printScript: "SERVER",
         defaultSorting: 'createdDate',
         defaultSortBy: "DESC",
-        actionButtons: [
-            { code: "SUBMIT_EINVOICE", label: '{"en":"Submit E-Invoice"}', script: "CLIENT" },
-            { code: "CANCEL_EINVOICE", label: '{"en":"Cancel E-Invoice"}', script: "CLIENT", disabled: false, hidden: false },
-            { code: "SUBMIT_EINVOICE_SANDBOX", label: '{"en":"Submit E-Invoice (Testing Server)"}', script: "CLIENT" },
-            { code: "CANCEL_EINVOICE_SANDBOX", label: '{"en":"Cancel E-Invoice (Testing Server)"}', script: "CLIENT", disabled: false, hidden: false },
-
-        ],
         printFormats: [
             { code: "STD_SALES_INVOICE", fileName: "standard_sales_invoice", label: '{"en":"Standard Sales Invoice"}', isDefault: true },],
         sections: [
@@ -70,20 +63,20 @@ export const documentType = (() => {
             },
             // Section Taxes
             {
-                id: 'taxes', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Taxes/Additional Charges"}',
-                sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_tax", callClientScript: true
+                id: 'chargeAndDiscount', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Taxes/Additional Charges"}',
+                sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_charge_discount", callClientScript: true
             },
-            {
-                id: 'discounts', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Discounts"}',
-                sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_discount", callClientScript: true
-            },
+            // {
+            //     id: 'discounts', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Discounts"}',
+            //     sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_discount", callClientScript: true
+            // },
             //Section Totals
 
 
-            { id: 'subtotal', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Subtotal"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
+            { id: 'subtotal', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Subtotal(Esc.Tax)"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
             { id: 'totalTaxes', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Total Taxes"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
-            // { id: 'totalCharges', type: 'currency', isReadOnly: true, callClientScript: true, defaultValue: 0, label: '{"en":"Total Charges"}', showInForm: true, sectionId: 'sectionTotal' },
-            { id: 'totalDiscounts', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Total Discounts"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
+            { id: 'totalCharges', type: 'currency', isReadOnly: true, callClientScript: true, defaultValue: 0, label: '{"en":"Additional Charge"}', showInForm: true, sectionId: 'sectionTotal' , formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8"},
+            { id: 'totalDiscounts', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Additional Discount"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
             { id: 'roundingAmount', type: 'currency', isReadOnly: true, label: '{"en":"Rounding Amount"}', showInForm: true, defaultValue: 0, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
             { id: 'grandTotal', type: 'currency', isReadOnly: true, label: '{"en":"Grand Total"}', showInTable: true, defaultValue: 0, showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },
 

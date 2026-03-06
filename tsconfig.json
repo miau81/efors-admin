@@ -35,5 +35,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  
+   "include": [
+    "src/app/doctype-event/**/*.ts"
+  ]
 }

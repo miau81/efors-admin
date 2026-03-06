@@ -153,7 +153,7 @@ export class PrintComponent {
     const file = new File([generatedFile.blob], generatedFile?.fileName || '', { type: generatedFile.blob.type});
 
     window.navigator.share({
-      url: window.location.href,
+
       files: [file],
     })
 

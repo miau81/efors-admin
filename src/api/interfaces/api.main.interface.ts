@@ -1,5 +1,6 @@
 
-import { MyERPDocType } from "@myerp/interfaces/interface";
+
+import { MyERPDocType } from "../../app/@interfaces/interface";
 import { ConnectionAction } from "./api.db.interface";
 
 

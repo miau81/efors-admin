@@ -29,7 +29,7 @@
                 </button>
                 <div ngbDropdownMenu>
                     @for(action of actionButtons; track action.code;){
-                    <button ngbDropdownItem (click)="onAction(action)" [disabled]="action.disabled??false">
+                    <button ngbDropdownItem (click)="action.onClick()" [disabled]="action.disabled??false">
                         {{action.label | mytranslate}}
                     </button>
                     }
