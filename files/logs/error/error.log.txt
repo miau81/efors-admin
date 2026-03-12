@@ -1,2 +1,0 @@
-files/logs/error\20260130-0000-01-error.log
-files/logs/error\20260131-0000-01-error.log

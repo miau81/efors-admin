@@ -1,2 +1,0 @@
-files/logs/debug\20260130-0000-01-debug.log
-files/logs/debug\20260131-0000-01-debug.log
