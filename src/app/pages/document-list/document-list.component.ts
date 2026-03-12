@@ -4,7 +4,7 @@ import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { MyDataGridPagination, MyDataGridView, MyDataGridViewColumn, MyDataGridViewConfig, MyDataGridViewData, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
 import { BaseService } from '../../services/base.service';
-import { MyERPDocType, MyERPField, MyErpFieldType, MyErpSortAndPagination } from '@myerp/interfaces/interface';
+import { MyERPDocType, MyERPField, MyErpFieldType, MyErpSortAndPagination } from '../../@interfaces/interface';
 import { FormGroup } from '@angular/forms';
 import { MyBackButton } from '../../@core/components/back-button/back-button.component';
 
@@ -147,8 +147,6 @@ export class DocumentListComponent {
     this.docs = doclist.records;
     this.datagridConfig!.paginationOption!.length = doclist.totalRecord
     // this.datagridConfig!.paginationOption!.pageSize = doclist.totalPage
-
-
   }
 
 

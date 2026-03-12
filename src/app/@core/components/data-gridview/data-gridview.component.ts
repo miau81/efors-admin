@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Injectable, Input, NgZone, 
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
-import { MyErpFieldType } from '@myerp/interfaces/interface';
+import { MyErpFieldType } from '../../../@interfaces/interface';
 import { CommonModule } from '@angular/common';
 import { MyTranslatePipe } from '@myerp/pipes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

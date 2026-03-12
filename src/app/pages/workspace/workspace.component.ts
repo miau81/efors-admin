@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ShareModule } from '../../@modules/share/share.module';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { MyErpWorkSpaceNav } from '@myerp/interfaces/interface';
+import { MyErpWorkSpaceNav } from '../../@interfaces/interface';
+
 
 
 
@@ -17,15 +19,17 @@ export class WorkspaceComponent {
   public workspaceNav: MyErpWorkSpaceNav[] = [];
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService
+    private api: ApiService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
   }
   ngOnInit() {
-
-
-    this.route.params.subscribe(p => {
-      this.loadWorkSpaceNav(p['id']);
-    });
+    // Only subscribe to params in browser, not during SSR
+    if (isPlatformBrowser(this.platformId)) {
+      this.route.params.subscribe(p => {
+        this.loadWorkSpaceNav(p['id']);
+      });
+    }
   }
 
 

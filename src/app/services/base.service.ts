@@ -38,7 +38,10 @@ export class BaseService {
       }
       callback(params)
     })
-
+    // Also subscribe to url changes to ensure proper navigation handling
+    route.url.subscribe(() => {
+      // This helps trigger updates when navigating to the same route with different params
+    });
   }
 
   sortDocumentFields(fileds: MyERPField[]) {

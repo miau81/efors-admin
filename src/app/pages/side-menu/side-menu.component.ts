@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ShareModule } from '../../@modules/share/share.module';
 import { ApiService } from '../../services/api.service';
 import { NgbModule, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterLink } from '@angular/router';
-import { MyErpWorkspace } from '@myerp/interfaces/interface';
+import { MyErpWorkspace } from '../../@interfaces/interface';
 
 
 
@@ -17,10 +18,21 @@ export class SideMenuComponent {
   // public companyConfig: any = { companyLogo: '/' };
   public moduleGroups: MyErpWorkspace[] = [];
 
-  constructor(private api: ApiService, private router: Router, private offcanvasService: NgbOffcanvas) { }
+  constructor(
+    private api: ApiService, 
+    private router: Router, 
+    private offcanvasService: NgbOffcanvas,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   async ngOnInit() {
-    await this.loadModuleGroups();
+    // Only load module groups in browser, not during SSR
+    if (isPlatformBrowser(this.platformId)) {
+      await this.loadModuleGroups();
+    } else {
+      // For SSR, set empty array to prevent errors
+      this.moduleGroups = [];
+    }
   }
 
   async loadModuleGroups() {

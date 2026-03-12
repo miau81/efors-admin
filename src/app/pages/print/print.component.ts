@@ -2,7 +2,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 // import ejs from "ejs";
 import { TranslateModule } from '@ngx-translate/core';
-import { MyERPPrintFormat } from '@myerp/interfaces/interface';
+import { MyERPPrintFormat } from '../../@interfaces/interface';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ShareModule } from '../../@modules/share/share.module';
 import { DIALOG_DATA } from '@angular/cdk/dialog';

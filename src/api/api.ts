@@ -12,11 +12,11 @@ import figlet from "figlet";
 class API {
     constructor(public app: express.Application) {
         this.init();
-  }
+    }
 
     private async init() {
         const file = await Bun.file('package.json').json();
-        // const appName = `${await figlet.text("Efors!")} v${file.version}\n`;
+        // const appName = `${await figlet.text("Efors!")} v${version}\n`;
         const appName = `${'Efors'} v${file.version}\n`;
         logger.notimeLog(appName);
         this.initializeMiddlewares();

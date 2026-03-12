@@ -34,8 +34,8 @@
         <td class="table-checkbox"><input type="checkbox" [(ngModel)]="d.isCheck" /></td>
         @for(column of config.columns; track column.key){
         <td class="pointer" (click)="onSelect(d)">
-          @switch (column.type) {
-          @case ("number"){
+        @switch (column.type) {
+          @case ("number") {
           <span class="text-end">{{ d[column.key] }}</span>
           }
           @case ("currency") {
@@ -52,8 +52,8 @@
           }
           @default {
             <span>{{ d[column.key] | mytranslate }}</span>
-            }
           }
+        }
         </td>
         }
         <td><span class="text-body-tertiary">{{d['idx']}}</span></td>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Injectable, Input, Output, EventEmitter, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCalendar,  NgbDateAdapter, NgbDateStruct, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
@@ -36,11 +36,11 @@ export class CustomAdapter extends NgbDateAdapter<Date> {
 @Component({
   selector: 'myerp-datepicker',
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MyTranslatePipe,
-    NgbDatepicker],
+    NgbDatepicker
+],
   providers: [{ provide: NgbDateAdapter, useClass: CustomAdapter }],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss'

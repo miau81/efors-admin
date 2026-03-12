@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, Injector, Type } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, Injector, Type } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
 import { MyFormChildTableColumn, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig, MyFormTab, MyFromGroup } from '@myerp/components';
 import { ActivatedRoute } from '@angular/router';
@@ -6,8 +6,9 @@ import { ApiService } from '../../services/api.service';
 import { BaseService } from '../../services/base.service';
 import { toReadableDateString } from '@myerp/utils/misc';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
-import { ChangeScriptResponse, MyERPDocType, MyERPField, MyERPFieldGroup, MyErpFieldType } from '@myerp/interfaces/interface';
+import { firstValueFrom } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeScriptResponse, MyERPDocType, MyERPField, MyERPFieldGroup, MyErpFieldType } from '../../@interfaces/interface';
 import { MyTranslatePipe } from '@myerp/pipes';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -36,11 +37,11 @@ export class DocumentComponent {
   public dialogData = inject(MAT_DIALOG_DATA, { optional: true });
   public dialogRef = inject(MatDialogRef<MyFormGenerator>, { optional: true });
   public documentType!: MyERPDocType;
-  public destroy$: Subject<boolean> = new Subject<boolean>();
   public isChanged: boolean = false;
   public actionButtons: any[] = [];
   public eventScript?: any;
   private docTypeInstance?: DocTypeEvent;
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     public route: ActivatedRoute,
@@ -86,7 +87,7 @@ export class DocumentComponent {
           this.formConfig.initValue = this.populateDocument(this.documentType);
           this.title = this.dialogData.title;
           this.documentTypeId = this.dialogData.docType.id;
-          this.dialogRef?.beforeClosed().pipe(takeUntil(this.destroy$)).subscribe((res) => {
+          this.dialogRef?.beforeClosed().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
             this.onCloseTableFormDialog(res)
           });
           break
@@ -522,8 +523,6 @@ export class DocumentComponent {
   }
 
   onCloseTableFormDialog(isRemove: boolean = false) {
-    this.destroy$.next(true);
-    this.destroy$.complete();
     this.dialogRef?.close({ isRemove: isRemove, value: this.formConfig.form.value });
   }
 

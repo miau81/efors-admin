@@ -56,12 +56,15 @@
             "stylePreprocessorOptions": {
               "sass": {
                 "silenceDeprecations": [
-                  "mixed-decls",
                   "color-functions",
                   "global-builtin",
-                  "import"
+                  "import",
+                  "if-function"
                 ]
               }
+            },
+            "security": {
+              "allowedHosts": ["localhost", "127.0.0.1"]
             },
             "externalDependencies": [
               "puppeteer",
