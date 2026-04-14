@@ -14,7 +14,7 @@ export async function onChange(document:string,req:SRequest) {
 
   if (changeKeys.includes("taxId") && changes.taxId) {
     const sqlJson = `${convertUtil.getSQLJsonValueString('name', req.language)},chargeBy,rate`;
-    const sqlTax = `SELECT ${sqlJson}  FROM supplier_tax WHERE id = '${changes.taxId}' AND sysAcct = '${req.sys}' AND companyId='${req.com}'`;
+    const sqlTax = `SELECT ${sqlJson}  FROM supplier_tax WHERE id = '${changes.taxId}' AND sysAcct = '${req.branch}' AND companyId='${req.company}'`;
     const taxId = await req.mysqlConn!.querySingle(sqlTax);
     formValue["name"] = taxId.name;
     formValue["chargeBy"] = taxId.chargeBy;

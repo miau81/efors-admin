@@ -21,7 +21,7 @@ export async function onChange(document: string, req: SRequest) {
             case "Customer":
             case "Supplier":
                 const sqlJson = convertUtil.getSQLJsonValueString('name', req.language)
-                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${req.sys}' AND companyId='${req.com}'`;
+                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${req.branch}' AND companyId='${req.company}'`;
                 const parties = await req.mysqlConn!.query(sql);
                 formConfig['party'] = {
                     type: 'select',
@@ -88,7 +88,7 @@ async function paidToSupplier(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 
@@ -149,7 +149,7 @@ async function cancelSupplierPayment(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 
@@ -183,7 +183,7 @@ async function creditCompanyAcctTrnx(payment: any, req: SRequest) {
         accountId: payment.paymentMethod,
         partyId: payment.party,
         partyType: payment.partyType,
-        companyId: req.com,
+        companyId: req.company,
         transactionType: 'CREDIT',
         description: `Paid To: ${payment.id}`,
         refDoc: "Payment Voucher",
@@ -201,7 +201,7 @@ async function debitCompanyAcctTrnx(payment: any, req: SRequest) {
         accountId: payment.paymentMethod,
         partyId: payment.party,
         partyType: payment.partyType,
-        companyId: req.com,
+        companyId: req.company,
         transactionType: 'DEBIT',
         description: `Payment Voucher is Cancelled: ${payment.id}`,
         refDoc: "Payment Voucher",
@@ -218,7 +218,7 @@ async function paidToCustomer(payment: any, req: SRequest) {
     const document='customer_acct_tranx';
     const trnx = {
         customerId: payment.party,
-        companyId: req.com,
+        companyId: req.company,
         transactionType: 'DEBIT',
         description: `Paid To: ${payment.id}`,
         refDoc: "Payment Voucher",
@@ -235,7 +235,7 @@ async function cancelCustomerPayment(payment: any, req: SRequest) {
     const document='customer_acct_tranx';
     const trnx = {
         customerId: payment.party,
-        companyId: req.com,
+        companyId: req.company,
         transactionType: 'CREDIT',
         description: `Payment Voucher is cancelled: ${payment.id}`,
         refDoc: "Payment Voucher",

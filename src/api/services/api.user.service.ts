@@ -4,14 +4,14 @@ import { BadRequestException } from "../exceptions/BadRequestException";
 import { UnauthorizedException } from "../exceptions/UnauthorizedException";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { JWTService } from "./jwt.service";
-import { CoreService } from "./api.core.service";
+import {core} from "../core/core"
 
 
 
 const db = dbName;
 export class ApiUserService {
     private jwtService = new JWTService();
-    private globalService = new CoreService();
+
 
     async login(body: any, mysqlConn: ConnectionAction): Promise<any> {
 
@@ -113,7 +113,7 @@ export class ApiUserService {
         }
         if (await this.jwtService.comparePassword(body.currentPassword, user.password)) {
             let newPassword = await this.jwtService.hashPassword(body.newPassword);
-            await this.globalService.sqlUpdate("user", { password: newPassword, id: user.id },`WHERE id=${user.id}`, mysqlConn);
+            await core.sqlUpdate("user", { password: newPassword, id: user.id },`WHERE id=${user.id}`, mysqlConn);
         } else {
             throw new BadRequestException("Current password not match.", "INCORRECT_CURRENT_PASSWORD");
         }

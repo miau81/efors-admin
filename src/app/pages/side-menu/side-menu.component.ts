@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ShareModule } from '../../@modules/share/share.module';
 import { ApiService } from '../../services/api.service';
@@ -15,15 +15,14 @@ import { MyErpWorkspace } from '../../@interfaces/interface';
   styleUrl: './side-menu.component.scss'
 })
 export class SideMenuComponent {
-  // public companyConfig: any = { companyLogo: '/' };
-  public moduleGroups: MyErpWorkspace[] = [];
+  // Using signals for reactive state
+  readonly moduleGroups = signal<MyErpWorkspace[]>([]);
 
-  constructor(
-    private api: ApiService, 
-    private router: Router, 
-    private offcanvasService: NgbOffcanvas,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  // Using inject()
+  private readonly api = inject(ApiService);
+  private readonly router = inject(Router);
+  private readonly offcanvasService = inject(NgbOffcanvas);
+  private readonly platformId = inject(PLATFORM_ID);
 
   async ngOnInit() {
     // Only load module groups in browser, not during SSR
@@ -31,19 +30,16 @@ export class SideMenuComponent {
       await this.loadModuleGroups();
     } else {
       // For SSR, set empty array to prevent errors
-      this.moduleGroups = [];
+      this.moduleGroups.set([]);
     }
   }
 
   async loadModuleGroups() {
     const res: any = await this.api.getConfig('workspace', 'workspace');
-    this.moduleGroups = res.config;
+    this.moduleGroups.set(res.config);
   }
-
 
   dismissOffCanvas() {
     this.offcanvasService.dismiss()
   }
-
-
 }

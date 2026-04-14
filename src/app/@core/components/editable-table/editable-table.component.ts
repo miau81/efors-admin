@@ -1,7 +1,7 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output, inject, signal, effect, input, output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MyTranslatePipe } from '@myerp/pipes';
+import { MyTranslatePipe } from '../../pipes';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgSelectComponent, NgOptionComponent } from '@ng-select/ng-select';
 
@@ -10,7 +10,6 @@ import { firstValueFrom } from 'rxjs';
 import { MyMedia } from '../media/media.component';
 import { MyDatePicker } from '../date-picker/date-picker.component';
 import { MyFormComponent, MyFormGenerator, MyFormGeneratorConfig } from '../form-generator/form-generator.component';
-// import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'myerp-editable-table',
@@ -25,50 +24,75 @@ import { MyFormComponent, MyFormGenerator, MyFormGeneratorConfig } from '../form
     NgOptionComponent,
     MyDatePicker,
     MatDialogModule,
-    // NgxCurrencyDirective
   ],
   providers: [DecimalPipe],
   templateUrl: './editable-table.component.html',
-  styleUrl: './editable-table.component.scss'
+  styleUrl: './editable-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyEditableTable {
-  @Input() formArray!: FormArray;
-  @Input() component!: MyFormComponent;
-  @Input() formConfig!: MyFormGeneratorConfig;
-  @Output() componentChange: EventEmitter<MyFormComponent> = new EventEmitter<MyFormComponent>();
-  @Output("onChange") onFormChange: EventEmitter<any> = new EventEmitter();
-  @Output("onKeyUp") onFormKeyUp: EventEmitter<any> = new EventEmitter();
-  @Output("onOpenForm") onOpenForm: EventEmitter<any> = new EventEmitter();
-  @Output("onViewLinkDoc") onViewLinkDoc: EventEmitter<any> = new EventEmitter();
-  @Output("onRowChange") onRowChange: EventEmitter<any> = new EventEmitter();
-  public rows: any = [];
-  constructor(private cd: ChangeDetectorRef, private translateService: TranslateService, private decimalPipe: DecimalPipe) {
+  // Using input() from Angular 17+
+  formArray = input.required<FormArray>();
+  component = input.required<MyFormComponent>();
+  formConfig = input.required<MyFormGeneratorConfig>();
+  readOnly = input.required<boolean>();
 
+  // Using output() from Angular 17+ 
+  componentChange = output<MyFormComponent>();
+  onFormChange = output<any>();
+  onFormKeyUp = output<any>();
+  onOpenForm = output<any>();
+  onViewLinkDoc = output<any>();
+  onRowChange = output<any>();
+
+  // Signals for internal state
+  readonly rows = signal<any[]>([]);
+
+  // DI using inject()
+  private readonly cd = inject(ChangeDetectorRef);
+  private readonly translateService = inject(TranslateService);
+  private readonly decimalPipe = inject(DecimalPipe);
+
+  constructor() {
+    // Removed the effect that was causing unnecessary change detection
+    // The effect was triggering markForCheck on every row change
+    // which was happening on every input change in the table
   }
-
 
   ngOnInit() {
-    this.formArray.valueChanges.subscribe((r) => {
-      this.component.value = r;
-      this.refreshRow()
-    })
-    this.refreshRow()
-  }
-
-  ngOnChanges() {
+    this.formArray().valueChanges.subscribe((r) => {
+      this.component().value = r;
+      this.refreshRow();
+    });
+    this.refreshRow();
   }
 
   refreshRow() {
-    this.rows = [];
+    const newRows: any[] = [];
+    const comp = this.component();
 
-    for (const v of this.component.value || []) {
-      for (const c of this.component.tableConfig!.displayColumns) {
-        if (c.component.type == 'currency' || c.component.type == 'readOnlyCurrency') {
+    for (const v of comp?.value || []) {
+      for (const c of comp.tableConfig?.displayColumns || []) {
+        if (c.component.type === 'currency') {
           v[c.component.key] = this.getCurrencyValue(v[c.component.key]);
         }
       }
-      this.onAddRow();
+      this.addRowInternal(newRows);
     }
+    // Use markForCheck instead of directly setting the signal
+    // to prevent unnecessary change detection cycles
+    this.rows.set(newRows);
+    this.cd.markForCheck();
+  }
+
+  private addRowInternal(newRows: any[]) {
+    const comp = this.component();
+    const cols: any[] = [];
+    for (const c of comp.tableConfig?.displayColumns || []) {
+      const component = JSON.parse(JSON.stringify(c.component));
+      cols.push({ component: component, isCheck: false });
+    }
+    newRows.push({ cols });
   }
 
   onKeyUp(component: MyFormComponent, e: KeyboardEvent, index: number): void {
@@ -76,15 +100,15 @@ export class MyEditableTable {
   }
 
   onChange(component: MyFormComponent, index: number): void {
-
-    if (component.type == 'currency' || component.type == 'readOnlyCurrency') {
-      this.component.value[index][component.key] = this.getCurrencyValue(this.component.value[index][component.key]);
+    const comp = this.component();
+    if (component.type === 'currency') {
+      comp.value[index][component.key] = this.getCurrencyValue(comp.value[index][component.key]);
     }
-    this.onFormChange.emit({ row: this.rows[index], component: component, values: this.component.value, index: index });
+    this.onFormChange.emit({ row: this.rows()[index], component: component, values: comp.value, index: index });
   }
 
-  getCurrencyValue(value: any) {
-    return this.decimalPipe.transform(value, "1.2-2");
+  getCurrencyValue(value: any): string {
+    return this.decimalPipe.transform(value, "1.2-2") || '';
   }
 
   onImageClick(component: MyFormComponent, index: number) {
@@ -102,123 +126,103 @@ export class MyEditableTable {
 
   onFileSelected(e: any, component: MyFormComponent, index: number) {
     if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = (event: any) => {
         component.value = event.target.result;
-        // // try {
-        // this.config.form.controls[component.key].setValue(e.target.files[0]);
-        // this.config.form.controls[component.key].updateValueAndValidity()
-        // } catch {
-
-        // }
         this.onChange(component, index);
-
       };
       reader.readAsDataURL(e.target.files[0]);
     }
-
   }
 
   onDatePickerChange(component: MyFormComponent, dt: any, index: number) {
     this.onChange(component, index);
   }
 
-
   onCheckAll(event: any) {
-    this.component.value.forEach((d: any) => d.isCheck = event.target.checked);
+    this.component().value?.forEach((d: any) => d.isCheck = event.target.checked);
   }
 
-  setupFormComponent(c: MyFormComponent, group: any) {
+  setupFormComponent(c: MyFormComponent, group: any): any {
     let validators: any[] = [];
     if (c.required) {
       validators.push(Validators.required);
     }
-    if (c.type == "table") {
+    if (c.type === "table") {
       group[c.key] = new FormArray([], validators);
     }
-    if (c.type == "email") {
+    if (c.type === "email") {
       validators.push(Validators.email);
     }
-    if (c.type == "number") {
+    if (c.type === "number") {
       validators.push(Validators.min);
       validators.push(Validators.max);
     }
-    if (c.type == "checkboxGroup") {
+    if (c.type === "checkboxGroup") {
       group[c.key] = new FormArray([], validators);
     } else {
-      if (c.type != "breakline") {
-        group[c.key] = new FormControl({ value: c.value, disabled: c.disabled }, validators);
+      if (c.type !== "breakline") {
+        group[c.key] = new FormControl({ value: c.value, disabled: !!(c.readonly || c.disabled) }, validators);
       }
     }
     return group;
   }
 
-
   onAddRow(isNew?: any) {
+    const comp = this.component();
     if (isNew) {
-      this.component.value = this.component.value || []
+      comp.value = comp.value || [];
       const defaultValue: any = {};
-      for (const c of this.component.tableConfig!.displayColumns) {
-        if (c.component.type == 'currency' || c.component.type == 'readOnlyCurrency') {
+      for (const c of comp.tableConfig?.displayColumns || []) {
+        if (c.component.type === 'currency') {
           defaultValue[c.component.key] = this.getCurrencyValue(c.defaultValue);
         } else {
           defaultValue[c.component.key] = c.defaultValue;
         }
       }
-      this.component.value.push(defaultValue);
+      comp.value.push(defaultValue);
     }
-    const cols = []
-    for (const c of this.component.tableConfig!.displayColumns) {
-      const component = JSON.parse(JSON.stringify(c.component));
-      cols.push({ component: component, isCheck: false });
-    }
-    this.rows.push({ cols });
+    this.addRowInternal(this.rows());
     if (isNew) {
-      this.onRowChange.emit();
+      this.onRowChange.emit(undefined);
     }
   }
 
   async onModalForm(index: number) {
-
-    const formConfig = JSON.parse(JSON.stringify(this.formConfig));
-    formConfig.initValue = this.component.value[index];
+    const formConfig = JSON.parse(JSON.stringify(this.formConfig()));
+    formConfig.initValue = this.component().value[index];
     const title = await firstValueFrom(this.translateService.get("_EDIT_ROW", { row: index + 1 }));
 
-
     const callback = (res: any) => {
-      if (this.formConfig.readOnly) {
-        return
+      if (this.formConfig().readOnly) {
+        return;
       }
       if (res.isRemove) {
-        this.onRemoveRow(index)
+        this.onRemoveRow(index);
       } else {
-        this.component.value[index] = res.value;
+        this.component().value[index] = res.value;
       }
-      this.onChange(this.component, index)
-    }
+      this.onChange(this.component(), index);
+    };
 
     this.onOpenForm.emit({
       title: title,
-      document: this.component.value[index],
+      document: this.component().value[index],
       callback: callback
-    })
-
+    });
   }
 
   onRemoveRow(index: number) {
-    this.component.value.splice(index, 1);
-    this.rows.splice(index, 1);
-    this.onRowChange.emit();
+    this.component().value?.splice(index, 1);
+    this.refreshRow();
+    this.onRowChange.emit(undefined);
   }
 
   multiNgSwitchCase(arr: string[], type: string): boolean {
-    return arr.find(a => a == type) ? true : false;
+    return arr.some(a => a === type);
   }
 
   onViewDocumentClick(event: any) {
     this.onViewLinkDoc.emit(event);
   }
-
-
-
 }

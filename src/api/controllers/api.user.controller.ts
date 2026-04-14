@@ -3,16 +3,12 @@
 import { NextFunction, Response } from "express";
 import { SRequest } from "../interfaces/api.route.interface";
 import { ApiUserService } from "../services/api.user.service";
-import { ConvertUtil } from "../utils/convert";
-import { CoreService } from "../services/api.core.service";
 import { ConnectionPool } from "../databases";
 
 export class ApiUserController {
 
 
     private userService = new ApiUserService();
-    private convertUtil = new ConvertUtil();
-    private globalService = new CoreService();
 
 
     public login = async (req: SRequest, res: Response, next: NextFunction) => {

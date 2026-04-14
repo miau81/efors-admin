@@ -1,6 +1,4 @@
 <header class="header top border-bottom border-1">
-    <!-- <div class="container-lg"> -->
-
     <div class="toolbar">
         <div class="buttons-start">
             <button class="btn btn-icon" (click)="open(mainMenuTemp)">
@@ -13,22 +11,19 @@
             </a>
         </div>
         <div class="title">
-            <a class="nav-link" routerLink="/"> {{appName}} </a>
+            <a class="nav-link" routerLink="/"> {{appName()}} </a>
             <span class=" d-none d-sm-block font-small ms-2">
-                {{systemName}}<br /><div class="fw-normal fst-italic"> {{slogan}} - {{tagline}}</div>
+                {{systemName()}}<br /><div class="fw-normal fst-italic"> {{slogan()}} - {{tagline()}}</div>
             </span>
         </div>
         <div class="buttons-end">
-            <!-- <button ngbDropdownToggle class="btn btn-icon">
-                <i class="bi bi-translate  font-x-large"></i>
-            </button> -->
             <div ngbDropdown>
                 <button ngbDropdownToggle class="btn btn-icon">
                     <i class="bi bi-person-circle font-x-large"></i>
                 </button>
                 <ul ngbDropdownMenu>
                     <li>
-                        <a ngbDropdownItem [routerLink]="accountLink">{{"_MY_ACCOUNT" | translate}}</a>
+                        <a ngbDropdownItem [routerLink]="accountLink()">{{"_MY_ACCOUNT" | translate}}</a>
                     </li>
                     <li>
                         <a ngbDropdownItem (click)="onLogout()" class="pointer">{{"_LOGOUT" | translate}}</a>
@@ -38,11 +33,10 @@
         </div>
     </div>
 
-
     <ng-template #mainMenuTemp let-offcanvas>
         <div class="offcanvas-container">
             <div class="offcanvas-header">
-                <h4 class="offcanvas-title" id="offcanvas-basic-title">{{appName}}</h4>
+                <h4 class="offcanvas-title" id="offcanvas-basic-title">{{appName()}}</h4>
                 <button type="button" class="btn-close text-light text-bg-light" aria-label="Close"
                     (click)="offcanvas.dismiss()"></button>
             </div>
@@ -51,5 +45,4 @@
             </div>
         </div>
     </ng-template>
-
 </header>

@@ -1,7 +1,7 @@
 <div class="dialog">
   @if(option.title){
   <div class="bg-{{color}} title text-light">
-    <h5>{{option.title | translate}}</h5>
+    <h5>{{option.title ?? '' | translate}}</h5>
   </div>
   }
   <mat-dialog-content class="dialog-content">

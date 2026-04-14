@@ -10,7 +10,7 @@ export class ApiPrintService {
     readonly printFilePath = `${import.meta.dir}/../../../api/print_format`;
 
     async getLetterHead(req: SRequest) {
-        const company = await core.getDocument(req, "company", req.com!);
+        const company = await core.getDocument(req, "company", req.company!);
         const templateFile = `${this.printFilePath}/letterhead.ejs`;
         const html = await ejs.renderFile(templateFile, { company });
         return {

@@ -8,7 +8,7 @@ export const documentType = (() => {
         namingType: "random",
         fields: [
             {
-                id: 'userId', type: 'text', isHidden: true, parentField: "company"
+                id: 'userId', type: 'text', isHidden: true, parentField: "user"
             },
             {
                 id: 'branchId', type: 'link', options: "branch", showInForm: true, showInTable:true,

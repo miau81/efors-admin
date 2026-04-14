@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MyColor, MyMessageBoxOption, MyMessageBoxResponse } from '@myerp/services';
+import { MyColor, MyMessageBoxOption, MyMessageBoxResponse } from '../../services/message-box.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { MyTranslatePipe } from '../../pipes/internal-translate.pipe';
 import { getTranslateJSON } from '@myerp/utils/misc';
@@ -14,8 +14,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './message-box.component.scss'
 })
 export class MyMessageBox {
+  // Using inject()
   readonly dialogRef = inject(MatDialogRef<MyMessageBox>)
-  option: MyMessageBoxOption = inject(MAT_DIALOG_DATA);
+  readonly option = inject(MAT_DIALOG_DATA);
+
+  // Class properties
   color!: MyColor;
   icon?: string;
   confirmInput?: string = '';
@@ -25,7 +28,8 @@ export class MyMessageBox {
   }
 
   ngOnInit() {
-    switch (this.option.type) {
+    const opt = this.option;
+    switch (opt.type) {
       case "error":
         this.color = "danger";
         this.icon = "x-circle";
@@ -52,7 +56,7 @@ export class MyMessageBox {
       default:
         this.color = "dark";
     }
-    this.option.message= this.option.message?.replace(/\n/g,"<br>");
+    opt.message = opt.message?.replace(/\n/g,"<br>");
   }
 
   onClick(response: MyMessageBoxResponse) {
@@ -66,9 +70,9 @@ export class MyMessageBox {
   }
 
   onConfirmKeyCheck() {
-    if (this.confirmInput == this.option.confirmKey) {
+    const opt = this.option;
+    if (this.confirmInput == opt.confirmKey) {
       this.dialogRef.close("confirm");
     }
   }
-
 }

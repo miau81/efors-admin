@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, inject, signal } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
 import { NgbDropdown, NgbDropdownModule, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { APP_PARAMS } from '../../@interfaces/const';
@@ -13,22 +13,22 @@ import { SideMenuComponent } from "../side-menu/side-menu.component";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  // Using signals for reactive state
+  readonly languages = signal<any[]>([{ name: '', code: '' }]);
+  readonly showToggleMenu = signal<boolean>(false);
+  readonly appName = signal<string>(APP_PARAMS.appName);
+  readonly systemName = signal<string>(APP_PARAMS.systemName);
+  readonly slogan = signal<string>(APP_PARAMS.slogan);
+  readonly tagline = signal<string>(APP_PARAMS.tagline);
+  readonly accountLink = signal<string>('/doc/user/');
 
-  public languages: any = [{ name: '', code: '' }];
-  public showToggleMenu: boolean = false;
-  public appName: string = APP_PARAMS.appName;
-  public systemName: string = APP_PARAMS.systemName;
-  public slogan: string = APP_PARAMS.slogan;
-  public tagline: string = APP_PARAMS.tagline;
-  public accountLink: string = '/doc/user/'
-
-  constructor(private authService: AuthService, private offcanvasService: NgbOffcanvas) {
-
-  }
+  // Using inject()
+  private readonly authService = inject(AuthService);
+  private readonly offcanvasService = inject(NgbOffcanvas);
 
   async ngOnInit() {
     const user = await this.authService.getLoginUser()!;
-    this.accountLink = this.accountLink + user.id;
+    this.accountLink.set(this.accountLink() + user.id);
   }
 
   onChangeLanguage(code: string) { }

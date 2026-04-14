@@ -30,7 +30,7 @@ export async function afterSubmit(data: any, previousData: any, req: SRequest) {
         refNo: previousData.id,
         amount: previousData.grandTotal,
         postingDate: previousData.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("CUSTOMER", trnx);
     return data;

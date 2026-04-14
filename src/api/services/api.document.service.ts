@@ -1,12 +1,8 @@
 
 import { ServiceException } from "../exceptions/ServiceException";
-import { ConnectionAction } from "../interfaces/api.db.interface";
 import { DBFilter } from "../interfaces/api.main.interface";
 import { SRequest } from "../interfaces/api.route.interface";
-import { ConvertUtil } from "../utils/convert";
 import { logger } from "../utils/logger";
-import { ExternalScriptService } from "./api.extermal-script.service";
-import { CoreService } from "./api.core.service";
 import { core } from "../core/core";
 
 export class ApiDocumentService {
@@ -14,7 +10,7 @@ export class ApiDocumentService {
 
     async getDocumentType(req: SRequest) {
         const document = req.params['document'];
-        return core.getDocumentType(document, req.mysqlConn, req.sys, req.com, (req.language || 'en'));
+        return core.getDocumentType(document, req.mysqlConn, req.branch, req.company, (req.language || 'en'));
     }
 
     async getDocuments(req: SRequest) {
@@ -50,6 +46,7 @@ export class ApiDocumentService {
 
     async createDocument(req: SRequest) {
         try {
+            console.log(req.params?.['document'])
             const document = core.convertUtil.convertDocTypeToTableName(req.params?.['document']);
             return await core.createDocument(req, document, req.body);
         } catch (error) {

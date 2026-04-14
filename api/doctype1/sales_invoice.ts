@@ -20,6 +20,7 @@ export const documentType = (() => {
             { code: "STD_SALES_INVOICE", fileName: "standard_sales_invoice", label: '{"en":"Standard Sales Invoice"}', isDefault: true },],
         sections: [
             { id: 'sectionDetails', label: '', sorting: 1 },
+            { id: 'sectionCustomer', sectionExpanded: true, label: '{"en":"Customer Details"}', sorting: 2 },
             { id: 'sectionItems', label: '{"en":"Items"}', sorting: 3 },
             { id: 'sectionChargesAndDiscount', sectionExpanded: false, label: '{"en":"Charges And Discount"}', sorting: 4 },
             { id: 'sectionTotal', label: '{"en":"Total"}', sorting: 5 },
@@ -45,6 +46,36 @@ export const documentType = (() => {
             },
             { id: 'postingDate', type: 'datetime', mandatory: true, label: '{"en":"Posting Date"}', showInTable: true, showInForm: true, showInFilter: true, sectionId: 'sectionDetails' },
 
+            // Customer Details
+            { id: 'customerName', type: 'text', mandatory: true, label: '{"en":"Name"}', showInTable: true, showInForm: true, sectionId: 'sectionCustomer' },
+            { id: 'contactNo', type: 'text', mandatory: true, label: '{"en":"Contact No"}', showInTable: true, showInForm: true, sectionId: 'sectionCustomer' },
+            { id: 'email', type: 'text', formComponentType: "email", mandatory: true, label: '{"en":"Email"}', showInTable: true, showInForm: true, sectionId: 'sectionCustomer' },
+            { id: 'tinNo', type: 'text', label: '{"en":"Tin No"}', showInTable: true, showInForm: true, sectionId: 'sectionCustomer' },
+            { id: 'identificationNo', type: 'text', label: '{"en":"I/C| Passport | Business Reg. No"}', showInForm: true, sectionId: 'sectionCustomer' },
+            {
+                id: 'identificationType', type: 'link', options: "einvoice_id_type", showInForm: true,
+                linkOptions: { valueField: "id", labelField: "id,name" },
+                label: '{"en":"Identification Type"}', sectionId: 'sectionCustomer'
+            },
+            { id: 'sstRegistration', type: 'text', label: '{"en":"SST Registration No"}', showInForm: true, sectionId: 'sectionCustomer' },
+
+
+            { id: 'address1', type: 'text', label: '{"en":"Address 1"}', showInForm: true, sectionId: "sectionCustomer" },
+            { id: 'address2', type: 'text', label: '{"en":"Address 2"}', showInForm: true, sectionId: "sectionCustomer" },
+            { id: 'address3', type: 'text', label: '{"en":"Address 3"}', showInForm: true, sectionId: "sectionCustomer" },
+            { id: 'postcode', type: 'text', label: '{"en":"Postcode"}', showInForm: true, sectionId: "sectionCustomer" },
+            { id: 'city', type: 'text', label: '{"en":"City"}', showInForm: true, sectionId: "sectionCustomer" },
+            {
+                id: 'stateCode', type: 'link', options: "state", showInForm: true,
+                linkOptions: { valueField: "einvoice_code", labelField: "name" },
+                label: '{"en":"State"}', sectionId: "sectionCustomer"
+            },
+            {
+                id: 'countryCode', type: 'link', options: "country", defaultValue: "MYS", showInForm: true,
+                linkOptions: { valueField: "einvoice_code", labelField: "name" },
+                label: '{"en":"Country"}', sectionId: "sectionCustomer"
+            },
+
             //Section Return 
             // { id: 'sectionReturn', type: 'section', label: '{"en":"Return"}', sorting: 2, sectionExpanded: false },
             // { id: 'isReturn', type: 'boolean', defaultValue: false, label: '{"en":"Is Return"}', showInTable: true, showInForm: true, sectionId: 'sectionReturn' },
@@ -55,7 +86,7 @@ export const documentType = (() => {
              {
                 id: 'itemId', type: 'link', options: "item", showInForm: true,
                 linkOptions: { valueField: "id", labelField: "name" }, isVirtual:true,
-                label: '{"en":"Item Id"}', sectionId: 'sectionItems',callServerScript:true
+                label: '{"en":"Item Id"}', sectionId: 'sectionItems'
             },
             {
                 id: 'items', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Items"}',
@@ -66,11 +97,6 @@ export const documentType = (() => {
                 id: 'chargeAndDiscount', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Taxes/Additional Charges"}',
                 sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_charge_discount", callClientScript: true
             },
-            // {
-            //     id: 'discounts', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Discounts"}',
-            //     sectionId: 'sectionChargesAndDiscount', options: "sales_invoice_discount", callClientScript: true
-            // },
-            //Section Totals
 
 
             { id: 'subtotal', type: 'currency', isReadOnly: true, defaultValue: 0, label: '{"en":"Subtotal(Esc.Tax)"}', showInForm: true, sectionId: 'sectionTotal', formColumnSize: "col-12 col-md-6 col-lg-4 offset-sm-6 offset-md-8" },

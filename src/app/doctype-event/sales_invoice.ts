@@ -132,6 +132,27 @@ export default class SalesInvoice extends DocTypeEvent {
             calculateTotalAndRounding();
         }
 
+        if (changeKeys.includes("customerId") && change.customerId) {
+            
+            const customer: any = await this.parent.api.getDocument("customer", change.customerId);
+            console.log(change.customerId,customer)
+            formValue["customerName"] = customer.name;
+            formValue["contactNo"] = customer.contactNo;
+            formValue["email"] = customer.email;
+            formValue["tinNo"] = customer.tinNo;
+            formValue["identificationNo"] = customer.identificationNo;
+            formValue["identificationType"] = customer.identificationType;
+            formValue["sstRegistration"] = customer.sstRegistration;
+            formValue["address1"] = customer.address1;
+            formValue["address2"] = customer.address2;
+            formValue["address3"] = customer.address3;
+            formValue["postcode"] = customer.postcode;
+            formValue["city"] = customer.city;
+            formValue["stateCode"] = customer.stateCode;
+            formValue["countryCode"] = customer.countryCode;
+
+        }
+
         const response = {
             formValue: formValue,
             componentOptions: componentOptions,
@@ -141,11 +162,11 @@ export default class SalesInvoice extends DocTypeEvent {
     }
 
     override async onLoad(): Promise<void> {
-        if (this.parent.isNew) {
-            this.parent.actionButtons = [];
+        if (this.parent.isNew()) {
+            this.parent.actionButtons.set([]);
         } else {
             console.log("is not new")
-            this.parent.actionButtons = [
+            this.parent.actionButtons.set([
                 {
                     code: "SUBMIT_EINVOICE", label: '{"en":"Submit E-Invoice"}',
                     onClick: () => {
@@ -155,13 +176,12 @@ export default class SalesInvoice extends DocTypeEvent {
                 { code: "CANCEL_EINVOICE", label: '{"en":"Cancel E-Invoice"}' },
                 { code: "SUBMIT_EINVOICE_SANDBOX", label: '{"en":"Submit E-Invoice (Testing Server)"}' },
                 { code: "CANCEL_EINVOICE_SANDBOX", label: '{"en":"Cancel E-Invoice (Testing Server)"}' },
-
-            ]
+            ]);
         }
         return;
     }
 
-    
+
 
 }
 

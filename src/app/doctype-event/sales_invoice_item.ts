@@ -74,7 +74,6 @@ export default class SalesInvoiceItem extends DocTypeEvent {
             componentOptions: componentOptions,
             parentFormValue: parentFormValue
         }
-        console.log(response)
         return response;
     }
 

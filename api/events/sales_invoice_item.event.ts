@@ -14,7 +14,7 @@ export async function onChange(document: string, req: SRequest) {
 
   // if (changeKeys.includes("itemId") && changes.itemId) {
   //   const sqlJson = convertUtil.getSQLJsonValueString('name', req.language)
-  //   const sqlItem = `SELECT ${sqlJson},uom,unitPrice FROM item WHERE id = '${changes.itemId}' AND sysAcct = '${req.sys}' AND companyId='${req.com}'`;
+  //   const sqlItem = `SELECT ${sqlJson},uom,unitPrice FROM item WHERE id = '${changes.itemId}' AND sysAcct = '${req.branch}' AND companyId='${req.company}'`;
   //   const item = await req.mysqlConn!.querySingle(sqlItem);
   //   formValue["name"] = item.name;
   //   formValue["uom"] = item.uom;

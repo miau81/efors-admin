@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, input, model } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -14,23 +14,26 @@ export class MyMedia {
    * height:number | string - Image Height
    * defaultImage:string - Default image to be displayed if the image is not found
    */
-  @Input() src?: string = "";
-  @Input() media?: Media;
-  @Input() height?: number | string = 100;
-  @Input() defaultImage?: string = "assets/myerp-core/images/no-image.jpg";
+  // Using input() from Angular 17+
+  src = input<string>("");
+  media = model<Media | undefined>(undefined);
+  height = input<number | string>(100);
+  defaultImage = input<string>("assets/myerp-core/images/no-image.jpg");
 
   public videoPoster: string | SafeUrl = "";
   
-  constructor(private sanitizer: DomSanitizer) { }
+  // Using inject()
+  private readonly sanitizer = inject(DomSanitizer);
 
   ngOnInit() {
-    if (!this.media) {
-      this.media = {
+    const mediaValue = this.media();
+    if (!mediaValue) {
+      this.media.set({
         type: "IMAGE",
-        url: this.src || "",
-      }
+        url: this.src() || "",
+      });
     } else {
-      if (this.media?.type == "VIDEO") {
+      if (mediaValue?.type == "VIDEO") {
         this.generateVideoPoster();
       }
     }
@@ -49,10 +52,9 @@ export class MyMedia {
       try {
         const video: HTMLVideoElement = document.createElement("video")
         video.crossOrigin = "*";
-        video.src = this.media?.url.toString() || "";
+        video.src = this.media()?.url.toString() || "";
         video.preload = 'metadata';
         video.muted = true;
-        // video['webkit-playsInline'] = true;
         video.playsInline = true;
 
         video.play();
@@ -97,14 +99,10 @@ export class MyMedia {
     })
   }
 
-
-
   onImageError(e: any) {
-    e.target.src = this.defaultImage;
+    e.target.src = this.defaultImage();
   }
-
 }
-
 
 export interface Media {
   type: MediaType;

@@ -182,8 +182,8 @@ export class ConvertUtil {
         //     document: document,
         //     selectFields: selectFields,
         //     excludeFields: excludedFields,
-        //     sys: req.sys,
-        //     com: req.com,
+        //     sys: req.branch,
+        //     com: req.company,
         //     pagination: {
         //         start: limit * (page - 1),
         //         limit: limit,

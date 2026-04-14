@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,17 +9,18 @@ import { Router } from '@angular/router';
   styleUrl: './back-button.component.scss'
 })
 export class MyBackButton {
+  // Using input() from Angular 17+
+  defaultHref = input<string>('');
 
-  @Input() defaultHref:string='';
-  constructor(private router: Router, private location: Location) {
-
-  }
+  // Using inject()
+  private readonly router = inject(Router);
+  private readonly location = inject(Location);
 
   onClick() {
     if (window.history.length > 1) {
       this.location.back();
     } else {
-      this.router.navigate([this.defaultHref]);
+      this.router.navigate([this.defaultHref()]);
     }
   }
 }

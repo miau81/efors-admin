@@ -8,11 +8,10 @@ export const documentType = (() => {
     const type: MyERPDocType = {
         id: "branch",
         label: '{"en":"Branch"}',
-        namingType: "byField",
+        namingType: "companyField",
         namingFormat: "code",
         tabs: [
             { id: 'tabDetails', label: '{"en":"Details"}', sorting: 1 },
-            // { id: 'tabAcctount', label: '{"en":"Account"}', sorting: 2, sectionExpanded: false },
             { id: 'tabEInvoice', label: '{"en":"E-Invoice Setting"}', sorting: 3, sectionExpanded: false, parent: 'tabEinvoice' }
         ],
         sections: [
@@ -26,7 +25,12 @@ export const documentType = (() => {
 
             // Section Details
             { id: 'code', type: 'text', isNotEditable: true, mandatory: true, label: '{"en":"Branch Code"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'branchName', type: 'text',mandatory: true, label: '{"en":"Branch Name"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'branchName', type: 'text', mandatory: true, label: '{"en":"Branch Name"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'isMainBranch', type: 'boolean', mandatory: true, label: '{"en":"Is Main Branch"}', isReadOnly: true, showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+
+            // Section Business Information
+            { id: 'sameAsMainBranchInfo', type: 'boolean', label: '{"en":"Same as Main Branch"}', showInForm: true, sectionId: 'sectionBusinessInfo' },
+            { id: "break1", type: "breakline", showInForm: true, sectionId: 'sectionBusinessInfo' },
             { id: 'businessRegName', type: 'text', mandatory: true, label: '{"en":"Business Registration Name"}', showInTable: true, showInForm: true, sectionId: 'sectionBusinessInfo' },
             { id: 'contactNo', type: 'text', mandatory: true, label: '{"en":"Contact No"}', showInTable: true, showInForm: true, sectionId: 'sectionBusinessInfo' },
             { id: 'email', type: 'text', formComponentType: "email", mandatory: true, label: '{"en":"Email"}', showInTable: true, showInForm: true, sectionId: 'sectionBusinessInfo' },
@@ -44,6 +48,7 @@ export const documentType = (() => {
                 linkOptions: { valueField: "id", labelField: "id,name" },
                 label: '{"en":"Industry Classification"}', sectionId: "sectionBusinessInfo"
             },
+            //Section Address
             { id: 'address1', type: 'text', label: '{"en":"Address 1"}', showInForm: true, sectionId: "sectionAddress" },
             { id: 'address2', type: 'text', label: '{"en":"Address 2"}', showInForm: true, sectionId: "sectionAddress" },
             { id: 'address3', type: 'text', label: '{"en":"Address 3"}', showInForm: true, sectionId: "sectionAddress" },
@@ -59,20 +64,19 @@ export const documentType = (() => {
                 linkOptions: { valueField: "einvoice_code", labelField: "name" },
                 label: '{"en":"Country"}', sectionId: "sectionAddress"
             },
-            //Section Account
-            // {
-            //     id: 'accounts', type: "table", formColumnSize: "col-12", showInForm: true, formComponentType: "table", label: '{"en":"Accounts"}',
-            //     sectionId: 'sectionAccount', options: "branch_account", callClientScript: true
-            // },
-            //Section E-Invoice
-            { id: 'isSandbox', type: 'boolean', label: '{"en":"Enable Testing Mode"}', showInForm: true, sectionId: "sectionEInvoice" },
-            { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+
+            //E-Invoice Section
+            { id: 'sameAsMainBranchEInvoice', type: 'boolean', label: '{"en":"Same as Main Branch"}', showInForm: true, sectionId: 'sectionEInvoice' },
+            { id: "break2", type: "breakline", showInForm: true, sectionId: 'sectionEInvoice' },
+
+            { id: 'isEinvoiceSandbox', type: 'boolean', label: '{"en":"Enable Testing Mode"}', showInForm: true, sectionId: "sectionEInvoice" },
+            { id: 'break3', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
             { id: 'eInvoiceIdSandbox', type: 'text', label: '{"en":"E-Invoice ID (For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
             { id: 'eInvoiceSecretSandbox', type: 'text', label: '{"en":"E-Invoice Secret(For Testing Mode)"}', showInForm: true, sectionId: "sectionEInvoice" },
-            { id: 'break_2', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+            { id: 'break4', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
             { id: 'eInvoiceId', type: 'text', label: '{"en":"E-Invoice ID"}', showInForm: true, sectionId: "sectionEInvoice" },
             { id: 'eInvoiceSecret', type: 'text', label: '{"en":"E-Invoice Secret"}', showInForm: true, sectionId: "sectionEInvoice" },
-            { id: 'break_3', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
+            { id: 'break5', type: 'breakline', showInForm: true, sectionId: 'sectionEInvoice' },
 
             {
                 id: 'defaultTaxableType', type: 'link', options: "einvoice_taxable_type", showInForm: true,
@@ -89,10 +93,10 @@ export const documentType = (() => {
                 linkOptions: { valueField: "id", labelField: "id,name" },
                 label: '{"en":"Default Item UOM"}', sectionId: "sectionEInvoice"
             },
-
+            { id: "companyId", type: "text", isHidden: true, defaultValue: false, label: '' },
         ]
     }
-    type.fields = [...myErpFields.filter(df => df.id != 'sysAcct' && !type.fields.some(f => f.id == df.id)), ...type.fields];
+    type.fields = [...myErpFields.filter(df => !type.fields.some(f => f.id == df.id)), ...type.fields];
     return type;
 })
 

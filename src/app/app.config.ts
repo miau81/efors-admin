@@ -13,6 +13,7 @@ import { SERVER_HOST } from './app.tokens';
 import { httpInterceptor } from './interceptors/http.interceptor';
 
 import './doctype-event/core/doctype-manifest';
+import { OVERLAY_DEFAULT_CONFIG } from '@angular/cdk/overlay';
 
 
 export const appConfig: ApplicationConfig = {
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
     })),
     { provide: SERVER_HOST, useValue: "./" },
     { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
+    { provide: OVERLAY_DEFAULT_CONFIG, useValue: { usePopover: false } },
 
     // provideEnvironmentNgxCurrency({
     //   align: "right",

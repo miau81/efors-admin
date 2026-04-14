@@ -8,7 +8,7 @@ export const documentType = (() => {
     const type: MyERPDocType = {
         id: "Account",
         label: '{"en":"Account"}',
-        namingType: "byField",
+        namingType: "field",
         namingFormat: "name",
         searchFields: [],
         fields: [

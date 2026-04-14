@@ -6,15 +6,15 @@ import { MyERPDocType } from "../../src/app/@interfaces/interface";
 
 export const documentType = (() => {
     const type: MyERPDocType = {
-        id: "Branch Account",
-        label: '{"en":"Branch Account"}',
+        id: "company_account",
+        label: '{"en":"Company Account"}',
         namingType: "random",
         searchFields: [],
         fields: [
             {
-                id: 'branchId', type: 'link', options: "branch", showInForm: true,
+                id: 'companyId', type: 'link', options: "company", isHidden:true,
                 linkOptions: { valueField: "id", labelField: "name" },
-                label: '{"en":"Branch"}'
+                label: '{"en":"Company"}'
             },
             {
                 id: 'accountId', type: 'link', options: "account", showInForm: true,

@@ -3,9 +3,9 @@ import { MyERPDocType } from "../../src/app/@interfaces/interface";
 
 export const documentType = (() => {
     const type: MyERPDocType = {
-        id: "selling_tax",
-        label: '{"en":"Selling Tax"}',
-        namingType: "byField",
+        id: "tax_class",
+        label: '{"en":"Tax Class"}',
+        namingType: "field",
         namingFormat: "code",
         searchFields: ["code", "name"],
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 }],
@@ -31,6 +31,8 @@ export const documentType = (() => {
                 label: '{"en":"E-Invoice Taxable Type"}', sectionId: "sectionDetails"
 
             },
+             { id: 'enableForSales', type: 'boolean',  label: '{"en":"Enable for Sales"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+             { id: 'enableForPurchases', type: 'boolean',  label: '{"en":"Enable for Purchases"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
             { id: 'companyId', type: 'text', isHidden: true },
         ]
     }

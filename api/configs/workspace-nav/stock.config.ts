@@ -15,10 +15,24 @@ export const config: MyErpWorkSpaceNav[] = [
                 sorting: 1,
             },
             {
-                id: 'item_uom',
-                label: 'Item UOM',
+                id: 'item_group',
+                label: 'Item Group',
                 isSingle: false,
-                link: '/doc/item_uom',
+                link: '/doc/item_group',
+                sorting: 1,
+            },
+            {
+                id: 'item_price_list',
+                label: 'Item Price List',
+                isSingle: false,
+                link: '/doc/item_price_list',
+                sorting: 1,
+            },
+            {
+                id: 'uom',
+                label: 'UOM',
+                isSingle: false,
+                link: '/doc/uom',
                 sorting: 1,
             },
            
@@ -31,9 +45,9 @@ export const config: MyErpWorkSpaceNav[] = [
         children: [
             {
                 id: 'tax',
-                label: 'Tax and Charges',
+                label: 'Tax Class',
                 isSingle: false,
-                link: '/doc/tax',
+                link: '/doc/tax_class',
                 sorting: 1,
             }           
         ]

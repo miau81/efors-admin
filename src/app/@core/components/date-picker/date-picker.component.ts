@@ -1,5 +1,5 @@
 
-import { Component, Injectable, Input, Output, EventEmitter, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Injectable, inject, input, output, ChangeDetectorRef, effect, model } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCalendar,  NgbDateAdapter, NgbDateStruct, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import dayjs from 'dayjs';
@@ -46,60 +46,46 @@ export class CustomAdapter extends NgbDateAdapter<Date> {
   styleUrl: './date-picker.component.scss'
 })
 export class MyDatePicker {
+  // Using model() from Angular 17+ for two-way binding
+  selectedDate = model<Date | undefined>(undefined);
 
-  _TODAY: string = getTranslateJSON("_TODAY");
-  _CLEAR: string = getTranslateJSON("_CLEAR");
-  
-  @Input() selectedDate?: Date;
-  @Output("onChange") onChange: EventEmitter<any> = new EventEmitter();
+  // Using output() from Angular 17+
+  dateChange = output<any>();
 
-  constructor(private adadper: NgbDateAdapter<Date>, private calendar: NgbCalendar,
-    private cd: ChangeDetectorRef
-  ) {
+  // Using signal for internal state
+  readonly _TODAY = getTranslateJSON("_TODAY");
+  readonly _CLEAR = getTranslateJSON("_CLEAR");
 
+  // Using inject()
+  private readonly adapter = inject(NgbDateAdapter<Date>);
+  private readonly calendar = inject(NgbCalendar);
+  private readonly cd = inject(ChangeDetectorRef);
+
+  constructor() {
+    // Effect to detect changes
+    effect(() => {
+      const date = this.selectedDate();
+      this.cd.markForCheck();
+    });
   }
-
-  ngOnInit(){
-    console.log("date",this.selectedDate)
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-    const change = changes["selectedDate"];
-    if (!change || change.firstChange) {
-      return;
-    }
-    if (!change.currentValue) {
-      this.onClear()
-    }
-  }
-
 
   onDateChange() {
-    console.log(this.selectedDate)
-    const strDate = dayjs(this.selectedDate).format("YYYY-MM-DD");
-    this.onChange.emit(strDate);
+    const date = this.selectedDate();
+    console.log(date);
+    const strDate = dayjs(date).format("YYYY-MM-DD");
+    this.dateChange.emit(strDate);
   }
 
   onToday() {
-    this.selectedDate = new Date();
+    this.selectedDate.set(new Date());
     this.onDateChange();
-
   }
 
   onClear() {
-    // dp['_service'].select(new NgbDate(1900, 1, 1));
-    this.selectedDate = new Date("1900-01-01");
+    this.selectedDate.set(new Date("1900-01-01"));
     setTimeout(() => {
-      this.selectedDate = undefined;
-      this.onChange.emit(undefined);
+      this.selectedDate.set(undefined);
+      this.dateChange.emit(undefined);
     }, 0);
-
-
   }
-
 }
-
-
-
-

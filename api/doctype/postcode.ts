@@ -1,4 +1,4 @@
-import { MyERPDocType } from "@myerp/interfaces/interface";
+import { MyERPDocType } from "../../src/app/@interfaces/interface";;
 
 export const documentType = (() => {
     const type: MyERPDocType = {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { APP_PARAMS } from '../../@interfaces/const';
 
 @Component({
@@ -8,9 +8,8 @@ import { APP_PARAMS } from '../../@interfaces/const';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-
-  public appName: string = APP_PARAMS.appName;
-  public systemName: string = APP_PARAMS.systemName;
-  public version = APP_PARAMS.version;
-
+  // Using signals for reactive state
+  readonly appName = signal<string>(APP_PARAMS.appName);
+  readonly systemName = signal<string>(APP_PARAMS.systemName);
+  readonly version = signal<string>(APP_PARAMS.version);
 }

@@ -11,20 +11,16 @@ export const documentType = (() => {
         isChildTable: true,
         sections: [{ id: 'sectionDetails', label: '{"en":"Details"}', sorting: 1 }],
         fields: [
-            { id: 'itemId', type: 'text', label: '{"en":"Item ID"}', isHidden: true, sectionId: 'sectionDetails', isReadOnly: true, parentField: "item" },
-            { id: 'break_1', type: 'breakline', showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'itemPriceListId', type: 'text', label: '{"en":"Item Price List ID"}', isHidden: true, sectionId: 'sectionDetails', isReadOnly: true, parentField: "item_price_list" },
             {
-                id: 'type', type: 'text', formComponentType: "select", showInTable: true, showInForm: true,
-                options: [
-                    { value: "STANDARD_SELLING", label: '{"en":"Standard Selling"}' }
-                ],
-                defaultValue: "STANDARD_SELLING",
-                mandatory: true, label: '{"en":"Type"}', sectionId: 'sectionDetails'
+                id: 'itemId', type: 'link', showInTable: true, showInForm: true,
+                options: "item", linkOptions: { valueField: "id", labelField: "name" },
+                mandatory: true, label: '{"en":"Item"}', sectionId: 'sectionDetails'
             },
-            { id: 'price', type: 'number', mandatory: true, label: '{"en":"Price"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'validFrom', type: 'datetime', label: '{"en":"Valid From"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
-            { id: 'validTo', type: 'datetime', label: '{"en":"Valid To"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
-
+            { id: 'price', type: 'currency', mandatory: true, label: '{"en":"Price"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            // { id: 'validFrom', type: 'datetime', label: '{"en":"Valid From"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            // { id: 'validTo', type: 'datetime', label: '{"en":"Valid To"}', showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'companyId', type: 'text', isHidden: true },
         ]
     }
     type.fields = [...myErpFields.filter(df => !type.fields.some(f => f.id == df.id)), ...type.fields];

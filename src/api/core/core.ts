@@ -11,6 +11,7 @@ import { DBOption, GetDataOption, DBFilter } from "../interfaces/api.main.interf
 import { logger } from "../utils/logger";
 import { ExternalScriptService } from "../services/api.extermal-script.service";
 import { MyERPDocType, MyERPField } from "../../app/@interfaces/interface";
+import { NotFoundException } from "../exceptions/NotFoundException";
 
 const db = dbName;
 const defaultSqlLimit: number = 50;
@@ -66,8 +67,8 @@ class Core {
             selectFields: options.fields,
             excludeFields: options.excludeFields,
             language: req.language,
-            sys: req.sys,
-            com: req.com,
+            branch: req.branch,
+            company: req.company,
             user: req.user,
             getChild: options.getChild,
             getLink: options.getLink,
@@ -132,14 +133,14 @@ class Core {
             doc.userId = user?.id;
         }
         if (fields.find(f => f.id == "companyId")) {
-            doc.companyId = req.com
+            doc.companyId = req.company
         }
-        if (fields.find(f => f.id == "sysAcct")) {
-            doc.sysAcct = req.sys
+        if (fields.find(f => f.id == "branchId")) {
+            doc.branchId = req.branch
         }
 
 
-        doc.id = await this.generateDocId(document, doc, req.com, mysqlConn);
+        doc.id = await this.generateDocId(document, doc, req.company, mysqlConn);
         for (let f of fields) {
             if (f.isPassword) {
                 if (doc[f.id]) {
@@ -240,7 +241,7 @@ class Core {
             delete doc[field.id];
         }
 
-        filter = await this.filterSysAndCom(document, filter, req.sys, req.com, mysqlConn, docType);
+        filter = await this.filterCompanyAndBranch(document, filter, req.branch, req.company, mysqlConn, docType);
 
         let strWhere = this.convertUtil.ConvertDBbFilterToWhereQuery(filter);
 
@@ -284,7 +285,7 @@ class Core {
             await impEvent.beforeDelete(docType, filter, req);
         }
 
-        filter = await this.filterSysAndCom(document, filter, req.sys, req.com, mysqlConn, docType);
+        filter = await this.filterCompanyAndBranch(document, filter, req.branch, req.company, mysqlConn, docType);
 
         let strWhere = this.convertUtil.ConvertDBbFilterToWhereQuery(filter);
         if (!permanentDelete) {
@@ -323,8 +324,8 @@ class Core {
         if (!options.includeDeleted) {
             options.filter = await this.filterDeleted(options.docType, options.filter, options.mysqlConn);
         }
-        //sysAcct and company Filter
-        options.filter = await this.filterSysAndCom(options.document, options.filter, options.sys, options.com, options.mysqlConn, options.docType);
+        //Company and branch Filter
+        options.filter = await this.filterCompanyAndBranch(options.document, options.filter, options.branch, options.company, options.mysqlConn, options.docType);
         let selectedFields: string[] = options.selectFields || [];
         // Get all fields by default
         if (!options.selectFields || options.selectFields[0] == "*") {
@@ -426,7 +427,7 @@ class Core {
         return filter;
     }
 
-    private async filterSysAndCom(document: string, filter: DBFilter | undefined, sys: string | undefined, com: string | undefined, mysqlConn: ConnectionAction, docType?: MyERPDocType) {
+    private async filterCompanyAndBranch(document: string, filter: DBFilter | undefined, branch: string | undefined, company: string | undefined, mysqlConn: ConnectionAction, docType?: MyERPDocType) {
         filter = filter ?? [];
         if (!docType) {
             try {
@@ -435,18 +436,21 @@ class Core {
                 return filter;
             }
         }
-        const sysExists = docType.fields.find(f => f.id == 'sysAcct');
-        if (sysExists && sys) {
-            filter.push({ field: 'sysAcct', operator: "=", value: sys });
+        const branchExists = docType.fields.find(f => f.id == 'branch');
+        if (branchExists) {
+            if (!branch) {
+                throw new NotFoundException(`Branch not found with id: [${branch}]`, "BRANCH_NOT_FOUND");
+            }
+            filter.push({ field: 'branchId', operator: "=", value: branch });
         }
         const comExists = docType.fields.find(f => f.id == 'companyId');
-        if (comExists && com) {
-            filter.push({ field: 'companyId', operator: "=", value: com });
+        if (comExists && company) {
+            filter.push({ field: 'companyId', operator: "=", value: company });
         }
         return filter;
     }
 
-    async getDocumentType(document: string, mysqlConn?: ConnectionAction, sys?: string, com?: string, language: string = 'en'): Promise<MyERPDocType> {
+    async getDocumentType(document: string, mysqlConn?: ConnectionAction, branch?: string, company?: string, language: string = 'en'): Promise<MyERPDocType> {
         try {
             const imp = await this.importDocTypeFile(document);
             const docType: MyERPDocType = imp.documentType();
@@ -459,23 +463,17 @@ class Core {
                 const linkTable = field.options;
                 const labelFields = field.linkOptions!.labelField.split(",");
                 const valueField = field.linkOptions?.valueField!;
-                const where = await this.filterSysAndCom(linkTable, [], sys, com, mysqlConn);
-                const filters = (field.linkOptions?.filters || []).join(" AND ");
-                const filter = filters ? ` AND ${filters}` : "";
-                let defaultSql = `SELECT ${labelFields.join()},${valueField} FROM ${linkTable} ${where}${filter}`;
-                const sql = field.linkOptions?.customSql || defaultSql;
-                // if (field.linkOptions?.filters) {
-                //     field.options = [];
-                //     continue;
-                // }
+                const filters = field.linkOptions?.filters || []
+
                 const getDataOptions: GetDataOption = {
                     mysqlConn: mysqlConn,
+                    language:language,
                     document: linkTable,
                     selectFields: [...labelFields, valueField],
                     docType: await this.getDocumentType(linkTable),
-                    com: com,
-                    sys: sys,
-                    filter: where,
+                    company: company,
+                    branch: branch,
+                    filter: filters,
 
                 }
                 const linkDoc = (await this.getData(getDataOptions)).data;
@@ -497,14 +495,14 @@ class Core {
                 }
                 field.options = options;
                 if (field.canAddNew) {
-                    field.fieldsDocType = await this.getDocumentType(linkTable, mysqlConn, sys, com, language);
+                    field.fieldsDocType = await this.getDocumentType(linkTable, mysqlConn, branch, company, language);
                 }
             }
             // populate table fields
             const tableFields = docType.fields.filter(f => f.type == "table");
             for (let field of tableFields) {
                 const linkTable = field.options;
-                field.fieldsDocType = await this.getDocumentType(linkTable, mysqlConn, sys, com, language);
+                field.fieldsDocType = await this.getDocumentType(linkTable, mysqlConn, branch, company, language);
             }
             return docType;
         } catch (error) {
@@ -536,7 +534,7 @@ class Core {
         for (let c of childTables) {
             const childDocument = c.options;
             const childDocType = await this.getDocumentType(childDocument);
-            const parentField = childDocType.fields.find(f => f.parentField==parentDocType.id);
+            const parentField = childDocType.fields.find(f => f.parentField == parentDocType.id);
             if (!parentField) {
                 continue;
             }
@@ -571,7 +569,7 @@ class Core {
                 document: linkDocument,
                 selectFields: ["*"],
                 language: language,
-                filter: [{ field: "id", operator: "=", value: link[l.id] }],
+                filter: [[{ field: "id", operator: "=", value: link[l.id] }]],
                 getChild: true,
                 docType: linkDoctype
             }
@@ -582,7 +580,7 @@ class Core {
         return { ...link, ...data };
     }
 
-    private async sqlUpdate(document: string, doc: any, sqlWhere: string, mysqlConn: ConnectionAction) {
+    public async sqlUpdate(document: string, doc: any, sqlWhere: string, mysqlConn: ConnectionAction) {
         const updateValues: string[] = [];
         Object.keys(doc).forEach(b => {
             let value = this.convertUtil.convertToDataTypeValue(doc[b]);
@@ -608,16 +606,18 @@ class Core {
         const docType = await this.getDocumentType(document);
         let id;
         switch (docType.namingType) {
-            case "byField":
+            case "field":
                 id = data[docType.namingFormat!];
+                break;
+            case "companyField":
+                id = `${company}-${data[docType.namingFormat!]};`
                 break;
             case "random":
                 id = this.convertUtil.generateUniqueId();
                 break;
-            case "date-sequence":
+            case "dateSequence":
             case "sequence":
                 const dateToReplace = docType.namingFormat!.match(/{(.*?)}/g) || [];
-                // throw new Error("2222")
                 let baseFormat = `${company}-${docType.namingFormat!}`;
                 if (dateToReplace) {
                     for (const r of dateToReplace) {
@@ -662,7 +662,7 @@ class Core {
             }
             const childTableName = child.options;
             const childDocType = await this.getDocumentType(childTableName);
-            const parentField = childDocType.fields.find(f => f.parentField==parentDocType.id);
+            const parentField = childDocType.fields.find(f => f.parentField == parentDocType.id);
             const sqlWhere = `WHERE ${parentField?.id}='${parentDoc["id"]}'`;
             let sqlDelete = ''
             if (childDocs.length == 0) {
@@ -691,6 +691,7 @@ class Core {
 
 
     }
+
 
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
@@ -11,13 +11,14 @@ import { MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
     styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-    formConfig!: MyFormGeneratorConfig
+    // Using signal for reactive state
+    readonly formConfig = signal<MyFormGeneratorConfig | undefined>(undefined);
 
-    constructor(private dialog: MatDialog) {
+    // Using inject()
+    private readonly dialog = inject(MatDialog);
 
-    }
     ngOnInit() {
-        this.formConfig = this.getConfig();
+        this.formConfig.set(this.getConfig());
     }
 
     getConfig() {
@@ -61,8 +62,6 @@ export class DashboardComponent {
             maxHeight: "90vh",
             minHeight: "90vh",
             minWidth: "90vW"
-
         });
     }
-
 }

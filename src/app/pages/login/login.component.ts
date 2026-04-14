@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
 import { APP_PARAMS } from '../../@interfaces/const';
 
@@ -15,20 +15,19 @@ import { BaseService } from '../../services/base.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  // Using signals for reactive state
+  readonly appName = signal<string>(APP_PARAMS.appName);
+  readonly systemName = signal<string>(APP_PARAMS.systemName);
+  readonly slogan = signal<string>(APP_PARAMS.slogan);
+  readonly tagline = signal<string>(APP_PARAMS.tagline);
+  readonly version = signal<string>(APP_PARAMS.version);
+  readonly formConfig = signal<MyFormGeneratorConfig | undefined>(undefined);
 
-  public appName: string = APP_PARAMS.appName
-  public systemName: string = APP_PARAMS.systemName;
-  public slogan: string = APP_PARAMS.slogan
-  public tagline: string = APP_PARAMS.tagline
-  public version: string = APP_PARAMS.version
-
-  public formConfig!: MyFormGeneratorConfig;
-  constructor(private authService: AuthService, private baseService: BaseService) {
-
-  }
+  // Using inject()
+  private readonly authService = inject(AuthService);
+  private readonly baseService = inject(BaseService);
 
   async ngOnInit() {
-
     let form!: FormGroup;
     const config: MyFormGeneratorConfig = {
       showValidation: true,
@@ -56,8 +55,7 @@ export class LoginComponent {
         },
       ],
     };
-    this.formConfig = config;
-
+    this.formConfig.set(config);
   }
 
   onLoginFormKeyUp(event: any) {
@@ -67,12 +65,12 @@ export class LoginComponent {
   }
 
   async onLogin() {
-    if (!this.formConfig.generator?.validateForm()) {
+    const config = this.formConfig();
+    if (!config?.generator?.validateForm()) {
       return;
     }
     try {
-      await this.authService.login(this.formConfig.form.value)
-      // this.baseService.showToast({ message: "_WELCOME_BACK", color: "success" });
+      await this.authService.login(config.form.value)
     } catch (error: any) {
       if (error.status == 401) {
         const message = "_USER_NOT_FOUND_OR_PASSWORD_NOT_CORRECT";
@@ -82,5 +80,4 @@ export class LoginComponent {
       }
     }
   }
-
 }

@@ -25,7 +25,7 @@ export async function afterSubmit(data: any, previousData: any,req:SRequest) {
         refNo: previousData.id,
         amount: previousData.grandTotal,
         postingDate: previousData.postingDate,
-        companyId : req.com
+        companyId : req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 }
@@ -44,7 +44,7 @@ export async function afterCancel(data: any,previousData: any,req:SRequest) {
         refNo: data.id,
         amount: previousData.grandTotal,
         postingDate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        companyId : req.com
+        companyId : req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
     if (previousData?.paymentStatus == 'UNPAID') {

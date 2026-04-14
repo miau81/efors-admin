@@ -1,3 +1,10 @@
 {
-    "compile-hero.disable-compile-files-on-did-save-code": true
+    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "js/ts.suggest.includePackageJsonAutoImports": "on",
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.includeAutomaticOptionalChainCompletions": true,
+    "js/ts.suggest.includeCompletionsForImportStatements": true,
+    "js/ts.suggest.includeCompletionsWithSnippetText": true,
+    "js/ts.suggest.includeCompletionsWithClassMemberSnippets": true,
+    "js/ts.suggest.includeCompletionsWithObjectLiteralMethodSnippets": true
 }

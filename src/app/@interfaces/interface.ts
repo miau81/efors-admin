@@ -1,7 +1,7 @@
 
 //////////// COMMON ////////////////////////////////
 
-import { StringLike } from "bun";
+import {DBFilter} from "../../api/interfaces/api.main.interface"
 
 export interface LiteralObject {
   [key: string]: any;
@@ -94,7 +94,7 @@ export interface MyERPField {
   options?: any;
   callServerScript?: boolean;
   callClientScript?: boolean;
-  linkOptions?: { isDoc?: boolean, valueField: string, labelField: string, format?: string, customSql?: string, filters?: string[] }
+  linkOptions?: { isDoc?: boolean, valueField: string, labelField: string, format?: string, customSql?: string, filters?: DBFilter }
 
   mandatory?: boolean;
   isUnique?: boolean;
@@ -143,12 +143,12 @@ export interface MyErpSortAndPagination {
   _sortDirection?: "ASC" | "DESC";
 }
 
-export type MyERPDocNamingType = "random" | "sequence" | "date-sequence" | "byField"
+export type MyERPDocNamingType = "random" | "sequence" | "dateSequence" | "field" |"companyField"
 
 export type MyErpFieldType =
   "text" | "currency" | "number" | "date" | "time" | "datetime" | "textarea"
   | "boolean" | "link" | "table" | "section" | "tab" | "dropdown" | "breakline"
 
 export type FormComponentType = "text" | "password" | "email" | "number" | "tel" | "select" | "date" | "time"
-  | "datetime-local" | "hidden" | "checkbox" | 'readOnly' | 'textarea'
+  | "datetime-local" | "hidden" | "checkbox" | 'textarea'
   | "checkboxGroup" | "datePicker" | "image" | "table" | "link" | "dropdown" | "breakline"

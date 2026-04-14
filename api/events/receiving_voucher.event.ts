@@ -22,7 +22,7 @@ export async function onChange(document: string, req: SRequest) {
             case "CUSTOMER":
             case "SUPPLIER":
                 const sqlJson = convertUtil.getSQLJsonValueString('name', req.language)
-                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${req.sys}' AND companyId='${req.com}'`;
+                const sql = `SELECT ${sqlJson},id FROM ${partyType} WHERE sysAcct = '${req.branch}' AND companyId='${req.company}'`;
                 const parties = await req.mysqlConn!.query(sql);
                 formConfig['partyId'] = {
                     type: 'select',
@@ -91,7 +91,7 @@ async function receiveCustomerPayment(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("CUSTOMER", trnx);
 
@@ -157,7 +157,7 @@ async function cancelCustomerPayment(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("CUSTOMER", trnx);
 
@@ -200,7 +200,7 @@ async function debitCompanyAcctTrnx(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("COMPANY", comTrnx);
 }
@@ -218,7 +218,7 @@ async function creditCompanyAcctTrnx(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("COMPANY", comTrnx);
 }
@@ -235,7 +235,7 @@ async function receiveSupplierPayment(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 }
@@ -252,7 +252,7 @@ async function cancelSupplierPayment(payment: any, req: SRequest) {
         remark: payment.remark,
         amount: payment.amount,
         postingDate: payment.postingDate,
-        companyId: req.com
+        companyId: req.company
     }
     await tranxUtil.insertAcctTranx("SUPPLIER", trnx);
 

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { ShareModule } from '../../@modules/share/share.module';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { MyDataGridPagination, MyDataGridView, MyDataGridViewColumn, MyDataGridViewConfig, MyDataGridViewData, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig } from '@myerp/components';
+import { MyDataGridPagination, MyDataGridView, MyDataGridViewColumn, MyDataGridViewConfig, MyDataGridViewData, MyFormComponent, MyFormComponentType, MyFormGenerator, MyFormGeneratorConfig } from '../../@core/components';
 import { BaseService } from '../../services/base.service';
 import { MyERPDocType, MyERPField, MyErpFieldType, MyErpSortAndPagination } from '../../@interfaces/interface';
 import { FormGroup } from '@angular/forms';
@@ -12,33 +12,46 @@ import { MyBackButton } from '../../@core/components/back-button/back-button.com
   selector: 'app-document-list',
   imports: [ShareModule, MyDataGridView, MyFormGenerator,MyBackButton],
   templateUrl: './document-list.component.html',
-  styleUrl: './document-list.component.scss'
+  styleUrl: './document-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DocumentListComponent {
-  public title: string = '';
-  public documentTypeId: string = '';
-  public docs: any[] = [];
-  public filterConfig?: MyFormGeneratorConfig;
-  public datagridConfig?: MyDataGridViewConfig;
-  public filter: any = {};
-  public pagination!: MyErpSortAndPagination;
+  // Using signals for reactive state
+  readonly title = signal('');
+  readonly documentTypeId = signal('');
+  readonly docs = signal<any[]>([]);
+  readonly filterConfig = signal<MyFormGeneratorConfig | undefined>(undefined);
+  readonly datagridConfig = signal<MyDataGridViewConfig | undefined>(undefined);
+  readonly filter = signal<any>({});
+  readonly pagination = signal<MyErpSortAndPagination>({ _page: 1, _limit: 10 });
 
+  // Using inject()
+  private readonly route = inject(ActivatedRoute);
+  readonly api = inject(ApiService);
+  readonly baseService = inject(BaseService);
+  private readonly cd = inject(ChangeDetectorRef);
 
-  constructor(private route: ActivatedRoute, private api: ApiService, private baseService: BaseService) {
-
+  constructor() {
+    // Effect to detect changes
+    effect(() => {
+      const _ = this.docs();
+      const __ = this.filterConfig();
+      const ___ = this.datagridConfig();
+      this.cd.markForCheck();
+    });
   }
 
   flush() {
-    this.filterConfig = undefined;
-    this.filter = {};
-    this.docs = [];
-    this.datagridConfig = undefined;
-    this.pagination = { _page: 1, _limit: 10 };
+    this.filterConfig.set(undefined);
+    this.filter.set({});
+    this.docs.set([]);
+    this.datagridConfig.set(undefined);
+    this.pagination.set({ _page: 1, _limit: 10 });
   }
 
   async ngOnInit() {
     this.baseService.subscribeParam(this.route, async (p: any) => {
-      this.documentTypeId = p['documentType'];
+      this.documentTypeId.set(p['documentType']);
       this.flush();
       await this.getDocumentType();
       await this.getDocuments();
@@ -48,8 +61,8 @@ export class DocumentListComponent {
 
 
   async getDocumentType() {
-    const documentType: MyERPDocType = await this.api.getDocumentType(this.documentTypeId);
-    this.title = documentType.label
+    const documentType: MyERPDocType = await this.api.getDocumentType(this.documentTypeId());
+    this.title.set(documentType.label);
     const fields = documentType.fields.sort((a, b) => (a.sorting || 0) - (b.sorting || 0)).filter(f => !f.isHidden && f.showInTable && this.validTypeForTable(f.type));
     const columns: MyDataGridViewColumn[] = fields.map(f => {
       return {
@@ -59,7 +72,7 @@ export class DocumentListComponent {
         width: f.tableColumnWidth || 100
       }
     })
-    this.datagridConfig = {
+    this.datagridConfig.set({
       columns: columns,
       defaultSortKey: documentType.defaultSorting || "id",
       defaultSortBy: documentType.defaultSortBy || "ASC",
@@ -69,7 +82,7 @@ export class DocumentListComponent {
         pageSize: 10,
         pageSizeOptions: [10, 20, 50, 100]
       }
-    }
+    });
     const filterFields = documentType.fields.filter(f => f.showInFilter).map(m => {
       return {
         ...m,
@@ -83,16 +96,19 @@ export class DocumentListComponent {
     if (filterFields.length > 0) {
       let form!: FormGroup;
       const components = filterFields.map(f => this.populateFieldsToFormComponent(f));
-      this.filterConfig = {
+      this.filterConfig.set({
         form: form,
         tabs: [],
         sections: [],
         components: components
-      }
+      });
     }
 
-    this.pagination['_sortField'] = documentType.defaultSorting || "id";
-    this.pagination['_sortDirection'] = documentType.defaultSortBy || "ASC";
+    this.pagination.set({
+      ...this.pagination(),
+      '_sortField': documentType.defaultSorting || "id",
+      '_sortDirection': documentType.defaultSortBy || "ASC"
+    });
   }
 
   populateFieldsToFormComponent(f: MyERPField) {
@@ -142,11 +158,19 @@ export class DocumentListComponent {
   }
 
   async getDocuments() {
-    const params: any = { ...this.filter, ... this.pagination }
-    const doclist: any = await this.api.getDocuments(this.documentTypeId, params);
-    this.docs = doclist.records;
-    this.datagridConfig!.paginationOption!.length = doclist.totalRecord
-    // this.datagridConfig!.paginationOption!.pageSize = doclist.totalPage
+    const params: any = { ...this.filter(), ... this.pagination() }
+    const doclist: any = await this.api.getDocuments(this.documentTypeId(), params);
+    this.docs.set(doclist.records);
+    const currentConfig = this.datagridConfig();
+    if (currentConfig && currentConfig.paginationOption) {
+      this.datagridConfig.set({
+        ...currentConfig,
+        paginationOption: {
+          ...currentConfig.paginationOption,
+          length: doclist.totalRecord
+        }
+      });
+    }
   }
 
 
@@ -163,7 +187,7 @@ export class DocumentListComponent {
   }
 
   onSelect(data: MyDataGridViewData) {
-    this.baseService.navigateTo(`/doc/${this.documentTypeId}/${data['id']}`);
+    this.baseService.navigateTo(`/doc/${this.documentTypeId()}/${data['id']}`);
   }
 
   async onPageChange(pagination: MyDataGridPagination) {
@@ -171,43 +195,52 @@ export class DocumentListComponent {
       pagination.pageIndex = 0;
     }
 
-    this.pagination["_page"] = pagination.pageIndex + 1;
-    this.pagination["_limit"] = pagination.pageSize;
+    this.pagination.set({
+      ...this.pagination(),
+      "_page": pagination.pageIndex + 1,
+      "_limit": pagination.pageSize
+    });
     await this.getDocuments();
   }
 
   async onSort(sort: { sortField: string, sortBy: "ASC" | "DESC" }) {
-    this.pagination["_sortField"] = sort.sortField
-    this.pagination["_sortDirection"] = sort.sortBy;
+    this.pagination.set({
+      ...this.pagination(),
+      "_sortField": sort.sortField,
+      "_sortDirection": sort.sortBy
+    });
     await this.getDocuments();
   }
 
   async onFilter(e: { component: MyFormComponent, isInit: boolean }) {
+    const currentFilter = { ...this.filter() };
+    
     switch (e.component.type) {
       case "text":
-        this.filter[`op_${e.component.key}`] = "like";
+        currentFilter[`op_${e.component.key}`] = "like";
         break;
       case "date":
-        this.filter[`type_${e.component.key}`] = "date";
+        currentFilter[`type_${e.component.key}`] = "date";
         break;
       case "datetime-local":
-        this.filter[`type_${e.component.key}`] = "datetime";
+        currentFilter[`type_${e.component.key}`] = "datetime";
         break;
       default:
-         this.filter[`op_${e.component.key}`] = "like";
+        currentFilter[`op_${e.component.key}`] = "like";
         break;
     }
     if (e.component.value) {
-      this.filter[e.component.key] = e.component.value;
+      currentFilter[e.component.key] = e.component.value;
     } else {
-      delete this.filter[e.component.key];
+      delete currentFilter[e.component.key];
     }
 
+    this.filter.set(currentFilter);
     await this.getDocuments();
   }
 
   onAddNew() {
-    this.baseService.navigateTo(`/doc/new/${this.documentTypeId}`);
+    this.baseService.navigateTo(`/doc/new/${this.documentTypeId()}`);
   }
 
 

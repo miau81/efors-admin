@@ -17,7 +17,7 @@ export async function submitDocument(req: SRequest) {
     //     isSandBox:boolean
     // }
 
-    const eInvoiceSetting = await getEInvoiceSetting(req.com!, body.isSandBox);
+    const eInvoiceSetting = await getEInvoiceSetting(req.company!, body.isSandBox);
 
     const doc = await globalService.getDocument(body.document, body.documentId);
     switch (body.submissionType) {

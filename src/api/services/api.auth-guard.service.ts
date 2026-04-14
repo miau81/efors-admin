@@ -4,6 +4,7 @@ import { SRequest } from "../interfaces/api.route.interface";
 import { ConnectionAction } from "../interfaces/api.db.interface";
 import { JWTService } from "./jwt.service";
 import { ConnectionPool, dbName } from "../databases";
+import { NotFoundException } from "../exceptions/NotFoundException";
 
 
 const db = dbName;
@@ -25,15 +26,14 @@ export class ApiAuthGuardService {
             if (!apps) {
                 throw new UnauthorizedException("Invalid API Token.", "INVALID_API_TOKEN");
             }
-            req.fromApp = apps.id;
-            req.language = (req.query["_language"] || 'en') as string;
-            req.mysqlConn = mysqlConn
+
+
             // Check URL Permission
             const baseUrl: string = req.url.split("?").shift() || ""
             if (await this.isAllowedURL(req.method, baseUrl, mysqlConn)) {
-                // req.sys = req.query["sys"] as string;
-                // req.com = req.query["com"] as string;
-                // const com = await mysqlConn.querySingle(`SELECT * FROM company WHERE id='${req.com}' AND sysAcct='${req.sys}'`);
+                // req.branch = req.query["sys"] as string;
+                // req.company = req.query["com"] as string;
+                // const com = await mysqlConn.querySingle(`SELECT * FROM company WHERE id='${req.company}' AND sysAcct='${req.branch}'`);
                 // if(!com){
                 //     throw new UnauthorizedException("Invalid sys or com.");
                 // }
@@ -51,12 +51,43 @@ export class ApiAuthGuardService {
                 throw new UnauthorizedException("Invalid authorization token.", "INVALID TOKEN");
             }
 
+            if (!user.isActive) {
+                throw new UnauthorizedException("Your account is inactive.", "ACCOUNT_INACTIVE");
+            }
+
+
+
+            const companyId = user.userType == 'SUPER_ADMIN' || user.userType == 'SYSTEM_ADMIN' ? req.query["company"] as string || user.companyId : user.companyId;
+            const company = await mysqlConn.querySingle(`SELECT * FROM company WHERE id= '${companyId}'`);
+
+            if (!company) {
+                throw new NotFoundException(`Company not found with id: [${companyId}]`, "COMPANY_NOT_FOUND");
+            }
+
+            if (user.userType == "USER") {
+                if (new Date(company.expiredDate) <= new Date()) {
+                    throw new UnauthorizedException(`The company subscription has expired: [${companyId}]`, "COMPANY_SUBSCRIPTION_EXPIRED")
+                }
+            }
+
+            const branchId = req.query["branch"] as string || '';
+            let branch;
+            if (user.accessAllBranch) {
+                const where = branchId ? `id= '${branchId}'` : `companyId='${req.company}' limit 1`;
+                branch = await mysqlConn.querySingle(`SELECT id FROM branch WHERE ${where}`);
+            } else {
+                branch = await mysqlConn.querySingle(`SELECT branchId as id FROM user_access_branch WHERE branchId= '${branchId}'`);
+            }
+
+
+            req.fromApp = apps.id;
+            req.language = req.query["_language"] as string || "en";
+            req.mysqlConn = mysqlConn
             req.user = user;
-            req.sys = user.isSystemAdmin ? req.query["sys"] || user.sysAcct : user.sysAcct;
-            req.com = user.isSystemAdmin ? req.query["com"] || user.defaultCompany : user.defaultCompany;
-            
+            req.company = companyId;
+            req.branch = branch?.id;
             return;
-        } catch(error) {
+        } catch (error) {
             mysqlConn?.release();
             throw error;
         }

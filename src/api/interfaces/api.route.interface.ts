@@ -11,8 +11,8 @@ export interface SRequest extends Request {
   requestId?: string;
   user?: any;
   language?: string;
-  sys?:string;
-  com?:string;
+  branch?:string;
+  company?:string;
   fromApp?:string;
   mysqlConn?:ConnectionAction;
   isSelf?:boolean;

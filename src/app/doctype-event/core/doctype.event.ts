@@ -11,6 +11,7 @@ export abstract class DocTypeEvent {
 
     async onLoad?(): Promise<void>;
     async onFormChange?(change: any, existFormValue: any, existsParentFormValue?: any, isInit?: boolean, index?: number): Promise<any>
+    async onFormChange?(key:string,value:any,childTableIndex?:number): Promise<any>
     async onBeforeSave?(): Promise<{ skip?: boolean } | void>;
     async onBeforeSubmit?(): Promise<{ skip?: boolean } | void>;
     async onBeforeCancel?(): Promise<{ skip?: boolean } | void>;

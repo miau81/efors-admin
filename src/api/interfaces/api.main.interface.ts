@@ -8,8 +8,8 @@ export interface ApiParam {
     user: any;
     language?: string;
     document: string;
-    sys?: string;
-    com?: string;
+    branch?: string;
+    comoany?: string;
     queryParam?: any;
     params?: any;
     body?: any;
@@ -55,8 +55,8 @@ export interface GetDataOption {
     selectFields?: string[];
     excludeFields?: string[];
     language?: string;
-    sys?: string;
-    com?: string;
+    branch?: string;
+    company?: string;
     user?: any;
     getChild?: boolean;
     getLink?: boolean;
