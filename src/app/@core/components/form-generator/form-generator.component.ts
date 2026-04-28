@@ -76,6 +76,7 @@ export class MyFormGenerator {
     }
     this.config().generator = this;
     this.doneSetupForm.set(true);
+    console.log(this.config())
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -149,15 +150,15 @@ export class MyFormGenerator {
   setupFormComponent(c: MyFormComponent, group: any) {
     let validators: any[] = [];
     if (c.required) {
-      validators.push(Validators.required);
+        validators.push(Validators.required);
     }
 
     if (c.type == "email") {
       validators.push(Validators.email);
     }
     if (c.type == "number") {
-      validators.push(Validators.min);
-      validators.push(Validators.max);
+      validators.push(Validators.min(c.numberConfig?.min || Number.MIN_SAFE_INTEGER));
+      validators.push(Validators.max(c.numberConfig?.max || Number.MAX_SAFE_INTEGER));
     }
 
     if (c.type == "checkboxGroup") {
@@ -235,6 +236,7 @@ export class MyFormGenerator {
   getErrorFormControlKeys() {
     const cfg = this.config();
     const controls = cfg.form.controls
+    console.log(controls)
     const invalidControls: any = {};
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
@@ -341,6 +343,142 @@ export class MyFormGenerator {
     this.cd.markForCheck();
   }
 
+  // ==============================================
+  // Link Type Form Control Implementation
+  // ==============================================
+
+  onLinkFocus(component: MyFormComponent, e: FocusEvent): void {
+    const value = this.config().form.controls[component.key].value;
+
+    // Only show dropdown if NO existing value
+    // If already has value, don't open dropdown until user modifies input
+    if (!value || value === '') {
+      component._linkDropdownVisible = true;
+
+      // Emit event when focused and input is empty
+      this.onFormKeyUp.emit({
+        component: component,
+        event: e,
+        type: 'linkSearch',
+        query: ''
+      });
+    } else {
+      // Has value already - keep dropdown hidden on initial focus
+      component._linkDropdownVisible = false;
+    }
+  }
+
+  onLinkKeyUp(component: MyFormComponent, e: KeyboardEvent): void {
+    const inputValue = (e.target as HTMLInputElement).value;
+
+    // When user starts typing/modifying: show dropdown AND clear display label state
+    component._linkDropdownVisible = true;
+    component._displayLabel = undefined; // This will make buttons disappear while typing
+
+    this.onFormKeyUp.emit({
+      component: component,
+      event: e,
+      type: 'linkSearch',
+      query: inputValue
+    });
+  }
+
+  onLinkInput(component: MyFormComponent, e: Event): void {
+    const inputValue = (e.target as HTMLInputElement).value;
+    component.value = inputValue;
+  }
+
+  onLinkBlur(component: MyFormComponent, e: FocusEvent): void {
+    // Use setTimeout to allow click events on dropdown to fire first
+    setTimeout(() => {
+      component._linkDropdownVisible = false;
+
+      // Get actual text that user sees in input field
+      const inputEl = document.getElementById(component.key) as HTMLInputElement;
+      const displayedText = inputEl ? inputEl.value : '';
+
+      // Only validate if user actually typed something
+      if (displayedText && displayedText.trim() !== '') {
+
+        // Always check if what user SEE matches any option label
+        const hasMatchingOption = component.options?.some(opt => opt.label === displayedText.trim());
+
+        // NO MATCH FOUND - CLEAR EVERYTHING
+        if (!hasMatchingOption) {
+          this.config().form.controls[component.key].reset();
+          component.value = null;
+          component._displayLabel = undefined;
+
+          if (inputEl) {
+            inputEl.value = '';
+          }
+
+          this.onFormChange.emit({
+            component: component,
+            isInit: false,
+            type: 'linkCleared'
+          });
+        }
+      }
+
+      this.cd.markForCheck();
+    }, 300);
+  }
+
+  onLinkSelect(component: MyFormComponent, option: { value: any; label: string } | "NEW"): void {
+    // Set label to input for display, but store actual value in form control
+    if (option != "NEW") {
+      option = option as { value: any; label: string };
+      this.config().form.controls[component.key].setValue(option.value);
+      component.value = option.value;
+      component._displayLabel = option.label;
+
+      // Hide dropdown
+      component._linkDropdownVisible = false;
+
+      // Patch the display value to input field
+      const inputEl = document.getElementById(component.key) as HTMLInputElement;
+      if (inputEl) {
+        inputEl.value = option.label;
+      }
+    }
+
+    this.onFormChange.emit({
+      component: component,
+      isInit: false,
+      type: 'linkSelected',
+      selectedOption: option
+    });
+  }
+
+  onLinkClear(component: MyFormComponent): void {
+    this.config().form.controls[component.key].reset();
+    component.value = null;
+    component._displayLabel = undefined;
+    component._linkDropdownVisible = false;
+
+    const inputEl = document.getElementById(component.key) as HTMLInputElement;
+    if (inputEl) {
+      inputEl.value = '';
+    }
+
+    this.onFormChange.emit({
+      component: component,
+      isInit: false,
+      type: 'linkCleared'
+    });
+  }
+
+  onLinkNavigate(component: MyFormComponent): void {
+    const currentValue = this.config().form.controls[component.key].value;
+
+    this.onFormKeyUp.emit({
+      component: component,
+      type: 'linkNavigate',
+      value: currentValue
+    });
+  }
+
 }
 
 export interface MyFormGeneratorConfig {
@@ -385,6 +523,10 @@ export interface MyFormComponent {
   group?: string;
   col?: string;
   type: MyFormComponentType;
+
+  // Link control internal properties
+  _linkDropdownVisible?: boolean;
+  _displayLabel?: string;
   color?: "primary" | "secondary" | "light" | "dark" | "success" | "warning" | "danger" | "tertiary" | "medium";
   required?: boolean;
   placeholder?: string;

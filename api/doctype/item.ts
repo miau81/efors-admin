@@ -40,7 +40,7 @@ export const documentType = (() => {
                 linkOptions: { valueField: "id", labelField: "name" },
                 label: '{"en":"Item Group"}', sectionId: 'sectionDetails'
             },
-            { id: 'maintainStock', mandatory: true, defaultValue: 1, type: 'boolean', label: '{"en":"Maintain Stock"}', showInForm: true, sectionId: 'sectionDetails' },
+            { id: 'maintainStock', mandatory: true, defaultValue: true, type: 'boolean', label: '{"en":"Maintain Stock"}', showInForm: true, sectionId: 'sectionDetails' },
             {
                 id: 'defaultUOM', type: 'link', options: "uom", canAddNew: true, mandatory: true, showInTable: true, showInForm: true,
                 linkOptions: { valueField: "id", labelField: "name" },

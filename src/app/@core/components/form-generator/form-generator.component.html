@@ -62,8 +62,8 @@
     @if (component.type === 'text' || component.type === 'email' || component.type === 'tel' || component.type ===
     'password') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
         [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
@@ -80,8 +80,8 @@
     </div>
     } @else if (component.type === 'number') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
         [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
@@ -97,8 +97,8 @@
     </div>
     } @else if (component.type === 'image') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <div class="card shadow-sm rounded pointer position-relative"
         [ngStyle]="{'width':(component.imageConfig?.width || 100)+'px','height':(component.imageConfig?.height || 100)+'px'}">
@@ -113,11 +113,11 @@
     </div>
     } @else if (component.type === 'currency') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <input class="form-control form-control-sm" [formControlName]="component.key" [id]="component.key"
-        [required]="false" (change)="onChange(component)" type="number" [readonly]="component.readonly || false"
+        [required]="component.required || false" (change)="onChange(component)" type="number" [readonly]="component.readonly || false"
         [class.bg-body-secondary]="component.readonly || false"
         placeholder="{{component.placeholder || '' | mytranslate}}" [ngClass]="{
               'is-valid': config().form.controls[component.key].valid && config().form.controls[component.key].touched && config().showValidation,
@@ -129,8 +129,8 @@
     </div>
     } @else if (component.type === 'date' || component.type === 'time' || component.type === 'datetime-local') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <input class="form-control form-control-sm" [type]="component.type" [formControlName]="component.key"
         [id]="component.key" [required]="component.required || false" [disabled]="component.disabled || false"
@@ -145,16 +145,16 @@
     } @else if (component.type === 'checkbox') {
     <div class="form-check align-items-center d-flex mb-0" style="min-height: 50px;">
       <input class="form-check-input mt-0" type="checkbox" [formControlName]="component.key" [id]="component.key"
-        [required]="component.required || false" [disabled]="component.disabled || false"
+        [disabled]="component.disabled || false"
         [readonly]="component.readonly || false" [class.pe-none]="component.readonly || false"
         placeholder="{{component.placeholder || '' | mytranslate}}" (change)="onChange(component)">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+         <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
     </div>
     } @else if (component.type === 'checkboxGroup') {
     <div class="my-3">
-      <label class="ms-2" [for]="component.key">
+      <label class="ont-small text-muted ms-2 fw-semibold" [for]="component.key">
         <h6>{{ component.label | mytranslate}}</h6>
       </label>
       @for (option of component.options; track option; let i = $index) {
@@ -163,15 +163,15 @@
           [required]="component.required || false" [value]="option.value" [checked]="option.checked"
           [disabled]="component.disabled || false" (change)="onChange(component,$event,i)">
         <label class="form-check-label ms-2" [for]="i">
-          {{ option.label | mytranslate}}
+           <span class="text-danger">{{component.required?'*':''}}</span>{{ option.label | mytranslate}}
         </label>
       </div>
       }
     </div>
     } @else if (component.type === 'select') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}} {{config().showValidation}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}} {{config().showValidation}}
       </label>
       <div class="input-group">
         <ng-select appendTo="body" dropdownPanelClass="top-layer-dropdown" [searchable]="!component.readonly"
@@ -203,8 +203,8 @@
     </div>
     } @else if (component.type === 'textarea') {
     <div class="mb-2">
-      <label class="font-small text-muted ms-2" [for]="component.key">
-        {{component.required?'*':''}}{{ component.label | mytranslate}}
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
       </label>
       <textarea class="form-control form-control-sm" [formControlName]="component.key" [id]="component.key"
         [required]="component.required || false" [disabled]="component.disabled || false"
@@ -230,6 +230,61 @@
       (onFormChange)="onChildTableChange($event,component)" (onOpenForm)="onOpenTableForm($event,component)"
       (onViewLinkDoc)="onViewDocumentClick($event)" (onRowChange)="onRowChange(component)">
     </myerp-editable-table>
+    } @else if (component.type === 'link') {
+    <div class="mb-2 position-relative">
+      <label class="font-small text-muted ms-2 fw-semibold" [for]="component.key">
+        <span class="text-danger">{{component.required?'*':''}}</span>{{ component.label | mytranslate}}
+      </label>
+      <div class="input-group link-control">
+        <input class="form-control form-control-sm"
+          [formControlName]="component.key"
+          [id]="component.key"
+          [required]="component.required || false"
+          [disabled]="component.disabled || false"
+          [readonly]="component.readonly || false"
+          [class.bg-body-secondary]="component.readonly || false"
+          placeholder="{{component.placeholder || '' | mytranslate}}"
+          (focus)="onLinkFocus(component, $event)"
+          (keyup)="onLinkKeyUp(component, $event)"
+          (blur)="onLinkBlur(component, $event)"
+          (input)="onLinkInput(component, $event)"
+          [ngClass]="{
+                'is-valid': config().form.controls[component.key].valid && config().form.controls[component.key].touched && config().showValidation,
+                'is-invalid': config().form.controls[component.key].invalid && config().form.controls[component.key].touched && config().showValidation
+              }">
+        
+        @if( (component._displayLabel || config().form.controls[component.key].value) && !component.readonly && !component._linkDropdownVisible ) {
+        <div class="link-actions input-group-text bg-transparent border-0 position-absolute end-0 h-100 gap-1 pe-2">
+          <button type="button" class="btn btn-icon p-0" (click)="onLinkClear(component)" title="{{ '_CLEAR' | mytranslate  }}">
+            <i class="bi bi-x-lg"></i>
+          </button>
+          <button type="button" class="btn btn-icon p-0" (click)="onLinkNavigate(component)" title="{{ '_VIEW' | mytranslate  }}">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+        }
+        
+        @if(component._linkDropdownVisible && component.options?.length > 0) {
+        <div class="link-dropdown position-absolute w-100 top-100 start-0 z-3 bg-white border rounded shadow mt-1">
+          @for(option of component.options; track option.value) {
+          <div class="dropdown-item p-2 px-3 pointer hover-bg-light" (click)="onLinkSelect(component, option)">
+            {{ option.label }}
+          </div>
+          }
+         @if(component.selectConfig?.canAddNew){
+          <div class="dropdown-item p-2 px-3 pointer hover-bg-light" (click)="onLinkSelect(component,'NEW')">
+              <div class="nav nav-link p-1">
+              <i class="bi bi-plus-circle me-1"></i>{{"_ADD_NEW" | translate}}
+            </div>
+          </div>
+         }
+        </div>
+        }
+      </div>
+      <!-- <div class="invalid-feedback text-start fst-italic font-x-small">
+        *{{_PLEASE_INSERT_VALID_VALUE | mytranslate}}
+      </div> -->
+    </div>
     }
   </ng-template>
 </form>

@@ -142,3 +142,94 @@ th {
 .table{
   min-width: 101%;
 }
+
+// ==============================================
+// Link Type Form Control Styles
+// ==============================================
+
+.link-control {
+  position: relative;
+  
+  input {
+    padding-right: 12px !important;
+    transition: padding-right 0.15s ease-in-out;
+  }
+  
+  .link-actions {
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+    z-index: 100;
+    position: relative;
+    
+    button {
+      border: none;
+      background: transparent;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      color: var(--bs-secondary);
+      
+      &:hover {
+        background-color: var(--bs-light);
+        color: var(--bs-primary);
+      }
+    }
+  }
+  
+  &:hover .link-actions,
+  &:focus-within .link-actions {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  &:hover input,
+  &:focus-within input {
+    padding-right: 70px !important;
+  }
+  
+  // 当正在输入时（没有_displayLabel），即使hover/focus也不显示按钮
+  &.is-editing .link-actions {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  
+  &.is-editing input {
+    padding-right: 12px !important;
+  }
+  
+  .link-dropdown {
+    max-height: 300px;
+    overflow-y: auto;
+    
+    .dropdown-item {
+      cursor: pointer;
+      transition: background-color 0.1s;
+      
+      &:hover {
+        background-color: var(--bs-light);
+      }
+    }
+  }
+}
+
+:host {
+  display: flex;
+  height: 97%;
+}
+
+mat-tab-group {
+  height: 100%;
+  
+  ::ng-deep {
+    .mat-mdc-tab-body-wrapper {
+      height: 100%;
+    }
+  }
+}

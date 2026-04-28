@@ -31,6 +31,8 @@
   "_PRINT_FORMAT":"Printing Format",
   "_SHARE":"Share",
   "_CREATE_NEW":"Create New",
-  "_REFRESH":"Refresh"
+  "_REFRESH":"Refresh",
+  "_CLEAR":"Clear",
+  "_VIEW":"View"
 
 }

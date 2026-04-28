@@ -323,7 +323,7 @@ export class DocumentComponent {
       case "datetime":
         return "datetime-local";
       case "link":
-        return "select"
+        return "link";
       case "table":
         return "table";
       case "breakline":
@@ -346,10 +346,10 @@ export class DocumentComponent {
     }
   }
 
-  async onChange(event: { component: MyFormComponent, isInit: boolean, childTable?: { component: MyFormComponent, row: any, index: number, isInit?: boolean } }) {
+  async onChange(event: { component: MyFormComponent, isInit: boolean,selectedOption?:any, childTable?: { component: MyFormComponent, row: any, index: number, isInit?: boolean } }) {
     const docType = this.documentType();
 
-    if (event.component.type == 'select' && event.component.value == '_ADDNEW') {
+    if (event.component.type == 'link' && event.selectedOption == 'NEW') {
       await this.addNewLinkDocument(event.component);
       return;
     }
