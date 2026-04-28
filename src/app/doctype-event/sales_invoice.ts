@@ -97,10 +97,10 @@ export default class SalesInvoice extends DocTypeEvent {
             }
 
             const item: any = await this.parent.api.getDocument("item", change.itemId);
-            const amountExcTax = item.unitPrice || 0;
+            const amountExcTax = item.defaultSellingPrice || 0;
             let tax: any;
-            if (!item.nonTaxable && item.taxId) {
-                tax = await await this.parent.api.getDocument("selling_tax", item.taxId);
+            if (item.sellingTaxId) {
+                tax = await this.parent.api.getDocument("tax_class", item.sellingTaxId);
             }
             const taxAmount = await calculateItemTax(tax, amountExcTax);
 
@@ -108,16 +108,17 @@ export default class SalesInvoice extends DocTypeEvent {
                 itemId: item.id,
                 name: item.name,
                 quantity: 1,
-                uom: item.uom,
-                unitPrice: item.unitPrice || 0,
+                uom: item.defaultSaleUOM || item.defaultUOM,
+                unitPrice: item.defaultSellingPrice || 0,
                 amountExcTax: amountExcTax,
                 discountRate: 0,
                 discount: 0,
                 taxAmount: taxAmount,
                 totalAmount: amountExcTax + taxAmount,
-                taxClass: item.taxId,
+                taxClass: item.sellingTaxId,
                 taxRate: tax?.rate || 0,
-                taxChargeBy: tax?.chargeBy
+                taxChargeBy: tax?.chargeBy,
+                classfication: item.eInvoiceClassfication
             }
 
             items.push(newItem);
