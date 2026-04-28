@@ -23,12 +23,12 @@ export const documentType = (() => {
             { id: 'totalAmount', type: 'currency', isReadOnly: true, label: '{"en":"Total Amount"}', defaultValue: 0, showInTable: true, showInForm: true, sectionId: 'sectionDetails' },
 
             {
-                id: 'taxClass', type: 'text', options: "selling_tax", isReadOnly: true, isHidden: true,
+                id: 'taxClass', type: 'text', options: "tax_class", isReadOnly: true, isHidden: true,
                 // linkOptions: { valueField: "id", labelField: "name" },
                 label: '{"en":"Tax Class"}', sectionId: 'sectionDetails'
             },
             {
-                id: 'uom', type: 'link', options: "item_uom", isReadOnly: true, showInForm: true,
+                id: 'uom', type: 'link', options: "uom", isReadOnly: true, showInForm: true,
                 linkOptions: { valueField: "id", labelField: "name" },
                 label: '{"en":"UOM"}', sectionId: 'sectionDetails'
             },
